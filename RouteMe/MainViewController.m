@@ -9,23 +9,24 @@
 #import "MainViewController.h"
 #import "MainView.h"
 
-@implementation MainViewController
+#import "MapView.h"
 
+@implementation MainViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Custom initialization
+		
+		// I don't really understand why, but I need to mention MapView
+		// somewhere here for the interface builder file to load correctly.
+		[MapView class];
 	}
 	return self;
 }
 
-
-/*
- If you need to do additional setup after loading the view, override viewDidLoad.
- - (void)viewDidLoad {
- }
- */
-
+// If you need to do additional setup after loading the view, override viewDidLoad.
+// - (void)viewDidLoad {
+// }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations
