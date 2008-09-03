@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TileCache.h"
 
-@interface FileCache : NSObject <TileCache>
+@interface FileCache : TileCache
 {
 	
 }

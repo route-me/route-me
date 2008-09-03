@@ -7,6 +7,8 @@
  *
  */
 
+#include <CoreGraphics/CGGeometry.h>
+
 typedef struct{
 	uint32_t x, y;
 	short zoom;

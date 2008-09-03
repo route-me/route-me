@@ -13,6 +13,7 @@
 #import "TileImageSet.h"
 #import "ScreenProjection.h"
 #import "FractalTileProjection.h"
+#import "MemoryCache.h"
 
 @implementation MapView
 
@@ -24,6 +25,7 @@
 		return;
 	
 	tileSource = [[OpenStreetMapsSource alloc] init];
+	tileSource = [[MemoryCache alloc] initWithParentSource:tileSource Capacity:20];
 }
 
 -(void) makeProjection
@@ -40,8 +42,9 @@
 //	here.latitude = -33.9264;
 	here.latitude = -33.9464;
 	here.longitude = 151.2381;
-	[screenProjection setScale:[[tileSource tileProjection] calculateScaleFromZoom:16]];
-	[screenProjection centerLatLong:here];	
+	[screenProjection setScale:[[tileSource tileProjection] calculateScaleFromZoom:18]];
+	[screenProjection centerLatLong:here];
+
 }
 
 -(void) configureCaching
@@ -111,6 +114,8 @@
 		NSLog(@"WARNING - Image set needs redraw and we're in drawRect.");
 	}
 	[imageSet draw];
+	
+	[self setNeedsDisplay];
 }
 
 - (void)tileDidFinishLoading: (TileImage *)image

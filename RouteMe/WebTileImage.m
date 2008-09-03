@@ -11,41 +11,40 @@
 
 @implementation WebTileImage
 
-- (id) initFromURL:(NSString*)urlStr
+- (id) initWithTile: (Tile)_tile FromURL:(NSString*)urlStr
 {
-	if (![super init])
+	if (![super initWithTile:_tile])
 		return nil;
 
-	[delegate retain];
-	
 	NSLog(@"Loading image from URL %@ ...", urlStr);
 	NSURL *url = [NSURL URLWithString: urlStr];
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	NSCachedURLResponse *cachedData = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+	
+	proxy = [TileProxy loadingTile];
+	[proxy retain];
 	
 	//	NSURLCache *cache = [NSURLCache sharedURLCache];
 	//	NSLog(@"Cache mem size: %d / %d disk size: %d / %d", [cache currentMemoryUsage], [cache memoryCapacity], [cache currentDiskUsage], [cache diskCapacity]);
 	
 	if (cachedData != nil)
 	{
-		NSLog(@"Using cached image");
+//		NSLog(@"Using cached image");
 		[self setImageToData:[cachedData data]];
-		//NSData *imageData = [cachedData data];
-		//image = [UIImage imageWithData:imageData];
-		//[image retain];
 	}
 	else
 	{
+		
 		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 		
 		if (connection == nil)
 		{
 			NSLog(@"Error: Connection is nil ?!?");
 			proxy = [TileProxy errorTile];
+			[proxy retain];
 		}
 		else
 		{
-			proxy = [TileProxy loadingTile];
 		}
 	}
 	
@@ -138,25 +137,13 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
 	[self setImageToData:data];
-//	image = [UIImage imageWithData:data];
-//	[image retain];
-	
+
 	[data release];
 	data = nil;
 	[connection release];
 	connection = nil;
 	[delegate tileDidFinishLoading: self];
 	NSLog(@"finished loading image");
-}
-
-- (id) release
-{
-	if ([self retainCount] == 2 && connection != nil)
-	{
-		[self cancelLoading];
-	}
-	[super release];
-	return self;
 }
 
 @end

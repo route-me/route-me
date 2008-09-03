@@ -60,7 +60,7 @@
 	}
 	else
 	{
-		TileImage* image = [TileImage imageFromURL:[self tileURL:tile]];
+		TileImage* image = [TileImage imageWithTile: tile FromURL:[self tileURL:tile]];
 		[cache addTile:tile WithImage:image];
 		return image;
 	}

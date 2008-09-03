@@ -10,85 +10,67 @@
 #import "TileImage.h"
 
 @implementation MemoryCache
-/*
--(id)initWithTileSource: (id)source
-{
-	if (![super init])
-		return nil;
-	
-	cache = [[NSMutableDictionary alloc] init];
-	
-	tileSource = [source retain];
-	
-	return self;
-}*/
 
--(id)initWithCapacity: (NSUInteger) capacity
+-(id)initWithParentSource: (id)source Capacity: (int) _capacity
 {
-	if (![super init])
+	if (![super initWithParentSource: source])
 		return nil;
 	
-	cache = [[NSMutableDictionary alloc] initWithCapacity:capacity];
+	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
 	return self;
 }
+
+-(id)initWithCapacity: (NSUInteger) _capacity
+{
+	return [self initWithParentSource:nil Capacity:20];
+}
+
+-(id)initWithParentSource: (id)source
+{
+	return [self initWithParentSource: source Capacity: 20];
+}
+
 
 -(void) dealloc
 {
 	[cache release];
-//	[tileSource release];
 	[super dealloc];
-}
-
-+(uint64_t) tileCode: (Tile)tile
-{
-	uint64_t accumulator = 0;
-	
-	for (int i = 0; i < tile.zoom; i++) {
-		accumulator |= ((uint64_t)tile.x & (1LL<<i)) << i;
-		accumulator |= ((uint64_t)tile.y & (1LL<<i)) << (i+1);
-	}
-	accumulator |= 1LL<<(tile.zoom * 2);
-
-//	NSLog(@"sizeof(acc) = %d", sizeof(accumulator));
-	
-//	NSLog(@"Tile: z:%d x:%d y:%d -> %x :: %x", tile.zoom, tile.x, tile.y, (int)((accumulator&0xffffffff00000000LL)>>32), (int)accumulator);
-//	NSLog(@"%lld", accumulator);
-	
-	return accumulator;
 }
 
 -(TileImage*) cachedImage:(Tile)tile
 {
-	NSNumber *key = [NSNumber numberWithUnsignedLongLong:[MemoryCache tileCode: tile]];
+	NSNumber *key = [TileCache tileHash: tile];
 	TileImage *image = [cache objectForKey:key];
 	
 /*	if (image == nil)
-		NSLog(@"cache miss");
+		NSLog(@"cache miss %@", key);
 	else
-		NSLog(@"cache hit");
+		NSLog(@"cache hit %@", key);
 */	
 	return image;
 }
 
 -(void)addTile: (Tile)tile WithImage: (TileImage*)image
 {
-	NSNumber *key = [NSNumber numberWithUnsignedLongLong:[MemoryCache tileCode: tile]];
+	NSNumber *key = [TileCache tileHash: tile];
+
+//	NSLog(@"cache add %@", key);
+
 	[cache setObject:image forKey:key];
 }
-/*
+
 -(TileImage *) tileImage: (Tile) tile
 {
 	TileImage *image = [self cachedImage: tile];
 	if (image != nil)
 		return image;
 	else
-		return [tileSource tileImage:tile];
+	{
+		TileImage *image = [tileSource tileImage:tile];
+		[self addTile:tile WithImage:image];
+		return image;
+	}
 }
--(FractalTileProjection*) tileProjection
-{
-	return [tileSource tileProjection];
-}*/
-
 
 @end

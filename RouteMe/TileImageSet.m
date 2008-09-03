@@ -81,6 +81,7 @@
 		for (t.y = (rect.origin.tile.y); t.y <= (int)(rect.origin.tile.y + (rect.origin.offset.y + rect.size.height)); t.y++)
 		{
 			TileImage *image = [source tileImage:t];
+			[image increaseLoadingPriority];
 			[image setDelegate:delegate];
 			
 			screenLocation.origin.x = (-rect.origin.offset.x + (t.x - rect.origin.tile.x)) * pixelsPerTile;
@@ -91,6 +92,10 @@
 		}
 	}
 	
+	for (TileImage *image in buffer)
+	{
+		[image decreaseLoadingPriority];
+	}
 	[buffer removeAllObjects];
 	
 	dirty = NO;

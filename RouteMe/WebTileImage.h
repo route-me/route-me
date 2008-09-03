@@ -21,6 +21,6 @@
 	id delegate;
 }
 
-- (id) initFromURL:(NSString*)url;
+- (id) initWithTile: (Tile)tile FromURL:(NSString*)url;
 
 @end

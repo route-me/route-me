@@ -20,14 +20,22 @@
 
 
 @interface TileImage : NSObject {
-//	Tile tile;
+	Tile tile;
 	UIImage *image;
 	
 	// I know this is a bit nasty.
 	CGRect screenLocation;
+	
+	int loadingPriorityCount;
 }
 
-+ (TileImage*)imageFromURL: (NSString*)url;
+- (id) initWithTile: (Tile)tile;
+
+- (id) increaseLoadingPriority;
+- (id) decreaseLoadingPriority;
+
++ (TileImage*)imageWithTile: (Tile) tile FromURL: (NSString*)url;
++ (TileImage*)imageWithTile: (Tile) tile FromFile: (NSString*)filename;
 
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;

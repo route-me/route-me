@@ -11,14 +11,14 @@
 #import "TileCache.h"
 @class TileImage;
 
-@interface MemoryCache : NSObject <TileCache> {
+@interface MemoryCache : TileCache {
 	NSMutableDictionary *cache;
-	
-//	id tileSource;
+
+	int capacity;
 }
 
--(id)initWithCapacity: (NSUInteger) capacity;
+//-(id)initWithCapacity: (NSUInteger) capacity;
 
-//-(id)initWithTileSource: (id)source;
+-(id)initWithParentSource: (id)source Capacity: (int) capacity;
 
 @end

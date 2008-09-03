@@ -8,13 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "Tile.h"
-//#import "TileSource.h"
+#import "TileSource.h"
 
 @class TileImage;
-@protocol TileCache // <TileSource>
+@interface TileCache : NSObject <TileSource>
+{
+	
+	id tileSource;
+}
+
+-(id)initWithParentSource: (id)source;
+
++(uint64_t) rawTileHash: (Tile)tile;
++(NSNumber*) tileHash: (Tile)tile;
 
 // Returns the cached image if it exists. nil otherwise.
 -(TileImage*) cachedImage:(Tile)tile;
+// Add tile to cache
 -(void)addTile: (Tile)tile WithImage: (TileImage*)image;
 
 @end
