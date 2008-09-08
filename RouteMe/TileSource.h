@@ -16,7 +16,7 @@
 @class TiledLayerController;
 @class TileCache;
 
-@protocol TileSource
+@protocol TileSource <NSObject>
 	
 -(TileImage *) tileImage: (Tile) tile;
 -(FractalTileProjection*) tileProjection;

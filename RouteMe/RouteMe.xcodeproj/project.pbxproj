@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B87626CA0E7529BE0024B9C5 /* ScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626C80E7529BE0024B9C5 /* ScreenProjection.h */; };
+		B87626CB0E7529BE0024B9C5 /* ScreenProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B87626C90E7529BE0024B9C5 /* ScreenProjection.m */; };
+		B87626D00E752A010024B9C5 /* MapRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626CE0E752A010024B9C5 /* MapRenderer.h */; };
+		B87626D70E752E6E0024B9C5 /* QuartzRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626D50E752E6E0024B9C5 /* QuartzRenderer.h */; };
+		B87626D80E752E6E0024B9C5 /* QuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B87626D60E752E6E0024B9C5 /* QuartzRenderer.m */; };
+		B87626E90E7562620024B9C5 /* TileImageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428260E6BEA390080B2F5 /* TileImageSet.m */; };
+		B87626F10E75654C0024B9C5 /* MathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626EF0E75654C0024B9C5 /* MathUtils.h */; };
+		B87626F20E75654C0024B9C5 /* MathUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = B87626F00E75654C0024B9C5 /* MathUtils.c */; };
 		B894284D0E6BEAB20080B2F5 /* ImagesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B894284B0E6BEAB20080B2F5 /* ImagesAppDelegate.m */; };
 		B894284E0E6BEAB20080B2F5 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B894284C0E6BEAB20080B2F5 /* RootViewController.m */; };
 		B89428510E6BEABC0080B2F5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428500E6BEABC0080B2F5 /* main.m */; };
@@ -24,6 +32,9 @@
 		B8A51E910E6D7192006AA8E2 /* TileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A51E900E6D7192006AA8E2 /* TileCache.m */; };
 		B8A522590E6E84F3006AA8E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A522580E6E84F3006AA8E2 /* QuartzCore.framework */; };
 		B8A5225D0E6E8508006AA8E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A522580E6E84F3006AA8E2 /* QuartzCore.framework */; };
+		B8A5C87A0E757FC8005509DE /* MapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C8790E757FC8005509DE /* MapRenderer.m */; };
+		B8A5C8860E758250005509DE /* CoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */; };
+		B8A5C8870E758250005509DE /* CoreAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */; };
 		B8D9B0640E6BEBCC00EDA368 /* FlipsideView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428440E6BEA3A0080B2F5 /* FlipsideView.m */; };
 		B8D9B0BD0E6BECD400EDA368 /* pj_tsfn.c in Sources */ = {isa = PBXBuildFile; fileRef = B89428140E6BEA390080B2F5 /* pj_tsfn.c */; };
 		B8D9B0BE0E6BECD400EDA368 /* PJ_tmerc.c in Sources */ = {isa = PBXBuildFile; fileRef = B89427AC0E6BEA390080B2F5 /* PJ_tmerc.c */; };
@@ -234,6 +245,13 @@
 
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* RouteMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RouteMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B87626C80E7529BE0024B9C5 /* ScreenProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenProjection.h; sourceTree = "<group>"; };
+		B87626C90E7529BE0024B9C5 /* ScreenProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenProjection.m; sourceTree = "<group>"; };
+		B87626CE0E752A010024B9C5 /* MapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapRenderer.h; sourceTree = "<group>"; };
+		B87626D50E752E6E0024B9C5 /* QuartzRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuartzRenderer.h; sourceTree = "<group>"; };
+		B87626D60E752E6E0024B9C5 /* QuartzRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuartzRenderer.m; sourceTree = "<group>"; };
+		B87626EF0E75654C0024B9C5 /* MathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtils.h; sourceTree = "<group>"; };
+		B87626F00E75654C0024B9C5 /* MathUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MathUtils.c; sourceTree = "<group>"; };
 		B89427840E6BEA390080B2F5 /* p_series.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = p_series.c; sourceTree = "<group>"; };
 		B89427850E6BEA390080B2F5 /* bch2bps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bch2bps.c; sourceTree = "<group>"; };
 		B89427860E6BEA390080B2F5 /* pj_inv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pj_inv.c; sourceTree = "<group>"; };
@@ -440,6 +458,9 @@
 		B8A51E730E6D6171006AA8E2 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		B8A51E900E6D7192006AA8E2 /* TileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCache.m; sourceTree = "<group>"; };
 		B8A522580E6E84F3006AA8E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B8A5C8790E757FC8005509DE /* MapRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapRenderer.m; sourceTree = "<group>"; };
+		B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreAnimationRenderer.h; sourceTree = "<group>"; };
+		B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationRenderer.m; sourceTree = "<group>"; };
 		B8D9B0B70E6BEC1900EDA368 /* libproj4.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libproj4.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9B17D0E6BF0D600EDA368 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		B8D9B17E0E6BF0DD00EDA368 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -498,7 +519,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				B8A522140E6E74FC006AA8E2 /* Gunk */,
 				B894285B0E6BEAE40080B2F5 /* Frameworks */,
 				B89428520E6BEAC70080B2F5 /* Resources */,
 				B89428480E6BEA970080B2F5 /* Application Support */,
@@ -509,9 +529,64 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				B8D9B17D0E6BF0D600EDA368 /* README */,
 				B8D9B17E0E6BF0DD00EDA368 /* LICENSE */,
-				B8A522580E6E84F3006AA8E2 /* QuartzCore.framework */,
 			);
 			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		B87626CC0E7529CF0024B9C5 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				B87626D30E752B640024B9C5 /* Quartz Renderer */,
+				B8A5C8780E757E95005509DE /* Core Animation Renderer */,
+				B87626D20E752B280024B9C5 /* Tiled Layer Renderer */,
+				B87626C80E7529BE0024B9C5 /* ScreenProjection.h */,
+				B87626C90E7529BE0024B9C5 /* ScreenProjection.m */,
+				B87626CE0E752A010024B9C5 /* MapRenderer.h */,
+				B8A5C8790E757FC8005509DE /* MapRenderer.m */,
+			);
+			name = Renderers;
+			sourceTree = "<group>";
+		};
+		B87626D20E752B280024B9C5 /* Tiled Layer Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				B89428390E6BEA3A0080B2F5 /* TiledLayerController.h */,
+				B894283A0E6BEA3A0080B2F5 /* TiledLayerController.m */,
+			);
+			name = "Tiled Layer Renderer";
+			sourceTree = "<group>";
+		};
+		B87626D30E752B640024B9C5 /* Quartz Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				B89428250E6BEA390080B2F5 /* TileImageSet.h */,
+				B89428260E6BEA390080B2F5 /* TileImageSet.m */,
+				B87626D50E752E6E0024B9C5 /* QuartzRenderer.h */,
+				B87626D60E752E6E0024B9C5 /* QuartzRenderer.m */,
+			);
+			name = "Quartz Renderer";
+			sourceTree = "<group>";
+		};
+		B87626D40E752DF30024B9C5 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				B89428270E6BEA390080B2F5 /* TileCache.h */,
+				B8A51E900E6D7192006AA8E2 /* TileCache.m */,
+				B89428280E6BEA390080B2F5 /* MemoryCache.h */,
+				B89428290E6BEA390080B2F5 /* MemoryCache.m */,
+				B894282A0E6BEA390080B2F5 /* FileCache.h */,
+				B894282B0E6BEA390080B2F5 /* FileCache.m */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
+		B87626EE0E7565350024B9C5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B87626EF0E75654C0024B9C5 /* MathUtils.h */,
+				B87626F00E75654C0024B9C5 /* MathUtils.c */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		B89427830E6BEA390080B2F5 /* proj4 */ = {
@@ -676,10 +751,10 @@
 		B894281C0E6BEA390080B2F5 /* Map View */ = {
 			isa = PBXGroup;
 			children = (
+				B87626EE0E7565350024B9C5 /* Utilities */,
+				B87626CC0E7529CF0024B9C5 /* Renderers */,
 				B894283B0E6BEA3A0080B2F5 /* MapView.h */,
 				B894283C0E6BEA3A0080B2F5 /* MapView.m */,
-				B89428390E6BEA3A0080B2F5 /* TiledLayerController.h */,
-				B894283A0E6BEA3A0080B2F5 /* TiledLayerController.m */,
 				B89428300E6BEA390080B2F5 /* Projections */,
 				B89428210E6BEA390080B2F5 /* Tile Management */,
 				B894281D0E6BEA390080B2F5 /* Tile Source */,
@@ -700,15 +775,10 @@
 		B89428210E6BEA390080B2F5 /* Tile Management */ = {
 			isa = PBXGroup;
 			children = (
+				B87626D40E752DF30024B9C5 /* Cache */,
 				B89428220E6BEA390080B2F5 /* Tile.h */,
 				B89428230E6BEA390080B2F5 /* TileImage.h */,
 				B89428240E6BEA390080B2F5 /* TileImage.m */,
-				B89428270E6BEA390080B2F5 /* TileCache.h */,
-				B8A51E900E6D7192006AA8E2 /* TileCache.m */,
-				B89428280E6BEA390080B2F5 /* MemoryCache.h */,
-				B89428290E6BEA390080B2F5 /* MemoryCache.m */,
-				B894282A0E6BEA390080B2F5 /* FileCache.h */,
-				B894282B0E6BEA390080B2F5 /* FileCache.m */,
 				B894282C0E6BEA390080B2F5 /* TileProxy.h */,
 				B894282D0E6BEA390080B2F5 /* TileProxy.m */,
 				B894282E0E6BEA390080B2F5 /* WebTileImage.h */,
@@ -784,6 +854,7 @@
 		B894285B0E6BEAE40080B2F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8A522580E6E84F3006AA8E2 /* QuartzCore.framework */,
 				B894285C0E6BEB020080B2F5 /* Foundation.framework */,
 				B894285D0E6BEB020080B2F5 /* CoreLocation.framework */,
 				B894285E0E6BEB020080B2F5 /* CoreGraphics.framework */,
@@ -792,13 +863,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B8A522140E6E74FC006AA8E2 /* Gunk */ = {
+		B8A5C8780E757E95005509DE /* Core Animation Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				B89428250E6BEA390080B2F5 /* TileImageSet.h */,
-				B89428260E6BEA390080B2F5 /* TileImageSet.m */,
+				B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */,
+				B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */,
 			);
-			name = Gunk;
+			name = "Core Animation Renderer";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -840,6 +911,11 @@
 				B8D9B20D0E6BFA7F00EDA368 /* OpenStreetMapsSource.h in Headers */,
 				B8D9B20E0E6BFA7F00EDA368 /* Mercator.h in Headers */,
 				B8D9B27D0E6D460500EDA368 /* FileTileImage.h in Headers */,
+				B87626CA0E7529BE0024B9C5 /* ScreenProjection.h in Headers */,
+				B87626D00E752A010024B9C5 /* MapRenderer.h in Headers */,
+				B87626D70E752E6E0024B9C5 /* QuartzRenderer.h in Headers */,
+				B87626F10E75654C0024B9C5 /* MathUtils.h in Headers */,
+				B8A5C8860E758250005509DE /* CoreAnimationRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,6 +1192,12 @@
 				B8D9B1FE0E6BFA7500EDA368 /* OpenStreetMapsSource.m in Sources */,
 				B8D9B27E0E6D460500EDA368 /* FileTileImage.m in Sources */,
 				B8A51E910E6D7192006AA8E2 /* TileCache.m in Sources */,
+				B87626CB0E7529BE0024B9C5 /* ScreenProjection.m in Sources */,
+				B87626D80E752E6E0024B9C5 /* QuartzRenderer.m in Sources */,
+				B87626E90E7562620024B9C5 /* TileImageSet.m in Sources */,
+				B87626F20E75654C0024B9C5 /* MathUtils.c in Sources */,
+				B8A5C87A0E757FC8005509DE /* MapRenderer.m in Sources */,
+				B8A5C8870E758250005509DE /* CoreAnimationRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 //
 
 #import "FractalTileProjection.h"
-#import "TiledLayerController.h"
+#import "ScreenProjection.h"
 #import <math.h>
 
 @implementation FractalTileProjection
@@ -28,9 +28,9 @@
 	return self;
 }
 
--(float) normaliseZoom: (float) zoom
+-(int) normaliseZoom: (float) zoom
 {
-	float normalised_zoom = roundf(zoom);
+	int normalised_zoom = roundf(zoom);
 	//16;
 	if (normalised_zoom > maxZoom)
 		normalised_zoom = maxZoom;
@@ -40,12 +40,12 @@
 	return normalised_zoom;
 }
 
--(float) limitFromNormalisedZoom: (float) zoom
+-(float) limitFromNormalisedZoom: (int) zoom
 {
 	return exp2f(zoom);
 }
 
--(TilePoint) projectInternal: (MercatorPoint)mercator AtNormalisedZoom:(float)zoom Limit:(float) limit
+-(TilePoint) projectInternal: (MercatorPoint)mercator AtNormalisedZoom:(int)zoom Limit:(float) limit
 {
 	TilePoint tile;
 	double x = (mercator.x - bounds.origin.x) / bounds.size.width * limit;
@@ -71,7 +71,7 @@
 
 -(TileRect) projectRect: (MercatorRect)mercator AtZoom:(float)zoom
 {
-	float normalised_zoom = [self normaliseZoom:zoom];
+	int normalised_zoom = [self normaliseZoom:zoom];
 	float limit = [self limitFromNormalisedZoom:normalised_zoom];
 
 	TileRect rect;
@@ -94,15 +94,20 @@
 {
 	return [self projectRect:mercatorRect AtZoom:[self calculateZoomFromScale:scale]];
 }
-/*
+
 -(TileRect) project: (ScreenProjection*)screen;
 {
-	return [self projectRect:[screen bounds] AtScale:[screen scale]];
-}*/
+	return [self projectRect:[screen mercatorBounds] AtScale:[screen scale]];
+}
 
 -(float) calculateZoomFromScale: (float) scale
 {	// zoom = log2(bounds.width/tileSideLength) - log2(s)
 	return scaleFactor - log2(scale);
+}
+
+-(int) calculateNormalisedZoomFromScale: (float) scale
+{
+	return [self normaliseZoom:[self calculateZoomFromScale:scale]];
 }
 
 -(float) calculateScaleFromZoom: (float) zoom

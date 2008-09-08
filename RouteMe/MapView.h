@@ -8,31 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
+//#import "MapRenderer.h"
+//#import "TileSource.h"
+
 typedef struct {
 	CGPoint center;
 	float averageDistanceFromCenter;
 } GestureDetails;
 
-@class TileSource;
-@class TiledLayerController;
+@protocol TileSource;
+@class MapRenderer;
+//@class TileSource;
 //@class TileImageSet;
 
 @interface MapView : UIView {
-	id tileSource;
-	TiledLayerController *screenProjection;
-	float zoom;
+	id<TileSource> tileSource;
+	MapRenderer *renderer;
 	
 	bool enableDragging;
 	bool enableZoom;
-//	double lastZoomDistance;
-	
-	// This is basically a one-object allocation pool.
-//	TileImageSet *imageSet;
 	
 	GestureDetails lastGesture;
 }
 
-@property (assign, readwrite) bool enableDragging;
-@property (assign, readwrite) bool enableZoom;
+@property (assign, readwrite, nonatomic) bool enableDragging;
+@property (assign, readwrite, nonatomic) bool enableZoom;
+@property (retain, readwrite, nonatomic) id<TileSource> tileSource;
 
 @end

@@ -11,13 +11,15 @@
 #import "TileImage.h"
 #import "Tile.h"
 //#import "TileImageSet.h"
-#import "TiledLayerController.h"
+//#import "TiledLayerController.h"
 #import "FractalTileProjection.h"
 #import "MemoryCache.h"
 
+#import "QuartzRenderer.h"
+
 @implementation MapView
 
-@synthesize enableDragging, enableZoom;
+@synthesize enableDragging, enableZoom, tileSource;
 
 -(void) makeTileSource
 {
@@ -28,11 +30,22 @@
 	tileSource = [[MemoryCache alloc] initWithParentSource:tileSource Capacity:20];
 }
 
--(void) makeProjection
+-(void) makeRenderer
 {
-	if (screenProjection != nil)
+	if (tileSource == nil)
+	{
+		[self makeTileSource];
+	}
+	
+	if (renderer != nil)
 		return;
 	
+	renderer = [[QuartzRenderer alloc] initWithView:self];
+}
+
+/*
+-(void) makeProjection
+{
 	if (tileSource == nil)
 		[self makeTileSource];
 	
@@ -47,7 +60,7 @@
 	here.longitude = 151.2381;
 	[screenProjection setScale:[[tileSource tileProjection] calculateScaleFromZoom:18]];
 	[screenProjection centerLatLong:here Animate: NO];
-}
+}*/
 
 -(void) configureCaching
 {
@@ -64,18 +77,14 @@
 		[newCache release];
 	}	
 }
-/*
--(void) recalculateImageSet
-{
-	NSLog(@"recalc");
-	TileRect tileRect = [[tileSource tileProjection] project:screenProjection];
-	[imageSet assembleFromRect:tileRect FromImageSource:tileSource ToDisplayWithSize:[self bounds].size WithTileDelegate: self];
-}*/
 
 -(void) initValues
 {
+	renderer = nil;
+	tileSource = nil;
+	
 	[self makeTileSource];
-	[self makeProjection];
+	[self makeRenderer];
 	
 //	imageSet = [[TileImageSet alloc] init];
 	
@@ -83,6 +92,11 @@
 	enableZoom = YES;
 	
 //	[self recalculateImageSet];
+	
+	if (enableZoom)
+		[self setMultipleTouchEnabled:TRUE];
+	
+	[renderer setNeedsDisplay];
 	
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
@@ -102,10 +116,14 @@
 -(void) dealloc
 {
 	[tileSource release];
-	[screenProjection release];
-//	[imageSet release];
+	[renderer release];
 	
 	[super dealloc];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+	[renderer drawRect: rect];
 }
 
 /*
@@ -118,13 +136,8 @@
 	}
 	[imageSet draw];
 	
-	[self setNeedsDisplay];
+//	[self setNeedsDisplay];
 }*/
-
-- (void)tileDidFinishLoading: (TileImage *)image
-{
-	[self setNeedsDisplay];
-}
 
 - (GestureDetails) getGestureDetails: (NSSet*) touches
 {
@@ -143,7 +156,6 @@
 	gesture.center.x /= [touches count];
 	gesture.center.y /= [touches count];
 	
-///	NSLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
 	for (UITouch *touch in touches)
 	{
 		CGPoint location = [touch locationInView: self];
@@ -154,8 +166,9 @@
 //		NSLog(@"delta = %.0f, %.0f  distance = %f", dx, dy, sqrtf((dx*dx) + (dy*dy)));
 		gesture.averageDistanceFromCenter += sqrtf((dx*dx) + (dy*dy));
 	}
-	gesture.averageDistanceFromCenter /= [touches count];
 	
+	gesture.averageDistanceFromCenter /= [touches count];
+//	NSLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
 	
 	return gesture;
 }
@@ -176,28 +189,6 @@
 	lastGesture = [self getGestureDetails:[event allTouches]];
 }
 
-- (void)dragBy: (CGSize) delta TrySlideImages: (BOOL)trySlide
-{
-	[screenProjection dragBy:delta];
-/*
-	if (trySlide)
-	{
-		BOOL slideOk = [imageSet slideBy:delta Within:[self bounds]];
-		
-		if (slideOk == NO)
-		{
-			[imageSet setNeedsRedraw];
-		}
-	}
-	else
-	{
-		[imageSet setNeedsRedraw];
-	}
-	
-	[self setNeedsDisplay];
-*/
-}
-
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	if (enableDragging)
@@ -211,20 +202,22 @@
 		if (enableZoom && [[event allTouches] count] > 1)
 		{
 			// Don't bother sliding the images. We'll need to regenerate the imageset anyway.
-			[self dragBy: delta TrySlideImages: NO];
-
+//			[self dragBy: delta TrySlideImages: NO];
+			[renderer moveBy:delta];
+			
 			double zoomFactor = lastGesture.averageDistanceFromCenter / newGesture.averageDistanceFromCenter;
 //			lastZoomDistance = gesture.averageDistanceFromCenter;
 			
 //			[imageSet setNeedsRedraw];
-			[screenProjection zoomByFactor: zoomFactor Near: newGesture.center];
+			[renderer zoomByFactor: zoomFactor Near: newGesture.center];
 		}
 		else
 		{
-			[self dragBy: delta TrySlideImages: YES];
+//			[self dragBy: delta TrySlideImages: YES];
+			[renderer moveBy:delta];
 		}
 		
-		[self setNeedsDisplay];
+//		[self setNeedsDisplay];
 		
 		lastGesture = newGesture;
 	}

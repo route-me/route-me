@@ -10,7 +10,7 @@
 #import "Mercator.h"
 #import "Tile.h"
 
-@class TiledLayerController;
+@class ScreenProjection;
 
 @interface FractalTileProjection : NSObject {
 	// Maximum zoom for which our tile server stores images
@@ -44,9 +44,12 @@
 -(TileRect) projectRect: (MercatorRect)mercatorRect AtScale:(float)scale;
 
 // This is a helper for projectRect above. Much simpler for the caller.
-//-(TileRect) project: (ScreenProjection*)screen;
+-(TileRect) project: (ScreenProjection*)screen;
+
+-(int) normaliseZoom: (float) zoom;
 
 -(float) calculateZoomFromScale: (float) scale;
+-(int) calculateNormalisedZoomFromScale: (float) scale;
 -(float) calculateScaleFromZoom: (float) zoom;
 
 @end

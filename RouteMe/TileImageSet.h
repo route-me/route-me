@@ -10,27 +10,39 @@
 #import "Tile.h"
 
 @class TileImage;
-@class TileSource;
+@protocol TileSource;
 
 @interface TileImageSet : NSObject {
 	// Set of locatedtileimages
 	NSMutableSet *images;
 	NSMutableSet *buffer;
-	BOOL dirty;
+//	BOOL dirty;
+	
+	CGRect loadedBounds;
+	int loadedZoom;
+	
+	// This fixes an image resizing bug which causes thin lines along image borders
+	BOOL nudgeTileSize;
 }
 
--(id) initFromRect:(TileRect) rect FromImageSource: (TileSource*)source ToDisplayWithSize:(CGSize)screenBounds WithTileDelegate: (id)delegate;
+-(id) initFromRect:(TileRect) rect FromImageSource: (id<TileSource>)source ToDisplayIn:(CGRect)bounds WithTileDelegate: (id)delegate;
 -(void) dealloc;
 
 // Invalidate all current image data.
--(void) setNeedsRedraw;
+//-(void) setNeedsRedraw;
 
--(BOOL) needsRedraw;
+//-(BOOL) needsRedraw;
 
-// Slide all images by amount. Returns whether images still fill bounds.
--(BOOL) slideBy: (CGSize) amount Within: (CGRect)bounds;
+- (void)moveBy: (CGSize) delta;
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
--(void) assembleFromRect:(TileRect) rect FromImageSource: (TileSource*)source ToDisplayWithSize:(CGSize)viewSize WithTileDelegate: (id)delegate;
+@property (readonly, nonatomic) CGRect loadedBounds;
+@property (readonly, nonatomic) int loadedZoom;
+@property (readwrite, assign, nonatomic) BOOL nudgeTileSize;
+
+-(BOOL) containsRect: (CGRect)bounds;
+
+-(void) assembleFromRect:(TileRect) rect FromImageSource: (id<TileSource>)source ToDisplayIn:(CGRect)bounds WithTileDelegate: (id)delegate;
 -(void) draw;
 
 @end
