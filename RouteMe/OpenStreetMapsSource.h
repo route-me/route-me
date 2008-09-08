@@ -13,7 +13,8 @@
 @class TileImage;
 @class TileImageSet;
 @class FractalTileProjection;
-@class ScreenProjection;
+@class TiledLayerController;
+@class TileCache;
 
 @interface OpenStreetMapsSource : NSObject <TileSource> {
 
@@ -21,7 +22,7 @@
 	
 	FractalTileProjection *tileProjection;
 	
-	IBOutlet TileCache *cache;
+	TileCache *cache;
 }
 
 -(TileImage *) tileImage: (Tile)tile;

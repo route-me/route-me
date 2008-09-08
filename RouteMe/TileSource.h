@@ -6,14 +6,14 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Tile.h"
 
 @class TileImage;
 @class FractalTileProjection;
 @class TileImageSet;
-@class ScreenProjection;
+@class TiledLayerController;
 @class TileCache;
 
 @protocol TileSource

@@ -14,12 +14,12 @@ typedef struct {
 } GestureDetails;
 
 @class TileSource;
-@class ScreenProjection;
-@class TileImageSet;
+@class TiledLayerController;
+//@class TileImageSet;
 
 @interface MapView : UIView {
-	TileSource *tileSource;
-	ScreenProjection *screenProjection;
+	id tileSource;
+	TiledLayerController *screenProjection;
 	float zoom;
 	
 	bool enableDragging;
@@ -27,7 +27,7 @@ typedef struct {
 //	double lastZoomDistance;
 	
 	// This is basically a one-object allocation pool.
-	TileImageSet *imageSet;
+//	TileImageSet *imageSet;
 	
 	GestureDetails lastGesture;
 }

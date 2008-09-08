@@ -12,7 +12,7 @@
 #import "TileImage.h"
 #import "TileImageSet.h"
 #import "FractalTileProjection.h"
-#import "ScreenProjection.h"
+#import "TiledLayerController.h"
 #import "MemoryCache.h"
 
 @implementation OpenStreetMapsSource

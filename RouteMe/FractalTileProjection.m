@@ -7,20 +7,21 @@
 //
 
 #import "FractalTileProjection.h"
-#import "ScreenProjection.h"
+#import "TiledLayerController.h"
 #import <math.h>
 
 @implementation FractalTileProjection
 
+@synthesize maxZoom, tileSideLength, bounds;
 
--(id) initWithBounds: (CGRect)_bounds TileSideLength:(int)_tileSideLength MaxZoom: (int)_max_zoom
+-(id) initWithBounds: (CGRect)_bounds TileSideLength:(int)_tileSideLength MaxZoom: (int)_maxZoom
 {
 	if (![super init])
 		return nil;
 	
 	bounds = _bounds;
 	tileSideLength = _tileSideLength;
-	max_zoom = _max_zoom;
+	maxZoom = _maxZoom;
 	
 	scaleFactor = log2(bounds.size.width / tileSideLength);
 	
@@ -31,8 +32,8 @@
 {
 	float normalised_zoom = roundf(zoom);
 	//16;
-	if (normalised_zoom > max_zoom)
-		normalised_zoom = max_zoom;
+	if (normalised_zoom > maxZoom)
+		normalised_zoom = maxZoom;
 	if (normalised_zoom < 0)
 		normalised_zoom = 0;
 	
@@ -93,11 +94,11 @@
 {
 	return [self projectRect:mercatorRect AtZoom:[self calculateZoomFromScale:scale]];
 }
-
+/*
 -(TileRect) project: (ScreenProjection*)screen;
 {
 	return [self projectRect:[screen bounds] AtScale:[screen scale]];
-}
+}*/
 
 -(float) calculateZoomFromScale: (float) scale
 {	// zoom = log2(bounds.width/tileSideLength) - log2(s)

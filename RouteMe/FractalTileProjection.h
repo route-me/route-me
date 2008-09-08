@@ -10,11 +10,11 @@
 #import "Mercator.h"
 #import "Tile.h"
 
-@class ScreenProjection;
+@class TiledLayerController;
 
 @interface FractalTileProjection : NSObject {
 	// Maximum zoom for which our tile server stores images
-	int max_zoom;
+	int maxZoom;
 	
 	// Mercator bounds of the earth 
 	CGRect bounds;
@@ -31,6 +31,10 @@
 	double scaleFactor;
 }
 
+@property(readonly, nonatomic) CGRect bounds;
+@property(readonly, nonatomic) int maxZoom;
+@property(readonly, nonatomic) int tileSideLength;
+
 -(id) initWithBounds: (CGRect)bounds TileSideLength:(int)tileSideLength MaxZoom: (int) max_zoom;
 
 -(TilePoint) project: (MercatorPoint)mercator AtZoom:(float)zoom;
@@ -40,7 +44,7 @@
 -(TileRect) projectRect: (MercatorRect)mercatorRect AtScale:(float)scale;
 
 // This is a helper for projectRect above. Much simpler for the caller.
--(TileRect) project: (ScreenProjection*)screen;
+//-(TileRect) project: (ScreenProjection*)screen;
 
 -(float) calculateZoomFromScale: (float) scale;
 -(float) calculateScaleFromZoom: (float) zoom;

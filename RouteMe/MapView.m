@@ -10,8 +10,8 @@
 #import "OpenStreetMapsSource.h"
 #import "TileImage.h"
 #import "Tile.h"
-#import "TileImageSet.h"
-#import "ScreenProjection.h"
+//#import "TileImageSet.h"
+#import "TiledLayerController.h"
 #import "FractalTileProjection.h"
 #import "MemoryCache.h"
 
@@ -36,15 +36,17 @@
 	if (tileSource == nil)
 		[self makeTileSource];
 	
-	screenProjection = [[ScreenProjection alloc] initWithSize: [self bounds].size];
+	screenProjection = [[TiledLayerController alloc] initWithTileSource: tileSource];
+	[self layer].masksToBounds = YES;
+	[[self layer] addSublayer:[screenProjection layer]];
+	[[self layer] setNeedsDisplay];
 	
 	CLLocationCoordinate2D here;
 //	here.latitude = -33.9264;
 	here.latitude = -33.9464;
 	here.longitude = 151.2381;
 	[screenProjection setScale:[[tileSource tileProjection] calculateScaleFromZoom:18]];
-	[screenProjection centerLatLong:here];
-
+	[screenProjection centerLatLong:here Animate: NO];
 }
 
 -(void) configureCaching
@@ -62,25 +64,25 @@
 		[newCache release];
 	}	
 }
-
+/*
 -(void) recalculateImageSet
 {
 	NSLog(@"recalc");
 	TileRect tileRect = [[tileSource tileProjection] project:screenProjection];
 	[imageSet assembleFromRect:tileRect FromImageSource:tileSource ToDisplayWithSize:[self bounds].size WithTileDelegate: self];
-}
+}*/
 
 -(void) initValues
 {
 	[self makeTileSource];
 	[self makeProjection];
 	
-	imageSet = [[TileImageSet alloc] init];
+//	imageSet = [[TileImageSet alloc] init];
 	
 	enableDragging = YES;
 	enableZoom = YES;
 	
-	[self recalculateImageSet];
+//	[self recalculateImageSet];
 	
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
@@ -101,11 +103,12 @@
 {
 	[tileSource release];
 	[screenProjection release];
-	[imageSet release];
+//	[imageSet release];
 	
 	[super dealloc];
 }
 
+/*
 - (void)drawRect:(CGRect)rect {
 //	imageSet = [tileSource tileImagesForScreen: screenProjection];
 	if ([imageSet needsRedraw])
@@ -116,7 +119,7 @@
 	[imageSet draw];
 	
 	[self setNeedsDisplay];
-}
+}*/
 
 - (void)tileDidFinishLoading: (TileImage *)image
 {
@@ -176,7 +179,7 @@
 - (void)dragBy: (CGSize) delta TrySlideImages: (BOOL)trySlide
 {
 	[screenProjection dragBy:delta];
-
+/*
 	if (trySlide)
 	{
 		BOOL slideOk = [imageSet slideBy:delta Within:[self bounds]];
@@ -192,6 +195,7 @@
 	}
 	
 	[self setNeedsDisplay];
+*/
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -212,7 +216,7 @@
 			double zoomFactor = lastGesture.averageDistanceFromCenter / newGesture.averageDistanceFromCenter;
 //			lastZoomDistance = gesture.averageDistanceFromCenter;
 			
-			[imageSet setNeedsRedraw];
+//			[imageSet setNeedsRedraw];
 			[screenProjection zoomByFactor: zoomFactor Near: newGesture.center];
 		}
 		else
@@ -225,8 +229,8 @@
 		lastGesture = newGesture;
 	}
 	
-	if ([imageSet needsRedraw])
-		[self recalculateImageSet];
+//	if ([imageSet needsRedraw])
+//		[self recalculateImageSet];
 }
 
 @end
