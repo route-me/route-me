@@ -12,7 +12,7 @@
 
 @class TileImage;
 @class FractalTileProjection;
-@class TileImageSet;
+@class TileLoader;
 @class TiledLayerController;
 @class TileCache;
 

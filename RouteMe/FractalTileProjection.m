@@ -28,9 +28,9 @@
 	return self;
 }
 
--(int) normaliseZoom: (float) zoom
+-(float) normaliseZoom: (float) zoom
 {
-	int normalised_zoom = roundf(zoom);
+	float normalised_zoom = roundf(zoom);
 	//16;
 	if (normalised_zoom > maxZoom)
 		normalised_zoom = maxZoom;
@@ -40,12 +40,12 @@
 	return normalised_zoom;
 }
 
--(float) limitFromNormalisedZoom: (int) zoom
+-(float) limitFromNormalisedZoom: (float) zoom
 {
 	return exp2f(zoom);
 }
 
--(TilePoint) projectInternal: (MercatorPoint)mercator AtNormalisedZoom:(int)zoom Limit:(float) limit
+-(TilePoint) projectInternal: (MercatorPoint)mercator AtNormalisedZoom:(float)zoom Limit:(float) limit
 {
 	TilePoint tile;
 	double x = (mercator.x - bounds.origin.x) / bounds.size.width * limit;
@@ -105,7 +105,7 @@
 	return scaleFactor - log2(scale);
 }
 
--(int) calculateNormalisedZoomFromScale: (float) scale
+-(float) calculateNormalisedZoomFromScale: (float) scale
 {
 	return [self normaliseZoom:[self calculateZoomFromScale:scale]];
 }

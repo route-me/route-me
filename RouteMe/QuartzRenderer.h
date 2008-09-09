@@ -11,11 +11,11 @@
 
 @class ScreenProjection;
 @class MapView;
-@class TileImageSet;
+@class TileLoader;
 
 @interface QuartzRenderer : MapRenderer {	
 	// This is basically a one-object allocation pool.
-	TileImageSet *imageSet;
+	TileLoader *imageSet;
 }
 
 @end

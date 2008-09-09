@@ -11,7 +11,7 @@
 #import "Tile.h"
 
 @class TileImage;
-@class TileImageSet;
+@class TileLoader;
 @class FractalTileProjection;
 @class TiledLayerController;
 @class TileCache;

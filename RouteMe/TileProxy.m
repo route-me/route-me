@@ -28,10 +28,7 @@ static TileImage *_loadingTile = nil;
 	if (_loadingTile != nil)
 		return _loadingTile;
 	
-	Tile t;
-	t.x = -1;
-	t.y = -1;
-	t.zoom = -1;
+	Tile t = TileDummy();
 	NSString* file = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
 	_loadingTile = [[TileImage imageWithTile:t FromFile:file] retain];
 	return _loadingTile;

@@ -19,7 +19,7 @@
 	// Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
 	// Scale of 1 means 1 pixel == 1 meter.
 	// Scale of 10 means 1 pixel == 10 meters.
-	double scale;
+	float scale;
 }
 
 -(id) initWithBounds: (CGRect) bounds;
@@ -39,8 +39,10 @@
 -(MercatorRect) projectInverseRect: (CGRect) rect;
 
 -(MercatorRect) mercatorBounds;
+-(CGRect) screenBounds;
 
-@property (assign, readwrite) double scale;
+@property (assign, readwrite) float scale;
+
 //@property (assign, readwrite) CGSize viewSize;
 
 

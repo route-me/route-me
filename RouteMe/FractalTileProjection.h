@@ -46,10 +46,10 @@
 // This is a helper for projectRect above. Much simpler for the caller.
 -(TileRect) project: (ScreenProjection*)screen;
 
--(int) normaliseZoom: (float) zoom;
+-(float) normaliseZoom: (float) zoom;
 
 -(float) calculateZoomFromScale: (float) scale;
--(int) calculateNormalisedZoomFromScale: (float) scale;
+-(float) calculateNormalisedZoomFromScale: (float) scale;
 -(float) calculateScaleFromZoom: (float) zoom;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "QuartzRenderer.h"
-#import "TileImageSet.h"
+#import "TileLoader.h"
 #import "MapView.h"
 
 #import "FractalTileProjection.h"
@@ -22,7 +22,7 @@
 	if (![super initWithView:_view])
 		return nil;
 	
-	imageSet = [[TileImageSet alloc] init];
+	imageSet = [[TileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
 	
 	return self;
 }
@@ -30,8 +30,8 @@
 -(void) recalculateImageSet
 {
 //	NSLog(@"recalc");
-	TileRect tileRect = [[[view tileSource] tileProjection] project:screenProjection];
-	[imageSet assembleFromRect:tileRect FromImageSource:[view tileSource] ToDisplayIn:[view bounds] WithTileDelegate:self];
+//	TileRect tileRect = [[[view tileSource] tileProjection] project:screenProjection];
+//	[imageSet assembleFromRect:tileRect FromImageSource:[view tileSource] ToDisplayIn:[view bounds] WithTileDelegate:self];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -63,16 +63,14 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	[super moveBy:delta];
 	[imageSet moveBy:delta];
-	[self setNeedsDisplay];	
+	[super moveBy:delta];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	[super zoomByFactor:zoomFactor Near:center];
 	[imageSet zoomByFactor:zoomFactor Near:center];
-	[self setNeedsDisplay];	
+	[super zoomByFactor:zoomFactor Near:center];
 }
 
 - (void)tileDidFinishLoading: (TileImage *)image

@@ -89,6 +89,11 @@
 	return mercator;
 }
 
+-(CGRect) screenBounds
+{
+	return bounds;
+}
+
 -(MercatorRect) mercatorBounds
 {
 	MercatorRect rect;

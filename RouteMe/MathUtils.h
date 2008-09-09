@@ -14,5 +14,6 @@
 
 CGRect ScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint point);
 CGRect TranslateCGRectBy(CGRect rect, CGSize delta);
+CGPoint TranslateCGPointBy(CGPoint point, CGSize delta);
 
 #endif

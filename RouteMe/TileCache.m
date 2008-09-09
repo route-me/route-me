@@ -33,22 +33,9 @@
 	[super dealloc];
 }
 
-+(uint64_t) rawTileHash: (Tile)tile
-{
-	uint64_t accumulator = 0;
-	
-	for (int i = 0; i < tile.zoom; i++) {
-		accumulator |= ((uint64_t)tile.x & (1LL<<i)) << i;
-		accumulator |= ((uint64_t)tile.y & (1LL<<i)) << (i+1);
-	}
-	accumulator |= 1LL<<(tile.zoom * 2);
-	
-	return accumulator;
-}
-
 +(NSNumber*) tileHash: (Tile)tile
 {
-	return [NSNumber numberWithUnsignedLongLong:[TileCache rawTileHash: tile]];
+	return [NSNumber numberWithUnsignedLongLong: TileHash(tile)];
 }
 
 // Returns the cached image if it exists. nil otherwise.

@@ -12,6 +12,8 @@
 #import "MapView.h"
 #import "TileSource.h"
 
+#import "TileImage.h"
+
 @implementation MapRenderer
 
 - (id) initWithView: (MapView *)_view
@@ -28,7 +30,21 @@
 	[screenProjection setScale:[[[view tileSource] tileProjection] calculateScaleFromZoom:16]];
 	[self moveToLatLong:here];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapImageLoaded:) name:MapImageLoadedNotification object:nil];
+	
 	return self;
+}
+
+-(void) dealloc
+{
+	[screenProjection release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super dealloc];
+}
+
+-(void)mapImageLoaded: (NSNotification*)notification
+{
+	[self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -68,6 +84,7 @@
 - (void) setScale: (double) scale
 {
 	[screenProjection setScale:scale];
+	[self setNeedsDisplay];
 }
 
 @end

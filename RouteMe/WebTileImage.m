@@ -34,7 +34,6 @@
 	}
 	else
 	{
-		
 		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 		
 		if (connection == nil)
@@ -57,10 +56,10 @@
 {
 	NSLog(@"Image dealloced");
 	[proxy release];
-	[delegate release];
-
+	
 	if (connection != nil)
 	{
+		NSLog(@"loading cancelled because image dealloced");
 		[self cancelLoading];
 	}
 	[super dealloc];
@@ -88,12 +87,6 @@
 	else
 		[proxy drawInRect:rect];
 }
-
-- (void)setDelegate:(id) _delegate
-{
-	delegate = [_delegate retain];
-}
-
 
 // Delegate methods for loading the image
 
@@ -142,7 +135,6 @@
 	data = nil;
 	[connection release];
 	connection = nil;
-	[delegate tileDidFinishLoading: self];
 	NSLog(@"finished loading image");
 }
 

@@ -20,9 +20,15 @@ CGRect ScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint point)
 	return rect;
 }
 
+CGPoint TranslateCGPointBy(CGPoint point, CGSize delta)
+{
+	point.x += delta.width;
+	point.y += delta.height;
+	return point;
+}
+
 CGRect TranslateCGRectBy(CGRect rect, CGSize delta)
 {
-	rect.origin.x += delta.width;
-	rect.origin.y += delta.height;
+	rect.origin = TranslateCGPointBy(rect.origin, delta);
 	return rect;
 }

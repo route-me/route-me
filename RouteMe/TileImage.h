@@ -12,24 +12,23 @@
 #import "Tile.h"
 
 @class TileImage;
-@protocol TileImageLoadingDelegate
 
-- (void)tileDidFinishLoading: (TileImage *)image;
-
-@end
-
+extern NSString * const MapImageLoadedNotification;
+extern NSString * const MapImageLoadingCancelledNotification;
 
 @interface TileImage : NSObject {
-	Tile tile;
 	UIImage *image;
 	
 	// I know this is a bit nasty.
+	Tile tile;
 	CGRect screenLocation;
 	
 	int loadingPriorityCount;
 }
 
 - (id) initWithTile: (Tile)tile;
+
++ (TileImage*) dummyTile: (Tile)tile;
 
 - (id) increaseLoadingPriority;
 - (id) decreaseLoadingPriority;
@@ -40,11 +39,11 @@
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;
 
-- (void)setDelegate:(id) delegate;
 -(void) cancelLoading;
 
 - (void)setImageToData: (NSData*) data;
 
 @property (readwrite, assign) CGRect screenLocation;
+@property (readonly, assign) Tile tile;
 
 @end

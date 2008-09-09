@@ -10,7 +10,7 @@
 #import "Projection.h"
 #import "Transform.h"
 #import "TileImage.h"
-#import "TileImageSet.h"
+#import "TileLoader.h"
 #import "FractalTileProjection.h"
 #import "TiledLayerController.h"
 #import "MemoryCache.h"

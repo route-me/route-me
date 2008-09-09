@@ -17,8 +17,6 @@
 	NSURLConnection *connection;
 	// Data accumulator during loading.
 	NSMutableData *data;
-	
-	id delegate;
 }
 
 - (id) initWithTile: (Tile)tile FromURL:(NSString*)url;

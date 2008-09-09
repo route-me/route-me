@@ -1,5 +1,5 @@
 //
-//  CoreAnimationRenderer.h
+//  LayeredTileImageSet.h
 //  RouteMe
 //
 //  Created by Joseph Gentle on 9/09/08.
@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MapRenderer.h"
+#import "TileLoader.h"
 
-@class LayeredTileImageSet;
-
-@interface CoreAnimationRenderer : MapRenderer {
+@interface LayeredTileImageSet : TileLoader {
 	CALayer *layer;
-//	LayeredTileImageSet *imageSet;
+
 }
 
 @end

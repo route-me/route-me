@@ -10,15 +10,30 @@
 #import "WebTileImage.h"
 #import "FileTileImage.h"
 
+NSString * const MapImageLoadedNotification = @"MapImageLoaded";
+NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancelled";
+
 @implementation TileImage
 
-@synthesize screenLocation;
+@synthesize screenLocation, tile;
 
-- (id) initWithTile: (Tile)_tile
+- (id) initBlankTile: (Tile)_tile
 {
 	if (![super init])
 		return nil;
 	
+	tile = _tile;
+	image = nil;
+	loadingPriorityCount = 0;
+	
+	return self;	
+}
+
+- (id) initWithTile: (Tile)_tile
+{
+	if (![self initBlankTile: _tile])
+		return nil;
+
 	if ([[self class] isEqual:[TileImage class]])
 	{
 		[NSException raise:@"Abstract Class Exception" format:@"Error, attempting to instantiate TileImage directly."];
@@ -26,11 +41,16 @@
 		return nil; 
 	}
 	
-	tile = _tile;
-	image = nil;
-	loadingPriorityCount = 0;
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(tileRemovedFromScreen:)
+												 name:MapImageRemovedFromScreenNotification object:self];
 	
 	return self;
+}
+	 
+-(void) tileRemovedFromScreen: (NSNotification*) notification
+{
+	[self cancelLoading];
 }
 
 -(id) init
@@ -40,8 +60,14 @@
 	return nil; 
 }
 
++ (TileImage*) dummyTile: (Tile)tile
+{
+	return [[[TileImage alloc] initBlankTile:tile] autorelease];
+}
+
 - (void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[image release];
 	[super dealloc];
 }
@@ -80,14 +106,10 @@
 	return [[[FileTileImage alloc] initWithTile: _tile FromFile:filename] autorelease];
 }
 
-- (void)setDelegate:(id) delegate
-{
-	
-}
-
 -(void) cancelLoading
 {
-	
+	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadingCancelledNotification
+														object:self];
 }
 //
 //- (void)setImageToData: (NSData*) data
@@ -101,5 +123,21 @@
 	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(CGDataProviderCreateWithCFData ((CFDataRef)data), NULL, FALSE, kCGRenderingIntentDefault);
 	
 	image = [[UIImage imageWithCGImage:cgImage] retain];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadedNotification object:self];
 }
+
+- (NSUInteger)hash
+{
+	return (NSUInteger)TileHash(tile);
+}
+
+- (BOOL)isEqual:(id)anObject
+{
+	if (![anObject isKindOfClass:[TileImage class]])
+		return NO;
+
+	return TilesEqual(tile, [(TileImage*)anObject tile]);
+}
+
 @end

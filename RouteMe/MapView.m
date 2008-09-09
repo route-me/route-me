@@ -16,6 +16,7 @@
 #import "MemoryCache.h"
 
 #import "QuartzRenderer.h"
+#import "CoreAnimationRenderer.h"
 
 @implementation MapView
 
@@ -41,6 +42,7 @@
 		return;
 	
 	renderer = [[QuartzRenderer alloc] initWithView:self];
+//	renderer = [[CoreAnimationRenderer alloc] initWithView:self];
 }
 
 /*
