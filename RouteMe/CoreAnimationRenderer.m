@@ -9,7 +9,7 @@
 #import "CoreAnimationRenderer.h"
 #import "MapView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "LayeredTileImageSet.h"
+#import "LayeredTileLoader.h"
 #import "MathUtils.h"
 
 @implementation CoreAnimationRenderer
@@ -22,21 +22,17 @@
 	//	tileLayer.position = CGPointMake(0.0f,0.0f);
 	//	tileLayer.transform = CATransform3DIdentity;
 	//	tileLayer.bounds = [view bounds];
-	
+
+	imageSet = [[LayeredTileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
+	/*
 	layer = [CAScrollLayer layer];
 	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
 	layer.frame = [view bounds];
+	*/
 	
-	CALayer *sublayer = [CALayer layer];
-	sublayer.frame = CGRectMake(100, 100, 256, 256);
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
-	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
-	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
-	sublayer.contents = (id)image;
-
-	[layer addSublayer:sublayer];
+//	[layer addSublayer:sublayer];
 	
-	[view.layer addSublayer:layer]; 
+	[view.layer addSublayer:[imageSet layer]]; 
 	
 	return self;
 }
@@ -81,32 +77,14 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
-		
-	layer.position = TranslateCGPointBy(layer.position, delta);
+	[imageSet moveBy:delta];
 	[super moveBy:delta];
-
-	[CATransaction commit];
-	
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
-	
-	CATransform3D transform = layer.transform;
-	transform = CATransform3DTranslate(transform, center.x, center.y, 0.0f);
-	transform = CATransform3DScale(transform, 1.0f/zoomFactor, 1.0f/zoomFactor, 1.0f);
-	transform = CATransform3DTranslate(transform, -center.x, -center.y, 0.0f);
-	layer.transform = transform;
-	
+	[imageSet zoomByFactor:zoomFactor Near:center];
 	[super zoomByFactor:zoomFactor Near:center];
-
-	[CATransaction commit];
 }
 
 

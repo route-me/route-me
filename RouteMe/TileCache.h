@@ -11,19 +11,28 @@
 #import "TileSource.h"
 
 @class TileImage;
-@interface TileCache : NSObject <TileSource>
-{
-	
-	id tileSource;
-}
 
--(id)initWithParentSource: (id)source;
-
-+(uint64_t) rawTileHash: (Tile)tile;
-+(NSNumber*) tileHash: (Tile)tile;
+@protocol TileCache<NSObject>
 
 // Returns the cached image if it exists. nil otherwise.
 -(TileImage*) cachedImage:(Tile)tile;
+
+@optional
+
+-(void)addTile: (Tile)tile WithImage: (TileImage*)image;
+
+@end
+
+
+@interface TileCache : NSObject<TileCache>
+{
+	NSMutableArray *caches;
+}
+
++(TileCache*)sharedCache;
+
++(NSNumber*) tileHash: (Tile)tile;
+
 // Add tile to cache
 -(void)addTile: (Tile)tile WithImage: (TileImage*)image;
 

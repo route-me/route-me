@@ -54,12 +54,12 @@
 
 -(void) dealloc
 {
-	NSLog(@"Image dealloced");
+//	NSLog(@"Image dealloced");
 	[proxy release];
 	
 	if (connection != nil)
 	{
-		NSLog(@"loading cancelled because image dealloced");
+//		NSLog(@"loading cancelled because image dealloced");
 		[self cancelLoading];
 	}
 	[super dealloc];
@@ -78,6 +78,8 @@
 
 	[data release];
 	data = nil;
+	
+	[super cancelLoading];
 }
 
 - (void)drawInRect:(CGRect)rect

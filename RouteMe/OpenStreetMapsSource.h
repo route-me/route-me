@@ -22,14 +22,14 @@
 	
 	FractalTileProjection *tileProjection;
 	
-	TileCache *cache;
+//	TileCache *cache;
 }
 
 -(TileImage *) tileImage: (Tile)tile;
 
 //-(TileImageSet*) tileImagesForScreen: (ScreenProjection*) screen;
 
-@property (readwrite, retain) TileCache *cache;
+//@property (readwrite, retain) TileCache *cache;
 //@property (readonly) FractalTileProjection *tileProjection;
 
 @end

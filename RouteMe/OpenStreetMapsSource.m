@@ -13,7 +13,7 @@
 #import "TileLoader.h"
 #import "FractalTileProjection.h"
 #import "TiledLayerController.h"
-#import "MemoryCache.h"
+#import "TileCache.h"
 
 @implementation OpenStreetMapsSource
 
@@ -33,16 +33,12 @@
 	bounds.size.height = 20037508.34 * 2;
 	tileProjection = [[FractalTileProjection alloc] initWithBounds:bounds TileSideLength:256 MaxZoom:18];
 	
-	cache = nil;//[[MemoryCache alloc] init];
-//	imageSet = [[TileImageSet alloc] init];
 	return self;
 }
 
 -(void) dealloc
 {
 	[tileProjection release];
-	[cache release];
-//	[imageSet release];
 	[super dealloc];
 }
 
@@ -53,7 +49,7 @@
 
 -(TileImage *) tileImage: (Tile)tile
 {
-	TileImage *cachedImage = [cache cachedImage:tile];
+	TileImage *cachedImage = [[TileCache sharedCache] cachedImage:tile];
 	if (cachedImage != nil)
 	{
 		return cachedImage;
@@ -61,7 +57,7 @@
 	else
 	{
 		TileImage* image = [TileImage imageWithTile: tile FromURL:[self tileURL:tile]];
-		[cache addTile:tile WithImage:image];
+//		[cache addTile:tile WithImage:image];
 		return image;
 	}
 }
@@ -72,6 +68,6 @@
 }
 
 
-@synthesize cache;
+//@synthesize cache;
 
 @end

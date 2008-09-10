@@ -36,24 +36,21 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 
 -(id) init
 {
-	if (![super init])
+	if (![self initForScreen:nil FromImageSource:nil])
 		return nil;
 
-	images = [[TileImageSet alloc] initWithDelegate:self];
-	loadedBounds = CGRectMake(0, 0, 0, 0);
-	loadedTiles.origin.tile = TileDummy();
-
-	screenProjection = nil;
-	tileSource = nil;
-	
 	return self;
 }
 
 -(id) initForScreen: (ScreenProjection*)screen FromImageSource: (id<TileSource>)source
 {
-	if (![self init])
+	if (![super init])
 		return nil;
 	
+	images = [[TileImageSet alloc] initWithDelegate:self];
+	loadedBounds = CGRectMake(0, 0, 0, 0);
+	loadedTiles.origin.tile = TileDummy();
+		
 	screenProjection = [screen retain];
 	tileSource = [source retain];
 	
@@ -93,7 +90,6 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 {
 //	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageRemovedFromScreenNotification object:[NSValue valueWithBytes:&tile objCType:@encode(Tile)]];	
 }
-
 
 -(void) assemble
 {

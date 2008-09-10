@@ -24,20 +24,27 @@ extern NSString * const MapImageLoadingCancelledNotification;
 	CGRect screenLocation;
 	
 	int loadingPriorityCount;
+	
+	NSDate *lastUsedTime;
+	
+	// Only used when appropriate
+	CALayer *layer;
 }
 
 - (id) initWithTile: (Tile)tile;
 
 + (TileImage*) dummyTile: (Tile)tile;
 
-- (id) increaseLoadingPriority;
-- (id) decreaseLoadingPriority;
+//- (id) increaseLoadingPriority;
+//- (id) decreaseLoadingPriority;
 
 + (TileImage*)imageWithTile: (Tile) tile FromURL: (NSString*)url;
 + (TileImage*)imageWithTile: (Tile) tile FromFile: (NSString*)filename;
 
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;
+
+- (void)makeLayer;
 
 -(void) cancelLoading;
 

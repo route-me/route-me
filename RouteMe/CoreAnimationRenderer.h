@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MapRenderer.h"
 
-@class LayeredTileImageSet;
+@class LayeredTileLoader;
 
 @interface CoreAnimationRenderer : MapRenderer {
-	CALayer *layer;
-//	LayeredTileImageSet *imageSet;
+//	CALayer *layer;
+	LayeredTileLoader *imageSet;
 }
 
 @end

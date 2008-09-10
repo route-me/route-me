@@ -20,9 +20,9 @@
 	
 -(TileImage *) tileImage: (Tile) tile;
 -(FractalTileProjection*) tileProjection;
-
-@optional
-
--(void) setCache: (TileCache*)cache;
+//
+//@optional
+//
+//-(void) setCache: (TileCache*)cache;
 
 @end

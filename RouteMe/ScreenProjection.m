@@ -11,6 +11,8 @@
 
 @implementation ScreenProjection
 
+@synthesize scale, topLeft;
+
 -(id) initWithBounds: (CGRect) _bounds
 {
 	if (![super init])
@@ -45,7 +47,7 @@
 //	NSLog(@"zoomBy: %f", zoomFactor);
 	topLeft.x += center.x * scale;
 	topLeft.y += (bounds.size.height - center.y) * scale;
-	scale *= zoomFactor;
+	scale /= zoomFactor;
 	topLeft.x -= center.x * scale;
 	topLeft.y -= (bounds.size.height - center.y) * scale;
 }
@@ -103,5 +105,4 @@
 	return rect;
 }
 
-@synthesize scale;
 @end

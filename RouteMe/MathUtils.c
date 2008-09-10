@@ -11,7 +11,6 @@
 
 CGRect ScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint point)
 {
-	factor = 1.0f / factor;
 	rect.origin.x = (rect.origin.x - point.x) * factor + point.x;
 	rect.origin.y = (rect.origin.y - point.y) * factor + point.y;
 	rect.size.width *= factor;

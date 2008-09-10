@@ -8,7 +8,9 @@
 
 #import "TileImage.h"
 #import "WebTileImage.h"
+#import "TileLoader.h"
 #import "FileTileImage.h"
+#import "TileCache.h"
 
 NSString * const MapImageLoadedNotification = @"MapImageLoaded";
 NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancelled";
@@ -24,8 +26,10 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	
 	tile = _tile;
 	image = nil;
+	layer = nil;
 	loadingPriorityCount = 0;
 	
+	lastUsedTime = [NSDate date];
 	return self;	
 }
 
@@ -44,6 +48,9 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(tileRemovedFromScreen:)
 												 name:MapImageRemovedFromScreenNotification object:self];
+	
+	// Should this be done as a notification?
+	[[TileCache sharedCache] addTile:tile WithImage:self];
 	
 	return self;
 }
@@ -71,7 +78,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	[image release];
 	[super dealloc];
 }
-
+/*
 - (id) increaseLoadingPriority
 {
 	loadingPriorityCount++;
@@ -83,7 +90,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	if (loadingPriorityCount == 0)
 		[self cancelLoading];
 	return self;
-}
+}*/
 
 - (void)drawInRect:(CGRect)rect
 {
@@ -93,7 +100,12 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 
 -(void)draw
 {
-	[self drawInRect:screenLocation];	
+	[self drawInRect:screenLocation];
+}
+
+- (void)makeLayer
+{
+	layer = [CALayer layer];
 }
 
 + (TileImage*)imageWithTile: (Tile) _tile FromURL: (NSString*)url
@@ -124,7 +136,10 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	
 	image = [[UIImage imageWithCGImage:cgImage] retain];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadedNotification object:self];
+	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
+	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadedNotification
+														object:self
+													  userInfo:d];
 }
 
 - (NSUInteger)hash

@@ -8,29 +8,45 @@
 
 #import "TileCache.h"
 
+#import "MemoryCache.h"
+#import "DiskCache.h"
+
+static TileCache *cache = nil;
+
 @implementation TileCache
 
--(id)initWithParentSource: (id)source
+-(id)init
 {
 	if (![super init])
 		return nil;
 	
-	if ([[self class] isEqual:[TileCache class]])
-	{
-		[NSException raise:@"Abstract Class Exception" format:@"Error, attempting to instantiate TileCache directly."];
-		[self release];
-		return nil; 
-	}
+	MemoryCache *memoryCache = [[MemoryCache alloc] init];
+	DiskCache *diskCache = [[DiskCache alloc] init];
 	
-	tileSource = [source retain];
+	caches = [[NSMutableArray alloc] init];
+
+	[caches addObject:memoryCache];
+	[caches addObject:diskCache];
+	
+	[memoryCache release];
+	[diskCache release];
 	
 	return self;
 }
 
 -(void) dealloc
 {
-	[tileSource release];
+	[caches release];
 	[super dealloc];
+}
+
++(TileCache*)sharedCache
+{
+	if (cache == nil)
+	{
+		cache = [[TileCache alloc] init];
+	}
+	return cache;
 }
 
 +(NSNumber*) tileHash: (Tile)tile
@@ -41,15 +57,25 @@
 // Returns the cached image if it exists. nil otherwise.
 -(TileImage*) cachedImage:(Tile)tile
 {
+	for (id<TileCache> cache in caches)
+	{
+		TileImage *image = [cache cachedImage:tile];
+		if (image != nil)
+			return image;
+	}
+	
 	return nil;
 }
 
-// Add tile to cache
--(void)addTile: (Tile)tile WithImage: (TileImage*)image { }
-
--(FractalTileProjection*) tileProjection
+-(void)addTile: (Tile)tile WithImage: (TileImage*)image
 {
-	return [tileSource tileProjection];
+	for (id<TileCache> cache in caches)
+	{	
+		if ([cache respondsToSelector:@selector(addTile:WithImage:)])
+		{
+			[cache addTile:tile WithImage:image];
+		}
+	}
 }
 
 @end

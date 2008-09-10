@@ -28,7 +28,7 @@
 		return;
 	
 	tileSource = [[OpenStreetMapsSource alloc] init];
-	tileSource = [[MemoryCache alloc] initWithParentSource:tileSource Capacity:20];
+//	tileSource = [[MemoryCache alloc] initWithParentSource:tileSource Capacity:20];
 }
 
 -(void) makeRenderer
@@ -141,25 +141,61 @@
 //	[self setNeedsDisplay];
 }*/
 
+/*
+- (NSSet*) touchesOnScreenIn: (UIEvent *)event
+{
+	NSSet *allTouches = [event allTouches];
+	
+	NSMutableSet *interestingTouches = [[[NSMutableSet alloc] init] autorelease];
+
+	for (UITouch *touch in allTouches)
+	{
+		if ([touch phase] == UITouchPhaseBegan
+			|| [touch phase] == UITouchPhaseMoved
+			|| [touch phase] == UITouchPhaseStationary)
+		{
+			[interestingTouches addObject:touch];
+		}
+	}
+	
+	return interestingTouches;
+}*/
+
 - (GestureDetails) getGestureDetails: (NSSet*) touches
 {
 	GestureDetails gesture;
 	gesture.center.x = gesture.center.y = 0;
 	gesture.averageDistanceFromCenter = 0;
 	
+	int interestingTouches = 0;
+	
 	for (UITouch *touch in touches)
 	{
+		if ([touch phase] != UITouchPhaseBegan
+			&& [touch phase] != UITouchPhaseMoved
+			&& [touch phase] != UITouchPhaseStationary)
+			continue;
+//		NSLog(@"phase = %d", [touch phase]);
+		
+		interestingTouches++;
+		
 		CGPoint location = [touch locationInView: self];
 		
 		gesture.center.x += location.x;
 		gesture.center.y += location.y;
 	}
+//	NSLog(@"interestingTouches = %d", interestingTouches);
 	
-	gesture.center.x /= [touches count];
-	gesture.center.y /= [touches count];
+	gesture.center.x /= interestingTouches;
+	gesture.center.y /= interestingTouches;
 	
 	for (UITouch *touch in touches)
 	{
+		if ([touch phase] != UITouchPhaseBegan
+			&& [touch phase] != UITouchPhaseMoved
+			&& [touch phase] != UITouchPhaseStationary)
+			continue;
+
 		CGPoint location = [touch locationInView: self];
 		
 //		NSLog(@"For touch at %.0f, %.0f:", location.x, location.y);
@@ -169,7 +205,8 @@
 		gesture.averageDistanceFromCenter += sqrtf((dx*dx) + (dy*dy));
 	}
 	
-	gesture.averageDistanceFromCenter /= [touches count];
+	gesture.averageDistanceFromCenter /= interestingTouches;
+
 //	NSLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
 	
 	return gesture;
@@ -177,6 +214,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self getGestureDetails:[event allTouches]];
 }
 
@@ -189,6 +227,8 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	lastGesture = [self getGestureDetails:[event allTouches]];
+
+//	NSLog(@"touchesEnded %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -201,13 +241,13 @@
 		delta.width = newGesture.center.x - lastGesture.center.x;
 		delta.height = newGesture.center.y - lastGesture.center.y;
 	
-		if (enableZoom && [[event allTouches] count] > 1)
+		if (enableZoom && newGesture.averageDistanceFromCenter > 0.0f)
 		{
 			// Don't bother sliding the images. We'll need to regenerate the imageset anyway.
 //			[self dragBy: delta TrySlideImages: NO];
 			[renderer moveBy:delta];
 			
-			double zoomFactor = lastGesture.averageDistanceFromCenter / newGesture.averageDistanceFromCenter;
+			double zoomFactor = newGesture.averageDistanceFromCenter / lastGesture.averageDistanceFromCenter;
 //			lastZoomDistance = gesture.averageDistanceFromCenter;
 			
 //			[imageSet setNeedsRedraw];

@@ -11,31 +11,42 @@
 
 @implementation MemoryCache
 
--(id)initWithParentSource: (id)source Capacity: (int) _capacity
+-(id)initWithCapacity: (NSUInteger) _capacity
 {
-	if (![super initWithParentSource: source])
+	if (![super init])
 		return nil;
-	
+
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(imageLoadingCancelled:)
+												 name:MapImageLoadingCancelledNotification
+											   object:nil];
 	
 	return self;
 }
 
--(id)initWithCapacity: (NSUInteger) _capacity
+-(id)init
 {
-	return [self initWithParentSource:nil Capacity:20];
+	return [self initWithCapacity:20];
 }
-
--(id)initWithParentSource: (id)source
-{
-	return [self initWithParentSource: source Capacity: 20];
-}
-
 
 -(void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[cache release];
 	[super dealloc];
+}
+
+-(void) removeTile: (Tile) tile
+{
+//	NSLog(@"tile removed from cache");
+	[cache removeObjectForKey:[TileCache tileHash: tile]];
+}
+
+-(void) imageLoadingCancelled: (NSNotification*)notification
+{
+	[self removeTile: [[notification object] tile]];
 }
 
 -(TileImage*) cachedImage:(Tile)tile
@@ -58,19 +69,6 @@
 //	NSLog(@"cache add %@", key);
 
 	[cache setObject:image forKey:key];
-}
-
--(TileImage *) tileImage: (Tile) tile
-{
-	TileImage *image = [self cachedImage: tile];
-	if (image != nil)
-		return image;
-	else
-	{
-		TileImage *image = [tileSource tileImage:tile];
-		[self addTile:tile WithImage:image];
-		return image;
-	}
 }
 
 @end

@@ -42,6 +42,7 @@
 -(CGRect) screenBounds;
 
 @property (assign, readwrite) float scale;
+@property (readonly) MercatorPoint topLeft;
 
 //@property (assign, readwrite) CGSize viewSize;
 
