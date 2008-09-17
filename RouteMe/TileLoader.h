@@ -47,6 +47,8 @@ extern NSString * const MapImageRemovedFromScreenNotification;
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
+-(void) clearLoadedBounds;
+
 @property (readonly, nonatomic) CGRect loadedBounds;
 @property (readonly, nonatomic) int loadedZoom;
 

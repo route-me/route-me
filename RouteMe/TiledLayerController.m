@@ -18,6 +18,8 @@
 {
 	if (![super init])
 		return nil;
+	
+	@throw [NSException exceptionWithName:@"NotImplementedExcption" reason:@"TiledLayerController is not complete. Use CoreAnimationRenderer instead." userInfo:nil];
 
 	tileSource = _tileSource;
 	[tileSource retain];
@@ -32,7 +34,8 @@
 	layer.tileSize = CGSizeMake(tileProjection.tileSideLength,
 								tileProjection.tileSideLength);
 	
-	layer.bounds = tileProjection.bounds;
+	MercatorRect mercBounds = tileProjection.bounds;
+	layer.bounds = CGRectMake(mercBounds.origin.x, mercBounds.origin.y, mercBounds.size.width, mercBounds.size.height) ;
 	layer.position = CGPointMake(0, 0);
 
 	[self setScale:1];

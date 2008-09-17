@@ -157,7 +157,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	}
 	else
 	{
-		NSLog(@"Replacing image contents with data");
+//		NSLog(@"Replacing image contents with data");
 		layer.contents = (id)cgImage;
 	}
 	

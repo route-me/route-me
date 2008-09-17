@@ -16,6 +16,8 @@
 
 @implementation MapRenderer
 
+@synthesize screenProjection;
+
 // Designated initialiser
 - (id) initWithView: (MapView *)_view ProjectingIn: (ScreenProjection*) _screenProjection
 {
@@ -23,13 +25,7 @@
 		return nil;
 	
 	view = _view;
-	screenProjection = _screenProjection;//[[ScreenProjection alloc] initWithBounds:[view bounds]];
-	
-	CLLocationCoordinate2D here;
-	here.latitude = -33.9464;
-	here.longitude = 151.2381;
-	[screenProjection setScale:[[[view tileSource] tileProjection] calculateScaleFromZoom:16]];
-	[self moveToLatLong:here];
+	screenProjection = [_screenProjection retain];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapImageLoaded:) name:MapImageLoadedNotification object:nil];
 	
@@ -61,10 +57,12 @@
 -(void) moveToMercator: (MercatorPoint) point
 {
 	[screenProjection moveToMercator:point];
+	[self setNeedsDisplay];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point
 {
 	[screenProjection moveToLatLong:point];
+	[self setNeedsDisplay];
 }
 
 - (void)moveBy: (CGSize) delta

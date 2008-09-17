@@ -13,6 +13,8 @@
 
 @protocol TileSource;
 
+////////////////////////////// NOT COMPLETE. DO NOT USE
+
 @interface TiledLayerController : NSObject
 {
 	CATiledLayer *layer;

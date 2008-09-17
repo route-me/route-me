@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Mercator.h"
 //#import "MapRenderer.h"
 //#import "TileSource.h"
 
@@ -30,6 +30,15 @@ typedef struct {
 	
 	GestureDetails lastGesture;
 }
+
+-(void) moveToMercator: (MercatorPoint) point;
+-(void) moveToLatLong: (CLLocationCoordinate2D) point;
+
+- (void)moveBy: (CGSize) delta;
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+
+@property (readwrite) CLLocationCoordinate2D location;
+@property (readwrite) float scale;
 
 @property (assign, readwrite, nonatomic) bool enableDragging;
 @property (assign, readwrite, nonatomic) bool enableZoom;

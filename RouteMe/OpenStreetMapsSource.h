@@ -17,12 +17,8 @@
 @class TileCache;
 
 @interface OpenStreetMapsSource : NSObject <TileSource> {
-
 	NSString *baseURL;
-	
 	FractalTileProjection *tileProjection;
-	
-//	TileCache *cache;
 }
 
 -(TileImage *) tileImage: (Tile)tile;

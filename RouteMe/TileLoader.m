@@ -15,6 +15,8 @@
 #import "FractalTileProjection.h"
 #import "TileImageSet.h"
 
+#import "TileCache.h"
+
 NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScreen";
 
 @implementation TileLoader
@@ -31,7 +33,15 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 
 -(TileImage*) makeTileImageFor:(Tile) tile
 {
-	return [tileSource tileImage:tile];
+	TileImage *cachedImage = [[TileCache sharedCache] cachedImage:tile];
+	if (cachedImage != nil)
+	{
+		return cachedImage;
+	}
+	else
+	{
+		return [tileSource tileImage:tile];
+	}
 }
 
 -(id) init
@@ -48,7 +58,7 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 		return nil;
 	
 	images = [[TileImageSet alloc] initWithDelegate:self];
-	loadedBounds = CGRectMake(0, 0, 0, 0);
+	[self clearLoadedBounds];
 	loadedTiles.origin.tile = TileDummy();
 		
 	screenProjection = [screen retain];
@@ -74,6 +84,10 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 	buffer = temp;
 }*/
 
+-(void) clearLoadedBounds
+{
+	loadedBounds = CGRectMake(0, 0, 0, 0);
+}
 -(BOOL) screenIsLoaded
 {
 //	return CGRectContainsRect(loadedBounds, [screenProjection screenBounds])
@@ -121,7 +135,7 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 	if (tileSource == nil || screenProjection == nil)
 		return;
 	
-	NSLog(@"assemble count = %d", [images count]);
+//	NSLog(@"assemble count = %d", [images count]);
 	
 	FractalTileProjection *tileProjection = [tileSource tileProjection];
 	TileRect newTileRect = [tileProjection project:screenProjection];
@@ -131,7 +145,7 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 	if (!TileIsDummy(loadedTiles.origin.tile))
 		[images removeTiles:loadedTiles];
 
-	NSLog(@"-> count = %d", [images count]);
+//	NSLog(@"-> count = %d", [images count]);
 
 	loadedBounds = newLoadedBounds;
 	loadedZoom = newTileRect.origin.tile.zoom;

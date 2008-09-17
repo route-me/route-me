@@ -29,5 +29,7 @@ typedef struct {
 + (CLLocationCoordinate2D) toLatLong: (MercatorPoint) coordinate;
 + (MercatorPoint) toMercator: (CLLocationCoordinate2D) coordinate;
 
++ (MercatorPoint) clipPoint: (MercatorPoint)point ToBounds: (MercatorRect) bounds;
+//+ (MercatorRect) clipRect: (MercatorRect)rect ToBounds: (MercatorRect) bounds;
 
 @end

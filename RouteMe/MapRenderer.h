@@ -36,4 +36,6 @@
 
 @property (readwrite) double scale;
 
+@property (readonly) ScreenProjection *screenProjection;
+
 @end

@@ -32,7 +32,7 @@
 
 -(id)init
 {
-	return [self initWithCapacity:5];
+	return [self initWithCapacity:16];
 }
 
 -(void) dealloc
@@ -44,7 +44,7 @@
 
 -(void) removeTile: (Tile) tile
 {
-	NSLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);
+//	NSLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);
 	[cache removeObjectForKey:[TileCache tileHash: tile]];
 }
 

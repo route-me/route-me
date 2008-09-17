@@ -199,7 +199,6 @@
 		B8D9B1EE0E6BFA2A00EDA368 /* libproj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D9B0B70E6BEC1900EDA368 /* libproj4.a */; };
 		B8D9B1F10E6BFA4700EDA368 /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D9B1E90E6BFA1C00EDA368 /* libMapView.a */; };
 		B8D9B1F20E6BFA7500EDA368 /* MemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428290E6BEA390080B2F5 /* MemoryCache.m */; };
-		B8D9B1F30E6BFA7500EDA368 /* TiledLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B894283A0E6BEA3A0080B2F5 /* TiledLayerController.m */; };
 		B8D9B1F40E6BFA7500EDA368 /* Mercator.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428360E6BEA3A0080B2F5 /* Mercator.m */; };
 		B8D9B1F50E6BFA7500EDA368 /* DiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B894282B0E6BEA390080B2F5 /* DiskCache.m */; };
 		B8D9B1F60E6BFA7500EDA368 /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428340E6BEA390080B2F5 /* Transform.m */; };
@@ -1203,7 +1202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8D9B1F20E6BFA7500EDA368 /* MemoryCache.m in Sources */,
-				B8D9B1F30E6BFA7500EDA368 /* TiledLayerController.m in Sources */,
 				B8D9B1F40E6BFA7500EDA368 /* Mercator.m in Sources */,
 				B8D9B1F50E6BFA7500EDA368 /* DiskCache.m in Sources */,
 				B8D9B1F60E6BFA7500EDA368 /* Transform.m in Sources */,

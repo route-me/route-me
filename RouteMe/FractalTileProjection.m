@@ -14,7 +14,7 @@
 
 @synthesize maxZoom, tileSideLength, bounds;
 
--(id) initWithBounds: (CGRect)_bounds TileSideLength:(int)_tileSideLength MaxZoom: (int)_maxZoom
+-(id) initWithBounds: (MercatorRect)_bounds TileSideLength:(int)_tileSideLength MaxZoom: (int)_maxZoom
 {
 	if (![super init])
 		return nil;

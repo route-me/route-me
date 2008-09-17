@@ -18,6 +18,8 @@
 #import "QuartzRenderer.h"
 #import "CoreAnimationRenderer.h"
 
+#import "ScreenProjection.h"
+
 @implementation MapView
 
 @synthesize enableDragging, enableZoom, tileSource;
@@ -65,7 +67,8 @@
 
 -(void) configureCaching
 {
-	// Unfortunately, the iPhone doesn't seem to support disk caches using NSURLCache. 
+	// Unfortunately, the iPhone doesn't seem to support disk caches using NSURLCache. This works fine in the
+	// simulator though.
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSLocalDomainMask, YES);
 	if ([paths count] > 0)
@@ -86,6 +89,20 @@
 	
 	[self makeTileSource];
 	[self makeRenderer];
+	
+	CLLocationCoordinate2D here;
+	here.latitude = -33.9464;
+	here.longitude = 151.2381;
+	[self setScale:10];
+	[self setLocation:here];
+	
+//	NSLog(@"set to %f %f", here.latitude, here.longitude);
+//
+//	here = [self location];
+//	NSLog(@"set to %f %f", here.latitude, here.longitude);
+	
+	
+//	[screenProjection setScale:[[[view tileSource] tileProjection] calculateScaleFromZoom:16]];
 	
 //	imageSet = [[TileImageSet alloc] init];
 	
@@ -122,6 +139,48 @@
 	[super dealloc];
 }
 
+-(void) moveToMercator: (MercatorPoint) point
+{
+	[renderer moveToMercator:point];
+}
+-(void) moveToLatLong: (CLLocationCoordinate2D) point
+{
+	[renderer moveToLatLong:point];
+}
+
+- (void)moveBy: (CGSize) delta
+{
+	[renderer moveBy:delta];
+}
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+{
+	[renderer zoomByFactor:zoomFactor Near:center];
+}
+
+- (CLLocationCoordinate2D) location
+{
+	MercatorRect rect = [[renderer screenProjection] mercatorBounds];
+	MercatorPoint center = rect.origin;
+	center.x += rect.size.width / 2;
+	center.y += rect.size.height / 2;
+	return [Mercator toLatLong:center];
+}
+
+- (void) setLocation: (CLLocationCoordinate2D) location
+{
+	[self moveToLatLong:location];
+}
+
+- (float) scale
+{
+	return [[renderer screenProjection] scale];
+}
+
+- (void) setScale: (float) scale
+{
+	[[renderer screenProjection] setScale:scale];
+	[renderer setNeedsDisplay];
+}
 
 - (void)drawRect:(CGRect)rect {
 //	imageSet = [tileSource tileImagesForScreen: screenProjection];
@@ -263,14 +322,8 @@
 			[renderer moveBy:delta];
 		}
 		
-//		[self setNeedsDisplay];
-		
 		lastGesture = newGesture;
 	}
-	
-//	if ([imageSet needsRedraw])
-//		[self recalculateImageSet];
-	
 }
 
 @end

@@ -61,10 +61,12 @@
 
 -(void) moveToMercator: (MercatorPoint) point
 {
+	[tileLoader clearLoadedBounds];
 	[super moveToMercator:point];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point
 {
+	[tileLoader clearLoadedBounds];
 	[super moveToLatLong:point];
 }
 

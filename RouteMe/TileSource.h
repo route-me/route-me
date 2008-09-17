@@ -9,6 +9,7 @@
 //#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Tile.h"
+#import "Mercator.h"
 
 @class TileImage;
 @class FractalTileProjection;
@@ -20,6 +21,9 @@
 	
 -(TileImage *) tileImage: (Tile) tile;
 -(FractalTileProjection*) tileProjection;
+
+-(MercatorRect) bounds;
+
 //
 //@optional
 //

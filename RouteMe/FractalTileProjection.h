@@ -17,7 +17,7 @@
 	int maxZoom;
 	
 	// Mercator bounds of the earth 
-	CGRect bounds;
+	MercatorRect bounds;
 	
 	// Normally 256. This class assumes tiles are square.
 	int tileSideLength;
@@ -31,11 +31,11 @@
 	double scaleFactor;
 }
 
-@property(readonly, nonatomic) CGRect bounds;
+@property(readonly, nonatomic) MercatorRect bounds;
 @property(readonly, nonatomic) int maxZoom;
 @property(readonly, nonatomic) int tileSideLength;
 
--(id) initWithBounds: (CGRect)bounds TileSideLength:(int)tileSideLength MaxZoom: (int) max_zoom;
+-(id) initWithBounds: (MercatorRect)bounds TileSideLength:(int)tileSideLength MaxZoom: (int) max_zoom;
 
 -(TilePoint) project: (MercatorPoint)mercator AtZoom:(float)zoom;
 -(TileRect) projectRect: (MercatorRect)mercatorRect AtZoom:(float)zoom;

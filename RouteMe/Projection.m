@@ -62,15 +62,15 @@
 -(CLLocationCoordinate2D) projectInverse: (CLLocationCoordinate2D)point
 {
 	projUV uv = {
+		point.longitude,
 		point.latitude,
-		point.longitude
 	};
 	
 	projUV result = pj_inv(uv, internalProjection);
 	
 	CLLocationCoordinate2D result_point = {
+		result.v * RAD_TO_DEG,
 		result.u * RAD_TO_DEG,
-		result.v * RAD_TO_DEG
 	};
 	
 	return result_point;

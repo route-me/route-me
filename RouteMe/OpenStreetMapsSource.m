@@ -13,7 +13,6 @@
 #import "TileLoader.h"
 #import "FractalTileProjection.h"
 #import "TiledLayerController.h"
-#import "TileCache.h"
 
 @implementation OpenStreetMapsSource
 
@@ -26,7 +25,7 @@
 	
 	baseURL = @"http://a.tile.openstreetmap.org/";
 	
-	CGRect bounds;
+	MercatorRect bounds;
 	bounds.origin.x = -20037508.34;
 	bounds.origin.y = -20037508.34;
 	bounds.size.width = 20037508.34 * 2;
@@ -49,17 +48,9 @@
 
 -(TileImage *) tileImage: (Tile)tile
 {
-	TileImage *cachedImage = [[TileCache sharedCache] cachedImage:tile];
-	if (cachedImage != nil)
-	{
-		return cachedImage;
-	}
-	else
-	{
-		TileImage* image = [TileImage imageWithTile: tile FromURL:[self tileURL:tile]];
+	TileImage* image = [TileImage imageWithTile: tile FromURL:[self tileURL:tile]];
 //		[cache addTile:tile WithImage:image];
-		return image;
-	}
+	return image;
 }
 
 -(FractalTileProjection*) tileProjection
@@ -67,6 +58,10 @@
 	return [[tileProjection retain] autorelease];
 }
 
+-(MercatorRect) bounds
+{
+	return [tileProjection bounds];
+}
 
 //@synthesize cache;
 
