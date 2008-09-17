@@ -19,7 +19,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 
 @implementation TileImage
 
-@synthesize tile, layer, image;
+@synthesize tile, layer, image, lastUsedTime;
 
 - (id) initBlankTile: (Tile)_tile
 {
@@ -30,8 +30,9 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	image = nil;
 	layer = nil;
 	loadingPriorityCount = 0;
+	lastUsedTime = nil;
+	[self touch];
 	
-	lastUsedTime = [NSDate date];
 	return self;	
 }
 
@@ -44,7 +45,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 	{
 		[NSException raise:@"Abstract Class Exception" format:@"Error, attempting to instantiate TileImage directly."];
 		[self release];
-		return nil; 
+		return nil;
 	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -66,7 +67,7 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 {
 	[NSException raise:@"Invalid initialiser" format:@"Use the designated initialiser for TileImage"];
 	[self release];
-	return nil; 
+	return nil;
 }
 
 + (TileImage*) dummyTile: (Tile)tile
@@ -76,12 +77,16 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 
 - (void)dealloc
 {
+//	NSLog(@"Removing tile image %d %d %d", tile.x, tile.y, tile.zoom);
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 //	if (image)
 //		CGImageRelease(image);
 
 	[image release];
+	[layer release];
+	[lastUsedTime release];
 	
 	[super dealloc];
 }
@@ -141,7 +146,9 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 - (void)setImageToData: (NSData*) data
 {
 //	CGContextRef context = 
-	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(CGDataProviderCreateWithCFData ((CFDataRef)data), NULL, FALSE, kCGRenderingIntentDefault);
+	CGDataProviderRef provider = CGDataProviderCreateWithCFData ((CFDataRef)data);
+	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(provider, NULL, FALSE, kCGRenderingIntentDefault);
+	CGDataProviderRelease(provider);
 //	CGImageRetain(image);
 	
 	if (layer == nil)
@@ -154,6 +161,8 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 		layer.contents = (id)cgImage;
 	}
 	
+	CGImageRelease(cgImage);
+	
 	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadedNotification
 														object:self
@@ -163,6 +172,12 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 - (NSUInteger)hash
 {
 	return (NSUInteger)TileHash(tile);
+}
+
+-(void) touch
+{
+	[lastUsedTime release];
+	lastUsedTime = [NSDate init];
 }
 
 - (BOOL)isEqual:(id)anObject
@@ -218,6 +233,8 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 		layer.position = screenLocation.origin;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 	}
+	
+	[self touch];
 }
 
 @end

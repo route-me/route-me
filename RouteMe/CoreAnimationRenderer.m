@@ -79,7 +79,6 @@
 	
 	[super moveBy:delta];
 	[tileLoader moveBy:delta];
-	[tileLoader assemble];
 
 	[CATransaction commit];
 }
@@ -94,7 +93,6 @@
 					 forKey:kCATransactionDisableActions];
 	[super zoomByFactor:zoomFactor Near:center];
 	[tileLoader zoomByFactor:zoomFactor Near:center];
-	[tileLoader assemble];
 	
 	[CATransaction commit];
 }

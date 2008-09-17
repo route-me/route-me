@@ -18,6 +18,10 @@
 
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
+	if (_capacity < 1)
+		_capacity = 1;
+	capacity = _capacity;
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(imageLoadingCancelled:)
 												 name:MapImageLoadingCancelledNotification
@@ -28,7 +32,7 @@
 
 -(id)init
 {
-	return [self initWithCapacity:20];
+	return [self initWithCapacity:5];
 }
 
 -(void) dealloc
@@ -40,7 +44,7 @@
 
 -(void) removeTile: (Tile) tile
 {
-	NSLog(@"tile removed from cache");
+	NSLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);
 	[cache removeObjectForKey:[TileCache tileHash: tile]];
 }
 
@@ -62,12 +66,43 @@
 	return image;
 }
 
+-(void)makeSpaceInCache
+{
+	while ([cache count] >= capacity)
+	{
+		// Rather than scanning I would really like to be using a priority queue
+		// backed by a heap here.
+		
+		NSEnumerator *enumerator = [cache objectEnumerator];
+		TileImage *image;
+		
+		NSDate *oldestDate = nil;
+		TileImage *oldestImage = nil;
+		
+		while ((image = (TileImage*)[enumerator nextObject]))
+		{
+			if (oldestDate == nil
+				|| ([oldestDate timeIntervalSinceReferenceDate] > [[image lastUsedTime] timeIntervalSinceReferenceDate]))
+			{
+				oldestDate = [image lastUsedTime];
+				oldestImage = image;
+			}
+		}
+		
+		[self removeTile:[oldestImage tile]];
+	}
+}
+
 -(void)addTile: (Tile)tile WithImage: (TileImage*)image
 {
+	if (TileIsDummy(tile))
+		return;
+	
+	//	NSLog(@"cache add %@", key);
+
+	[self makeSpaceInCache];
+	
 	NSNumber *key = [TileCache tileHash: tile];
-
-//	NSLog(@"cache add %@", key);
-
 	[cache setObject:image forKey:key];
 }
 

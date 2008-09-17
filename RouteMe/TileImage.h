@@ -27,6 +27,7 @@ extern NSString * const MapImageLoadingCancelledNotification;
 	
 	int loadingPriorityCount;
 	
+	// Used by cache
 	NSDate *lastUsedTime;
 	
 	// Only used when appropriate
@@ -55,9 +56,12 @@ extern NSString * const MapImageLoadingCancelledNotification;
 
 - (void)setImageToData: (NSData*) data;
 
+-(void) touch;
+
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) Tile tile;
 @property (readonly) CALayer *layer;
 @property (readonly) UIImage *image;
+@property (readonly) NSDate *lastUsedTime;
 
 @end

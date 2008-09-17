@@ -47,14 +47,12 @@
 {
 	[super moveBy:delta];
 	[tileLoader moveBy:delta];
-	[tileLoader assemble];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
 	[super zoomByFactor:zoomFactor Near:center];
 	[tileLoader zoomByFactor:zoomFactor Near:center];
-	[tileLoader assemble];
 }
 
 - (void)tileDidFinishLoading: (TileImage *)image

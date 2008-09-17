@@ -58,11 +58,9 @@
 //	NSLog(@"Image dealloced");
 	[proxy release];
 	
-	if (connection != nil)
-	{
-//		NSLog(@"loading cancelled because image dealloced");
-		[self cancelLoading];
-	}
+//	NSLog(@"loading cancelled because image dealloced");
+	[self cancelLoading];
+	
 	[super dealloc];
 }
 
