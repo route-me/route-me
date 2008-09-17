@@ -11,13 +11,15 @@
 #import "TileLoader.h"
 #import "FileTileImage.h"
 #import "TileCache.h"
+#import "MathUtils.h"
+#import <QuartzCore/QuartzCore.h>
 
 NSString * const MapImageLoadedNotification = @"MapImageLoaded";
 NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancelled";
 
 @implementation TileImage
 
-@synthesize screenLocation, tile;
+@synthesize tile, layer, image;
 
 - (id) initBlankTile: (Tile)_tile
 {
@@ -75,7 +77,12 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+//	if (image)
+//		CGImageRelease(image);
+
 	[image release];
+	
 	[super dealloc];
 }
 /*
@@ -95,17 +102,19 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 - (void)drawInRect:(CGRect)rect
 {
 	[image drawInRect:rect];
-//	[image drawAtPoint:rect.origin];
+/*	if (image != NULL)
+	{
+		CGContextRef context = UIGraphicsGetCurrentContext();
+
+		NSLog(@"image width = %f", CGImageGetWidth(image));
+		//		CGContextClipToRect(context, rect);
+		CGContextDrawImage(context, rect, image);
+	}*/
 }
 
 -(void)draw
 {
 	[self drawInRect:screenLocation];
-}
-
-- (void)makeLayer
-{
-	layer = [CALayer layer];
 }
 
 + (TileImage*)imageWithTile: (Tile) _tile FromURL: (NSString*)url
@@ -133,8 +142,17 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 {
 //	CGContextRef context = 
 	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(CGDataProviderCreateWithCFData ((CFDataRef)data), NULL, FALSE, kCGRenderingIntentDefault);
+//	CGImageRetain(image);
 	
-	image = [[UIImage imageWithCGImage:cgImage] retain];
+	if (layer == nil)
+	{
+		image = [[UIImage imageWithCGImage:cgImage] retain];
+	}
+	else
+	{
+		NSLog(@"Replacing image contents with data");
+		layer.contents = (id)cgImage;
+	}
 	
 	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageLoadedNotification
@@ -153,6 +171,53 @@ NSString * const MapImageLoadingCancelledNotification = @"MapImageLoadingCancell
 		return NO;
 
 	return TilesEqual(tile, [(TileImage*)anObject tile]);
+}
+
+- (void)makeLayer
+{
+	if (layer == nil)
+	{
+		layer = [[CALayer alloc] init];
+		layer.contents = nil;
+		layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
+		layer.position = screenLocation.origin;
+	}
+	
+	if (image != nil)
+	{
+		layer.contents = (id)[image CGImage];
+		[image release];
+		image = nil;
+	}
+}
+
+- (void)moveBy: (CGSize) delta
+{
+	self.screenLocation = TranslateCGRectBy(screenLocation, delta);
+}
+
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+{
+	self.screenLocation = ScaleCGRectAboutPoint(screenLocation, zoomFactor, center);
+}
+
+- (CGRect) screenLocation
+{
+	return screenLocation;
+}
+
+- (void) setScreenLocation: (CGRect)newScreenLocation
+{
+//	NSLog(@"location moving from %f %f to %f %f", screenLocation.origin.x, screenLocation.origin.y, newScreenLocation.origin.x, newScreenLocation.origin.y);
+	screenLocation = newScreenLocation;
+	
+	if (layer != nil)
+	{
+		//		layer.frame = screenLocation;
+		layer.position = screenLocation.origin;
+		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
+	}
 }
 
 @end

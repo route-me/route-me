@@ -22,55 +22,39 @@
 	if (![super initWithView:_view])
 		return nil;
 	
-	imageSet = [[TileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
+	tileLoader = [[TileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
 	
 	return self;
 }
 
+-(void) dealloc
+{
+	[tileLoader release];
+	[super dealloc];
+}
+
 -(void) recalculateImageSet
 {
-//	NSLog(@"recalc");
-//	TileRect tileRect = [[[view tileSource] tileProjection] project:screenProjection];
-//	[imageSet assembleFromRect:tileRect FromImageSource:[view tileSource] ToDisplayIn:[view bounds] WithTileDelegate:self];
+	[tileLoader assemble];
 }
 
 - (void)drawRect:(CGRect)rect
 {
-	[imageSet draw];
-}
-
-- (void)setNeedsDisplay
-{
-	int loadedZoom = [imageSet loadedZoom];
-	float scale = [screenProjection scale];
-	int properZoom = [[[view tileSource] tileProjection] calculateNormalisedZoomFromScale:scale];
-	if (![imageSet containsRect:[view bounds]]
-		|| loadedZoom != properZoom)
-	{
-//		NSLog(@"loadedZoom = %d properZoom = %d", loadedZoom, properZoom);
-		
-//		CGRect bounds = [view bounds];
-//		NSLog(@"view bounds: %f x %f  %f x %f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-		
-//		CGRect loadedBounds = [imageSet loadedBounds];
-//		NSLog(@"loadedBounds: %f x %f  %f x %f", loadedBounds.origin.x, loadedBounds.origin.y, loadedBounds.size.width, loadedBounds.size.height);
-		
-		[self recalculateImageSet];
-	}
-	
-	[super setNeedsDisplay];	
+	[tileLoader draw];
 }
 
 - (void)moveBy: (CGSize) delta
 {
-	[imageSet moveBy:delta];
 	[super moveBy:delta];
+	[tileLoader moveBy:delta];
+	[tileLoader assemble];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	[imageSet zoomByFactor:zoomFactor Near:center];
 	[super zoomByFactor:zoomFactor Near:center];
+	[tileLoader zoomByFactor:zoomFactor Near:center];
+	[tileLoader assemble];
 }
 
 - (void)tileDidFinishLoading: (TileImage *)image

@@ -18,23 +18,14 @@
 {
 	if (![super init])
 		return nil;
-/*	viewSize = size;
-	topLeft.x = 0;
-	topLeft.y = 0;
-*/
+
 	tileSource = _tileSource;
 	[tileSource retain];
 	FractalTileProjection *tileProjection = [tileSource tileProjection];
 	
 	layer = [CATiledLayer layer];
 	layer.delegate = self;
-/*
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
-	[CATransaction setValue:(id)kCFBooleanTrue
-					 forKey:kCATransactionDisableActions];
-*/	
+
 	layer.levelsOfDetail = tileProjection.maxZoom + 1; // check this.
 	layer.levelsOfDetailBias = 1; // Allows zoom level 0.
 	
@@ -45,10 +36,6 @@
 	layer.position = CGPointMake(0, 0);
 
 	[self setScale:1];
-//	tiledLayer.transform = CATransform3DIdentity;
-	
-//	[CATransaction commit];
-	
 	[layer setNeedsDisplay];
 	
 	return self;

@@ -8,6 +8,7 @@
 
 #import "WebTileImage.h"
 #import "TileProxy.h"
+#import <QuartzCore/CALayer.h>
 
 @implementation WebTileImage
 
@@ -82,6 +83,17 @@
 	[super cancelLoading];
 }
 
+- (void)makeLayer
+{
+	[super makeLayer];
+	
+	if (image == nil
+		&& layer != nil
+		&& layer.contents == nil)
+	{
+		layer.contents = (id)[[proxy image] CGImage];
+	}
+}
 - (void)drawInRect:(CGRect)rect
 {
 	if (image)

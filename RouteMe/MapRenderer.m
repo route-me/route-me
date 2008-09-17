@@ -16,13 +16,14 @@
 
 @implementation MapRenderer
 
-- (id) initWithView: (MapView *)_view
+// Designated initialiser
+- (id) initWithView: (MapView *)_view ProjectingIn: (ScreenProjection*) _screenProjection
 {
 	if (![super init])
 		return nil;
 	
 	view = _view;
-	screenProjection = [[ScreenProjection alloc] initWithBounds:[view bounds]];
+	screenProjection = _screenProjection;//[[ScreenProjection alloc] initWithBounds:[view bounds]];
 	
 	CLLocationCoordinate2D here;
 	here.latitude = -33.9464;
@@ -34,6 +35,13 @@
 	
 	return self;
 }
+
+- (id) initWithView: (MapView *)_view
+{
+	ScreenProjection *_screenProjection = [[ScreenProjection alloc] initWithBounds:[_view bounds]];
+	return [self initWithView:_view ProjectingIn:_screenProjection];
+}
+
 
 -(void) dealloc
 {
@@ -62,17 +70,22 @@
 - (void)moveBy: (CGSize) delta
 {
 	[screenProjection moveBy:delta];
-	[self setNeedsDisplay];
+	[view setNeedsDisplay];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
 	[screenProjection zoomByFactor:zoomFactor Near:center];
-	[self setNeedsDisplay];
+	[view setNeedsDisplay];
+}
+
+-(void) recalculateImageSet
+{
 }
 
 - (void)setNeedsDisplay
 {
+	[self recalculateImageSet];
 	[view setNeedsDisplay];
 }
 

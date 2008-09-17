@@ -42,6 +42,7 @@ extern NSString * const MapImageRemovedFromScreenNotification;
 //-(void) setNeedsRedraw;
 
 //-(BOOL) needsRedraw;
+-(void) assemble;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;

@@ -14,8 +14,7 @@
 @class TileLoader;
 
 @interface QuartzRenderer : MapRenderer {	
-	// This is basically a one-object allocation pool.
-	TileLoader *imageSet;
+	TileLoader *tileLoader;
 }
 
 @end

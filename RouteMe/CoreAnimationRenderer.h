@@ -13,7 +13,7 @@
 
 @interface CoreAnimationRenderer : MapRenderer {
 //	CALayer *layer;
-	LayeredTileLoader *imageSet;
+	LayeredTileLoader *tileLoader;
 }
 
 @end

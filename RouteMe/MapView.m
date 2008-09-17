@@ -28,7 +28,6 @@
 		return;
 	
 	tileSource = [[OpenStreetMapsSource alloc] init];
-//	tileSource = [[MemoryCache alloc] initWithParentSource:tileSource Capacity:20];
 }
 
 -(void) makeRenderer
@@ -41,8 +40,8 @@
 	if (renderer != nil)
 		return;
 	
-	renderer = [[QuartzRenderer alloc] initWithView:self];
-//	renderer = [[CoreAnimationRenderer alloc] initWithView:self];
+//	renderer = [[QuartzRenderer alloc] initWithView:self];
+	renderer = [[CoreAnimationRenderer alloc] initWithView:self];
 }
 
 /*
@@ -123,23 +122,18 @@
 	[super dealloc];
 }
 
-- (void)drawRect:(CGRect)rect
-{
-	[renderer drawRect: rect];
-}
 
-/*
 - (void)drawRect:(CGRect)rect {
 //	imageSet = [tileSource tileImagesForScreen: screenProjection];
-	if ([imageSet needsRedraw])
+//	if ([imageSet needsRedraw])
 	{
 //		[self recalculateImageSet];
-		NSLog(@"WARNING - Image set needs redraw and we're in drawRect.");
+//		NSLog(@"WARNING - Image set needs redraw and we're in drawRect.");
 	}
-	[imageSet draw];
+	[renderer drawRect:rect];
 	
 //	[self setNeedsDisplay];
-}*/
+}
 
 /*
 - (NSSet*) touchesOnScreenIn: (UIEvent *)event
@@ -228,6 +222,16 @@
 {
 	lastGesture = [self getGestureDetails:[event allTouches]];
 
+	for (UITouch *touch in touches)
+	{
+		if ([touch phase] == UITouchPhaseBegan
+			|| [touch phase] == UITouchPhaseMoved
+			|| [touch phase] == UITouchPhaseStationary)
+			return;
+	}
+	
+	NSLog(@"Assemble.");
+	[renderer recalculateImageSet];
 //	NSLog(@"touchesEnded %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
 }
 
@@ -266,6 +270,7 @@
 	
 //	if ([imageSet needsRedraw])
 //		[self recalculateImageSet];
+	
 }
 
 @end

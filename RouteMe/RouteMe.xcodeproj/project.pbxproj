@@ -12,7 +12,7 @@
 		B87626D00E752A010024B9C5 /* MapRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626CE0E752A010024B9C5 /* MapRenderer.h */; };
 		B87626D70E752E6E0024B9C5 /* QuartzRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626D50E752E6E0024B9C5 /* QuartzRenderer.h */; };
 		B87626D80E752E6E0024B9C5 /* QuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B87626D60E752E6E0024B9C5 /* QuartzRenderer.m */; };
-		B87626E90E7562620024B9C5 /* TileImageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428260E6BEA390080B2F5 /* TileImageSet.m */; };
+		B87626E90E7562620024B9C5 /* TileLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428260E6BEA390080B2F5 /* TileLoader.m */; };
 		B87626F10E75654C0024B9C5 /* MathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B87626EF0E75654C0024B9C5 /* MathUtils.h */; };
 		B87626F20E75654C0024B9C5 /* MathUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = B87626F00E75654C0024B9C5 /* MathUtils.c */; };
 		B894284D0E6BEAB20080B2F5 /* ImagesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B894284B0E6BEAB20080B2F5 /* ImagesAppDelegate.m */; };
@@ -35,6 +35,13 @@
 		B8A5C87A0E757FC8005509DE /* MapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C8790E757FC8005509DE /* MapRenderer.m */; };
 		B8A5C8860E758250005509DE /* CoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */; };
 		B8A5C8870E758250005509DE /* CoreAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */; };
+		B8A5C9220E75A107005509DE /* LayeredTileLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A5C9200E75A107005509DE /* LayeredTileLoader.h */; };
+		B8A5C9230E75A107005509DE /* LayeredTileLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C9210E75A107005509DE /* LayeredTileLoader.m */; };
+		B8A5C9BF0E763371005509DE /* Tile.c in Sources */ = {isa = PBXBuildFile; fileRef = B8A5C9BE0E763371005509DE /* Tile.c */; };
+		B8A5CB170E764C84005509DE /* TileImageSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A5CB150E764C84005509DE /* TileImageSet.h */; };
+		B8A5CB180E764C84005509DE /* TileImageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A5CB160E764C84005509DE /* TileImageSet.m */; };
+		B8C6B1290E78C79200C12A12 /* LayerToScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C6B1270E78C79200C12A12 /* LayerToScreenProjection.h */; };
+		B8C6B12A0E78C79200C12A12 /* LayerToScreenProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C6B1280E78C79200C12A12 /* LayerToScreenProjection.m */; };
 		B8D9B0640E6BEBCC00EDA368 /* FlipsideView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428440E6BEA3A0080B2F5 /* FlipsideView.m */; };
 		B8D9B0BD0E6BECD400EDA368 /* pj_tsfn.c in Sources */ = {isa = PBXBuildFile; fileRef = B89428140E6BEA390080B2F5 /* pj_tsfn.c */; };
 		B8D9B0BE0E6BECD400EDA368 /* PJ_tmerc.c in Sources */ = {isa = PBXBuildFile; fileRef = B89427AC0E6BEA390080B2F5 /* PJ_tmerc.c */; };
@@ -194,7 +201,7 @@
 		B8D9B1F20E6BFA7500EDA368 /* MemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428290E6BEA390080B2F5 /* MemoryCache.m */; };
 		B8D9B1F30E6BFA7500EDA368 /* TiledLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B894283A0E6BEA3A0080B2F5 /* TiledLayerController.m */; };
 		B8D9B1F40E6BFA7500EDA368 /* Mercator.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428360E6BEA3A0080B2F5 /* Mercator.m */; };
-		B8D9B1F50E6BFA7500EDA368 /* FileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B894282B0E6BEA390080B2F5 /* FileCache.m */; };
+		B8D9B1F50E6BFA7500EDA368 /* DiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B894282B0E6BEA390080B2F5 /* DiskCache.m */; };
 		B8D9B1F60E6BFA7500EDA368 /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428340E6BEA390080B2F5 /* Transform.m */; };
 		B8D9B1F70E6BFA7500EDA368 /* TileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B89428240E6BEA390080B2F5 /* TileImage.m */; };
 		B8D9B1F80E6BFA7500EDA368 /* WebTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B894282F0E6BEA390080B2F5 /* WebTileImage.m */; };
@@ -207,7 +214,7 @@
 		B8D9B2000E6BFA7F00EDA368 /* FractalTileProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B89428370E6BEA3A0080B2F5 /* FractalTileProjection.h */; };
 		B8D9B2010E6BFA7F00EDA368 /* TiledLayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = B89428390E6BEA3A0080B2F5 /* TiledLayerController.h */; };
 		B8D9B2020E6BFA7F00EDA368 /* TileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = B89428230E6BEA390080B2F5 /* TileImage.h */; };
-		B8D9B2030E6BFA7F00EDA368 /* FileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B894282A0E6BEA390080B2F5 /* FileCache.h */; };
+		B8D9B2030E6BFA7F00EDA368 /* DiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B894282A0E6BEA390080B2F5 /* DiskCache.h */; };
 		B8D9B2040E6BFA7F00EDA368 /* TileProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = B894282C0E6BEA390080B2F5 /* TileProxy.h */; };
 		B8D9B2060E6BFA7F00EDA368 /* MemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B89428280E6BEA390080B2F5 /* MemoryCache.h */; };
 		B8D9B2070E6BFA7F00EDA368 /* Tile.h in Headers */ = {isa = PBXBuildFile; fileRef = B89428220E6BEA390080B2F5 /* Tile.h */; };
@@ -410,13 +417,13 @@
 		B89428220E6BEA390080B2F5 /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		B89428230E6BEA390080B2F5 /* TileImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileImage.h; sourceTree = "<group>"; };
 		B89428240E6BEA390080B2F5 /* TileImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TileImage.m; sourceTree = "<group>"; };
-		B89428250E6BEA390080B2F5 /* TileImageSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileImageSet.h; sourceTree = "<group>"; };
-		B89428260E6BEA390080B2F5 /* TileImageSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TileImageSet.m; sourceTree = "<group>"; };
+		B89428250E6BEA390080B2F5 /* TileLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileLoader.h; sourceTree = "<group>"; };
+		B89428260E6BEA390080B2F5 /* TileLoader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TileLoader.m; sourceTree = "<group>"; };
 		B89428270E6BEA390080B2F5 /* TileCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileCache.h; sourceTree = "<group>"; };
 		B89428280E6BEA390080B2F5 /* MemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemoryCache.h; sourceTree = "<group>"; };
 		B89428290E6BEA390080B2F5 /* MemoryCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MemoryCache.m; sourceTree = "<group>"; };
-		B894282A0E6BEA390080B2F5 /* FileCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileCache.h; sourceTree = "<group>"; };
-		B894282B0E6BEA390080B2F5 /* FileCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FileCache.m; sourceTree = "<group>"; };
+		B894282A0E6BEA390080B2F5 /* DiskCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiskCache.h; sourceTree = "<group>"; };
+		B894282B0E6BEA390080B2F5 /* DiskCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DiskCache.m; sourceTree = "<group>"; };
 		B894282C0E6BEA390080B2F5 /* TileProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileProxy.h; sourceTree = "<group>"; };
 		B894282D0E6BEA390080B2F5 /* TileProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TileProxy.m; sourceTree = "<group>"; };
 		B894282E0E6BEA390080B2F5 /* WebTileImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebTileImage.h; sourceTree = "<group>"; };
@@ -461,6 +468,13 @@
 		B8A5C8790E757FC8005509DE /* MapRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapRenderer.m; sourceTree = "<group>"; };
 		B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreAnimationRenderer.h; sourceTree = "<group>"; };
 		B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationRenderer.m; sourceTree = "<group>"; };
+		B8A5C9200E75A107005509DE /* LayeredTileLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayeredTileLoader.h; sourceTree = "<group>"; };
+		B8A5C9210E75A107005509DE /* LayeredTileLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayeredTileLoader.m; sourceTree = "<group>"; };
+		B8A5C9BE0E763371005509DE /* Tile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Tile.c; sourceTree = "<group>"; };
+		B8A5CB150E764C84005509DE /* TileImageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileImageSet.h; sourceTree = "<group>"; };
+		B8A5CB160E764C84005509DE /* TileImageSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileImageSet.m; sourceTree = "<group>"; };
+		B8C6B1270E78C79200C12A12 /* LayerToScreenProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerToScreenProjection.h; sourceTree = "<group>"; };
+		B8C6B1280E78C79200C12A12 /* LayerToScreenProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerToScreenProjection.m; sourceTree = "<group>"; };
 		B8D9B0B70E6BEC1900EDA368 /* libproj4.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libproj4.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D9B17D0E6BF0D600EDA368 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		B8D9B17E0E6BF0DD00EDA368 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -539,6 +553,8 @@
 				B87626D30E752B640024B9C5 /* Quartz Renderer */,
 				B8A5C8780E757E95005509DE /* Core Animation Renderer */,
 				B87626D20E752B280024B9C5 /* Tiled Layer Renderer */,
+				B89428250E6BEA390080B2F5 /* TileLoader.h */,
+				B89428260E6BEA390080B2F5 /* TileLoader.m */,
 				B87626C80E7529BE0024B9C5 /* ScreenProjection.h */,
 				B87626C90E7529BE0024B9C5 /* ScreenProjection.m */,
 				B87626CE0E752A010024B9C5 /* MapRenderer.h */,
@@ -559,8 +575,6 @@
 		B87626D30E752B640024B9C5 /* Quartz Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				B89428250E6BEA390080B2F5 /* TileImageSet.h */,
-				B89428260E6BEA390080B2F5 /* TileImageSet.m */,
 				B87626D50E752E6E0024B9C5 /* QuartzRenderer.h */,
 				B87626D60E752E6E0024B9C5 /* QuartzRenderer.m */,
 			);
@@ -574,8 +588,8 @@
 				B8A51E900E6D7192006AA8E2 /* TileCache.m */,
 				B89428280E6BEA390080B2F5 /* MemoryCache.h */,
 				B89428290E6BEA390080B2F5 /* MemoryCache.m */,
-				B894282A0E6BEA390080B2F5 /* FileCache.h */,
-				B894282B0E6BEA390080B2F5 /* FileCache.m */,
+				B894282A0E6BEA390080B2F5 /* DiskCache.h */,
+				B894282B0E6BEA390080B2F5 /* DiskCache.m */,
 			);
 			name = Cache;
 			sourceTree = "<group>";
@@ -755,8 +769,8 @@
 				B87626CC0E7529CF0024B9C5 /* Renderers */,
 				B894283B0E6BEA3A0080B2F5 /* MapView.h */,
 				B894283C0E6BEA3A0080B2F5 /* MapView.m */,
-				B89428300E6BEA390080B2F5 /* Projections */,
 				B89428210E6BEA390080B2F5 /* Tile Management */,
+				B89428300E6BEA390080B2F5 /* Projections */,
 				B894281D0E6BEA390080B2F5 /* Tile Source */,
 			);
 			name = "Map View";
@@ -777,6 +791,7 @@
 			children = (
 				B87626D40E752DF30024B9C5 /* Cache */,
 				B89428220E6BEA390080B2F5 /* Tile.h */,
+				B8A5C9BE0E763371005509DE /* Tile.c */,
 				B89428230E6BEA390080B2F5 /* TileImage.h */,
 				B89428240E6BEA390080B2F5 /* TileImage.m */,
 				B894282C0E6BEA390080B2F5 /* TileProxy.h */,
@@ -785,6 +800,8 @@
 				B894282F0E6BEA390080B2F5 /* WebTileImage.m */,
 				B8D9B27B0E6D460500EDA368 /* FileTileImage.h */,
 				B8D9B27C0E6D460500EDA368 /* FileTileImage.m */,
+				B8A5CB150E764C84005509DE /* TileImageSet.h */,
+				B8A5CB160E764C84005509DE /* TileImageSet.m */,
 			);
 			name = "Tile Management";
 			sourceTree = "<group>";
@@ -868,6 +885,10 @@
 			children = (
 				B8A5C8840E758250005509DE /* CoreAnimationRenderer.h */,
 				B8A5C8850E758250005509DE /* CoreAnimationRenderer.m */,
+				B8A5C9200E75A107005509DE /* LayeredTileLoader.h */,
+				B8A5C9210E75A107005509DE /* LayeredTileLoader.m */,
+				B8C6B1270E78C79200C12A12 /* LayerToScreenProjection.h */,
+				B8C6B1280E78C79200C12A12 /* LayerToScreenProjection.m */,
 			);
 			name = "Core Animation Renderer";
 			sourceTree = "<group>";
@@ -899,7 +920,7 @@
 				B8D9B2000E6BFA7F00EDA368 /* FractalTileProjection.h in Headers */,
 				B8D9B2010E6BFA7F00EDA368 /* TiledLayerController.h in Headers */,
 				B8D9B2020E6BFA7F00EDA368 /* TileImage.h in Headers */,
-				B8D9B2030E6BFA7F00EDA368 /* FileCache.h in Headers */,
+				B8D9B2030E6BFA7F00EDA368 /* DiskCache.h in Headers */,
 				B8D9B2040E6BFA7F00EDA368 /* TileProxy.h in Headers */,
 				B8D9B2060E6BFA7F00EDA368 /* MemoryCache.h in Headers */,
 				B8D9B2070E6BFA7F00EDA368 /* Tile.h in Headers */,
@@ -916,6 +937,9 @@
 				B87626D70E752E6E0024B9C5 /* QuartzRenderer.h in Headers */,
 				B87626F10E75654C0024B9C5 /* MathUtils.h in Headers */,
 				B8A5C8860E758250005509DE /* CoreAnimationRenderer.h in Headers */,
+				B8A5C9220E75A107005509DE /* LayeredTileLoader.h in Headers */,
+				B8A5CB170E764C84005509DE /* TileImageSet.h in Headers */,
+				B8C6B1290E78C79200C12A12 /* LayerToScreenProjection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,7 +1205,7 @@
 				B8D9B1F20E6BFA7500EDA368 /* MemoryCache.m in Sources */,
 				B8D9B1F30E6BFA7500EDA368 /* TiledLayerController.m in Sources */,
 				B8D9B1F40E6BFA7500EDA368 /* Mercator.m in Sources */,
-				B8D9B1F50E6BFA7500EDA368 /* FileCache.m in Sources */,
+				B8D9B1F50E6BFA7500EDA368 /* DiskCache.m in Sources */,
 				B8D9B1F60E6BFA7500EDA368 /* Transform.m in Sources */,
 				B8D9B1F70E6BFA7500EDA368 /* TileImage.m in Sources */,
 				B8D9B1F80E6BFA7500EDA368 /* WebTileImage.m in Sources */,
@@ -1194,10 +1218,14 @@
 				B8A51E910E6D7192006AA8E2 /* TileCache.m in Sources */,
 				B87626CB0E7529BE0024B9C5 /* ScreenProjection.m in Sources */,
 				B87626D80E752E6E0024B9C5 /* QuartzRenderer.m in Sources */,
-				B87626E90E7562620024B9C5 /* TileImageSet.m in Sources */,
+				B87626E90E7562620024B9C5 /* TileLoader.m in Sources */,
 				B87626F20E75654C0024B9C5 /* MathUtils.c in Sources */,
 				B8A5C87A0E757FC8005509DE /* MapRenderer.m in Sources */,
 				B8A5C8870E758250005509DE /* CoreAnimationRenderer.m in Sources */,
+				B8A5C9230E75A107005509DE /* LayeredTileLoader.m in Sources */,
+				B8A5C9BF0E763371005509DE /* Tile.c in Sources */,
+				B8A5CB180E764C84005509DE /* TileImageSet.m in Sources */,
+				B8C6B12A0E78C79200C12A12 /* LayerToScreenProjection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1261,7 @@
 					"\"$(SRCROOT)/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = RouteMe;
+				SDKROOT = iphoneos2.1;
 			};
 			name = Debug;
 		};
@@ -1250,6 +1279,7 @@
 					"\"$(SRCROOT)/build/Release-iphoneos\"",
 				);
 				PRODUCT_NAME = RouteMe;
+				SDKROOT = iphoneos2.1;
 			};
 			name = Release;
 		};
@@ -1290,6 +1320,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = MapView;
+				SDKROOT = iphoneos2.1;
 			};
 			name = Debug;
 		};
@@ -1303,6 +1334,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = MapView;
+				SDKROOT = iphoneos2.1;
 				ZERO_LINK = NO;
 			};
 			name = Release;

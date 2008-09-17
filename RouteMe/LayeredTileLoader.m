@@ -9,7 +9,7 @@
 #import "LayeredTileLoader.h"
 #import "ScreenProjection.h"
 #import <QuartzCore/QuartzCore.h>
-#import "MathUtils.h"
+#import "TileImage.h"
 
 @implementation LayeredTileLoader
 
@@ -30,54 +30,55 @@
 	
 	layer = [CAScrollLayer layer];
 	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
-	
+	layer.masksToBounds = YES;
 	if (screen != nil)
 	{
 		layer.frame = [screen screenBounds];
-		layerPositionOffset = [screen topLeft];
+//		layerPositionOffset = [screen topLeft];
 	}
 	
-	CALayer *sublayer = [CALayer layer];
-	sublayer.frame = CGRectMake(100, 100, 256, 256);
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
-	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
-	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
-	sublayer.contents = (id)image;
-
-	[layer addSublayer:sublayer];
-
+//	CALayer *sublayer = [CALayer layer];
+//	sublayer.frame = CGRectMake(160, 100, 256, 256);
+//	NSString *path = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
+//	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
+//	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
+//	sublayer.contents = (id)image;
+//	[layer addSublayer:sublayer];
+	
 	return self;
 }
 
-- (void)moveBy: (CGSize) delta
+- (void)tileAdded: (Tile) tile WithImage: (TileImage*) image;
 {
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
+	[image makeLayer];
 	
-	layer.position = TranslateCGPointBy(layer.position, delta);
-	[super moveBy:delta];
+	CALayer *sublayer = [image layer];
 	
-	[CATransaction commit];
+//	CGRect frame = image.screenLocation;
+
+//	frame.origin.x -= layer.position.x;
+//	frame.origin.y -= layer.position.y;
+	
+//	NSLog(@"Frame at %f %f %f,%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+//	NSLog(@"frame position %f,%f", layer.position.x, layer.position.y);
+	
+//	sublayer.frame = frame;//GRectMake(layer.position.x, layer.position.y, 256, 256);
+	
+	[layer addSublayer:sublayer];
+	
+//	NSLog(@"added subimage");
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+-(void) tileRemoved: (Tile) tile
 {
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
-	
-	CATransform3D transform = layer.transform;
-	transform = CATransform3DTranslate(transform, center.x, center.y, 0.0f);
-	transform = CATransform3DScale(transform, zoomFactor, zoomFactor, 1.0f);
-	transform = CATransform3DTranslate(transform, -center.x, -center.y, 0.0f);
-	layer.transform = transform;
-	
-	[super zoomByFactor:zoomFactor Near:center];
-	
-	[CATransaction commit];
-}
+	TileImage *image = [images imageWithTile:tile];
 
+	[[image layer] removeFromSuperlayer];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageRemovedFromScreenNotification object:image];
+	
+//	NSLog(@"subimage removed");
+}
 
 //-(id) initWithBounds: 
 

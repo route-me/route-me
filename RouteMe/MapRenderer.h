@@ -18,6 +18,9 @@
 	MapView *view;
 }
 
+// Designated initialiser
+- (id) initWithView: (MapView *)_view ProjectingIn: (ScreenProjection*) _screenProjection;
+// This makes a screen projection from the view
 - (id) initWithView: (MapView *)view;
 
 - (void)drawRect:(CGRect)rect;
@@ -28,6 +31,7 @@
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
+-(void) recalculateImageSet;
 - (void)setNeedsDisplay;
 
 @property (readwrite) double scale;

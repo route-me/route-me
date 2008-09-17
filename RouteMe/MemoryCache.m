@@ -40,7 +40,7 @@
 
 -(void) removeTile: (Tile) tile
 {
-//	NSLog(@"tile removed from cache");
+	NSLog(@"tile removed from cache");
 	[cache removeObjectForKey:[TileCache tileHash: tile]];
 }
 

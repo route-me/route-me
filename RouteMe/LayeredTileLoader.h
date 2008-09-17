@@ -13,8 +13,6 @@
 
 @interface LayeredTileLoader : TileLoader {
 	CALayer *layer;
-	
-	MercatorPoint layerPositionOffset;
 }
 
 @property (readonly, nonatomic) CALayer *layer;

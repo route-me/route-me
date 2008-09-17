@@ -82,6 +82,11 @@
 {
 	image.screenLocation = screenLocation;
 	[images addObject:image];
+	
+	if (!TileIsDummy(image.tile) && [delegate respondsToSelector:@selector(tileAdded:WithImage:)])
+	{
+		[delegate tileAdded:tile WithImage:image];
+	}
 }
 
 -(void) addTile: (Tile) tile At: (CGRect) screenLocation
@@ -175,9 +180,7 @@
 {
 	for (TileImage *image in images)
 	{
-		CGRect location = image.screenLocation;
-		location = TranslateCGRectBy(location, delta);
-		image.screenLocation = location;
+		[image moveBy: delta];
 	}
 }
 
@@ -185,9 +188,7 @@
 {
 	for (TileImage *image in images)
 	{
-		CGRect location = image.screenLocation;
-		location = ScaleCGRectAboutPoint(location, zoomFactor, center);
-		image.screenLocation = location;
+		[image zoomByFactor:zoomFactor Near:center];
 	}
 }
 

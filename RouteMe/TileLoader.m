@@ -53,7 +53,7 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 		
 	screenProjection = [screen retain];
 	tileSource = [source retain];
-	
+
 	return self;
 }
 
@@ -76,8 +76,25 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 
 -(BOOL) screenIsLoaded
 {
-	return CGRectContainsRect(loadedBounds, [screenProjection screenBounds])
-		&& loadedZoom == [[tileSource tileProjection] calculateZoomFromScale:[screenProjection scale]];
+//	return CGRectContainsRect(loadedBounds, [screenProjection screenBounds])
+//		&& loadedZoom == [[tileSource tileProjection] calculateNormalisedZoomFromScale:[screenProjection scale]];
+
+	BOOL contained = CGRectContainsRect(loadedBounds, [screenProjection screenBounds]);
+	
+	float targetZoom = [[tileSource tileProjection] calculateNormalisedZoomFromScale:[screenProjection scale]];
+//		&& loadedZoom == ;
+
+	if (contained == NO)
+	{
+		NSLog(@"reassembling because its not contained");
+	}
+	
+	if (targetZoom != loadedZoom)
+	{
+		NSLog(@"reassembling because target zoom = %f, loaded zoom = %d", targetZoom, loadedZoom);
+	}
+	
+	return contained && targetZoom == loadedZoom;
 }
 
 -(void) tileRemoved: (Tile) tile
@@ -89,6 +106,11 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 -(void) tileAdded: (Tile) tile WithImage: (TileImage*) image
 {
 //	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageRemovedFromScreenNotification object:[NSValue valueWithBytes:&tile objCType:@encode(Tile)]];	
+}
+
+-(CGRect) currentRendererBounds
+{
+	return [screenProjection screenBounds];
 }
 
 -(void) assemble
@@ -104,7 +126,7 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 	FractalTileProjection *tileProjection = [tileSource tileProjection];
 	TileRect newTileRect = [tileProjection project:screenProjection];
 	
-	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:[screenProjection screenBounds]];
+	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:[self currentRendererBounds]];
 	
 	if (!TileIsDummy(loadedTiles.origin.tile))
 		[images removeTiles:loadedTiles];
@@ -120,12 +142,14 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 {
 	[images moveBy:delta];
 	loadedBounds = TranslateCGRectBy(loadedBounds, delta);
+//	[self assemble];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
 	[images zoomByFactor:zoomFactor Near:center];
 	loadedBounds = ScaleCGRectAboutPoint(loadedBounds, zoomFactor, center);
+//	[self assemble];
 }
 
 -(BOOL) containsRect: (CGRect)bounds
@@ -135,8 +159,8 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 
 -(void) draw
 {
-	[self assemble];
-	
+//	[self assemble];
+
 	[images draw];
 }
 

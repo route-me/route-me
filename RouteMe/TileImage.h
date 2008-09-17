@@ -18,6 +18,8 @@ extern NSString * const MapImageLoadingCancelledNotification;
 
 @interface TileImage : NSObject {
 	UIImage *image;
+
+//	CGImageRef image;
 	
 	// I know this is a bit nasty.
 	Tile tile;
@@ -44,6 +46,9 @@ extern NSString * const MapImageLoadingCancelledNotification;
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;
 
+- (void)moveBy: (CGSize) delta;
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+
 - (void)makeLayer;
 
 -(void) cancelLoading;
@@ -52,5 +57,7 @@ extern NSString * const MapImageLoadingCancelledNotification;
 
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) Tile tile;
+@property (readonly) CALayer *layer;
+@property (readonly) UIImage *image;
 
 @end

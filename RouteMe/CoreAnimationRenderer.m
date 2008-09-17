@@ -11,19 +11,23 @@
 #import <QuartzCore/QuartzCore.h>
 #import "LayeredTileLoader.h"
 #import "MathUtils.h"
+#import "LayerToScreenProjection.h"
 
 @implementation CoreAnimationRenderer
 
 - (id) initWithView: (MapView *)_view
 {
-	if (![super initWithView:_view])
+	ScreenProjection *_proj = [[ScreenProjection alloc] initWithBounds:[_view bounds]];
+	//[[LayerToScreenProjection alloc] initWithBounds:[_view bounds] InLayer:[_view layer]];
+	
+	if (![super initWithView:_view ProjectingIn:_proj])
 		return nil;
 	
 	//	tileLayer.position = CGPointMake(0.0f,0.0f);
 	//	tileLayer.transform = CATransform3DIdentity;
 	//	tileLayer.bounds = [view bounds];
 
-	imageSet = [[LayeredTileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
+	tileLoader = [[LayeredTileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
 	/*
 	layer = [CAScrollLayer layer];
 	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
@@ -32,38 +36,27 @@
 	
 //	[layer addSublayer:sublayer];
 	
-	[view.layer addSublayer:[imageSet layer]]; 
+	[view.layer addSublayer:[tileLoader layer]]; 
 	
 	return self;
 }
 
--(void) recalculateImageSet
+-(void)mapImageLoaded: (NSNotification*)notification
 {
-	//	NSLog(@"recalc");
-//	TileRect tileRect = [[[view tileSource] tileProjection] project:screenProjection];
-//	[imageSet assembleFromRect:tileRect FromImageSource:[view tileSource] ToDisplayIn:[view bounds] WithTileDelegate:self];
 }
 
-- (void)setNeedsDisplay
+-(void) recalculateImageSet
 {
-//	int loadedZoom = [imageSet loadedZoom];
-//	float scale = [screenProjection scale];
-//	int properZoom = [[[view tileSource] tileProjection] calculateNormalisedZoomFromScale:scale];
-//	if (![imageSet containsRect:[view bounds]]
-//		|| loadedZoom != properZoom)
-	{
-		//		NSLog(@"loadedZoom = %d properZoom = %d", loadedZoom, properZoom);
-		
-		//		CGRect bounds = [view bounds];
-		//		NSLog(@"view bounds: %f x %f  %f x %f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-		
-		//		CGRect loadedBounds = [imageSet loadedBounds];
-		//		NSLog(@"loadedBounds: %f x %f  %f x %f", loadedBounds.origin.x, loadedBounds.origin.y, loadedBounds.size.width, loadedBounds.size.height);
-		
-		[self recalculateImageSet];
-	}
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
+					 forKey:kCATransactionAnimationDuration];
 	
-	[super setNeedsDisplay];	
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
+	
+	[tileLoader assemble];
+	
+	[CATransaction commit];
 }
 
 -(void) moveToMercator: (MercatorPoint) point
@@ -77,14 +70,33 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	[imageSet moveBy:delta];
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
+					 forKey:kCATransactionAnimationDuration];
+	
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
+	
 	[super moveBy:delta];
+	[tileLoader moveBy:delta];
+	[tileLoader assemble];
+
+	[CATransaction commit];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	[imageSet zoomByFactor:zoomFactor Near:center];
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
+					 forKey:kCATransactionAnimationDuration];
+	
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
 	[super zoomByFactor:zoomFactor Near:center];
+	[tileLoader zoomByFactor:zoomFactor Near:center];
+	[tileLoader assemble];
+	
+	[CATransaction commit];
 }
 
 
