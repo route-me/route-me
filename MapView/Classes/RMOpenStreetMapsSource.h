@@ -6,23 +6,9 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "RMTileSource.h"
-#import "RMTile.h"
+#import "AbstractMecatorWebSource.h"
 
-@class RMTileImage;
-@class RMFractalTileProjection;
-
-@interface RMOpenStreetMapsSource : NSObject <RMTileSource> {
-	NSString *baseURL;
-	RMFractalTileProjection *tileProjection;
+@interface RMOpenStreetMapsSource : AbstractMecatorWebSource <AbstractMecatorWebSource>{
 }
-
--(RMTileImage *) tileImage: (RMTile)tile;
-
-//-(TileImageSet*) tileImagesForScreen: (ScreenProjection*) screen;
-
-//@property (readwrite, retain) TileCache *cache;
-//@property (readonly) FractalTileProjection *tileProjection;
 
 @end

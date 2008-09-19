@@ -71,6 +71,8 @@
 		B83E66C30E80F053001663B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		B83E66C50E80F06D001663B6 /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E654F0E80E7A8001663B6 /* libProj4.a */; };
 		B83E67170E80F1CE001663B6 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E670F0E80F1B5001663B6 /* loading.png */; };
+		C7A967520E8412930031BA75 /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
+		C7A9675E0E84134B0031BA75 /* RMVirtualEarthSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,10 @@
 		B83E65680E80E830001663B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B83E670F0E80F1B5001663B6 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loading.png; path = ApplicationSupport/loading.png; sourceTree = "<group>"; };
 		B83E673E0E80F332001663B6 /* MapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMecatorWebSource.h; sourceTree = "<group>"; };
+		C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractMecatorWebSource.m; sourceTree = "<group>"; };
+		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
+		C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMVirtualEarthSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,8 +390,12 @@
 			isa = PBXGroup;
 			children = (
 				B83E64EC0E80E73F001663B6 /* RMTileSource.h */,
+				C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */,
+				C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */,
 				B83E64ED0E80E73F001663B6 /* RMOpenStreetMapsSource.h */,
 				B83E64EE0E80E73F001663B6 /* RMOpenStreetMapsSource.m */,
+				C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */,
+				C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */,
 			);
 			name = "Tile Source";
 			sourceTree = "<group>";
@@ -536,6 +546,8 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MapViewViewController.m in Sources */,
+				C7A967520E8412930031BA75 /* AbstractMecatorWebSource.m in Sources */,
+				C7A9675E0E84134B0031BA75 /* RMVirtualEarthSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
