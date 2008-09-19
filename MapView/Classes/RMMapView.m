@@ -7,6 +7,7 @@
 //
 
 #import "RMMapView.h"
+#import "RMVirtualEarthSource.h"
 #import "RMOpenStreetMapsSource.h"
 #import "RMTileImage.h"
 #import "RMTile.h"
