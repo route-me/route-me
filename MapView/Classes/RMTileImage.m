@@ -21,7 +21,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 @synthesize tile, layer, image, lastUsedTime;
 
-- (id) initBlankTile: (RMTile)_tile
+- (id) initWithTile: (RMTile)_tile AddToCache: (BOOL) addToCache
 {
 	if (![super init])
 		return nil;
@@ -33,29 +33,20 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	lastUsedTime = nil;
 	[self touch];
 	
-	return self;	
-}
-
-- (id) initWithTile: (RMTile)_tile
-{
-	if (![self initBlankTile: _tile])
-		return nil;
-
-	if ([[self class] isEqual:[RMTileImage class]])
-	{
-		[NSException raise:@"Abstract Class Exception" format:@"Error, attempting to instantiate TileImage directly."];
-		[self release];
-		return nil;
-	}
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(tileRemovedFromScreen:)
 												 name:MapImageRemovedFromScreenNotification object:self];
 	
 	// Should this be done as a notification?
-	[[RMTileCache sharedCache] addTile:tile WithImage:self];
+	if (addToCache)
+		[[RMTileCache sharedCache] addTile:tile WithImage:self];
 	
 	return self;
+}
+
+- (id) initWithTile: (RMTile)_tile
+{
+	return [self initWithTile:_tile AddToCache: YES];
 }
 	 
 -(void) tileRemovedFromScreen: (NSNotification*) notification
@@ -72,7 +63,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 + (RMTileImage*) dummyTile: (RMTile)tile
 {
-	return [[[RMTileImage alloc] initBlankTile:tile] autorelease];
+	return [[[RMTileImage alloc] initWithTile:tile AddToCache:NO] autorelease];
 }
 
 - (void)dealloc
@@ -130,6 +121,13 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 + (RMTileImage*)imageWithTile: (RMTile) _tile FromFile: (NSString*)filename
 {
 	return [[[RMFileTileImage alloc] initWithTile: _tile FromFile:filename] autorelease];
+}
+
++ (RMTileImage*)imageWithTile: (RMTile) tile FromData: (NSData*)data
+{
+	RMTileImage *image = [[RMTileImage alloc] initWithTile:tile];
+	[image setImageToData:data];
+	return [image autorelease];
 }
 
 -(void) cancelLoading

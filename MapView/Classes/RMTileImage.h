@@ -43,6 +43,7 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 
 + (RMTileImage*)imageWithTile: (RMTile) tile FromURL: (NSString*)url;
 + (RMTileImage*)imageWithTile: (RMTile) tile FromFile: (NSString*)filename;
++ (RMTileImage*)imageWithTile: (RMTile) tile FromData: (NSData*)data;
 
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;
