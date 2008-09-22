@@ -6,8 +6,8 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
+#import <Foundation/Foundation.h>
+#import "RMLatLong.h"
 #import "proj_api.h"
 
 @interface RMProjection : NSObject {

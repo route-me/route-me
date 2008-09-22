@@ -6,9 +6,9 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "RMMercator.h"
-#import <CoreLocation/CoreLocation.h>
+#import "RMLatLong.h"
 
 @interface RMScreenProjection : NSObject {
 	RMMercatorPoint topLeft;

@@ -7,8 +7,15 @@
 //
 
 #import "RMQuartzRenderer.h"
+
+#import <TargetConditionals.h>
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
 #import "RMTileLoader.h"
-#import "RMMapView.h"
 
 #import "RMFractalTileProjection.h"
 #import "RMTileSource.h"
@@ -17,7 +24,7 @@
 
 @implementation RMQuartzRenderer
 
-- (id) initWithView: (RMMapView *)_view
+- (id) initWithView: (id<RenderingTarget>)_view
 {
 	if (![super initWithView:_view])
 		return nil;

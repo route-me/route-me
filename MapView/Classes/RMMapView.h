@@ -6,7 +6,15 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import <TargetConditionals.h>
+
+///// This class is only valid for the iphone.
+#if !TARGET_OS_IPHONE
+#error This is only valid on the iphone.
+#endif
+
 #import <UIKit/UIKit.h>
+
 #import "RMMercator.h"
 //#import "MapRenderer.h"
 //#import "TileSource.h"
@@ -22,7 +30,7 @@ typedef struct {
 //@class TileSource;
 //@class TileImageSet;
 
-@interface RMMapView : UIView {
+@interface RMMapView<RenderingTarget> : UIView {
 	id<RMTileSource> tileSource;
 	RMMapRenderer *renderer;
 	
@@ -46,3 +54,4 @@ typedef struct {
 @property (retain, readwrite, nonatomic) id<RMTileSource> tileSource;
 
 @end
+

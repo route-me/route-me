@@ -6,9 +6,8 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-//#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
+#import "RMLatLong.h"
 
 typedef struct {
 	double x, y;

@@ -9,7 +9,6 @@
 #import "RMMapRenderer.h"
 #import "RMScreenProjection.h"
 #import "RMFractalTileProjection.h"
-#import "RMMapView.h"
 #import "RMTileSource.h"
 
 #import "RMTileImage.h"
@@ -19,7 +18,7 @@
 @synthesize screenProjection;
 
 // Designated initialiser
-- (id) initWithView: (RMMapView *)_view ProjectingIn: (RMScreenProjection*) _screenProjection
+- (id) initWithView: (id<RenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection
 {
 	if (![super init])
 		return nil;
@@ -32,9 +31,9 @@
 	return self;
 }
 
-- (id) initWithView: (RMMapView *)_view
+- (id) initWithView: (id<RenderingTarget>)_view
 {
-	RMScreenProjection *_screenProjection = [[RMScreenProjection alloc] initWithBounds:[_view bounds]];
+	RMScreenProjection *_screenProjection = [[RMScreenProjection alloc] initWithBounds:[_view cgBounds]];
 	return [self initWithView:_view ProjectingIn:_screenProjection];
 }
 

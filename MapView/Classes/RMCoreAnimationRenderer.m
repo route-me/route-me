@@ -7,7 +7,6 @@
 //
 
 #import "RMCoreAnimationRenderer.h"
-#import "RMMapView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RMLayeredTileLoader.h"
 #import "RMMathUtils.h"
@@ -15,9 +14,9 @@
 
 @implementation RMCoreAnimationRenderer
 
-- (id) initWithView: (RMMapView *)_view
+- (id) initWithView: (id<RenderingTarget>)_view
 {
-	RMScreenProjection *_proj = [[RMScreenProjection alloc] initWithBounds:[_view bounds]];
+	RMScreenProjection *_proj = [[RMScreenProjection alloc] initWithBounds:[_view cgBounds]];
 	//[[LayerToScreenProjection alloc] initWithBounds:[_view bounds] InLayer:[_view layer]];
 	
 	if (![super initWithView:_view ProjectingIn:_proj])
@@ -36,7 +35,7 @@
 	
 //	[layer addSublayer:sublayer];
 	
-	[view.layer addSublayer:[tileLoader layer]]; 
+	[[view layer] addSublayer:[tileLoader layer]]; 
 	
 	return self;
 }

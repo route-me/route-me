@@ -6,6 +6,8 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#if TARGET_OS_IPHONE
+
 #import "RMMapView.h"
 #import "RMVirtualEarthSource.h"
 #import "RMOpenStreetMapsSource.h"
@@ -47,25 +49,6 @@
 	renderer = [[RMCoreAnimationRenderer alloc] initWithView:self];
 }
 
-/*
--(void) makeProjection
-{
-	if (tileSource == nil)
-		[self makeTileSource];
-	
-	screenProjection = [[TiledLayerController alloc] initWithTileSource: tileSource];
-	[self layer].masksToBounds = YES;
-	[[self layer] addSublayer:[screenProjection layer]];
-	[[self layer] setNeedsDisplay];
-	
-	CLLocationCoordinate2D here;
-//	here.latitude = -33.9264;
-	here.latitude = -33.9464;
-	here.longitude = 151.2381;
-	[screenProjection setScale:[[tileSource tileProjection] calculateScaleFromZoom:18]];
-	[screenProjection centerLatLong:here Animate: NO];
-}*/
-
 -(void) configureCaching
 {
 	// Unfortunately, the iPhone doesn't seem to support disk caches using NSURLCache. This works fine in the
@@ -96,13 +79,7 @@
 	here.longitude = 151.2381;
 	[self setScale:10];
 	[self setLocation:here];
-	
-//	NSLog(@"set to %f %f", here.latitude, here.longitude);
-//
-//	here = [self location];
-//	NSLog(@"set to %f %f", here.latitude, here.longitude);
-	
-	
+		
 //	[screenProjection setScale:[[[view tileSource] tileProjection] calculateScaleFromZoom:16]];
 	
 //	imageSet = [[TileImageSet alloc] init];
@@ -184,36 +161,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-//	imageSet = [tileSource tileImagesForScreen: screenProjection];
-//	if ([imageSet needsRedraw])
-	{
-//		[self recalculateImageSet];
-//		NSLog(@"WARNING - Image set needs redraw and we're in drawRect.");
-	}
 	[renderer drawRect:rect];
-	
-//	[self setNeedsDisplay];
 }
-
-/*
-- (NSSet*) touchesOnScreenIn: (UIEvent *)event
-{
-	NSSet *allTouches = [event allTouches];
-	
-	NSMutableSet *interestingTouches = [[[NSMutableSet alloc] init] autorelease];
-
-	for (UITouch *touch in allTouches)
-	{
-		if ([touch phase] == UITouchPhaseBegan
-			|| [touch phase] == UITouchPhaseMoved
-			|| [touch phase] == UITouchPhaseStationary)
-		{
-			[interestingTouches addObject:touch];
-		}
-	}
-	
-	return interestingTouches;
-}*/
 
 - (RMGestureDetails) getGestureDetails: (NSSet*) touches
 {
@@ -306,9 +255,6 @@
 
 	if (enableDragging && newGesture.numTouches == lastGesture.numTouches)
 	{
-
-//		NSLog(@"newGesture at %f, %f", newGesture.center.x, newGesture.center.y);
-
 		CGSize delta;
 		delta.width = newGesture.center.x - lastGesture.center.x;
 		delta.height = newGesture.center.y - lastGesture.center.y;
@@ -318,28 +264,26 @@
 			NSAssert (lastGesture.averageDistanceFromCenter > 0.0f && newGesture.averageDistanceFromCenter > 0.0f,
 					  @"Distance from center is zero despite >1 touches on the screen");
 
-//			NSLog(@"delta %f %f", delta.width, delta.height);
-			[renderer moveBy:delta];
-			
 			double zoomFactor = newGesture.averageDistanceFromCenter / lastGesture.averageDistanceFromCenter;
-//			lastZoomDistance = gesture.averageDistanceFromCenter;
 			
-//			NSLog(@"zoom by %f", zoomFactor);
-			[renderer zoomByFactor: zoomFactor Near: newGesture.center];
+			[self moveBy:delta];
+			[self zoomByFactor: zoomFactor Near: newGesture.center];
 		}
 		else
 		{
-//			NSLog(@"delta %f %f", delta.width, delta.height);
-//			[self dragBy: delta TrySlideImages: YES];
-			[renderer moveBy:delta];
+			[self moveBy:delta];
 		}
 		
 	}
 
 	lastGesture = newGesture;
-	
-//	NSLog(@"touchesMoved %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
+}
 
+CGRect cgBounds
+{
+	return [self bounds];
 }
 
 @end
+
+#endif

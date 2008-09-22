@@ -6,10 +6,12 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "RMTileLoader.h"
 
 #import "RMMercator.h"
+
+@class CALayer;
 
 @interface RMLayeredTileLoader : RMTileLoader {
 	CALayer *layer;

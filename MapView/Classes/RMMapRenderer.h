@@ -6,22 +6,35 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "RMMercator.h"
 
-@class RMMapView;
+@class CALayer;
+@protocol RMTileSource;
+
+@protocol RenderingTarget<NSObject>
+
+-(void) setNeedsDisplay;
+-(CGRect) cgBounds;
+-(id<RMTileSource>) tileSource;
+@optional
+-(CALayer*) layer;
+
+@end
+
+
 @class RMScreenProjection;
 
 @interface RMMapRenderer : NSObject
 {
 	RMScreenProjection *screenProjection;
-	RMMapView *view;
+	id<RenderingTarget> view;
 }
 
 // Designated initialiser
-- (id) initWithView: (RMMapView *)_view ProjectingIn: (RMScreenProjection*) _screenProjection;
+- (id) initWithView: (id<RenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection;
 // This makes a screen projection from the view
-- (id) initWithView: (RMMapView *)view;
+- (id) initWithView: (id<RenderingTarget>)view;
 
 - (void)drawRect:(CGRect)rect;
 

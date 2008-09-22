@@ -36,6 +36,11 @@
 	[super dealloc];
 }
 
+-(NSString*) tileURL: (RMTile) tile
+{
+	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"tileURL invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
+}
+
 -(RMTileImage *) tileImage: (RMTile)tile
 {
 	RMTileImage* image = [RMTileImage imageWithTile: tile FromURL:[self tileURL:tile]];

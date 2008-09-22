@@ -11,6 +11,7 @@
 #define _TILE_H_
 
 #include <CoreGraphics/CGGeometry.h>
+//#include <Quartz/Quartz.h>
 #include <stdint.h>
 
 typedef struct{

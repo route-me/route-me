@@ -6,9 +6,16 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <TargetConditionals.h>
+#if TARGET_OS_IPHONE
+	#import <UIKit/UIKit.h>
+#else
+	#import <Cocoa/Cocoa.h>
+typedef NSImage UIImage;
+#endif
+
 //#import <CoreGraphics/CoreGraphics.h>
-#import <CoreLocation/CoreLocation.h>
+#import "RMLatLong.h"
 #import "RMTile.h"
 
 @class RMTileImage;

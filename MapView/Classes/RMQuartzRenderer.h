@@ -6,11 +6,9 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "RMMapRenderer.h"
 
-@class RMScreenProjection;
-@class RMMapView;
 @class RMTileLoader;
 
 @interface RMQuartzRenderer : RMMapRenderer {	

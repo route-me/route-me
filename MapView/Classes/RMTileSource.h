@@ -6,7 +6,6 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "RMTile.h"
 #import "RMMercator.h"
@@ -18,7 +17,7 @@
 @class RMTileCache;
 
 @protocol RMTileSource <NSObject>
-	
+
 -(RMTileImage *) tileImage: (RMTile) tile;
 -(RMFractalTileProjection*) tileProjection;
 
