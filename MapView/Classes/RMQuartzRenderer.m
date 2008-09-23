@@ -24,7 +24,7 @@
 
 @implementation RMQuartzRenderer
 
-- (id) initWithView: (id<RenderingTarget>)_view
+- (id) initWithView: (id<RMRenderingTarget>)_view
 {
 	if (![super initWithView:_view])
 		return nil;

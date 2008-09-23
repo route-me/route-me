@@ -14,7 +14,7 @@
 
 @implementation RMCoreAnimationRenderer
 
-- (id) initWithView: (id<RenderingTarget>)_view
+- (id) initWithView: (id<RMRenderingTarget>)_view
 {
 	RMScreenProjection *_proj = [[RMScreenProjection alloc] initWithBounds:[_view cgBounds]];
 	//[[LayerToScreenProjection alloc] initWithBounds:[_view bounds] InLayer:[_view layer]];

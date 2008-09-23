@@ -12,7 +12,7 @@
 @class CALayer;
 @protocol RMTileSource;
 
-@protocol RenderingTarget<NSObject>
+@protocol RMRenderingTarget<NSObject>
 
 -(void) setNeedsDisplay;
 -(CGRect) cgBounds;
@@ -28,13 +28,16 @@
 @interface RMMapRenderer : NSObject
 {
 	RMScreenProjection *screenProjection;
-	id<RenderingTarget> view;
+	id<RMRenderingTarget> view;
+	
+	// Rendering layers
+	NSMutableArray *layers;
 }
 
 // Designated initialiser
-- (id) initWithView: (id<RenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection;
+- (id) initWithView: (id<RMRenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection;
 // This makes a screen projection from the view
-- (id) initWithView: (id<RenderingTarget>)view;
+- (id) initWithView: (id<RMRenderingTarget>)view;
 
 - (void)drawRect:(CGRect)rect;
 
@@ -44,8 +47,14 @@
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
--(void) recalculateImageSet;
+- (void)recalculateImageSet;
 - (void)setNeedsDisplay;
+
+
+//-(void)addLayer: (id<RMMapLayer>) layer above: (id<RMMapLayer>) other;
+//-(void)addLayer: (id<RMMapLayer>) layer below: (id<RMMapLayer>) other;
+//-(void)removeLayer: (id<RMMapLayer>) layer;
+
 
 @property (readwrite) double scale;
 

@@ -6,8 +6,8 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "Layer.h"
+#import "RMMapLayer.h"
 
-@implementation Layer
+@implementation RMMapLayer
 
 @end

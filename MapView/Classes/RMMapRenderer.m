@@ -18,7 +18,7 @@
 @synthesize screenProjection;
 
 // Designated initialiser
-- (id) initWithView: (id<RenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection
+- (id) initWithView: (id<RMRenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection
 {
 	if (![super init])
 		return nil;
@@ -31,12 +31,11 @@
 	return self;
 }
 
-- (id) initWithView: (id<RenderingTarget>)_view
+- (id) initWithView: (id<RMRenderingTarget>)_view
 {
 	RMScreenProjection *_screenProjection = [[RMScreenProjection alloc] initWithBounds:[_view cgBounds]];
 	return [self initWithView:_view ProjectingIn:_screenProjection];
 }
-
 
 -(void) dealloc
 {
@@ -96,5 +95,11 @@
 	[screenProjection setScale:scale];
 	[self setNeedsDisplay];
 }
+
+//-(void)addLayer: (id<RMMapLayer>) layer above: (id<RMMapLayer>) other;
+//-(void)addLayer: (id<RMMapLayer>) layer below: (id<RMMapLayer>) other;
+//-(void)removeLayer: (id<RMMapLayer>) layer;
+
+
 
 @end
