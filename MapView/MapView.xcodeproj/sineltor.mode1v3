@@ -274,6 +274,7 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>B83E64810E80E6DC001663B6</string>
+								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
@@ -283,8 +284,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
-									<integer>2</integer>
+									<integer>15</integer>
+									<integer>9</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -326,7 +327,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MapViewAppDelegate.m</string>
+								<string>RMMapView.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +335,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MapViewAppDelegate.m</string>
+										<string>RMMapView.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>B83E913B0E89D77A00BD8B5F</string>
+										<string>B85C7B840E89DDE700B112E4</string>
 										<key>history</key>
 										<array>
 											<string>B83E67330E80F2CB001663B6</string>
@@ -404,10 +405,11 @@
 											<string>B83E911D0E89D70D00BD8B5F</string>
 											<string>B83E911E0E89D70D00BD8B5F</string>
 											<string>B83E911F0E89D70D00BD8B5F</string>
-											<string>B83E91200E89D70D00BD8B5F</string>
 											<string>B83E91350E89D77A00BD8B5F</string>
+											<string>B85C7B7E0E89DDE700B112E4</string>
+											<string>B85C7B7F0E89DDE700B112E4</string>
+											<string>B85C7B800E89DDE700B112E4</string>
 											<string>B83E91360E89D77A00BD8B5F</string>
-											<string>B83E91370E89D77A00BD8B5F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -470,24 +472,10 @@
 											<string>B8D27C190E878A1000F596FE</string>
 											<string>B8D27C1C0E878A1000F596FE</string>
 											<string>B8D27CF30E87972400F596FE</string>
-											<string>B83E91220E89D70D00BD8B5F</string>
-											<string>B83E91230E89D70D00BD8B5F</string>
-											<string>B83E91240E89D70D00BD8B5F</string>
-											<string>B83E91250E89D70D00BD8B5F</string>
-											<string>B83E91260E89D70D00BD8B5F</string>
-											<string>B83E91270E89D70D00BD8B5F</string>
-											<string>B83E91280E89D70D00BD8B5F</string>
-											<string>B83E91290E89D70D00BD8B5F</string>
-											<string>B83E912A0E89D70D00BD8B5F</string>
-											<string>B83E912B0E89D70D00BD8B5F</string>
 											<string>B83E912C0E89D70D00BD8B5F</string>
-											<string>B83E912D0E89D70D00BD8B5F</string>
-											<string>B83E912E0E89D70D00BD8B5F</string>
-											<string>B83E912F0E89D70D00BD8B5F</string>
-											<string>B83E91300E89D70D00BD8B5F</string>
-											<string>B83E91380E89D77A00BD8B5F</string>
-											<string>B83E91390E89D77A00BD8B5F</string>
-											<string>B83E913A0E89D77A00BD8B5F</string>
+											<string>B85C7B810E89DDE700B112E4</string>
+											<string>B85C7B820E89DDE700B112E4</string>
+											<string>B85C7B830E89DDE700B112E4</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -545,9 +533,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>B83E91320E89D70D00BD8B5F</string>
+				<string>B85C7B850E89DDE700B112E4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>B83E91330E89D70D00BD8B5F</string>
+				<string>B85C7B860E89DDE700B112E4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -682,7 +670,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>B83E64750E80E6C8001663B6</string>
-		<string>/Users/sineltor/src/catchme/Project/temp/trunk/MapView/MapView.xcodeproj</string>
+		<string>/Users/sineltor/src/catchme/Project/temp/MapView/MapView.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>7 355 1916 823 0 0 1920 1178 </string>
@@ -701,12 +689,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RMMapView.h</string>
+								<string>pj_datums.c</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -723,8 +713,6 @@
 							<string>456pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -764,7 +752,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>B83E64750E80E6C8001663B6</string>
-				<string>B83E91340E89D70D00BD8B5F</string>
+				<string>B85C7B7C0E89DDCF00B112E4</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -775,7 +763,7 @@
 			<key>WindowToolGUID</key>
 			<string>B83E64750E80E6C8001663B6</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

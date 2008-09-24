@@ -30,7 +30,7 @@ typedef struct {
 //@class TileSource;
 //@class TileImageSet;
 
-@interface RMMapView : UIView<RMRenderingTarget> {
+@interface RMMapView : UIView <RMRenderingTarget> {
 	id<RMTileSource> tileSource;
 	RMMapRenderer *renderer;
 	

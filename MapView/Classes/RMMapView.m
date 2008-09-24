@@ -6,9 +6,10 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import "RMMapView.h"
+
 #if TARGET_OS_IPHONE
 
-#import "RMMapView.h"
 #import "RMVirtualEarthSource.h"
 #import "RMOpenStreetMapsSource.h"
 #import "RMTileImage.h"
@@ -22,6 +23,8 @@
 #import "RMCoreAnimationRenderer.h"
 
 #import "RMScreenProjection.h"
+
+#import <CoreGraphics/CGGeometry.h>
 
 @implementation RMMapView
 
@@ -279,9 +282,14 @@
 	lastGesture = newGesture;
 }
 
-CGRect cgBounds
+-(CGRect) cgBounds
 {
 	return [self bounds];
+}
+
+-(void) setNeedsDisplay
+{
+	[super setNeedsDisplay];
 }
 
 @end

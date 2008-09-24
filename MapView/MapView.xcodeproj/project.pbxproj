@@ -126,7 +126,6 @@
 		B8D27CC30E87972000F596FE /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B86F26AC0E87442C007A3773 /* RMMapLayer.h */; };
 		B8D27CC40E87972100F596FE /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
 		B8D27CC50E87972100F596FE /* AbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */; };
-		B8D27CF90E8797A400F596FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D27CF80E8797A400F596FE /* Cocoa.framework */; };
 		C7A967520E8412930031BA75 /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
 		C7A9675E0E84134B0031BA75 /* RMVirtualEarthSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */; };
 /* End PBXBuildFile section */
@@ -234,7 +233,6 @@
 		B86F26AC0E87442C007A3773 /* RMMapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapLayer.h; sourceTree = "<group>"; };
 		B86F26E10E877802007A3773 /* DesktopMapView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DesktopMapView-Info.plist"; sourceTree = "<group>"; };
 		B8D27AFB0E8780CD00F596FE /* RMLatLong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLatLong.h; sourceTree = "<group>"; };
-		B8D27CF80E8797A400F596FE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMecatorWebSource.h; sourceTree = "<group>"; };
 		C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractMecatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8D27CF90E8797A400F596FE /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +332,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B8D27CF80E8797A400F596FE /* Cocoa.framework */,
 				B83E65590E80E7EB001663B6 /* CoreFoundation.framework */,
 				B83E65630E80E81C001663B6 /* CoreLocation.framework */,
 				B83E65680E80E830001663B6 /* QuartzCore.framework */,
