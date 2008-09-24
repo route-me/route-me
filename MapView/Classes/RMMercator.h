@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RMLatLong.h"
+#import <CoreGraphics/CGGeometry.h>
 
 typedef struct {
 	double x, y;
