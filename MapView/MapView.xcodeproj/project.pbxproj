@@ -71,6 +71,10 @@
 		B83E66C30E80F053001663B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		B83E66C50E80F06D001663B6 /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E654F0E80E7A8001663B6 /* libProj4.a */; };
 		B83E67170E80F1CE001663B6 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E670F0E80F1B5001663B6 /* loading.png */; };
+		B85C7B960E89E7EC00B112E4 /* AbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */; };
+		B85C7B970E89E7ED00B112E4 /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
+		B85C7B980E89E7EF00B112E4 /* RMVirtualEarthSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */; };
+		B85C7B990E89E7EF00B112E4 /* RMVirtualEarthSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */; };
 		B86F26AE0E87442C007A3773 /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B86F26AC0E87442C007A3773 /* RMMapLayer.h */; };
 		B8D27AFC0E8780CD00F596FE /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = B8D27AFB0E8780CD00F596FE /* RMLatLong.h */; };
 		B8D27C8E0E8796FF00F596FE /* RMWebTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64DD0E80E73F001663B6 /* RMWebTileImage.m */; };
@@ -126,8 +130,6 @@
 		B8D27CC30E87972000F596FE /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B86F26AC0E87442C007A3773 /* RMMapLayer.h */; };
 		B8D27CC40E87972100F596FE /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
 		B8D27CC50E87972100F596FE /* AbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* AbstractMecatorWebSource.h */; };
-		C7A967520E8412930031BA75 /* AbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* AbstractMecatorWebSource.m */; };
-		C7A9675E0E84134B0031BA75 /* RMVirtualEarthSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -534,6 +536,8 @@
 				B83E66140E80EA29001663B6 /* RMMercator.h in Headers */,
 				B86F26AE0E87442C007A3773 /* RMMapLayer.h in Headers */,
 				B8D27AFC0E8780CD00F596FE /* RMLatLong.h in Headers */,
+				B85C7B960E89E7EC00B112E4 /* AbstractMecatorWebSource.h in Headers */,
+				B85C7B980E89E7EF00B112E4 /* RMVirtualEarthSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,8 +696,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MapViewViewController.m in Sources */,
-				C7A967520E8412930031BA75 /* AbstractMecatorWebSource.m in Sources */,
-				C7A9675E0E84134B0031BA75 /* RMVirtualEarthSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,6 +726,8 @@
 				B83E66130E80EA28001663B6 /* RMMercator.m in Sources */,
 				B83E66150E80EA29001663B6 /* RMProjection.m in Sources */,
 				B83E66160E80EA2A001663B6 /* RMWebTileImage.m in Sources */,
+				B85C7B970E89E7ED00B112E4 /* AbstractMecatorWebSource.m in Sources */,
+				B85C7B990E89E7EF00B112E4 /* RMVirtualEarthSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

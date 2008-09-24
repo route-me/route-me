@@ -233,8 +233,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -275,6 +273,8 @@
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>B83E64810E80E6DC001663B6</string>
 								<string>080E96DDFE201D6D7F000001</string>
+								<string>B86F26A80E8742ED007A3773</string>
+								<string>B83E64EB0E80E73F001663B6</string>
 								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
@@ -284,7 +284,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
+									<integer>12</integer>
 									<integer>9</integer>
 									<integer>0</integer>
 								</array>
@@ -327,7 +327,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RMMapView.m</string>
+								<string>RMMapLayer.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -335,11 +335,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RMMapView.m</string>
+										<string>RMMapLayer.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>B85C7B840E89DDE700B112E4</string>
+										<string>B85C7B9C0E89E80000B112E4</string>
 										<key>history</key>
 										<array>
 											<string>B83E67330E80F2CB001663B6</string>
@@ -398,7 +398,6 @@
 											<string>B8D27D2D0E87AB7500F596FE</string>
 											<string>B8D27D440E87AE8900F596FE</string>
 											<string>B8D27D450E87AE8900F596FE</string>
-											<string>B8D27D630E88C61400F596FE</string>
 											<string>B83E911A0E89D70D00BD8B5F</string>
 											<string>B83E911B0E89D70D00BD8B5F</string>
 											<string>B83E911C0E89D70D00BD8B5F</string>
@@ -409,7 +408,8 @@
 											<string>B85C7B7E0E89DDE700B112E4</string>
 											<string>B85C7B7F0E89DDE700B112E4</string>
 											<string>B85C7B800E89DDE700B112E4</string>
-											<string>B83E91360E89D77A00BD8B5F</string>
+											<string>B85C7B890E89E22D00B112E4</string>
+											<string>B8D27D630E88C61400F596FE</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -476,6 +476,7 @@
 											<string>B85C7B810E89DDE700B112E4</string>
 											<string>B85C7B820E89DDE700B112E4</string>
 											<string>B85C7B830E89DDE700B112E4</string>
+											<string>B85C7B8A0E89E22D00B112E4</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -497,6 +498,8 @@
 							<string>500pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -669,6 +672,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>B85C7B9D0E89E80000B112E4</string>
+		<string>B85C7B9E0E89E80000B112E4</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>B83E64750E80E6C8001663B6</string>
 		<string>/Users/sineltor/src/catchme/Project/temp/MapView/MapView.xcodeproj</string>
 	</array>
@@ -872,13 +879,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>B8571D300E895D5100D72179</string>
+				<string>B85C7B8F0E89E7D700B112E4</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>B8571D310E895D5100D72179</string>
-				<string>B8571D320E895D5100D72179</string>
-				<string>B8571D330E895D5100D72179</string>
-				<string>B8571D340E895D5100D72179</string>
-				<string>B8571D350E895D5100D72179</string>
+				<string>B85C7B900E89E7D700B112E4</string>
+				<string>B85C7B910E89E7D700B112E4</string>
+				<string>B85C7B920E89E7D700B112E4</string>
+				<string>B85C7B930E89E7D700B112E4</string>
+				<string>B85C7B940E89E7D700B112E4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -1011,7 +1018,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1253, 781}}</string>
 								<key>RubberWindowFrame</key>
-								<string>34 56 1253 822 0 0 1440 878 </string>
+								<string>121 356 1253 822 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -1034,17 +1041,17 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>B8D27B3C0E87887200F596FE</string>
+				<string>B85C7B950E89E7D700B112E4</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>34 56 1253 822 0 0 1440 878 </string>
+			<string>121 356 1253 822 0 0 1920 1178 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
