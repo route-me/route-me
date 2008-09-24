@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 
 #import "RMMercator.h"
-//#import "MapRenderer.h"
+#import "RMMapRenderer.h"
 //#import "TileSource.h"
 
 typedef struct {
@@ -30,7 +30,7 @@ typedef struct {
 //@class TileSource;
 //@class TileImageSet;
 
-@interface RMMapView<RMRenderingTarget> : UIView {
+@interface RMMapView : UIView<RMRenderingTarget> {
 	id<RMTileSource> tileSource;
 	RMMapRenderer *renderer;
 	
