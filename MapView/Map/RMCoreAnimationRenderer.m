@@ -11,7 +11,6 @@
 #import "RMTile.h"
 #import "RMTileLoader.h"
 #import "RMPixel.h"
-#import "RMLayerToScreenProjection.h"
 #import "RMTileImage.h"
 #import "RMTileImageSet.h"
 

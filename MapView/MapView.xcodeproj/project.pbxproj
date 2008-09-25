@@ -80,55 +80,6 @@
 		B8C974CA0E8A9C30007D16AD /* RMCachedTileSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C974C80E8A9C30007D16AD /* RMCachedTileSource.h */; };
 		B8C974CB0E8A9C30007D16AD /* RMCachedTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C974C90E8A9C30007D16AD /* RMCachedTileSource.m */; };
 		B8C9787B0E8BE130007D16AD /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C974590E8A19B2007D16AD /* libMapView.a */; };
-		B8D27C8E0E8796FF00F596FE /* RMWebTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64DD0E80E73F001663B6 /* RMWebTileImage.m */; };
-		B8D27C8F0E8796FF00F596FE /* RMWebTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64DC0E80E73F001663B6 /* RMWebTileImage.h */; };
-		B8D27C900E8796FF00F596FE /* RMVirtualEarthSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */; };
-		B8D27C910E87970000F596FE /* RMVirtualEarthSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */; };
-		B8D27C920E87970100F596FE /* RMTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E50E80E73F001663B6 /* RMTransform.h */; };
-		B8D27C930E87970200F596FE /* RMTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E60E80E73F001663B6 /* RMTransform.m */; };
-		B8D27C940E87970200F596FE /* RMTileSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64EC0E80E73F001663B6 /* RMTileSource.h */; };
-		B8D27C950E87970400F596FE /* RMTileProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64DB0E80E73F001663B6 /* RMTileProxy.m */; };
-		B8D27C960E87970400F596FE /* RMTileProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64DA0E80E73F001663B6 /* RMTileProxy.h */; };
-		B8D27C970E87970500F596FE /* RMTileLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C70E80E73F001663B6 /* RMTileLoader.m */; };
-		B8D27C980E87970600F596FE /* RMTileLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C60E80E73F001663B6 /* RMTileLoader.h */; };
-		B8D27C990E87970600F596FE /* RMTileImageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E10E80E73F001663B6 /* RMTileImageSet.m */; };
-		B8D27C9A0E87970600F596FE /* RMTileImageSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E00E80E73F001663B6 /* RMTileImageSet.h */; };
-		B8D27C9B0E87970700F596FE /* RMTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */; };
-		B8D27C9C0E87970700F596FE /* RMTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D80E80E73F001663B6 /* RMTileImage.h */; };
-		B8D27C9D0E87970800F596FE /* RMTiledLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C50E80E73F001663B6 /* RMTiledLayerController.m */; };
-		B8D27C9E0E87970800F596FE /* RMTiledLayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C40E80E73F001663B6 /* RMTiledLayerController.h */; };
-		B8D27C9F0E87970900F596FE /* RMTileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D10E80E73F001663B6 /* RMTileCache.m */; };
-		B8D27CA00E87970A00F596FE /* RMTileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D00E80E73F001663B6 /* RMTileCache.h */; };
-		B8D27CA10E87970B00F596FE /* RMTile.c in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D70E80E73F001663B6 /* RMTile.c */; };
-		B8D27CA20E87970B00F596FE /* RMTile.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D60E80E73F001663B6 /* RMTile.h */; };
-		B8D27CA30E87970C00F596FE /* RMMercatorToScreenProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C90E80E73F001663B6 /* RMMercatorToScreenProjection.m */; };
-		B8D27CA40E87970C00F596FE /* RMMercatorToScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C80E80E73F001663B6 /* RMMercatorToScreenProjection.h */; };
-		B8D27CA50E87970D00F596FE /* RMQuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64BB0E80E73F001663B6 /* RMQuartzRenderer.m */; };
-		B8D27CA60E87970E00F596FE /* RMQuartzRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BA0E80E73F001663B6 /* RMQuartzRenderer.h */; };
-		B8D27CA70E87970F00F596FE /* RMProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E40E80E73F001663B6 /* RMProjection.m */; };
-		B8D27CA80E87971000F596FE /* RMProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E30E80E73F001663B6 /* RMProjection.h */; };
-		B8D27CA90E87971000F596FE /* RMOpenStreetMapsSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64EE0E80E73F001663B6 /* RMOpenStreetMapsSource.m */; };
-		B8D27CAA0E87971000F596FE /* RMOpenStreetMapsSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64ED0E80E73F001663B6 /* RMOpenStreetMapsSource.h */; };
-		B8D27CAB0E87971100F596FE /* RMLatLongToMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E80E80E73F001663B6 /* RMLatLongToMercatorProjection.m */; };
-		B8D27CAC0E87971100F596FE /* RMLatLongToMercatorProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E70E80E73F001663B6 /* RMLatLongToMercatorProjection.h */; };
-		B8D27CAD0E87971200F596FE /* RMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D30E80E73F001663B6 /* RMMemoryCache.m */; };
-		B8D27CAE0E87971400F596FE /* RMMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D20E80E73F001663B6 /* RMMemoryCache.h */; };
-		B8D27CAF0E87971400F596FE /* RMPixel.c in Sources */ = {isa = PBXBuildFile; fileRef = B83E64B70E80E73F001663B6 /* RMPixel.c */; };
-		B8D27CB00E87971500F596FE /* RMPixel.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64B60E80E73F001663B6 /* RMPixel.h */; };
-		B8D27CB30E87971600F596FE /* RMMapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64CB0E80E73F001663B6 /* RMMapRenderer.m */; };
-		B8D27CB40E87971700F596FE /* RMMapRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64CA0E80E73F001663B6 /* RMMapRenderer.h */; };
-		B8D27CB90E87971A00F596FE /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = B8D27AFB0E8780CD00F596FE /* RMLatLong.h */; };
-		B8D27CBA0E87971A00F596FE /* RMFractalTileProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64EA0E80E73F001663B6 /* RMFractalTileProjection.m */; };
-		B8D27CBB0E87971B00F596FE /* RMFractalTileProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E90E80E73F001663B6 /* RMFractalTileProjection.h */; };
-		B8D27CBC0E87971B00F596FE /* RMFileTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64DF0E80E73F001663B6 /* RMFileTileImage.m */; };
-		B8D27CBD0E87971D00F596FE /* RMFileTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64DE0E80E73F001663B6 /* RMFileTileImage.h */; };
-		B8D27CBE0E87971E00F596FE /* RMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D50E80E73F001663B6 /* RMDiskCache.m */; };
-		B8D27CBF0E87971E00F596FE /* RMDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D40E80E73F001663B6 /* RMDiskCache.h */; };
-		B8D27CC00E87971F00F596FE /* RMCoreAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */; };
-		B8D27CC10E87971F00F596FE /* RMCoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */; };
-		B8D27CC30E87972000F596FE /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B86F26AC0E87442C007A3773 /* RMMapLayer.h */; };
-		B8D27CC40E87972100F596FE /* RMAbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* RMAbstractMecatorWebSource.m */; };
-		B8D27CC50E87972100F596FE /* RMAbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* RMAbstractMecatorWebSource.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,13 +103,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = B8C974130E8A19B2007D16AD;
 			remoteInfo = MapView;
-		};
-		B8D27D0D0E87987C00F596FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B83E654A0E80E7A8001663B6 /* Proj4.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = Proj4;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -257,13 +201,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B86F26DF0E877802007A3773 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B8C9744F0E8A19B2007D16AD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,7 +293,6 @@
 				B83E64B90E80E73F001663B6 /* Quartz Renderer */,
 			);
 			name = Renderers;
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B83E64B90E80E73F001663B6 /* Quartz Renderer */ = {
@@ -404,7 +340,6 @@
 				B83E64CF0E80E73F001663B6 /* Cache */,
 			);
 			name = "Tile Images";
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B83E64CF0E80E73F001663B6 /* Cache */ = {
@@ -435,7 +370,6 @@
 				B83E64C90E80E73F001663B6 /* RMMercatorToScreenProjection.m */,
 			);
 			name = Projections;
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B83E64EB0E80E73F001663B6 /* Tile Source */ = {
@@ -450,7 +384,6 @@
 				C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */,
 			);
 			name = "Tile Source";
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B83E654B0E80E7A8001663B6 /* Products */ = {
@@ -477,7 +410,6 @@
 				B86F26AC0E87442C007A3773 /* RMMapLayer.h */,
 			);
 			name = Layers;
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 		B8C9740D0E8A196E007D16AD /* Map */ = {
@@ -521,45 +453,11 @@
 				B83E64B70E80E73F001663B6 /* RMPixel.c */,
 			);
 			name = "Coordinate Systems";
-			path = ../Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		B86F26DC0E877802007A3773 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B8D27C8F0E8796FF00F596FE /* RMWebTileImage.h in Headers */,
-				B8D27C910E87970000F596FE /* RMVirtualEarthSource.h in Headers */,
-				B8D27C920E87970100F596FE /* RMTransform.h in Headers */,
-				B8D27C940E87970200F596FE /* RMTileSource.h in Headers */,
-				B8D27C960E87970400F596FE /* RMTileProxy.h in Headers */,
-				B8D27C980E87970600F596FE /* RMTileLoader.h in Headers */,
-				B8D27C9A0E87970600F596FE /* RMTileImageSet.h in Headers */,
-				B8D27C9C0E87970700F596FE /* RMTileImage.h in Headers */,
-				B8D27C9E0E87970800F596FE /* RMTiledLayerController.h in Headers */,
-				B8D27CA00E87970A00F596FE /* RMTileCache.h in Headers */,
-				B8D27CA20E87970B00F596FE /* RMTile.h in Headers */,
-				B8D27CA40E87970C00F596FE /* RMMercatorToScreenProjection.h in Headers */,
-				B8D27CA60E87970E00F596FE /* RMQuartzRenderer.h in Headers */,
-				B8D27CA80E87971000F596FE /* RMProjection.h in Headers */,
-				B8D27CAA0E87971000F596FE /* RMOpenStreetMapsSource.h in Headers */,
-				B8D27CAC0E87971100F596FE /* RMLatLongToMercatorProjection.h in Headers */,
-				B8D27CAE0E87971400F596FE /* RMMemoryCache.h in Headers */,
-				B8D27CB00E87971500F596FE /* RMPixel.h in Headers */,
-				B8D27CB40E87971700F596FE /* RMMapRenderer.h in Headers */,
-				B8D27CB90E87971A00F596FE /* RMLatLong.h in Headers */,
-				B8D27CBB0E87971B00F596FE /* RMFractalTileProjection.h in Headers */,
-				B8D27CBD0E87971D00F596FE /* RMFileTileImage.h in Headers */,
-				B8D27CBF0E87971E00F596FE /* RMDiskCache.h in Headers */,
-				B8D27CC10E87971F00F596FE /* RMCoreAnimationRenderer.h in Headers */,
-				B8D27CC30E87972000F596FE /* RMMapLayer.h in Headers */,
-				B8D27CC50E87972100F596FE /* RMAbstractMecatorWebSource.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B8C974160E8A19B2007D16AD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,24 +516,6 @@
 			productReference = B83E673E0E80F332001663B6 /* MapView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B86F26E00E877802007A3773 /* DesktopMapView */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B86F26E50E877803007A3773 /* Build configuration list for PBXNativeTarget "DesktopMapView" */;
-			buildPhases = (
-				B86F26DC0E877802007A3773 /* Headers */,
-				B86F26DD0E877802007A3773 /* Resources */,
-				B86F26DE0E877802007A3773 /* Sources */,
-				B86F26DF0E877802007A3773 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B8D27D0E0E87987C00F596FE /* PBXTargetDependency */,
-			);
-			name = DesktopMapView;
-			productName = DesktopMapView;
-			productType = "com.apple.product-type.framework";
-		};
 		B8C974130E8A19B2007D16AD /* MapView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8C974560E8A19B2007D16AD /* Build configuration list for PBXNativeTarget "MapView" */;
@@ -673,7 +553,6 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* SimpleMap */,
-				B86F26E00E877802007A3773 /* DesktopMapView */,
 				B8C974130E8A19B2007D16AD /* MapView */,
 			);
 		};
@@ -700,13 +579,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B86F26DD0E877802007A3773 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -717,36 +589,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MapViewViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B86F26DE0E877802007A3773 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B8D27C8E0E8796FF00F596FE /* RMWebTileImage.m in Sources */,
-				B8D27C900E8796FF00F596FE /* RMVirtualEarthSource.m in Sources */,
-				B8D27C930E87970200F596FE /* RMTransform.m in Sources */,
-				B8D27C950E87970400F596FE /* RMTileProxy.m in Sources */,
-				B8D27C970E87970500F596FE /* RMTileLoader.m in Sources */,
-				B8D27C990E87970600F596FE /* RMTileImageSet.m in Sources */,
-				B8D27C9B0E87970700F596FE /* RMTileImage.m in Sources */,
-				B8D27C9D0E87970800F596FE /* RMTiledLayerController.m in Sources */,
-				B8D27C9F0E87970900F596FE /* RMTileCache.m in Sources */,
-				B8D27CA10E87970B00F596FE /* RMTile.c in Sources */,
-				B8D27CA30E87970C00F596FE /* RMMercatorToScreenProjection.m in Sources */,
-				B8D27CA50E87970D00F596FE /* RMQuartzRenderer.m in Sources */,
-				B8D27CA70E87970F00F596FE /* RMProjection.m in Sources */,
-				B8D27CA90E87971000F596FE /* RMOpenStreetMapsSource.m in Sources */,
-				B8D27CAB0E87971100F596FE /* RMLatLongToMercatorProjection.m in Sources */,
-				B8D27CAD0E87971200F596FE /* RMMemoryCache.m in Sources */,
-				B8D27CAF0E87971400F596FE /* RMPixel.c in Sources */,
-				B8D27CB30E87971600F596FE /* RMMapRenderer.m in Sources */,
-				B8D27CBA0E87971A00F596FE /* RMFractalTileProjection.m in Sources */,
-				B8D27CBC0E87971B00F596FE /* RMFileTileImage.m in Sources */,
-				B8D27CBE0E87971E00F596FE /* RMDiskCache.m in Sources */,
-				B8D27CC00E87971F00F596FE /* RMCoreAnimationRenderer.m in Sources */,
-				B8D27CC40E87972100F596FE /* RMAbstractMecatorWebSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,11 +638,6 @@
 			target = B8C974130E8A19B2007D16AD /* MapView */;
 			targetProxy = B8C978D20E8BE40F007D16AD /* PBXContainerItemProxy */;
 		};
-		B8D27D0E0E87987C00F596FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Proj4;
-			targetProxy = B8D27D0D0E87987C00F596FE /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -829,46 +666,6 @@
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = MapView;
-			};
-			name = Release;
-		};
-		B86F26E20E877803007A3773 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=macosx10.5]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "DesktopMapView-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PREBINDING = NO;
-				PRODUCT_NAME = DesktopMapView;
-				SDKROOT = macosx10.5;
-			};
-			name = Debug;
-		};
-		B86F26E30E877803007A3773 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=macosx10.5]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				INFOPLIST_FILE = "DesktopMapView-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PREBINDING = NO;
-				PRODUCT_NAME = DesktopMapView;
-				SDKROOT = macosx10.5;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -934,15 +731,6 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B86F26E50E877803007A3773 /* Build configuration list for PBXNativeTarget "DesktopMapView" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B86F26E20E877803007A3773 /* Debug */,
-				B86F26E30E877803007A3773 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
