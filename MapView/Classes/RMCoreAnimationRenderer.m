@@ -8,34 +8,28 @@
 
 #import "RMCoreAnimationRenderer.h"
 #import <QuartzCore/QuartzCore.h>
-#import "RMLayeredTileLoader.h"
-#import "RMMathUtils.h"
+#import "RMTile.h"
+#import "RMTileLoader.h"
+#import "RMPixel.h"
 #import "RMLayerToScreenProjection.h"
+#import "RMTileImage.h"
+#import "RMTileImageSet.h"
 
 @implementation RMCoreAnimationRenderer
 
-- (id) initWithView: (id<RMRenderingTarget>)_view
+- (id) initForView: (UIView*)view WithContent: (RMMapContents *)_contents
 {
-	RMScreenProjection *_proj = [[RMScreenProjection alloc] initWithBounds:[_view cgBounds]];
-	//[[LayerToScreenProjection alloc] initWithBounds:[_view bounds] InLayer:[_view layer]];
-	
-	if (![super initWithView:_view ProjectingIn:_proj])
+	if (![super initForView:view WithContent:_contents])
 		return nil;
-	
-	//	tileLayer.position = CGPointMake(0.0f,0.0f);
-	//	tileLayer.transform = CATransform3DIdentity;
-	//	tileLayer.bounds = [view bounds];
 
-	tileLoader = [[RMLayeredTileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
-	/*
-	layer = [CAScrollLayer layer];
+	layer = [[CAScrollLayer layer] retain];
 	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+	layer.masksToBounds = YES;
 	layer.frame = [view bounds];
-	*/
 	
-//	[layer addSublayer:sublayer];
+	layer.delegate = self;
 	
-	[[view layer] addSublayer:[tileLoader layer]]; 
+	[[view layer] addSublayer:layer]; 
 	
 	return self;
 }
@@ -44,31 +38,36 @@
 {
 }
 
--(void) recalculateImageSet
+- (id<CAAction>)actionForLayer:(CALayer *)theLayer
+                        forKey:(NSString *)key
 {
-	[CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.0f]
-					 forKey:kCATransactionAnimationDuration];
+//	NSLog(@"key: %@", key);
 	
-	[CATransaction setValue:(id)kCFBooleanTrue
-					 forKey:kCATransactionDisableActions];
-	
-	[tileLoader assemble];
-	
-	[CATransaction commit];
+//	if ([key isEqualToString:@"position"] || [key isEqualToString:@"bounds"])
+		return (id<CAAction>)[NSNull null];
+//	else
+//		return nil;
 }
 
--(void) moveToMercator: (RMMercatorPoint) point
+- (void)tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
 {
-	[tileLoader clearLoadedBounds];
-	[super moveToMercator:point];
-}
--(void) moveToLatLong: (CLLocationCoordinate2D) point
-{
-	[tileLoader clearLoadedBounds];
-	[super moveToLatLong:point];
+//	NSLog(@"tileAdded");
+	[image makeLayer];
+	
+	CALayer *sublayer = [image layer];
+	
+	sublayer.delegate = self;
+	
+	[layer addSublayer:sublayer];
 }
 
+-(void) tileRemoved: (RMTile) tile
+{
+	RMTileImage *image = [[content imagesOnScreen] imageWithTile:tile];
+	
+	[[image layer] removeFromSuperlayer];
+}
+/*
 - (void)moveBy: (CGSize) delta
 {
 	[CATransaction begin];
@@ -92,11 +91,12 @@
 	
 	[CATransaction setValue:(id)kCFBooleanTrue
 					 forKey:kCATransactionDisableActions];
+	
 	[super zoomByFactor:zoomFactor Near:center];
 	[tileLoader zoomByFactor:zoomFactor Near:center];
 	
 	[CATransaction commit];
 }
-
+*/
 
 @end

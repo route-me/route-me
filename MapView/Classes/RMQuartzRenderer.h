@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "RMMapRenderer.h"
 
-@class RMTileLoader;
+@class UIView;
 
 @interface RMQuartzRenderer : RMMapRenderer {	
-	RMTileLoader *tileLoader;
+	UIView *view;
 }
 
 @end

@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "RMMapRenderer.h"
 
 @class RMLayeredTileLoader;
 
 @interface RMCoreAnimationRenderer : RMMapRenderer {
-//	CALayer *layer;
-	RMLayeredTileLoader *tileLoader;
+	CALayer *layer;
 }
 
 @end

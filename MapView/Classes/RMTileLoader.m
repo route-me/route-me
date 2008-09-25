@@ -10,93 +10,58 @@
 
 #import "RMTileImage.h"
 #import "RMTileSource.h"
-#import "RMMathUtils.h"
-#import "RMScreenProjection.h"
+#import "RMPixel.h"
+#import "RMMercatorToScreenProjection.h"
 #import "RMFractalTileProjection.h"
 #import "RMTileImageSet.h"
 
 #import "RMTileCache.h"
 
-NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScreen";
+NSString* const RMMapImageRemovedFromScreenNotification = @"RMMapImageRemovedFromScreen";
+NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen";
+
+NSString* const RMSuspendExpensiveOperations = @"RMSuspendExpensiveOperations";
+NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 
 @implementation RMTileLoader
 
 @synthesize loadedBounds, loadedZoom;
-/*
--(id) initFromRect:(TileRect) rect FromImageSource: (id<TileSource>)source ToDisplayIn:(CGRect)bounds WithTileDelegate: (id)delegate
-{
-	if (![self init])
-		return nil;
-	[self assembleFromRect:rect FromImageSource: source ToDisplayIn:bounds WithTileDelegate: delegate];
-	return self;
-}*/
-
--(RMTileImage*) makeTileImageFor:(RMTile) tile
-{
-	RMTileImage *cachedImage = [[RMTileCache sharedCache] cachedImage:tile];
-	if (cachedImage != nil)
-	{
-		return cachedImage;
-	}
-	else
-	{
-		return [tileSource tileImage:tile];
-	}
-}
 
 -(id) init
 {
-	if (![self initForScreen:nil FromImageSource:nil])
+	if (![self initWithContent: nil])
 		return nil;
 
 	return self;
 }
 
--(id) initForScreen: (RMScreenProjection*)screen FromImageSource: (id<RMTileSource>)source
+-(id) initWithContent: (RMMapContents *)_contents
 {
 	if (![super init])
 		return nil;
 	
-	images = [[RMTileImageSet alloc] initWithDelegate:self];
+	content = _contents;
+	
 	[self clearLoadedBounds];
-	loadedTiles.origin.tile = RMTileDummy();
-		
-	screenProjection = [screen retain];
-	tileSource = [source retain];
 
 	return self;
 }
 
 -(void) dealloc
 {
-	NSLog(@"Imageset dealloced");
-	[images release];
-//	[buffer release];
-	[screenProjection release];
-	[tileSource release];
 	[super dealloc];
 }
-/*
--(void) swapBuffers
-{
-	NSMutableSet *temp = images;
-	images = buffer;
-	buffer = temp;
-}*/
 
 -(void) clearLoadedBounds
 {
 	loadedBounds = CGRectMake(0, 0, 0, 0);
+	loadedTiles.origin.tile = RMTileDummy();
 }
 -(BOOL) screenIsLoaded
 {
-//	return CGRectContainsRect(loadedBounds, [screenProjection screenBounds])
-//		&& loadedZoom == [[tileSource tileProjection] calculateNormalisedZoomFromScale:[screenProjection scale]];
-
-	BOOL contained = CGRectContainsRect(loadedBounds, [screenProjection screenBounds]);
+	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
 	
-	float targetZoom = [[tileSource tileProjection] calculateNormalisedZoomFromScale:[screenProjection scale]];
-//		&& loadedZoom == ;
+	float targetZoom = [[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content scale]];
 
 	if (contained == NO)
 	{
@@ -111,36 +76,20 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 	return contained && targetZoom == loadedZoom;
 }
 
--(void) tileRemoved: (RMTile) tile
+-(void) updateLoadedImages
 {
-	RMTileImage *image = [images imageWithTile:tile];
-	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageRemovedFromScreenNotification object:image];
-}
-
--(void) tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
-{
-//	[[NSNotificationCenter defaultCenter] postNotificationName:MapImageRemovedFromScreenNotification object:[NSValue valueWithBytes:&tile objCType:@encode(Tile)]];	
-}
-
--(CGRect) currentRendererBounds
-{
-	return [screenProjection screenBounds];
-}
-
--(void) assemble
-{
+	if ([content mercatorToTileProjection] == nil || [content mercatorToScreenProjection] == nil)
+		return;
+	
 	if ([self screenIsLoaded])
 		return;
 	
-	if (tileSource == nil || screenProjection == nil)
-		return;
+//	NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
 	
-//	NSLog(@"assemble count = %d", [images count]);
+	RMTileRect newTileRect = [content tileBounds];
 	
-	RMFractalTileProjection *tileProjection = [tileSource tileProjection];
-	RMTileRect newTileRect = [tileProjection project:screenProjection];
-	
-	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:[self currentRendererBounds]];
+	RMTileImageSet *images = [content imagesOnScreen];
+	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:[content screenBounds]];
 	
 	if (!RMTileIsDummy(loadedTiles.origin.tile))
 		[images removeTiles:loadedTiles];
@@ -154,28 +103,21 @@ NSString* const MapImageRemovedFromScreenNotification = @"MapImageRemovedFromScr
 
 - (void)moveBy: (CGSize) delta
 {
-	[images moveBy:delta];
+//	NSLog(@"loadedBounds %f %f %f %f -> ", loadedBounds.origin.x, loadedBounds.origin.y, loadedBounds.size.width, loadedBounds.size.height);
 	loadedBounds = RMTranslateCGRectBy(loadedBounds, delta);
-//	[self assemble];
+//	NSLog(@" -> %f %f %f %f", loadedBounds.origin.x, loadedBounds.origin.y, loadedBounds.size.width, loadedBounds.size.height);
+	[self updateLoadedImages];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	[images zoomByFactor:zoomFactor Near:center];
 	loadedBounds = RMScaleCGRectAboutPoint(loadedBounds, zoomFactor, center);
-//	[self assemble];
+	[self updateLoadedImages];
 }
 
--(BOOL) containsRect: (CGRect)bounds
-{
-	return CGRectContainsRect(loadedBounds, bounds);
-}
-
--(void) draw
-{
-//	[self assemble];
-
-	[images draw];
-}
+//-(BOOL) containsRect: (CGRect)bounds
+//{
+//	return CGRectContainsRect(loadedBounds, bounds);
+//}
 
 @end

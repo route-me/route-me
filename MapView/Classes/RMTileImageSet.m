@@ -8,17 +8,22 @@
 
 #import "RMTileImageSet.h"
 #import "RMTileImage.h"
-#import "RMMathUtils.h"
+#import "RMPixel.h"
+#import "RMTileSource.h"
+
+// For notification strings
+#import "RMTileLoader.h"
 
 @implementation RMTileImageSet
 
-@synthesize delegate, nudgeTileSize;
+@synthesize delegate, nudgeTileSize, tileSource;
 
--(id) initWithDelegate: (id<RMTileImageSetDelegate>) _delegate
+-(id) initWithDelegate: (id) _delegate
 {
 	if (![super init])
 		return nil;
 	
+	tileSource = nil;
 	self.delegate = _delegate;
 	images = [[NSCountedSet alloc] init];
 	nudgeTileSize = YES;
@@ -27,6 +32,7 @@
 
 -(void) dealloc
 {
+	[tileSource release];
 	[images release];
 	[super dealloc];
 }
@@ -40,6 +46,8 @@
 		{
 			[delegate tileRemoved:tile];
 		}
+
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageRemovedFromScreenNotification object:[self imageWithTile:tile]];
 	}
 
 	[images removeObject:dummyTile];
@@ -64,6 +72,12 @@
 	}
 }
 
+
+-(void) removeAllTiles
+{
+	[images removeAllObjects];
+}
+
 /* Untested.
  -(BOOL) hasTile: (Tile) tile
  {
@@ -83,9 +97,14 @@
 	image.screenLocation = screenLocation;
 	[images addObject:image];
 	
-	if (!RMTileIsDummy(image.tile) && [delegate respondsToSelector:@selector(tileAdded:WithImage:)])
+	if (!RMTileIsDummy(image.tile))
 	{
-		[delegate tileAdded:tile WithImage:image];
+		if([delegate respondsToSelector:@selector(tileAdded:WithImage:)])
+		{
+			[delegate tileAdded:tile WithImage:image];
+		}
+
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageAddedToScreenNotification object:image];
 	}
 }
 
@@ -100,12 +119,9 @@
 	}
 	else
 	{
-		if (delegate != nil)
-		{
-			RMTileImage *image = [delegate makeTileImageFor:tile];
-			if (image != nil)
-				[self addTile:tile WithImage:image At:screenLocation];		
-		}
+		RMTileImage *image = [tileSource tileImage:tile];
+		if (image != nil)
+			[self addTile:tile WithImage:image At:screenLocation];
 	}
 }
 
@@ -113,7 +129,7 @@
 // extended to full tile loading area
 -(CGRect) addTiles: (RMTileRect)rect ToDisplayIn:(CGRect)bounds
 {
-	//	NSLog(@"addTiles: %d %d - %f %f", rect.origin.tile.x, rect.origin.tile.y, rect.size.width, rect.size.height);
+//	NSLog(@"addTiles: %d %d - %f %f", rect.origin.tile.x, rect.origin.tile.y, rect.size.width, rect.size.height);
 	
 	RMTile t;
 	t.zoom = rect.origin.tile.zoom;
@@ -135,7 +151,7 @@
 	RMTileRect roundedRect = RMTileRectRound(rect);
 	// The number of tiles we'll load in the vertical and horizontal directions
 	int tileRegionWidth = (int)roundedRect.size.width;
-	int tileRegionHeight =  (int)roundedRect.size.height;
+	int tileRegionHeight = (int)roundedRect.size.height;
 	
 	for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 	{

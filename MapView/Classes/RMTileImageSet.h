@@ -15,10 +15,9 @@
 #import "RMTile.h"
 
 @class RMTileImage;
+@protocol RMTileSource;
 
 @protocol RMTileImageSetDelegate<NSObject>
-
--(RMTileImage*) makeTileImageFor:(RMTile) tile;
 
 @optional
 
@@ -28,13 +27,15 @@
 @end
 
 @interface RMTileImageSet : NSObject {
-	IBOutlet id<RMTileImageSetDelegate> delegate;
+	IBOutlet id delegate;
+	id<RMTileSource> tileSource;
+
 	NSCountedSet *images;
 	// This fixes an image resizing bug which causes thin lines along image borders
 	BOOL nudgeTileSize;
 }
 
--(id) initWithDelegate: (id<RMTileImageSetDelegate>) _delegate;
+-(id) initWithDelegate: (id) _delegate;
 
 -(void) addTile: (RMTile) tile WithImage: (RMTileImage *)image At: (CGRect) screenLocation;
 -(void) addTile: (RMTile) tile At: (CGRect) screenLocation;
@@ -47,6 +48,8 @@
 -(void) removeTile: (RMTile) tile;
 -(void) removeTiles: (RMTileRect)rect;
 
+-(void) removeAllTiles;
+
 -(NSUInteger) count;
 
 - (void)moveBy: (CGSize) delta;
@@ -54,7 +57,8 @@
 
 - (void) draw;
 
-@property (assign, nonatomic, readwrite) id<RMTileImageSetDelegate> delegate;
+@property (assign, nonatomic, readwrite) id delegate;
+@property (retain, nonatomic, readwrite) id<RMTileSource> tileSource;
 @property (readwrite, assign, nonatomic) BOOL nudgeTileSize;
 
 @end

@@ -7,12 +7,19 @@
  *
  */
 
-#include "RMMathUtils.h"
+#include "RMPixel.h"
 
-CGRect RMScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint point)
+CGPoint RMScaleCGPointAboutPoint(CGPoint point, float factor, CGPoint pivot)
 {
-	rect.origin.x = (rect.origin.x - point.x) * factor + point.x;
-	rect.origin.y = (rect.origin.y - point.y) * factor + point.y;
+	point.x = (point.x - pivot.x) * factor + pivot.x;
+	point.y = (point.y - pivot.y) * factor + pivot.y;
+	
+	return point;
+}
+
+CGRect RMScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint pivot)
+{
+	rect.origin = RMScaleCGPointAboutPoint(rect.origin, factor, pivot);
 	rect.size.width *= factor;
 	rect.size.height *= factor;
 

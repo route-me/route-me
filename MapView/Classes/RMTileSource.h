@@ -15,11 +15,14 @@
 @class RMTileLoader;
 @class RMTiledLayerController;
 @class RMTileCache;
+@protocol RMMercatorToTileProjection;
+@class RMLatLongToMercatorProjection;
 
 @protocol RMTileSource <NSObject>
 
 -(RMTileImage *) tileImage: (RMTile) tile;
--(RMFractalTileProjection*) tileProjection;
+-(id<RMMercatorToTileProjection>) mercatorToTileProjection;
+-(RMLatLongToMercatorProjection*) latLongToMercatorProjection;
 
 -(RMMercatorRect) bounds;
 

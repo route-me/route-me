@@ -10,6 +10,8 @@
 #import "RMLatLong.h"
 #import "proj_api.h"
 
+// A light objective-c wrapper around proj4.
+
 @interface RMProjection : NSObject {
 	projPJ internalProjection;
 }
@@ -21,7 +23,6 @@
 -(CLLocationCoordinate2D) projectInverse: (CLLocationCoordinate2D)point;
 
 @property (readonly) projPJ internalProjection;
-
 
 +(RMProjection*) EPSGGoogle;
 +(RMProjection*) EPSGLatLong;

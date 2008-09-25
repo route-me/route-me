@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
-#import "RMTile.h"
+#import "RMMercatorToTileProjection.h"
 
-@class RMScreenProjection;
-
-@interface RMFractalTileProjection : NSObject {
+@interface RMFractalTileProjection : NSObject<RMMercatorToTileProjection> {
 	// Maximum zoom for which our tile server stores images
 	int maxZoom;
 	
@@ -31,25 +28,6 @@
 	double scaleFactor;
 }
 
-@property(readonly, nonatomic) RMMercatorRect bounds;
-@property(readonly, nonatomic) int maxZoom;
-@property(readonly, nonatomic) int tileSideLength;
-
 -(id) initWithBounds: (RMMercatorRect)bounds TileSideLength:(int)tileSideLength MaxZoom: (int) max_zoom;
-
--(RMTilePoint) project: (RMMercatorPoint)mercator AtZoom:(float)zoom;
--(RMTileRect) projectRect: (RMMercatorRect)mercatorRect AtZoom:(float)zoom;
-
--(RMTilePoint) project: (RMMercatorPoint)mercator AtScale:(float)scale;
--(RMTileRect) projectRect: (RMMercatorRect)mercatorRect AtScale:(float)scale;
-
-// This is a helper for projectRect above. Much simpler for the caller.
--(RMTileRect) project: (RMScreenProjection*)screen;
-
--(float) normaliseZoom: (float) zoom;
-
--(float) calculateZoomFromScale: (float) scale;
--(float) calculateNormalisedZoomFromScale: (float) scale;
--(float) calculateScaleFromZoom: (float) zoom;
 
 @end

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+// Support for this is not yet implemented.
+
 @protocol RMMapLayer<NSObject>
 
 @optional

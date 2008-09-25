@@ -6,9 +6,9 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "AbstractMecatorWebSource.h"
+#import "RMAbstractMecatorWebSource.h"
 
-@interface RMOpenStreetMapsSource : AbstractMecatorWebSource <AbstractMecatorWebSource>{
+@interface RMOpenStreetMapsSource : RMAbstractMecatorWebSource <RMAbstractMecatorWebSource>{
 }
 
 @end

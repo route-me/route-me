@@ -7,70 +7,41 @@
 //
 
 #import "RMQuartzRenderer.h"
-
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
 #endif
-
-#import "RMTileLoader.h"
-
-#import "RMFractalTileProjection.h"
-#import "RMTileSource.h"
-
-#import "RMScreenProjection.h"
+#import "RMMapContents.h"
+#import "RMTileImage.h"
 
 @implementation RMQuartzRenderer
 
-- (id) initWithView: (id<RMRenderingTarget>)_view
+- (id) initForView: (UIView*)_view WithContent: (RMMapContents *)_contents
 {
-	if (![super initWithView:_view])
+	if (![super initForView:view WithContent:_contents])
 		return nil;
-	
-	tileLoader = [[RMTileLoader alloc] initForScreen:screenProjection FromImageSource:[view tileSource]];
+
+	// We do not retain this so there's not a circular dependancy.
+	view = _view;
 	
 	return self;
 }
 
 -(void) dealloc
 {
-	[tileLoader release];
 	[super dealloc];
-}
-
--(void) recalculateImageSet
-{
-	[tileLoader assemble];
 }
 
 - (void)drawRect:(CGRect)rect
 {
-	[tileLoader draw];
+	[[content imagesOnScreen] drawRect:rect];
 }
 
--(void) moveToMercator: (RMMercatorPoint) point
+- (void)setNeedsDisplay
 {
-	[tileLoader clearLoadedBounds];
-	[super moveToMercator:point];
-}
--(void) moveToLatLong: (CLLocationCoordinate2D) point
-{
-	[tileLoader clearLoadedBounds];
-	[super moveToLatLong:point];
-}
-
-- (void)moveBy: (CGSize) delta
-{
-	[super moveBy:delta];
-	[tileLoader moveBy:delta];
-}
-
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
-{
-	[super zoomByFactor:zoomFactor Near:center];
-	[tileLoader zoomByFactor:zoomFactor Near:center];
+	[view setNeedsDisplay];
 }
 
 - (void)tileDidFinishLoading: (RMTileImage *)image

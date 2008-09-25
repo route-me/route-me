@@ -8,7 +8,7 @@
 
 #import "RMTileSource.h"
 
-@protocol AbstractMecatorWebSource
+@protocol RMAbstractMecatorWebSource
 
 -(NSString*) tileURL: (RMTile) tile;
 
@@ -16,7 +16,7 @@
 
 @class RMFractalTileProjection;
 
-@interface AbstractMecatorWebSource : NSObject <RMTileSource> {
+@interface RMAbstractMecatorWebSource : NSObject <RMTileSource> {
 	RMFractalTileProjection *tileProjection;
 }
 

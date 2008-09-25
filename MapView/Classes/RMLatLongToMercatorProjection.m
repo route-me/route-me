@@ -6,12 +6,57 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import "RMLatLongToMercatorProjection.h"
 #import "RMMercator.h"
 #import "RMProjection.h"
 
-@implementation RMMercator
+@implementation RMLatLongToMercatorProjection
 
-+ (CLLocationCoordinate2D) mercatorAsCLLocation: (RMMercatorPoint) merc
+-(void) testLat: (double) latitude Long:(double) longitude
+{
+	CLLocationCoordinate2D loc;
+	loc.latitude = latitude;
+	loc.longitude = longitude;
+	RMMercatorPoint merc = [self projectLatLongToMercator:loc];
+	
+	NSLog(@"ll=%f %f -> %f %f", longitude, latitude, merc.x, merc.y);
+}
+
+-(id) initWithProjection: (RMProjection*) _projection
+{
+	if (![super init])
+		return nil;
+	
+	projection = _projection;
+	[projection retain];
+	
+//	[self testLat:0 Long:0];
+//	[self testLat:80 Long:180];
+//	[self testLat:-80 Long:180];
+//	[self testLat:-80 Long:-180];
+//	[self testLat:80 Long:-180];
+
+	return self;
+}
+
+-(void) dealloc
+{
+	[projection release];
+	
+	[super dealloc];
+}
+
+-(CLLocationCoordinate2D) projectMercatorToLatLong: (RMMercatorPoint) coordinate
+{
+	return [projection projectInverse:[RMLatLongToMercatorProjection mercatorAsCLLocation:coordinate]];
+}
+
+-(RMMercatorPoint) projectLatLongToMercator: (CLLocationCoordinate2D) coordinate
+{
+	return [RMLatLongToMercatorProjection cLlocationAsMercator:[projection projectForward:coordinate]];
+}
+
++(CLLocationCoordinate2D) mercatorAsCLLocation:(RMMercatorPoint) merc
 {
 	CLLocationCoordinate2D point;
 	point.latitude = merc.y;
@@ -19,7 +64,7 @@
 	return point;
 }
 
-+ (RMMercatorPoint) cLlocationAsMercator: (CLLocationCoordinate2D) coordinate
++(RMMercatorPoint) cLlocationAsMercator:(CLLocationCoordinate2D) coordinate
 {
 	RMMercatorPoint point;
 	point.x = coordinate.longitude;
@@ -27,16 +72,24 @@
 	return point;
 }
 
-+ (CLLocationCoordinate2D) toLatLong: (RMMercatorPoint) coordinate
-{
-	return [[RMProjection EPSGGoogle] projectInverse:[RMMercator mercatorAsCLLocation:coordinate]];
-}
+static RMLatLongToMercatorProjection* _google = nil;
 
-+ (RMMercatorPoint) toMercator: (CLLocationCoordinate2D) coordinate
++(RMLatLongToMercatorProjection*) googleProjection
 {
-	return [RMMercator cLlocationAsMercator:[[RMProjection EPSGGoogle] projectForward:coordinate]];
+	if (_google)
+	{
+		return _google;
+	}
+	else
+	{
+		_google = [[RMLatLongToMercatorProjection alloc] initWithProjection:[RMProjection EPSGGoogle]];
+		return _google;
+	}
 }
+@end
 
+
+/*
 + (RMMercatorPoint) clipPoint: (RMMercatorPoint)point ToBounds: (RMMercatorRect) bounds
 {
 	if (point.x < bounds.origin.x)
@@ -50,7 +103,7 @@
 		point.y = bounds.origin.y + bounds.size.height;
 	
 	return point;
-}
+}*/
 
 /* Not complete.
 + (MercatorRect) clipRect: (MercatorRect)rect ToBounds: (MercatorRect) bounds
@@ -77,5 +130,3 @@
 		rect.origin.y = bounds.origin.y + bounds.size.height;
 	
 }*/
-
-@end

@@ -9,40 +9,32 @@
 #import <Foundation/Foundation.h>
 #import "RMTile.h"
 #import "RMTileImageSet.h"
+#import "RMMapContents.h"
 
 @class RMTileImage;
 @class RMTileImageSet;
-@class RMScreenProjection;
+@class RMMercatorToScreenProjection;
 
-extern NSString * const MapImageRemovedFromScreenNotification;
+extern NSString * const RMMapImageRemovedFromScreenNotification;
+extern NSString * const RMMapImageAddedToScreenNotification;
+
+extern NSString * const RMSuspendExpensiveOperations;
+extern NSString * const RMResumeExpensiveOperations;
 
 @protocol RMTileSource;
 
-@interface RMTileLoader : NSObject <RMTileImageSetDelegate> {
-	// Set of locatedtileimages
-	RMTileImageSet *images;
-//	NSMutableSet *buffer;
-//	BOOL dirty;
-	
-	RMScreenProjection* screenProjection;
-	id<RMTileSource> tileSource;
-	
+@interface RMTileLoader : NSObject {
+	RMMapContents *content;
+
 	CGRect loadedBounds;
 	int loadedZoom;
 	RMTileRect loadedTiles;
 }
 
 // Designated initialiser
--(id) initForScreen: (RMScreenProjection*)screen FromImageSource: (id<RMTileSource>)source;
+-(id) initWithContent: (RMMapContents *)contents;
 
-//-(id) initFromRect:(TileRect) rect FromImageSource: (id<TileSource>)source ToDisplayIn:(CGRect)bounds WithTileDelegate: (id)delegate;
--(void) dealloc;
-
-// Invalidate all current image data.
-//-(void) setNeedsRedraw;
-
-//-(BOOL) needsRedraw;
--(void) assemble;
+-(void) updateLoadedImages;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
@@ -52,9 +44,6 @@ extern NSString * const MapImageRemovedFromScreenNotification;
 @property (readonly, nonatomic) CGRect loadedBounds;
 @property (readonly, nonatomic) int loadedZoom;
 
--(BOOL) containsRect: (CGRect)bounds;
-
-//-(void) assembleFromRect:(TileRect) rect FromImageSource: (id<TileSource>)source ToDisplayIn:(CGRect)bounds WithTileDelegate: (id)delegate;
--(void) draw;
+//-(BOOL) containsRect: (CGRect)bounds;
 
 @end

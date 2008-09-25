@@ -6,14 +6,15 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "AbstractMecatorWebSource.h"
+#import "RMAbstractMecatorWebSource.h"
 #import "RMTransform.h"
 #import "RMTileImage.h"
 #import "RMTileLoader.h"
 #import "RMFractalTileProjection.h"
 #import "RMTiledLayerController.h"
+#import "RMLatLongToMercatorProjection.h"
 
-@implementation AbstractMecatorWebSource
+@implementation RMAbstractMecatorWebSource
 
 -(id) init
 {
@@ -48,9 +49,14 @@
 	return image;
 }
 
--(RMFractalTileProjection*) tileProjection
+-(id<RMMercatorToTileProjection>) mercatorToTileProjection
 {
 	return [[tileProjection retain] autorelease];
+}
+
+-(RMLatLongToMercatorProjection*) latLongToMercatorProjection
+{
+	return [RMLatLongToMercatorProjection googleProjection];
 }
 
 -(RMMercatorRect) bounds

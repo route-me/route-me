@@ -11,7 +11,7 @@
 #import "RMTileLoader.h"
 #import "RMFileTileImage.h"
 #import "RMTileCache.h"
-#import "RMMathUtils.h"
+#import "RMPixel.h"
 #import <QuartzCore/QuartzCore.h>
 
 NSString * const RMMapImageLoadedNotification = @"MapImageLoaded";
@@ -31,11 +31,13 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	layer = nil;
 	loadingPriorityCount = 0;
 	lastUsedTime = nil;
+	screenLocation = CGRectMake(0, 0, 0, 0);
+	
 	[self touch];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(tileRemovedFromScreen:)
-												 name:MapImageRemovedFromScreenNotification object:self];
+												 name:RMMapImageRemovedFromScreenNotification object:self];
 	
 	// Should this be done as a notification?
 	if (addToCache)
@@ -149,13 +151,14 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	CGDataProviderRelease(provider);
 //	CGImageRetain(image);
 	
+//	NSLog(@"setImageToData");
 	if (layer == nil)
 	{
 		image = [[UIImage imageWithCGImage:cgImage] retain];
 	}
 	else
 	{
-//		NSLog(@"Replacing image contents with data");
+//		NSLog(@"Replacing layer contents with data");
 		layer.contents = (id)cgImage;
 	}
 	
@@ -195,6 +198,9 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.anchorPoint = CGPointMake(0.0f, 0.0f);
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 		layer.position = screenLocation.origin;
+//		NSLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
+
+	//		NSLog(@"layer made");
 	}
 	
 	if (image != nil)
@@ -202,6 +208,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.contents = (id)[image CGImage];
 		[image release];
 		image = nil;
+//		NSLog(@"layer contents set");
 	}
 }
 

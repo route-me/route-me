@@ -7,7 +7,7 @@
 //
 
 #import "RMFractalTileProjection.h"
-#import "RMScreenProjection.h"
+#import "RMMercatorToScreenProjection.h"
 #import <math.h>
 
 @implementation RMFractalTileProjection
@@ -95,7 +95,7 @@
 	return [self projectRect:mercatorRect AtZoom:[self calculateZoomFromScale:scale]];
 }
 
--(RMTileRect) project: (RMScreenProjection*)screen;
+-(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
 {
 	return [self projectRect:[screen mercatorBounds] AtScale:[screen scale]];
 }

@@ -10,54 +10,18 @@
 #import "RMMercator.h"
 
 @class CALayer;
+@class UIView;
+
 @protocol RMTileSource;
-
-@protocol RMRenderingTarget<NSObject>
-
--(void) setNeedsDisplay;
--(CGRect) cgBounds;
--(id<RMTileSource>) tileSource;
-@optional
--(CALayer*) layer;
-
-@end
-
-
-@class RMScreenProjection;
+@class RMMapContents;
 
 @interface RMMapRenderer : NSObject
 {
-	RMScreenProjection *screenProjection;
-	id<RMRenderingTarget> view;
-	
-	// Rendering layers
-	NSMutableArray *layers;
+	RMMapContents *content;
 }
 
-// Designated initialiser
-- (id) initWithView: (id<RMRenderingTarget>)_view ProjectingIn: (RMScreenProjection*) _screenProjection;
-// This makes a screen projection from the view
-- (id) initWithView: (id<RMRenderingTarget>)view;
-
+- (id) initForView: (UIView*) view WithContent: (RMMapContents *)contents;
+- (void) setNeedsDisplay;
 - (void)drawRect:(CGRect)rect;
-
--(void) moveToMercator: (RMMercatorPoint) point;
--(void) moveToLatLong: (CLLocationCoordinate2D) point;
-
-- (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
-
-- (void)recalculateImageSet;
-- (void)setNeedsDisplay;
-
-
-//-(void)addLayer: (id<RMMapLayer>) layer above: (id<RMMapLayer>) other;
-//-(void)addLayer: (id<RMMapLayer>) layer below: (id<RMMapLayer>) other;
-//-(void)removeLayer: (id<RMMapLayer>) layer;
-
-
-@property (readwrite) double scale;
-
-@property (readonly) RMScreenProjection *screenProjection;
 
 @end

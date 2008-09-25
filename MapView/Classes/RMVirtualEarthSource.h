@@ -6,9 +6,9 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "AbstractMecatorWebSource.h"
+#import "RMAbstractMecatorWebSource.h"
 
-@interface RMVirtualEarthSource : AbstractMecatorWebSource <AbstractMecatorWebSource> {
+@interface RMVirtualEarthSource : RMAbstractMecatorWebSource <RMAbstractMecatorWebSource> {
 }
 
 -(NSString*) quadKeyForTile: (RMTile) tile;

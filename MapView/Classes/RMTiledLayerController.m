@@ -102,16 +102,7 @@
 
 -(void) zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-//	NSLog(@"zoomBy: %f", zoomFactor);
-/*	topLeft.x += center.x * scale;
-	topLeft.y += (viewSize.height - center.y) * scale;
-	scale *= zoomFactor;
-	topLeft.x -= center.x * scale;
-	topLeft.y -= (viewSize.height - center.y) * scale;
-*/
-	
 	[self setScale: scale * zoomFactor];
-	
 }
 
 - (void)drawLayer:(CALayer *)theLayer
