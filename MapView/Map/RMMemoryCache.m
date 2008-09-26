@@ -32,7 +32,7 @@
 
 -(id)init
 {
-	return [self initWithCapacity:16];
+	return [self initWithCapacity:32];
 }
 
 -(void) dealloc

@@ -20,8 +20,8 @@
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
 
-@interface RMMapContents : NSObject {
-	
+@interface RMMapContents : NSObject
+{
 	// TODO: Also support NSView.
 //	UIView *targetView;
 	
@@ -72,5 +72,10 @@
 //-(void)addLayer: (id<RMMapLayer>) layer above: (id<RMMapLayer>) other;
 //-(void)addLayer: (id<RMMapLayer>) layer below: (id<RMMapLayer>) other;
 //-(void)removeLayer: (id<RMMapLayer>) layer;
+
+// During touch and move operations on the iphone its good practice to
+// hold off on any particularly expensive operations so the user's 
++ (BOOL) performExpensiveOperations;
++ (void) setPerformExpensiveOperations: (BOOL)p;
 
 @end

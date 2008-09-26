@@ -21,6 +21,8 @@
 #import "RMOpenStreetMapsSource.h"
 #import "RMCoreAnimationRenderer.h"
 
+#import "RMCachedTileSource.h"
+
 @implementation RMMapContents
 
 #pragma mark Initialisation
@@ -81,7 +83,7 @@
 	[self setRenderer:_renderer];
 	
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
-	[imagesOnScreen setTileSource:tileSource];
+	[imagesOnScreen setTileSource:[RMCachedTileSource cachedTileSourceWithSource:tileSource]];
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	
 	[self moveToLatLong:latlong];
@@ -206,6 +208,16 @@
 -(id<RMTileSource>) tileSource
 {
 	return [[tileSource retain] autorelease];
+}
+
+static BOOL _performExpensiveOperations = YES;
++ (BOOL) performExpensiveOperations
+{
+	return _performExpensiveOperations;
+}
++ (void) setPerformExpensiveOperations: (BOOL)p
+{
+	_performExpensiveOperations = p;
 }
 
 @end

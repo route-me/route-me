@@ -31,6 +31,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	layer = nil;
 	loadingPriorityCount = 0;
 	lastUsedTime = nil;
+	dataPending = nil;
 	screenLocation = CGRectMake(0, 0, 0, 0);
 	
 	[self touch];
@@ -79,6 +80,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 	[image release];
 	[layer release];
+	[dataPending release];
 	[lastUsedTime release];
 	
 	[super dealloc];
@@ -143,8 +145,30 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 //	image = [[UIImage imageWithData:data] retain];
 //}
 
+- (void) loadPendingData: (NSNotification*)notification
+{
+	if (dataPending != nil)
+	{
+		[self setImageToData:dataPending];
+		[dataPending release];
+		dataPending = nil;
+		
+//		NSLog(@"loadPendingData");
+	}
+}
+
 - (void)setImageToData: (NSData*) data
 {
+	if ([RMMapContents performExpensiveOperations] == NO)
+	{
+//		NSLog(@"storing data for later loading");
+		[data retain];
+		[dataPending release];
+		dataPending = data;
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPendingData:) name:RMResumeExpensiveOperations object:nil];
+		return;
+	}
+	
 //	CGContextRef context = 
 	CGDataProviderRef provider = CGDataProviderCreateWithCFData ((CFDataRef)data);
 	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(provider, NULL, FALSE, kCGRenderingIntentDefault);

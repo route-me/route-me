@@ -19,6 +19,7 @@ typedef NSImage UIImage;
 #import "RMTile.h"
 
 @class RMTileImage;
+@class NSData;
 
 extern NSString * const RMMapImageLoadedNotification;
 extern NSString * const RMMapImageLoadingCancelledNotification;
@@ -27,6 +28,8 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 	UIImage *image;
 
 //	CGImageRef image;
+	
+	NSData* dataPending;
 	
 	// I know this is a bit nasty.
 	RMTile tile;

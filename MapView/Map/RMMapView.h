@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreGraphics/CGGeometry.h>
 
 #import "RMLatLong.h"
 #import "RMMercator.h"
-#import <CoreGraphics/CGGeometry.h>
-
-@class RMMapContents;
 
 // iPhone-specific mapview stuff.
 // Handles event handling, whatnot.
@@ -23,6 +21,8 @@ typedef struct {
 	int numTouches;
 } RMGestureDetails;
 
+
+@class RMMapContents;
 
 @interface RMMapView : UIView
 {

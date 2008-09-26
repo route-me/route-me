@@ -44,9 +44,9 @@
 		);
 		breakpoints = (
 			B8A730820E81FE5A00DB975F /* OLDRMMapView.m:255 */,
-			B8C978FC0E8BE548007D16AD /* RMTileImage.m:211 */,
+			B8C978FC0E8BE548007D16AD /* RMTileImage.m:235 */,
 			B8C979030E8BE5BF007D16AD /* RMCoreAnimationRenderer.m:21 */,
-			B8C9790F0E8BE682007D16AD /* RMMapContents.m:116 */,
+			B8C9790F0E8BE682007D16AD /* RMMapContents.m:118 */,
 			B8C979610E8BECCB007D16AD /* RMTileLoader.m:81 */,
 			B8C979660E8BECDB007D16AD /* RMTileLoader.m:87 */,
 			B8C97A1D0E8BF675007D16AD /* RMLatLongToMercatorProjection.m:20 */,
@@ -171,6 +171,32 @@
 			B852849A0E8C027400335360 /* PBXTextBookmark */ = B852849A0E8C027400335360 /* PBXTextBookmark */;
 			B852849B0E8C027400335360 /* PBXTextBookmark */ = B852849B0E8C027400335360 /* PBXTextBookmark */;
 			B852849C0E8C027400335360 /* PBXTextBookmark */ = B852849C0E8C027400335360 /* PBXTextBookmark */;
+			B85284A60E8C055700335360 /* PBXTextBookmark */ = B85284A60E8C055700335360 /* PBXTextBookmark */;
+			B85284A70E8C055700335360 /* PBXTextBookmark */ = B85284A70E8C055700335360 /* PBXTextBookmark */;
+			B85284A80E8C055700335360 /* PBXTextBookmark */ = B85284A80E8C055700335360 /* PBXTextBookmark */;
+			B85284A90E8C055700335360 /* PBXTextBookmark */ = B85284A90E8C055700335360 /* PBXTextBookmark */;
+			B85284AA0E8C055700335360 /* PBXTextBookmark */ = B85284AA0E8C055700335360 /* PBXTextBookmark */;
+			B85284AF0E8C08B000335360 /* PBXTextBookmark */ = B85284AF0E8C08B000335360 /* PBXTextBookmark */;
+			B85284B00E8C095500335360 /* PBXTextBookmark */ = B85284B00E8C095500335360 /* PBXTextBookmark */;
+			B85284B10E8C095500335360 /* PBXTextBookmark */ = B85284B10E8C095500335360 /* PBXTextBookmark */;
+			B85284B20E8C095500335360 /* PBXTextBookmark */ = B85284B20E8C095500335360 /* PBXTextBookmark */;
+			B85284B30E8C095500335360 /* PBXTextBookmark */ = B85284B30E8C095500335360 /* PBXTextBookmark */;
+			B85284B40E8C095500335360 /* PBXTextBookmark */ = B85284B40E8C095500335360 /* PBXTextBookmark */;
+			B85284B50E8C095500335360 /* PBXTextBookmark */ = B85284B50E8C095500335360 /* PBXTextBookmark */;
+			B85284B60E8C095500335360 /* PBXTextBookmark */ = B85284B60E8C095500335360 /* PBXTextBookmark */;
+			B85284B70E8C095500335360 /* PBXTextBookmark */ = B85284B70E8C095500335360 /* PBXTextBookmark */;
+			B85284B80E8C095500335360 /* PBXTextBookmark */ = B85284B80E8C095500335360 /* PBXTextBookmark */;
+			B85284CE0E8C913100335360 /* PBXTextBookmark */ = B85284CE0E8C913100335360 /* PBXTextBookmark */;
+			B85284CF0E8C913400335360 /* PBXTextBookmark */ = B85284CF0E8C913400335360 /* PBXTextBookmark */;
+			B85284D00E8C913400335360 /* PBXTextBookmark */ = B85284D00E8C913400335360 /* PBXTextBookmark */;
+			B85284D10E8C913400335360 /* PBXTextBookmark */ = B85284D10E8C913400335360 /* PBXTextBookmark */;
+			B85284D20E8C913400335360 /* PBXTextBookmark */ = B85284D20E8C913400335360 /* PBXTextBookmark */;
+			B85284D30E8C913400335360 /* PBXTextBookmark */ = B85284D30E8C913400335360 /* PBXTextBookmark */;
+			B85284D40E8C913400335360 /* PBXTextBookmark */ = B85284D40E8C913400335360 /* PBXTextBookmark */;
+			B85284D50E8C913400335360 /* PBXTextBookmark */ = B85284D50E8C913400335360 /* PBXTextBookmark */;
+			B85284D60E8C913400335360 /* PBXTextBookmark */ = B85284D60E8C913400335360 /* PBXTextBookmark */;
+			B85284D70E8C913400335360 /* PBXTextBookmark */ = B85284D70E8C913400335360 /* PBXTextBookmark */;
+			B85284D80E8C913400335360 /* PBXTextBookmark */ = B85284D80E8C913400335360 /* PBXTextBookmark */;
 			B85C7B810E89DDE700B112E4 = B85C7B810E89DDE700B112E4 /* PBXTextBookmark */;
 			B86E00220E8BF6F20022A9C9 = B86E00220E8BF6F20022A9C9 /* PBXTextBookmark */;
 			B86E002F0E8BF7E90022A9C9 = B86E002F0E8BF7E90022A9C9 /* PBXTextBookmark */;
@@ -1238,9 +1264,9 @@
 	};
 	B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {936, 1428}}";
+			sepNavIntBoundsRect = "{{0, 0}, {936, 1456}}";
 			sepNavSelRange = "{283, 0}";
-			sepNavVisRange = "{0, 859}";
+			sepNavVisRange = "{0, 908}";
 		};
 	};
 	B83E64C10E80E73F001663B6 /* RMLayerToScreenProjection.h */ = {
@@ -1384,16 +1410,16 @@
 	};
 	B83E64D80E80E73F001663B6 /* RMTileImage.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 1078}}";
-			sepNavSelRange = "{335, 0}";
-			sepNavVisRange = "{0, 1180}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 1134}}";
+			sepNavSelRange = "{390, 0}";
+			sepNavVisRange = "{0, 1205}";
 		};
 	};
 	B83E64D90E80E73F001663B6 /* RMTileImage.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 3458}}";
-			sepNavSelRange = "{315, 156}";
-			sepNavVisRange = "{3468, 1251}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 3780}}";
+			sepNavSelRange = "{3534, 0}";
+			sepNavVisRange = "{2771, 1500}";
 		};
 	};
 	B83E64DA0E80E73F001663B6 /* RMTileProxy.h */ = {
@@ -1441,15 +1467,15 @@
 	B83E64E00E80E73F001663B6 /* RMTileImageSet.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1529, 910}}";
-			sepNavSelRange = "{1213, 0}";
-			sepNavVisRange = "{3, 1548}";
+			sepNavSelRange = "{320, 0}";
+			sepNavVisRange = "{140, 1417}";
 		};
 	};
 	B83E64E10E80E73F001663B6 /* RMTileImageSet.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 3080}}";
-			sepNavSelRange = "{2953, 0}";
-			sepNavVisRange = "{2437, 1978}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 2828}}";
+			sepNavSelRange = "{365, 7}";
+			sepNavVisRange = "{137, 1260}";
 			sepNavWindowFrame = "{{42, 77}, {1777, 1075}}";
 		};
 	};
@@ -1512,7 +1538,7 @@
 	};
 	B83E64EC0E80E73F001663B6 /* RMTileSource.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 842}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 802}}";
 			sepNavSelRange = "{494, 123}";
 			sepNavVisRange = "{0, 709}";
 		};
@@ -1951,6 +1977,266 @@
 		vrLen = 1274;
 		vrLoc = 2102;
 	};
+	B85284A60E8C055700335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */;
+		name = "RMCoreAnimationRenderer.m: 14";
+		rLen = 0;
+		rLoc = 307;
+		rType = 0;
+		vrLen = 1251;
+		vrLoc = 150;
+	};
+	B85284A70E8C055700335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
+		name = "RMMapContents.m: 91";
+		rLen = 0;
+		rLoc = 2522;
+		rType = 0;
+		vrLen = 1527;
+		vrLoc = 1429;
+	};
+	B85284A80E8C055700335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */;
+		name = "RMCoreAnimationRenderer.m: 14";
+		rLen = 0;
+		rLoc = 307;
+		rType = 0;
+		vrLen = 1251;
+		vrLoc = 150;
+	};
+	B85284A90E8C055700335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
+		name = "RMMapContents.m: 91";
+		rLen = 0;
+		rLoc = 2522;
+		rType = 0;
+		vrLen = 1527;
+		vrLoc = 1429;
+	};
+	B85284AA0E8C055700335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
+		name = "RMMapContents.h: 21";
+		rLen = 0;
+		rLoc = 435;
+		rType = 0;
+		vrLen = 1832;
+		vrLoc = 374;
+	};
+	B85284AF0E8C08B000335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
+		name = "RMMapContents.h: 24";
+		rLen = 0;
+		rLoc = 474;
+		rType = 0;
+		vrLen = 1539;
+		vrLoc = 0;
+	};
+	B85284B00E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
+		name = "RMMapContents.h: 24";
+		rLen = 0;
+		rLoc = 474;
+		rType = 0;
+		vrLen = 1539;
+		vrLoc = 0;
+	};
+	B85284B10E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64E10E80E73F001663B6 /* RMTileImageSet.m */;
+		name = "RMTileImageSet.m: 132";
+		rLen = 0;
+		rLoc = 2953;
+		rType = 0;
+		vrLen = 1978;
+		vrLoc = 2437;
+	};
+	B85284B20E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D80E80E73F001663B6 /* RMTileImage.h */;
+		name = "RMTileImage.h: 18";
+		rLen = 0;
+		rLoc = 335;
+		rType = 0;
+		vrLen = 1213;
+		vrLoc = 0;
+	};
+	B85284B30E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
+		name = "RMTileImage.m: 147";
+		rLen = 0;
+		rLoc = 3796;
+		rType = 0;
+		vrLen = 1373;
+		vrLoc = 2797;
+	};
+	B85284B40E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
+		name = "RMMapContents.h: 24";
+		rLen = 0;
+		rLoc = 474;
+		rType = 0;
+		vrLen = 1539;
+		vrLoc = 0;
+	};
+	B85284B50E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64E10E80E73F001663B6 /* RMTileImageSet.m */;
+		name = "RMTileImageSet.m: 132";
+		rLen = 0;
+		rLoc = 2953;
+		rType = 0;
+		vrLen = 1978;
+		vrLoc = 2437;
+	};
+	B85284B60E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
+		name = "RMTileImage.m: 147";
+		rLen = 0;
+		rLoc = 3796;
+		rType = 0;
+		vrLen = 1373;
+		vrLoc = 2797;
+	};
+	B85284B70E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D80E80E73F001663B6 /* RMTileImage.h */;
+		name = "RMTileImage.h: 18";
+		rLen = 0;
+		rLoc = 335;
+		rType = 0;
+		vrLen = 1213;
+		vrLoc = 0;
+	};
+	B85284B80E8C095500335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
+		name = "RMTileImage.m: 147";
+		rLen = 0;
+		rLoc = 3796;
+		rType = 0;
+		vrLen = 1373;
+		vrLoc = 2797;
+	};
+	B85284CE0E8C913100335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */;
+		name = "RMCoreAnimationRenderer.m: 13";
+		rLen = 0;
+		rLoc = 283;
+		rType = 0;
+		vrLen = 908;
+		vrLoc = 0;
+	};
+	B85284CF0E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
+		name = "RMTileImage.m: 169";
+		rLen = 0;
+		rLoc = 4482;
+		rType = 0;
+		vrLen = 1373;
+		vrLoc = 2797;
+	};
+	B85284D00E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64EC0E80E73F001663B6 /* RMTileSource.h */;
+		name = "RMTileSource.h: 23";
+		rLen = 123;
+		rLoc = 494;
+		rType = 0;
+		vrLen = 709;
+		vrLoc = 0;
+	};
+	B85284D10E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
+		name = "RMMapView.h: 23";
+		rLen = 0;
+		rLoc = 422;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 0;
+	};
+	B85284D20E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
+		name = "RMMapView.m: 24";
+		rLen = 0;
+		rLoc = 395;
+		rType = 0;
+		vrLen = 1592;
+		vrLoc = 3345;
+	};
+	B85284D30E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
+		name = "RMTileImage.m: 169";
+		rLen = 0;
+		rLoc = 4482;
+		rType = 0;
+		vrLen = 1373;
+		vrLoc = 2797;
+	};
+	B85284D40E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B83E64EC0E80E73F001663B6 /* RMTileSource.h */;
+		name = "RMTileSource.h: 23";
+		rLen = 123;
+		rLoc = 494;
+		rType = 0;
+		vrLen = 709;
+		vrLoc = 0;
+	};
+	B85284D50E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
+		name = "RMMapView.m: 24";
+		rLen = 0;
+		rLoc = 395;
+		rType = 0;
+		vrLen = 903;
+		vrLoc = 0;
+	};
+	B85284D60E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
+		name = "RMMapView.h: 23";
+		rLen = 0;
+		rLoc = 422;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 0;
+	};
+	B85284D70E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
+		name = "RMMapView.m: 24";
+		rLen = 0;
+		rLoc = 395;
+		rType = 0;
+		vrLen = 1592;
+		vrLoc = 3345;
+	};
+	B85284D80E8C913400335360 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
+		name = "RMMapContents.h: 42";
+		rLen = 0;
+		rLoc = 921;
+		rType = 0;
+		vrLen = 1830;
+		vrLoc = 374;
+	};
 	B85C7B810E89DDE700B112E4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 1D3623250D0F684500981E51 /* MapViewAppDelegate.m */;
@@ -2006,7 +2292,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 239";
 		rLen = 0;
-		rLoc = 5437;
+		rLoc = 6013;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 4183;
@@ -2066,7 +2352,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 239";
 		rLen = 0;
-		rLoc = 5437;
+		rLoc = 6013;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 4183;
@@ -2095,7 +2381,7 @@
 		ignoreCount = 0;
 		lineNumber = 64;
 		location = MapView;
-		modificationTime = 244056670.210327;
+		modificationTime = 244095568.50532;
 		state = 2;
 	};
 	B86E003F0E8BF84E0022A9C9 /* PBXTextBookmark */ = {
@@ -2250,7 +2536,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 91";
 		rLen = 0;
-		rLoc = 2442;
+		rLoc = 2522;
 		rType = 0;
 		vrLen = 1527;
 		vrLoc = 1429;
@@ -2280,7 +2566,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -2310,7 +2596,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 142";
 		rLen = 0;
-		rLoc = 3131;
+		rLoc = 3183;
 		rType = 0;
 		vrLen = 1896;
 		vrLoc = 2751;
@@ -2330,7 +2616,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 201";
 		rLen = 0;
-		rLoc = 4527;
+		rLoc = 5103;
 		rType = 0;
 		vrLen = 1171;
 		vrLoc = 3969;
@@ -2390,7 +2676,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 91";
 		rLen = 0;
-		rLoc = 2442;
+		rLoc = 2522;
 		rType = 0;
 		vrLen = 1527;
 		vrLoc = 1429;
@@ -2430,7 +2716,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 160";
 		rLen = 0;
-		rLoc = 3909;
+		rLoc = 4046;
 		rType = 0;
 		vrLen = 1892;
 		vrLoc = 2623;
@@ -2450,7 +2736,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 159";
 		rLen = 0;
-		rLoc = 3866;
+		rLoc = 3869;
 		rType = 0;
 		vrLen = 1923;
 		vrLoc = 2693;
@@ -2460,7 +2746,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -2470,7 +2756,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 140";
 		rLen = 0;
-		rLoc = 3223;
+		rLoc = 3226;
 		rType = 0;
 		vrLen = 1845;
 		vrLoc = 2751;
@@ -2480,7 +2766,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -2490,7 +2776,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 140";
 		rLen = 0;
-		rLoc = 3223;
+		rLoc = 3226;
 		rType = 0;
 		vrLen = 1856;
 		vrLoc = 2751;
@@ -2500,7 +2786,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -2510,7 +2796,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 142";
 		rLen = 0;
-		rLoc = 3131;
+		rLoc = 3183;
 		rType = 0;
 		vrLen = 1896;
 		vrLoc = 2751;
@@ -2787,7 +3073,7 @@
 		ignoreCount = 0;
 		lineNumber = 255;
 		location = MapView;
-		modificationTime = 244056670.209943;
+		modificationTime = 244095568.505014;
 		state = 2;
 	};
 	B8A7308F0E81FFBF00DB975F /* pj_datums.c */ = {
@@ -2799,7 +3085,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {936, 1778}}";
 			sepNavSelRange = "{2847, 45}";
-			sepNavVisRange = "{2102, 1274}";
+			sepNavVisRange = "{2102, 1454}";
 		};
 	};
 	B8A730950E82004600DB975F /* PBXTextBookmark */ = {
@@ -2858,15 +3144,15 @@
 	B8C974690E8A1A50007D16AD /* RMMapView.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1529, 802}}";
-			sepNavSelRange = "{446, 0}";
+			sepNavSelRange = "{422, 0}";
 			sepNavVisRange = "{0, 791}";
 		};
 	};
 	B8C9746A0E8A1A50007D16AD /* RMMapView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 3206}}";
-			sepNavSelRange = "{212, 0}";
-			sepNavVisRange = "{0, 903}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 2800}}";
+			sepNavSelRange = "{3224, 0}";
+			sepNavVisRange = "{2940, 2003}";
 		};
 	};
 	B8C974AE0E8A1F08007D16AD /* RMMercatorToTileProjection.h */ = {
@@ -2885,16 +3171,16 @@
 	};
 	B8C974B60E8A280A007D16AD /* RMMapContents.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 1162}}";
-			sepNavSelRange = "{435, 0}";
-			sepNavVisRange = "{0, 1541}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 1148}}";
+			sepNavSelRange = "{2338, 85}";
+			sepNavVisRange = "{473, 1957}";
 		};
 	};
 	B8C974B70E8A280A007D16AD /* RMMapContents.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1529, 2828}}";
-			sepNavSelRange = "{2442, 0}";
-			sepNavVisRange = "{1429, 1527}";
+			sepNavIntBoundsRect = "{{0, 0}, {1529, 3108}}";
+			sepNavSelRange = "{2185, 0}";
+			sepNavVisRange = "{1305, 1635}";
 		};
 	};
 	B8C974BA0E8A36E5007D16AD /* RMMercator.c */ = {
@@ -3220,7 +3506,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 13";
 		rLen = 0;
-		rLoc = 4931;
+		rLoc = 5020;
 		rType = 0;
 		vrLen = 195;
 		vrLoc = 0;
@@ -3240,7 +3526,7 @@
 		fRef = B8C9746A0E8A1A50007D16AD /* RMMapView.m */;
 		name = "RMMapView.m: 14";
 		rLen = 0;
-		rLoc = 4930;
+		rLoc = 5019;
 		rType = 0;
 		vrLen = 197;
 		vrLoc = 0;
@@ -4480,7 +4766,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 23";
 		rLen = 0;
-		rLoc = 1889;
+		rLoc = 1887;
 		rType = 0;
 		vrLen = 433;
 		vrLoc = 0;
@@ -4530,7 +4816,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 17";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 624;
 		vrLoc = 0;
@@ -4550,7 +4836,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 17";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -4570,7 +4856,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 17";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -4610,7 +4896,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 17";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -4630,7 +4916,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 19";
 		rLen = 0;
-		rLoc = 716;
+		rLoc = 714;
 		rType = 0;
 		vrLen = 698;
 		vrLoc = 0;
@@ -4680,7 +4966,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 21";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 781;
 		vrLoc = 0;
@@ -4900,7 +5186,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 22";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 840;
 		vrLoc = 0;
@@ -5030,7 +5316,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 22";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 840;
 		vrLoc = 0;
@@ -5567,7 +5853,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 22";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 797;
 		rType = 0;
 		vrLen = 840;
 		vrLoc = 0;
@@ -6387,7 +6673,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 33";
 		rLen = 0;
-		rLoc = 1001;
+		rLoc = 999;
 		rType = 0;
 		vrLen = 1076;
 		vrLoc = 0;
@@ -6417,7 +6703,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 33";
 		rLen = 0;
-		rLoc = 1001;
+		rLoc = 999;
 		rType = 0;
 		vrLen = 1076;
 		vrLoc = 0;
@@ -6527,7 +6813,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 29";
 		rLen = 0;
-		rLoc = 868;
+		rLoc = 866;
 		rType = 0;
 		vrLen = 1044;
 		vrLoc = 0;
@@ -6897,7 +7183,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 29";
 		rLen = 0;
-		rLoc = 868;
+		rLoc = 866;
 		rType = 0;
 		vrLen = 1044;
 		vrLoc = 0;
@@ -6917,7 +7203,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 28";
 		rLen = 0;
-		rLoc = 835;
+		rLoc = 833;
 		rType = 0;
 		vrLen = 1070;
 		vrLoc = 0;
@@ -7127,7 +7413,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 31";
 		rLen = 0;
-		rLoc = 921;
+		rLoc = 919;
 		rType = 0;
 		vrLen = 1129;
 		vrLoc = 0;
@@ -7147,7 +7433,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 28";
 		rLen = 87;
-		rLoc = 834;
+		rLoc = 832;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 0;
@@ -7237,7 +7523,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 28";
 		rLen = 87;
-		rLoc = 834;
+		rLoc = 832;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 0;
@@ -7447,7 +7733,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 28";
 		rLen = 87;
-		rLoc = 834;
+		rLoc = 832;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 0;
@@ -7477,7 +7763,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 31";
 		rLen = 0;
-		rLoc = 919;
+		rLoc = 917;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 0;
@@ -7517,7 +7803,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 30";
 		rLen = 0;
-		rLoc = 895;
+		rLoc = 893;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 0;
@@ -7557,7 +7843,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 42";
 		rLen = 36;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1223;
 		vrLoc = 0;
@@ -7567,7 +7853,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 19";
 		rLen = 0;
-		rLoc = 840;
+		rLoc = 872;
 		rType = 0;
 		vrLen = 302;
 		vrLoc = 0;
@@ -7577,7 +7863,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 1;
-		rLoc = 1766;
+		rLoc = 1764;
 		rType = 0;
 		vrLen = 1257;
 		vrLoc = 0;
@@ -7587,7 +7873,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 19";
 		rLen = 0;
-		rLoc = 840;
+		rLoc = 872;
 		rType = 0;
 		vrLen = 302;
 		vrLoc = 0;
@@ -7597,7 +7883,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 45";
 		rLen = 163;
-		rLoc = 1603;
+		rLoc = 1601;
 		rType = 0;
 		vrLen = 1419;
 		vrLoc = 0;
@@ -7607,7 +7893,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 26";
 		rLen = 0;
-		rLoc = 2458;
+		rLoc = 2538;
 		rType = 0;
 		vrLen = 470;
 		vrLoc = 0;
@@ -7617,7 +7903,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7627,7 +7913,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 17";
 		rLen = 0;
-		rLoc = 719;
+		rLoc = 751;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -7657,7 +7943,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 19";
 		rLen = 0;
-		rLoc = 1019;
+		rLoc = 1051;
 		rType = 0;
 		vrLen = 575;
 		vrLoc = 0;
@@ -7667,7 +7953,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7677,7 +7963,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 19";
 		rLen = 0;
-		rLoc = 908;
+		rLoc = 940;
 		rType = 0;
 		vrLen = 687;
 		vrLoc = 0;
@@ -7687,7 +7973,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7697,7 +7983,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 18";
 		rLen = 0;
-		rLoc = 840;
+		rLoc = 872;
 		rType = 0;
 		vrLen = 684;
 		vrLoc = 0;
@@ -7707,7 +7993,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 36";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 875;
 		vrLoc = 0;
@@ -7717,7 +8003,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7727,7 +8013,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 36";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 893;
 		vrLoc = 0;
@@ -7737,7 +8023,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7747,7 +8033,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 36";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 893;
 		vrLoc = 0;
@@ -7757,7 +8043,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 0;
@@ -7767,7 +8053,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 37";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 900;
 		vrLoc = 0;
@@ -7777,7 +8063,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1487;
+		rLoc = 1485;
 		rType = 0;
 		vrLen = 1447;
 		vrLoc = 0;
@@ -7787,7 +8073,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 37";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 921;
 		vrLoc = 0;
@@ -7797,7 +8083,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1487;
+		rLoc = 1485;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 0;
@@ -7807,7 +8093,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 40";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 948;
 		vrLoc = 0;
@@ -7817,7 +8103,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1487;
+		rLoc = 1485;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 0;
@@ -7827,7 +8113,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 40";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 0;
@@ -7887,7 +8173,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 40";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 0;
@@ -7907,7 +8193,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 41";
 		rLen = 0;
-		rLoc = 2444;
+		rLoc = 2524;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 0;
@@ -7917,7 +8203,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 44";
 		rLen = 0;
-		rLoc = 1487;
+		rLoc = 1485;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 0;
@@ -7927,7 +8213,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 41";
 		rLen = 0;
-		rLoc = 2444;
+		rLoc = 2524;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 0;
@@ -7937,7 +8223,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 27";
 		rLen = 0;
-		rLoc = 654;
+		rLoc = 652;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -7977,7 +8263,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 39";
 		rLen = 0;
-		rLoc = 1426;
+		rLoc = 1458;
 		rType = 0;
 		vrLen = 1177;
 		vrLoc = 0;
@@ -7987,7 +8273,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 27";
 		rLen = 0;
-		rLoc = 654;
+		rLoc = 652;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -7997,7 +8283,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 49";
 		rLen = 0;
-		rLoc = 1741;
+		rLoc = 1773;
 		rType = 0;
 		vrLen = 1346;
 		vrLoc = 0;
@@ -8007,7 +8293,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 27";
 		rLen = 0;
-		rLoc = 654;
+		rLoc = 652;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8017,7 +8303,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 50";
 		rLen = 0;
-		rLoc = 1741;
+		rLoc = 1773;
 		rType = 0;
 		vrLen = 1359;
 		vrLoc = 0;
@@ -8027,7 +8313,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 27";
 		rLen = 0;
-		rLoc = 654;
+		rLoc = 652;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8037,7 +8323,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 56";
 		rLen = 0;
-		rLoc = 2022;
+		rLoc = 2054;
 		rType = 0;
 		vrLen = 1428;
 		vrLoc = 0;
@@ -8047,7 +8333,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 31";
 		rLen = 59;
-		rLoc = 742;
+		rLoc = 740;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8057,7 +8343,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 56";
 		rLen = 0;
-		rLoc = 2022;
+		rLoc = 2054;
 		rType = 0;
 		vrLen = 1428;
 		vrLoc = 0;
@@ -8067,7 +8353,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 31";
 		rLen = 59;
-		rLoc = 742;
+		rLoc = 740;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8077,7 +8363,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 57";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1428;
 		vrLoc = 0;
@@ -8087,7 +8373,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 31";
 		rLen = 59;
-		rLoc = 742;
+		rLoc = 740;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8107,7 +8393,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 54";
 		rLen = 0;
-		rLoc = 1926;
+		rLoc = 1958;
 		rType = 0;
 		vrLen = 1516;
 		vrLoc = 0;
@@ -8117,7 +8403,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 35";
 		rLen = 60;
-		rLoc = 835;
+		rLoc = 833;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8127,7 +8413,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 48";
 		rLen = 0;
-		rLoc = 1537;
+		rLoc = 1569;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 170;
@@ -8137,7 +8423,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 35";
 		rLen = 60;
-		rLoc = 835;
+		rLoc = 833;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8147,7 +8433,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 48";
 		rLen = 0;
-		rLoc = 1537;
+		rLoc = 1569;
 		rType = 0;
 		vrLen = 1473;
 		vrLoc = 169;
@@ -8157,7 +8443,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 36";
 		rLen = 0;
-		rLoc = 868;
+		rLoc = 866;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8167,7 +8453,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 66";
 		rLen = 0;
-		rLoc = 2261;
+		rLoc = 2341;
 		rType = 0;
 		vrLen = 1502;
 		vrLoc = 143;
@@ -8177,7 +8463,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 36";
 		rLen = 0;
-		rLoc = 868;
+		rLoc = 866;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8187,7 +8473,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 66";
 		rLen = 0;
-		rLoc = 2261;
+		rLoc = 2341;
 		rType = 0;
 		vrLen = 1520;
 		vrLoc = 143;
@@ -8197,7 +8483,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 36";
 		rLen = 0;
-		rLoc = 868;
+		rLoc = 866;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 0;
@@ -8207,7 +8493,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1656;
 		vrLoc = 201;
@@ -8237,7 +8523,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1685;
 		vrLoc = 171;
@@ -8247,7 +8533,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 60";
 		rLen = 0;
-		rLoc = 2200;
+		rLoc = 2413;
 		rType = 0;
 		vrLen = 1683;
 		vrLoc = 0;
@@ -8257,7 +8543,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1625;
 		vrLoc = 237;
@@ -8397,7 +8683,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 23";
 		rLen = 0;
-		rLoc = 510;
+		rLoc = 508;
 		rType = 0;
 		vrLen = 1685;
 		vrLoc = 0;
@@ -8407,7 +8693,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1625;
 		vrLoc = 237;
@@ -8587,7 +8873,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 45";
 		rLen = 0;
-		rLoc = 1214;
+		rLoc = 1212;
 		rType = 0;
 		vrLen = 1736;
 		vrLoc = 3;
@@ -8807,7 +9093,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 21";
 		rLen = 0;
-		rLoc = 476;
+		rLoc = 474;
 		rType = 0;
 		vrLen = 1716;
 		vrLoc = 23;
@@ -9207,7 +9493,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 51";
 		rLen = 204;
-		rLoc = 1767;
+		rLoc = 1765;
 		rType = 0;
 		vrLen = 1716;
 		vrLoc = 23;
@@ -9257,7 +9543,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 23";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 710;
 		vrLoc = 0;
@@ -9267,7 +9553,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 35";
 		rLen = 0;
-		rLoc = 849;
+		rLoc = 847;
 		rType = 0;
 		vrLen = 1716;
 		vrLoc = 23;
@@ -9277,7 +9563,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1625;
 		vrLoc = 237;
@@ -9427,7 +9713,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 35";
 		rLen = 0;
-		rLoc = 849;
+		rLoc = 847;
 		rType = 0;
 		vrLen = 1736;
 		vrLoc = 3;
@@ -9517,7 +9803,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1660;
 		vrLoc = 202;
@@ -9527,7 +9813,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1487;
+		rLoc = 1485;
 		rType = 0;
 		vrLen = 1794;
 		vrLoc = 23;
@@ -9597,7 +9883,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 50";
 		rLen = 0;
-		rLoc = 1540;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 1940;
 		vrLoc = 35;
@@ -9617,7 +9903,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 43";
 		rLen = 0;
-		rLoc = 1078;
+		rLoc = 1076;
 		rType = 0;
 		vrLen = 1890;
 		vrLoc = 143;
@@ -9747,7 +10033,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 63";
 		rLen = 34;
-		rLoc = 1972;
+		rLoc = 1970;
 		rType = 0;
 		vrLen = 1920;
 		vrLoc = 143;
@@ -9767,7 +10053,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 60";
 		rLen = 0;
-		rLoc = 1875;
+		rLoc = 1873;
 		rType = 0;
 		vrLen = 1921;
 		vrLoc = 142;
@@ -9777,7 +10063,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1625;
 		vrLoc = 237;
@@ -9787,7 +10073,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 60";
 		rLen = 0;
-		rLoc = 1875;
+		rLoc = 1873;
 		rType = 0;
 		vrLen = 1920;
 		vrLoc = 142;
@@ -9797,7 +10083,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
 		rLen = 0;
-		rLoc = 2262;
+		rLoc = 2342;
 		rType = 0;
 		vrLen = 1573;
 		vrLoc = 0;
@@ -9817,7 +10103,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 60";
 		rLen = 0;
-		rLoc = 1875;
+		rLoc = 1873;
 		rType = 0;
 		vrLen = 1920;
 		vrLoc = 142;
@@ -9827,7 +10113,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 68";
 		rLen = 0;
-		rLoc = 2088;
+		rLoc = 2120;
 		rType = 0;
 		vrLen = 1501;
 		vrLoc = 408;
@@ -9847,7 +10133,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 60";
 		rLen = 0;
-		rLoc = 1875;
+		rLoc = 1873;
 		rType = 0;
 		vrLen = 1920;
 		vrLoc = 142;
@@ -9856,8 +10142,8 @@
 		isa = PBXTextBookmark;
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 70";
-		rLen = 18;
-		rLoc = 2188;
+		rLen = 66;
+		rLoc = 2220;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 408;
@@ -9877,7 +10163,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 76";
 		rLen = 0;
-		rLoc = 2460;
+		rLoc = 2540;
 		rType = 0;
 		vrLen = 1401;
 		vrLoc = 603;
@@ -9887,7 +10173,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 58";
 		rLen = 204;
-		rLoc = 1768;
+		rLoc = 1766;
 		rType = 0;
 		vrLen = 1920;
 		vrLoc = 142;
@@ -9897,7 +10183,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 82";
 		rLen = 0;
-		rLoc = 2675;
+		rLoc = 2755;
 		rType = 0;
 		vrLen = 1178;
 		vrLoc = 1081;
@@ -9907,7 +10193,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 59";
 		rLen = 0;
-		rLoc = 1874;
+		rLoc = 1872;
 		rType = 0;
 		vrLen = 1900;
 		vrLoc = 168;
@@ -9917,7 +10203,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 83";
 		rLen = 0;
-		rLoc = 2675;
+		rLoc = 2755;
 		rType = 0;
 		vrLen = 1518;
 		vrLoc = 758;
@@ -9927,7 +10213,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 59";
 		rLen = 0;
-		rLoc = 1874;
+		rLoc = 1872;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 167;
@@ -9937,7 +10223,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 87";
 		rLen = 0;
-		rLoc = 2921;
+		rLoc = 3001;
 		rType = 0;
 		vrLen = 1550;
 		vrLoc = 758;
@@ -9947,7 +10233,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 59";
 		rLen = 0;
-		rLoc = 1874;
+		rLoc = 1872;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 167;
@@ -9957,7 +10243,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 88";
 		rLen = 0;
-		rLoc = 2875;
+		rLoc = 2955;
 		rType = 0;
 		vrLen = 1621;
 		vrLoc = 758;
@@ -9987,7 +10273,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 89";
 		rLen = 0;
-		rLoc = 2921;
+		rLoc = 3001;
 		rType = 0;
 		vrLen = 1629;
 		vrLoc = 796;
@@ -10087,7 +10373,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 94";
 		rLen = 0;
-		rLoc = 3096;
+		rLoc = 3176;
 		rType = 0;
 		vrLen = 1458;
 		vrLoc = 1035;
@@ -10107,7 +10393,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 102";
 		rLen = 0;
-		rLoc = 3367;
+		rLoc = 3447;
 		rType = 0;
 		vrLen = 1700;
 		vrLoc = 230;
@@ -10117,7 +10403,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 40";
 		rLen = 615;
-		rLoc = 924;
+		rLoc = 922;
 		rType = 0;
 		vrLen = 1900;
 		vrLoc = 168;
@@ -10127,7 +10413,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 114";
 		rLen = 0;
-		rLoc = 3649;
+		rLoc = 3729;
 		rType = 0;
 		vrLen = 1718;
 		vrLoc = 1629;
@@ -10147,7 +10433,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 114";
 		rLen = 0;
-		rLoc = 3649;
+		rLoc = 3729;
 		rType = 0;
 		vrLen = 1734;
 		vrLoc = 1612;
@@ -10167,7 +10453,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 40";
 		rLen = 615;
-		rLoc = 924;
+		rLoc = 922;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 167;
@@ -10177,7 +10463,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 114";
 		rLen = 0;
-		rLoc = 3558;
+		rLoc = 3638;
 		rType = 0;
 		vrLen = 1675;
 		vrLoc = 1739;
@@ -10197,7 +10483,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 123";
 		rLen = 0;
-		rLoc = 3943;
+		rLoc = 4023;
 		rType = 0;
 		vrLen = 1622;
 		vrLoc = 1930;
@@ -10207,7 +10493,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 40";
 		rLen = 0;
-		rLoc = 924;
+		rLoc = 922;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 167;
@@ -10217,7 +10503,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 125";
 		rLen = 0;
-		rLoc = 3829;
+		rLoc = 3909;
 		rType = 0;
 		vrLen = 1719;
 		vrLoc = 1916;
@@ -10237,7 +10523,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 132";
 		rLen = 0;
-		rLoc = 4044;
+		rLoc = 4124;
 		rType = 0;
 		vrLen = 1588;
 		vrLoc = 2113;
@@ -10247,7 +10533,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 29";
 		rLen = 0;
-		rLoc = 715;
+		rLoc = 713;
 		rType = 0;
 		vrLen = 1902;
 		vrLoc = 167;
@@ -10257,7 +10543,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 132";
 		rLen = 0;
-		rLoc = 4044;
+		rLoc = 4124;
 		rType = 0;
 		vrLen = 1588;
 		vrLoc = 2113;
@@ -10307,7 +10593,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 43";
 		rLen = 0;
-		rLoc = 1056;
+		rLoc = 1054;
 		rType = 0;
 		vrLen = 1902;
 		vrLoc = 168;
@@ -10317,7 +10603,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 134";
 		rLen = 0;
-		rLoc = 4005;
+		rLoc = 4085;
 		rType = 0;
 		vrLen = 1611;
 		vrLoc = 2147;
@@ -10337,7 +10623,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 142";
 		rLen = 0;
-		rLoc = 4664;
+		rLoc = 4744;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 2325;
@@ -10347,7 +10633,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1211;
+		rLoc = 1209;
 		rType = 0;
 		vrLen = 1904;
 		vrLoc = 167;
@@ -10357,7 +10643,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 142";
 		rLen = 0;
-		rLoc = 4664;
+		rLoc = 4744;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 2324;
@@ -10367,7 +10653,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1211;
+		rLoc = 1209;
 		rType = 0;
 		vrLen = 1899;
 		vrLoc = 167;
@@ -10377,7 +10663,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 149";
 		rLen = 0;
-		rLoc = 4788;
+		rLoc = 4868;
 		rType = 0;
 		vrLen = 1454;
 		vrLoc = 2408;
@@ -10387,7 +10673,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1211;
+		rLoc = 1209;
 		rType = 0;
 		vrLen = 1923;
 		vrLoc = 143;
@@ -10477,7 +10763,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 23";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 710;
 		vrLoc = 0;
@@ -10517,7 +10803,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 48";
 		rLen = 68;
-		rLoc = 1122;
+		rLoc = 1120;
 		rType = 0;
 		vrLen = 1968;
 		vrLoc = 233;
@@ -10537,7 +10823,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 48";
 		rLen = 68;
-		rLoc = 1122;
+		rLoc = 1120;
 		rType = 0;
 		vrLen = 1969;
 		vrLoc = 232;
@@ -10547,7 +10833,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 153";
 		rLen = 0;
-		rLoc = 4579;
+		rLoc = 4659;
 		rType = 0;
 		vrLen = 1244;
 		vrLoc = 2782;
@@ -10557,7 +10843,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 48";
 		rLen = 68;
-		rLoc = 1122;
+		rLoc = 1120;
 		rType = 0;
 		vrLen = 1968;
 		vrLoc = 232;
@@ -10567,7 +10853,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 166";
 		rLen = 0;
-		rLoc = 4579;
+		rLoc = 4659;
 		rType = 0;
 		vrLen = 1151;
 		vrLoc = 2920;
@@ -10587,7 +10873,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 172";
 		rLen = 0;
-		rLoc = 4576;
+		rLoc = 4656;
 		rType = 0;
 		vrLen = 1189;
 		vrLoc = 3516;
@@ -10607,7 +10893,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 48";
 		rLen = 68;
-		rLoc = 1122;
+		rLoc = 1120;
 		rType = 0;
 		vrLen = 1968;
 		vrLoc = 232;
@@ -10617,7 +10903,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 174";
 		rLen = 0;
-		rLoc = 4576;
+		rLoc = 4656;
 		rType = 0;
 		vrLen = 1176;
 		vrLoc = 3600;
@@ -10627,7 +10913,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1077;
+		rLoc = 1075;
 		rType = 0;
 		vrLen = 1898;
 		vrLoc = 308;
@@ -10637,7 +10923,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 143";
 		rLen = 102;
-		rLoc = 3943;
+		rLoc = 4023;
 		rType = 0;
 		vrLen = 1153;
 		vrLoc = 3091;
@@ -10667,7 +10953,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1077;
+		rLoc = 1075;
 		rType = 0;
 		vrLen = 1935;
 		vrLoc = 271;
@@ -10767,7 +11053,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 27";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10787,7 +11073,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 27";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10817,7 +11103,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 27";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 786;
 		vrLoc = 0;
@@ -10837,7 +11123,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10847,7 +11133,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10867,7 +11153,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10887,7 +11173,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10907,7 +11193,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 87";
 		rLen = 0;
-		rLoc = 2316;
+		rLoc = 2396;
 		rType = 0;
 		vrLen = 1705;
 		vrLoc = 994;
@@ -10927,7 +11213,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 90";
 		rLen = 0;
-		rLoc = 2440;
+		rLoc = 2520;
 		rType = 0;
 		vrLen = 1744;
 		vrLoc = 993;
@@ -10947,7 +11233,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10967,7 +11253,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10987,7 +11273,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -10997,7 +11283,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -11017,7 +11303,7 @@
 		fRef = B8C974690E8A1A50007D16AD /* RMMapView.h */;
 		name = "RMMapView.h: 26";
 		rLen = 0;
-		rLoc = 446;
+		rLoc = 445;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 0;
@@ -11077,7 +11363,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 192";
 		rLen = 0;
-		rLoc = 4287;
+		rLoc = 4863;
 		rType = 0;
 		vrLen = 1379;
 		vrLoc = 3936;
@@ -11087,7 +11373,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1077;
+		rLoc = 1075;
 		rType = 0;
 		vrLen = 1935;
 		vrLoc = 271;
@@ -11097,7 +11383,7 @@
 		fRef = B8C974B60E8A280A007D16AD /* RMMapContents.h */;
 		name = "RMMapContents.h: 46";
 		rLen = 0;
-		rLoc = 1077;
+		rLoc = 1075;
 		rType = 0;
 		vrLen = 1935;
 		vrLoc = 271;
@@ -11107,7 +11393,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 87";
 		rLen = 0;
-		rLoc = 2316;
+		rLoc = 2396;
 		rType = 0;
 		vrLen = 1584;
 		vrLoc = 1675;
@@ -11132,7 +11418,7 @@
 		vrLen = 1152;
 		vrLoc = 678;
 	};
-	B8C978FC0E8BE548007D16AD /* RMTileImage.m:211 */ = {
+	B8C978FC0E8BE548007D16AD /* RMTileImage.m:235 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -11144,9 +11430,9 @@
 		functionName = "-makeLayer";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 211;
+		lineNumber = 235;
 		location = MapView;
-		modificationTime = 244056670.209982;
+		modificationTime = 244095568.50505;
 		state = 2;
 	};
 	B8C979030E8BE5BF007D16AD /* RMCoreAnimationRenderer.m:21 */ = {
@@ -11163,10 +11449,10 @@
 		ignoreCount = 0;
 		lineNumber = 21;
 		location = MapView;
-		modificationTime = 244056670.209999;
+		modificationTime = 244095568.50506;
 		state = 2;
 	};
-	B8C9790F0E8BE682007D16AD /* RMMapContents.m:116 */ = {
+	B8C9790F0E8BE682007D16AD /* RMMapContents.m:118 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -11178,9 +11464,9 @@
 		functionName = "-moveBy:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 116;
+		lineNumber = 118;
 		location = MapView;
-		modificationTime = 244056670.21021;
+		modificationTime = 244095568.505078;
 		state = 2;
 	};
 	B8C979120E8BE687007D16AD /* PBXTextBookmark */ = {
@@ -11198,7 +11484,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 207";
 		rLen = 0;
-		rLoc = 4764;
+		rLoc = 5340;
 		rType = 0;
 		vrLen = 1297;
 		vrLoc = 3650;
@@ -11238,7 +11524,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 88";
 		rLen = 0;
-		rLoc = 2316;
+		rLoc = 2396;
 		rType = 0;
 		vrLen = 1657;
 		vrLoc = 1706;
@@ -11365,7 +11651,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 118";
 		rLen = 0;
-		rLoc = 3096;
+		rLoc = 3176;
 		rType = 0;
 		vrLen = 1651;
 		vrLoc = 1764;
@@ -11425,7 +11711,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 152";
 		rLen = 0;
-		rLoc = 3497;
+		rLoc = 4073;
 		rType = 0;
 		vrLen = 1264;
 		vrLoc = 0;
@@ -11465,7 +11751,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 116";
 		rLen = 32;
-		rLoc = 3008;
+		rLoc = 3088;
 		rType = 0;
 		vrLen = 1464;
 		vrLoc = 1977;
@@ -11484,7 +11770,7 @@
 		ignoreCount = 0;
 		lineNumber = 81;
 		location = MapView;
-		modificationTime = 244056670.210304;
+		modificationTime = 244095568.505267;
 		state = 2;
 	};
 	B8C979660E8BECDB007D16AD /* RMTileLoader.m:87 */ = {
@@ -11501,7 +11787,7 @@
 		ignoreCount = 0;
 		lineNumber = 87;
 		location = MapView;
-		modificationTime = 244056670.210312;
+		modificationTime = 244095568.505296;
 		state = 2;
 	};
 	B8C979700E8BEEEF007D16AD /* PBXTextBookmark */ = {
@@ -11519,7 +11805,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 162";
 		rLen = 0;
-		rLoc = 4071;
+		rLoc = 4151;
 		rType = 0;
 		vrLen = 1227;
 		vrLoc = 3415;
@@ -11539,7 +11825,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 228";
 		rLen = 0;
-		rLoc = 5140;
+		rLoc = 5716;
 		rType = 0;
 		vrLen = 1354;
 		vrLoc = 3177;
@@ -11569,7 +11855,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 33";
 		rLen = 0;
-		rLoc = 784;
+		rLoc = 804;
 		rType = 0;
 		vrLen = 1346;
 		vrLoc = 184;
@@ -11599,7 +11885,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 201";
 		rLen = 0;
-		rLoc = 4602;
+		rLoc = 5178;
 		rType = 0;
 		vrLen = 1108;
 		vrLoc = 3947;
@@ -11629,7 +11915,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 115";
 		rLen = 0;
-		rLoc = 2957;
+		rLoc = 3037;
 		rType = 0;
 		vrLen = 1481;
 		vrLoc = 1925;
@@ -11649,7 +11935,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 239";
 		rLen = 0;
-		rLoc = 5437;
+		rLoc = 6013;
 		rType = 0;
 		vrLen = 1367;
 		vrLoc = 4184;
@@ -11699,7 +11985,7 @@
 		fRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */;
 		name = "RMTileImage.m: 239";
 		rLen = 0;
-		rLoc = 5437;
+		rLoc = 6013;
 		rType = 0;
 		vrLen = 1367;
 		vrLoc = 4184;
@@ -11719,7 +12005,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 116";
 		rLen = 81;
-		rLoc = 2959;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1506;
 		vrLoc = 2203;
@@ -11739,7 +12025,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 117";
 		rLen = 31;
-		rLoc = 3009;
+		rLoc = 3089;
 		rType = 0;
 		vrLen = 1447;
 		vrLoc = 2262;
@@ -11759,7 +12045,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 117";
 		rLen = 60;
-		rLoc = 3008;
+		rLoc = 3088;
 		rType = 0;
 		vrLen = 1447;
 		vrLoc = 2262;
@@ -11789,7 +12075,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 91";
 		rLen = 0;
-		rLoc = 2442;
+		rLoc = 2522;
 		rType = 0;
 		vrLen = 1527;
 		vrLoc = 1429;
@@ -11839,7 +12125,7 @@
 		fRef = B8C974B70E8A280A007D16AD /* RMMapContents.m */;
 		name = "RMMapContents.m: 91";
 		rLen = 0;
-		rLoc = 2442;
+		rLoc = 2522;
 		rType = 0;
 		vrLen = 1527;
 		vrLoc = 1429;
@@ -11918,7 +12204,7 @@
 		ignoreCount = 0;
 		lineNumber = 20;
 		location = MapView;
-		modificationTime = 244056670.21032;
+		modificationTime = 244095568.505312;
 		state = 2;
 	};
 	B8C97A270E8BF6D7007D16AD /* PBXTextBookmark */ = {
