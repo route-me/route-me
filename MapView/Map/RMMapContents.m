@@ -20,7 +20,7 @@
 
 #import "RMOpenStreetMapsSource.h"
 #import "RMCoreAnimationRenderer.h"
-
+#import "RMQuartzRenderer.h"
 #import "RMCachedTileSource.h"
 
 @implementation RMMapContents
@@ -30,12 +30,13 @@
 {
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initForView:view WithContent:self];
+//	RMMapRenderer *_renderer = [[RMQuartzRenderer alloc] initForView:view WithContent:self];
 	
 	CLLocationCoordinate2D here;
-//	here.latitude = -33.9464;
-//	here.longitude = 151.2381;
-	here.latitude = 65.146;
-	here.longitude = 189.9;
+	here.latitude = -33.9464;
+	here.longitude = 151.2381;
+//	here.latitude = 65.146;
+//	here.longitude = 189.9;
 	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
 	

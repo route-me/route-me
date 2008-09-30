@@ -230,7 +230,7 @@
 	}
 }
 
-- (void) draw
+- (void) drawRect:(CGRect) rect
 {
 	for (RMTileImage *image in images)
 	{

@@ -48,6 +48,10 @@
 	[super dealloc];
 }
 
+-(void) drawRect: (CGRect) rect
+{
+	[contents drawRect:rect];
+}
 
 #pragma mark Movement
 

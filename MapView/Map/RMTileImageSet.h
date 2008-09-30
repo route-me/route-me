@@ -55,7 +55,7 @@
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
-- (void) draw;
+- (void) drawRect:(CGRect) rect;
 
 @property (assign, nonatomic, readwrite) id delegate;
 @property (retain, nonatomic, readwrite) id<RMTileSource> tileSource;
