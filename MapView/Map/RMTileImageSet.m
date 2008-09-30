@@ -78,8 +78,10 @@
 		for (t.y = (roundedRect.origin.tile.y); t.y <= roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 		{
 			RMTile normalisedTile = [proj normaliseTile: t];
-			if (RMTileIsDummy(t))
-				continue;
+			if (RMTileIsDummy(normalisedTile))
+			{
+				continue;				
+			}
 			
 			[self removeTile:normalisedTile];
 		}
@@ -174,7 +176,7 @@
 		for (t.y = (roundedRect.origin.tile.y); t.y <= roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 		{
 			RMTile normalisedTile = [proj normaliseTile: t];
-			if (RMTileIsDummy(t))
+			if (RMTileIsDummy(normalisedTile))
 				continue;
 			
 			screenLocation.origin.x = bounds.origin.x + (t.x - (rect.origin.offset.x + rect.origin.tile.x)) * pixelsPerTile;
