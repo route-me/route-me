@@ -11,8 +11,6 @@
 
 @implementation RMMercatorToScreenProjection
 
-@synthesize scale;
-
 -(id) initWithScreenBounds: (CGRect)_screenBounds
 {
 	if (![super init])
@@ -164,6 +162,21 @@
 -(CGRect) screenBounds
 {
 	return screenBounds;
+}
+
+-(float) scale
+{
+	return scale;
+}
+
+-(void) setScale: (float) newScale
+{
+	// We need to adjust the origin - since the origin
+	// is in the corner, it will change when we change the scale.
+	
+	RMMercatorPoint center = [self mercatorCenter];
+	scale = newScale;
+	[self setMercatorCenter:center];
 }
 
 @end

@@ -89,8 +89,8 @@
 	[imagesOnScreen setTileSource:[RMCachedTileSource cachedTileSourceWithSource:tileSource]];
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	
-	[self moveToLatLong:latlong];
 	[self setZoom:5];
+	[self moveToLatLong:latlong];
 	[view setNeedsDisplay];
 	
 	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
