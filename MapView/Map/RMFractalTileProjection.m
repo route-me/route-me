@@ -45,15 +45,72 @@
 	return exp2f(zoom);
 }
 
+-(RMMercatorPoint) constrainPointHorizontally: (RMMercatorPoint) point
+{
+	while (point.x < bounds.origin.x)
+		point.x += bounds.size.width;
+	while (point.x > (bounds.origin.x + bounds.size.width))
+		point.x -= bounds.size.width;
+
+//	if (point.y < bounds.origin.y)
+//		point.y = bounds.origin.y;
+//	else if (point.y > (bounds.origin.y + bounds.size.height))
+//		point.y = bounds.origin.y + bounds.size.height;
+	
+	return point;
+}
+
+-(RMTile) normaliseTile: (RMTile) tile
+{
+	// The mask contains a 1 for every valid x-coordinate bit.
+	uint32 mask = 1;
+	for (int i = 0; i < tile.zoom; i++)
+		mask <<= 1;
+	
+	mask -= 1;
+	
+	tile.x &= mask;
+	
+	// If the tile's y coordinate is off the screen
+	if (tile.y & (~mask))
+	{
+		return RMTileDummy();
+	}
+	
+	return tile;
+}
+
+/*
+-(RMMercatorRect) constrainRectToBounds: (RMMercatorRect) rect
+{
+	while (rect.origin.x < bounds.origin.x)
+		rect.origin.x += bounds.size.width;
+	while (rect.origin.x > (bounds.origin.x + bounds.size.width))
+		rect.origin.x -= bounds.size.width;
+	
+	if (rect.origin.y < bounds.origin.y)
+	{
+		rect.size.height -= bounds.origin.y - rect.origin.y;
+		rect.origin.y = bounds.origin.y;
+	}
+	else if (point.y > (bounds.origin.y + bounds.size.height))
+	{
+		point.y = bounds.origin.y + bounds.size.height;
+		
+	}
+}*/
+
 -(RMTilePoint) projectInternal: (RMMercatorPoint)mercator AtNormalisedZoom:(float)zoom Limit:(float) limit
 {
 	RMTilePoint tile;
+	mercator = [self constrainPointHorizontally:mercator];
+	
 	double x = (mercator.x - bounds.origin.x) / bounds.size.width * limit;
 	// Unfortunately, y is indexed from the bottom left.. hence we have to translate it.
 	double y = (double)limit * ((bounds.origin.y - mercator.y) / bounds.size.height + 1);
 	
-	tile.tile.x = (int)x;
-	tile.tile.y = (int)y;
+	tile.tile.x = (uint32_t)x;
+	tile.tile.y = (uint32_t)y;
 	tile.tile.zoom = zoom;
 	tile.offset.x = (float)x - tile.tile.x;
 	tile.offset.y = (float)y - tile.tile.y;

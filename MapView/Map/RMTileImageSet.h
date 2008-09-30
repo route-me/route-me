@@ -44,7 +44,7 @@
 -(CGRect) addTiles: (RMTileRect)rect ToDisplayIn:(CGRect)bounds;
 
 -(RMTileImage*) imageWithTile: (RMTile) tile;
-
+	
 -(void) removeTile: (RMTile) tile;
 -(void) removeTiles: (RMTileRect)rect;
 

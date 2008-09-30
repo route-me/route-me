@@ -28,6 +28,8 @@
 // This is a helper for projectRect above. Much simpler for the caller.
 -(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
 
+-(RMTile) normaliseTile: (RMTile) tile;
+
 -(float) normaliseZoom: (float) zoom;
 
 -(float) calculateZoomFromScale: (float) scale;

@@ -32,8 +32,10 @@
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initForView:view WithContent:self];
 	
 	CLLocationCoordinate2D here;
-	here.latitude = -33.9464;
-	here.longitude = 151.2381;
+//	here.latitude = -33.9464;
+//	here.longitude = 151.2381;
+	here.latitude = 65.146;
+	here.longitude = 189.9;
 	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
 	
@@ -87,7 +89,7 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	
 	[self moveToLatLong:latlong];
-	[self setZoom:15];
+	[self setZoom:5];
 	[view setNeedsDisplay];
 	
 	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);

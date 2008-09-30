@@ -44,6 +44,7 @@
 
 -(RMTileImage *) tileImage: (RMTile)tile
 {
+	tile = [tileProjection normaliseTile:tile];
 	RMTileImage* image = [RMTileImage imageWithTile: tile FromURL:[self tileURL:tile]];
 	//		[cache addTile:tile WithImage:image];
 	return image;

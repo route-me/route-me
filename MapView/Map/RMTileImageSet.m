@@ -14,6 +14,8 @@
 // For notification strings
 #import "RMTileLoader.h"
 
+#import "RMMercatorToTileProjection.h"
+
 @implementation RMTileImageSet
 
 @synthesize delegate, nudgeTileSize, tileSource;
@@ -39,6 +41,12 @@
 
 -(void) removeTile: (RMTile) tile
 {
+	if (RMTileIsDummy(tile))
+	{
+		NSLog(@"attempted to remove dummy tile...??");
+		return;
+	}
+	
 	RMTileImage *dummyTile = [RMTileImage dummyTile:tile];
 	if ([images countForObject:dummyTile] == 1)
 	{
@@ -63,11 +71,17 @@
 	RMTile t;
 	t.zoom = rect.origin.tile.zoom;
 	
+	id<RMMercatorToTileProjection> proj = [tileSource mercatorToTileProjection];
+	
 	for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 	{
 		for (t.y = (roundedRect.origin.tile.y); t.y <= roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 		{
-			[self removeTile:t];
+			RMTile normalisedTile = [proj normaliseTile: t];
+			if (RMTileIsDummy(t))
+				continue;
+			
+			[self removeTile:normalisedTile];
 		}
 	}
 }
@@ -153,14 +167,20 @@
 	int tileRegionWidth = (int)roundedRect.size.width;
 	int tileRegionHeight = (int)roundedRect.size.height;
 	
+	id<RMMercatorToTileProjection> proj = [tileSource mercatorToTileProjection];
+		
 	for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 	{
 		for (t.y = (roundedRect.origin.tile.y); t.y <= roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 		{
+			RMTile normalisedTile = [proj normaliseTile: t];
+			if (RMTileIsDummy(t))
+				continue;
+			
 			screenLocation.origin.x = bounds.origin.x + (t.x - (rect.origin.offset.x + rect.origin.tile.x)) * pixelsPerTile;
 			screenLocation.origin.y = bounds.origin.y + (t.y - (rect.origin.offset.y + rect.origin.tile.y)) * pixelsPerTile;
 			
-			[self addTile:t At:screenLocation];
+			[self addTile:normalisedTile At:screenLocation];
 		}
 	}
 	
