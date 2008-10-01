@@ -146,7 +146,6 @@
 	if (lastGesture.numTouches == 0)
 	{
 		[RMMapContents setPerformExpensiveOperations:NO];
-		[[NSNotificationCenter defaultCenter] postNotificationName:RMSuspendExpensiveOperations object:contents];
 	}
 	
 	//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
@@ -171,7 +170,6 @@
 	{
 		// When factoring, beware these two instructions need to happen in this order.
 		[RMMapContents setPerformExpensiveOperations:YES];
-		[[NSNotificationCenter defaultCenter] postNotificationName:RMResumeExpensiveOperations object:contents];
 	}
 //		[contents recalculateImageSet];
 }

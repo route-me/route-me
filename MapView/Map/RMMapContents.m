@@ -220,7 +220,15 @@ static BOOL _performExpensiveOperations = YES;
 }
 + (void) setPerformExpensiveOperations: (BOOL)p
 {
+	if (p == _performExpensiveOperations)
+		return;
+	
 	_performExpensiveOperations = p;
+
+	if (p)
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMResumeExpensiveOperations object:self];
+	else
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMSuspendExpensiveOperations object:self];
 }
 
 @end

@@ -63,7 +63,7 @@
 -(RMTile) normaliseTile: (RMTile) tile
 {
 	// The mask contains a 1 for every valid x-coordinate bit.
-	uint32 mask = 1;
+	uint32_t mask = 1;
 	for (int i = 0; i < tile.zoom; i++)
 		mask <<= 1;
 	
