@@ -141,6 +141,23 @@
 	return gesture;
 }
 
+- (void)userPausedDragging
+{
+	[RMMapContents setPerformExpensiveOperations:YES];
+//	NSLog(@"expensive.");
+}
+
+- (void)unRegisterPausedDraggingDispatcher
+{
+//	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
+}
+
+- (void)registerPausedDraggingDispatcher
+{
+//	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
+//	[self performSelector:@selector(userPausedDragging) withObject:nil afterDelay:0.3];	
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	if (lastGesture.numTouches == 0)
@@ -150,6 +167,8 @@
 	
 	//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self getGestureDetails:[event allTouches]];
+	
+	[self registerPausedDraggingDispatcher];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -168,6 +187,7 @@
 
 	if (lastGesture.numTouches == 0)
 	{
+		[self unRegisterPausedDraggingDispatcher];
 		// When factoring, beware these two instructions need to happen in this order.
 		[RMMapContents setPerformExpensiveOperations:YES];
 	}
@@ -202,7 +222,8 @@
 	}
 	
 	lastGesture = newGesture;
+	
+	[self registerPausedDraggingDispatcher];
 }
-
 
 @end

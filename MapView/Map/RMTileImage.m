@@ -155,6 +155,8 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		
 //		NSLog(@"loadPendingData");
 	}
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
 }
 
 - (void)setImageToData: (NSData*) data

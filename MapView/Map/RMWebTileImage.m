@@ -10,6 +10,9 @@
 #import "RMTileProxy.h"
 #import <QuartzCore/CALayer.h>
 
+#import "RMMapContents.h"
+#import "RMTileLoader.h"
+
 @implementation RMWebTileImage
 
 - (id) initWithTile: (RMTile)_tile FromURL:(NSString*)urlStr
@@ -35,7 +38,8 @@
 	}
 	else
 	{
-		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+		BOOL startImmediately = [RMMapContents performExpensiveOperations];
+		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:startImmediately];
 		
 		if (connection == nil)
 		{
@@ -43,15 +47,34 @@
 			proxy = [RMTileProxy errorTile];
 			[proxy retain];
 		}
+		
+		if (startImmediately == NO)
+		{
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoadingImage:) name:RMResumeExpensiveOperations object:nil];
+		}
 	}
-	
+
 	//	NSLog(@"... done. data size = %d", [imageData length]);
 	
 	return self;
 }
+			 
+- (void) startLoadingImage: (NSNotification*)notification
+{
+	if (connection != nil)
+	{
+		[connection scheduleInRunLoop:[NSRunLoop currentRunLoop]
+							  forMode:NSDefaultRunLoopMode];
+		[connection start];
+	}
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
+}
 
 -(void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 //	NSLog(@"Image dealloced");
 	[proxy release];
 	

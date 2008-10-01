@@ -89,7 +89,7 @@
 	[imagesOnScreen setTileSource:[RMCachedTileSource cachedTileSourceWithSource:tileSource]];
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	
-	[self setZoom:5];
+	[self setZoom:15];
 	[self moveToLatLong:latlong];
 	[view setNeedsDisplay];
 	
