@@ -34,6 +34,11 @@
 	[super dealloc];
 }
 
+-(NSString*) description
+{
+	return @"Quartz 2D map renderer";
+}
+
 - (void)drawRect:(CGRect)rect
 {
 	[[content imagesOnScreen] drawRect:rect];

@@ -66,6 +66,12 @@
 	
 	[[image layer] removeFromSuperlayer];
 }
+
+-(NSString*) description
+{
+	return @"CoreAnimation map renderer";
+}
+
 /*
 - (void)moveBy: (CGSize) delta
 {

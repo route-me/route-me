@@ -53,6 +53,12 @@
 	[contents drawRect:rect];
 }
 
+-(NSString*) description
+{
+	CGRect bounds = [self bounds];
+	return [NSString stringWithFormat:@"iPhone MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
+}
+
 #pragma mark Movement
 
 -(void) moveToMercator: (RMMercatorPoint) point

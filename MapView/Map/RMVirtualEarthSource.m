@@ -46,4 +46,9 @@
 	return [NSString stringWithFormat:@"http://%@%d.ortho.tiles.virtualearth.net/tiles/%@%@%@?g=15", mapType, 3, mapType, quadKey, mapExtension];
 }
 
+-(NSString*) description
+{
+	return @"Microsoft VirtualEarth";
+}
+
 @end
