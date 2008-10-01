@@ -149,13 +149,13 @@
 
 - (void)unRegisterPausedDraggingDispatcher
 {
-//	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
 }
 
 - (void)registerPausedDraggingDispatcher
 {
-//	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
-//	[self performSelector:@selector(userPausedDragging) withObject:nil afterDelay:0.3];	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
+	[self performSelector:@selector(userPausedDragging) withObject:nil afterDelay:0.3];	
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
