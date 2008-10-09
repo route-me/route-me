@@ -25,8 +25,8 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	NSCachedURLResponse *cachedData = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
 	
-	proxy = [RMTileProxy loadingTile];
-	[proxy retain];
+//	proxy = [RMTileProxy loadingTile];
+//	[proxy retain];
 	
 	//	NSURLCache *cache = [NSURLCache sharedURLCache];
 	//	NSLog(@"Cache mem size: %d / %d disk size: %d / %d", [cache currentMemoryUsage], [cache memoryCapacity], [cache currentDiskUsage], [cache diskCapacity]);
@@ -44,8 +44,8 @@
 		if (connection == nil)
 		{
 			NSLog(@"Error: Connection is nil ?!?");
-			proxy = [RMTileProxy errorTile];
-			[proxy retain];
+//			proxy = [RMTileProxy errorTile];
+//			[proxy retain];
 		}
 		
 		if (startImmediately == NO)
@@ -76,7 +76,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 //	NSLog(@"Image dealloced");
-	[proxy release];
+//	[proxy release];
 	
 //	NSLog(@"loading cancelled because image dealloced");
 	[self cancelLoading];
@@ -105,21 +105,20 @@
 {
 	[super makeLayer];
 	
-	if (image == nil
-		&& layer != nil
-		&& layer.contents == nil)
-	{
-		layer.contents = (id)[[proxy image] CGImage];
-	}
+//	if (image == nil
+//		&& layer != nil
+//		&& layer.contents == nil)
+//	{
+//		layer.contents = (id)[[proxy image] CGImage];
+//	}
 }
 - (void)drawInRect:(CGRect)rect
 {
 	if (image)
 		[super drawInRect:rect];
-	else
-		[proxy drawInRect:rect];
 }
 
+#pragma mark URL loading functions
 // Delegate methods for loading the image
 
 //– connection:didCancelAuthenticationChallenge:  delegate method  
@@ -153,7 +152,7 @@
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error
 {
-	proxy = [RMTileProxy errorTile];
+//	proxy = [RMTileProxy errorTile];
 	[data release];
 	data = nil;
 	NSLog(@"Tile could not be loaded: %@", [error localizedDescription]);

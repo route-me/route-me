@@ -7,12 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @protocol RMMapLayer;
 
 @interface RMLayerSet : NSObject
 {
-	
+	NSMutableArray *layers;
 }
+
+- (void)addAbove: (id)layer;
+- (void)addBelow: (id)layer;
+
+
+- (void)moveBy: (CGSize) delta;
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+
+-(void) drawRect: (CGRect)rect;
+-(CALayer*) layer;
 
 @end

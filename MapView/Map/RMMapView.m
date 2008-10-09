@@ -25,6 +25,8 @@
 	if (enableZoom)
 		[self setMultipleTouchEnabled:TRUE];
 	
+	self.backgroundColor = [UIColor grayColor];
+	
 //	[[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
@@ -57,6 +59,11 @@
 {
 	CGRect bounds = [self bounds];
 	return [NSString stringWithFormat:@"iPhone MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
+}
+
+-(RMMapContents*) contents
+{
+	return [[contents retain] autorelease];
 }
 
 #pragma mark Movement

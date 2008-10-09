@@ -24,6 +24,9 @@ typedef struct {
 
 @class RMMapContents;
 
+// This class is a wrapper around RMMapContents for the iphone.
+// It implements event handling; but thats about it. All the interesting map
+// logic is done by RMMapContents.
 @interface RMMapView : UIView
 {
 	RMMapContents *contents;
@@ -32,6 +35,10 @@ typedef struct {
 	bool enableZoom;
 	RMGestureDetails lastGesture;
 }
+
+// Any other functions you need to manipulate the mapyou can access through this
+// property. The contents structure holds the actual map bits.
+@property (readonly) RMMapContents *contents;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
 - (void)moveToMercator: (RMMercatorPoint)mercator;

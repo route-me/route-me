@@ -55,13 +55,14 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 -(void) clearLoadedBounds
 {
 	loadedBounds = CGRectMake(0, 0, 0, 0);
-	loadedTiles.origin.tile = RMTileDummy();
+//	loadedTiles.origin.tile = RMTileDummy();
 }
 -(BOOL) screenIsLoaded
 {
+//	RMTileRect targetRect = [content tileBounds];
 	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
 	
-	float targetZoom = [[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content scale]];
+	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content scale]]);
 
 	if (contained == NO)
 	{
@@ -84,7 +85,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	if ([self screenIsLoaded])
 		return;
 	
-//	NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
+	NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
 	
 	RMTileRect newTileRect = [content tileBounds];
 	

@@ -109,7 +109,7 @@
 {
 	[mercatorToScreenProjection setMercatorCenter:mercator];
 	
-	[imagesOnScreen removeAllTiles];
+//	[imagesOnScreen removeAllTiles];
 	[tileLoader clearLoadedBounds];
 	
 	[tileLoader updateLoadedImages];

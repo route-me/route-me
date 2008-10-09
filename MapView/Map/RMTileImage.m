@@ -224,6 +224,23 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.anchorPoint = CGPointMake(0.0f, 0.0f);
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 		layer.position = screenLocation.origin;
+		
+		NSMutableDictionary *customActions=[NSMutableDictionary dictionaryWithDictionary:[layer actions]];
+		
+		[customActions setObject:[NSNull null] forKey:@"position"];
+		[customActions setObject:[NSNull null] forKey:@"bounds"];
+		[customActions setObject:[NSNull null] forKey:kCAOnOrderOut];
+		
+/*		CATransition *fadein = [[CATransition alloc] init];
+		fadein.duration = 2.0;
+		fadein.type = kCATransitionFade;
+		[customActions setObject:fadein forKey:kCAOnOrderIn];
+		[fadein release];
+*/
+		[customActions setObject:[NSNull null] forKey:kCAOnOrderIn];
+		
+		layer.actions=customActions;
+		
 //		NSLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
 
 	//		NSLog(@"layer made");

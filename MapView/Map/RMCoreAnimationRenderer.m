@@ -26,6 +26,10 @@
 	layer.masksToBounds = YES;
 	layer.frame = [view bounds];
 	
+	NSMutableDictionary *customActions=[NSMutableDictionary dictionaryWithDictionary:[layer actions]];
+	[customActions setObject:[NSNull null] forKey:@"sublayers"];
+	layer.actions = customActions;
+	
 	layer.delegate = self;
 	
 	[[view layer] addSublayer:layer]; 
@@ -40,16 +44,30 @@
 - (id<CAAction>)actionForLayer:(CALayer *)theLayer
                         forKey:(NSString *)key
 {
-//	NSLog(@"key: %@", key);
+	if (theLayer == layer)
+	{
+//		NSLog(@"base layer key: %@", key);
+		return nil;
+	}
 	
-//	if ([key isEqualToString:@"position"] || [key isEqualToString:@"bounds"])
-		return (id<CAAction>)[NSNull null];
-//	else
-//		return nil;
+	//	|| [key isEqualToString:@"onLayout"]
+	if ([key isEqualToString:@"position"]
+		|| [key isEqualToString:@"bounds"])
+		return nil;
+//		return (id<CAAction>)[NSNull null];
+	else
+	{
+//		NSLog(@"key: %@", key);
+		
+		return nil;
+	}
 }
 
 - (void)tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
 {
+	NSLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+		  image.screenLocation.size.width, image.screenLocation.size.height);
+	
 //	NSLog(@"tileAdded");
 	[image makeLayer];
 	
@@ -63,6 +81,9 @@
 -(void) tileRemoved: (RMTile) tile
 {
 	RMTileImage *image = [[content imagesOnScreen] imageWithTile:tile];
+	
+	NSLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 	[[image layer] removeFromSuperlayer];
 }
