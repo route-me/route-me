@@ -43,6 +43,9 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	content = _contents;
 	
 	[self clearLoadedBounds];
+	loadedTiles.origin.tile = RMTileDummy();
+	
+	suppressLoading = NO;
 
 	return self;
 }
@@ -79,6 +82,9 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 
 -(void) updateLoadedImages
 {
+	if (suppressLoading)
+		return;
+	
 	if ([content mercatorToTileProjection] == nil || [content mercatorToScreenProjection] == nil)
 		return;
 	
@@ -114,6 +120,19 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 {
 	loadedBounds = RMScaleCGRectAboutPoint(loadedBounds, zoomFactor, center);
 	[self updateLoadedImages];
+}
+
+- (BOOL) suppressLoading
+{
+	return suppressLoading;
+}
+
+- (void) setSuppressLoading: (BOOL) suppress
+{
+	suppressLoading = suppress;
+
+	if (suppress == NO)
+		[self updateLoadedImages];
 }
 
 //-(BOOL) containsRect: (CGRect)bounds

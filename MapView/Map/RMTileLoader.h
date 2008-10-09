@@ -29,6 +29,8 @@ extern NSString * const RMResumeExpensiveOperations;
 	CGRect loadedBounds;
 	int loadedZoom;
 	RMTileRect loadedTiles;
+	
+	BOOL suppressLoading;
 }
 
 // Designated initialiser
@@ -43,6 +45,7 @@ extern NSString * const RMResumeExpensiveOperations;
 
 @property (readonly, nonatomic) CGRect loadedBounds;
 @property (readonly, nonatomic) int loadedZoom;
+@property (readwrite, assign) BOOL suppressLoading;
 
 //-(BOOL) containsRect: (CGRect)bounds;
 

@@ -88,9 +88,13 @@
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
 	[imagesOnScreen setTileSource:[RMCachedTileSource cachedTileSourceWithSource:tileSource]];
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
+	[tileLoader setSuppressLoading:YES];
 	
 	[self setZoom:15];
 	[self moveToLatLong:latlong];
+	
+	[tileLoader setSuppressLoading:NO];
+	
 	[view setNeedsDisplay];
 	
 	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
@@ -175,7 +179,7 @@
 
 -(void) setScale: (float) scale
 {
-	[mercatorToScreenProjection setScale:scale];	
+	[mercatorToScreenProjection setScale:scale];
 	[tileLoader updateLoadedImages];
 	[renderer setNeedsDisplay];
 }

@@ -65,8 +65,8 @@
 
 - (void)tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
 {
-	NSLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
-		  image.screenLocation.size.width, image.screenLocation.size.height);
+//	NSLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+//		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 //	NSLog(@"tileAdded");
 	[image makeLayer];
@@ -82,8 +82,8 @@
 {
 	RMTileImage *image = [[content imagesOnScreen] imageWithTile:tile];
 	
-	NSLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
-		  image.screenLocation.size.width, image.screenLocation.size.height);
+//	NSLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+//		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 	[[image layer] removeFromSuperlayer];
 }
