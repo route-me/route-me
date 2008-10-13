@@ -10,4 +10,30 @@
 
 @implementation RMMapLayer
 
+- (id) init
+{
+	if (![super init])
+		return nil;
+	
+	return self;
+}
+
+- (id)initWithLayer:(id)layer
+{
+	if (![super initWithLayer:layer])
+		return nil;
+	
+	return self;
+}
+
+- (void)moveBy: (CGSize) delta
+{
+	
+}
+
+- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+{
+	
+}
+
 @end

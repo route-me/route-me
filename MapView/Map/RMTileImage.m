@@ -241,6 +241,8 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		
 		layer.actions=customActions;
 		
+		layer.edgeAntialiasingMask = 0;
+		
 //		NSLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
 
 	//		NSLog(@"layer made");

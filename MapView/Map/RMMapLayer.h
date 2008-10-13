@@ -7,18 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
-
-// Support for this is not yet implemented.
-
-@protocol RMMapLayer<NSObject>
-
-@optional
+@interface RMMapLayer : CALayer
+{
+}
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
-
--(void) drawRect: (CGRect)rect;
--(CALayer*) layer;
 
 @end

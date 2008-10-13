@@ -8,18 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "RMMercator.h"
+#import "RMMapLayer.h"
 
-@protocol RMMapLayer;
+@class RMMapRenderer;
 
 @interface RMLayerSet : NSObject
 {
 	NSMutableArray *layers;
+	
+	CALayer *container;
 }
 
-- (void)addAbove: (id)layer;
-- (void)addBelow: (id)layer;
+- (void)insertSublayer:(RMMapLayer*) layer below:(RMMapLayer*)sibling;
+- (void)insertSublayer:(RMMapLayer*) layer above:(RMMapLayer*)sibling;
+- (void)removeSublayer:(RMMapLayer*) layer;
 
-
+- (void)moveToMercator: (RMMercatorPoint)mercator;
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 

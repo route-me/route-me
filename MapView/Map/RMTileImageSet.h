@@ -31,8 +31,6 @@
 	id<RMTileSource> tileSource;
 
 	NSCountedSet *images;
-	// This fixes an image resizing bug which causes thin lines along image borders
-	BOOL nudgeTileSize;
 }
 
 -(id) initWithDelegate: (id) _delegate;
@@ -59,6 +57,4 @@
 
 @property (assign, nonatomic, readwrite) id delegate;
 @property (retain, nonatomic, readwrite) id<RMTileSource> tileSource;
-@property (readwrite, assign, nonatomic) BOOL nudgeTileSize;
-
 @end

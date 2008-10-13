@@ -18,7 +18,7 @@
 
 @implementation RMTileImageSet
 
-@synthesize delegate, nudgeTileSize, tileSource;
+@synthesize delegate, tileSource;
 
 -(id) initWithDelegate: (id) _delegate
 {
@@ -28,7 +28,6 @@
 	tileSource = nil;
 	self.delegate = _delegate;
 	images = [[NSCountedSet alloc] init];
-	nudgeTileSize = YES;
 	return self;
 }
 
@@ -156,13 +155,6 @@
 	CGRect screenLocation;
 	screenLocation.size.width = pixelsPerTile;
 	screenLocation.size.height = pixelsPerTile;
-	
-	// Corrects a bug in quartz's resizing code
-	if (nudgeTileSize)
-	{
-		screenLocation.size.width += 0.5;
-		screenLocation.size.height += 0.5;
-	}
 	
 	RMTileRect roundedRect = RMTileRectRound(rect);
 	// The number of tiles we'll load in the vertical and horizontal directions
