@@ -23,7 +23,12 @@
 @interface RMMapContents : NSObject
 {
 	// TODO: Also support NSView.
-//	UIView *targetView;
+	
+	// This is the underlying UIView's layer.
+	CALayer *layer;
+	
+	RMMapLayer *background;
+	RMMapLayer *overlay;
 	
 	// Latlong is calculated dynamically from mercatorBounds.
 	RMLatLongToMercatorProjection *latLongToMercatorProjection;
@@ -55,6 +60,8 @@
 @property (readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
 
 @property (readonly)  id<RMTileSource> tileSource;
+
+@property (readonly)  CALayer *layer;
 
 - (id) initForView: (UIView*) view;
 

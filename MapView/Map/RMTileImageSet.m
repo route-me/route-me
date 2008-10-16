@@ -192,7 +192,8 @@
 	NSEnumerator *enumerator = [images objectEnumerator];
 	RMTileImage *object;
 	
-	while ((object = [enumerator nextObject])) {
+	while ((object = [enumerator nextObject]))
+	{
 		if (RMTilesEqual(tile, [object tile]))
 			return object;
 	}

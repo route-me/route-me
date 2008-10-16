@@ -13,7 +13,7 @@
 @implementation RMMapRenderer
 
 // Designated initialiser
-- (id) initForView: (UIView*) view WithContent: (RMMapContents *)_contents
+- (id) initWithContent: (RMMapContents *)_contents
 {
 	if (![super init])
 		return nil;
@@ -43,5 +43,10 @@
 
 - (void)drawRect:(CGRect)rect
 { }
+
+- (CALayer*) layer
+{
+	return nil;
+}
 
 @end

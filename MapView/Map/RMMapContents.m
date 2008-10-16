@@ -20,7 +20,6 @@
 
 #import "RMOpenStreetMapsSource.h"
 #import "RMCoreAnimationRenderer.h"
-#import "RMQuartzRenderer.h"
 #import "RMCachedTileSource.h"
 
 @implementation RMMapContents
@@ -29,8 +28,7 @@
 - (id) initForView: (UIView*) view
 {
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
-	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initForView:view WithContent:self];
-//	RMMapRenderer *_renderer = [[RMQuartzRenderer alloc] initForView:view WithContent:self];
+	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
 	CLLocationCoordinate2D here;
 	here.latitude = -33.9464;
@@ -62,8 +60,19 @@
 
 - (void) setRenderer: (RMMapRenderer*) newRenderer
 {
+	if (renderer == newRenderer)
+		return;
+	
+	[[renderer layer] removeFromSuperlayer];
 	[renderer release];
+	
 	renderer = [newRenderer retain];
+	
+//	CGRect rect = [self screenBounds];
+//	NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	[[renderer layer] setFrame:[self screenBounds]];
+	
+	[layer addSublayer:[renderer layer]];
 }
 
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
@@ -81,6 +90,8 @@
 	renderer = nil;
 	imagesOnScreen = nil;
 	tileLoader = nil;
+	
+	layer = [[view layer] retain];
 	
 	[self setTileSource:_tileSource];
 	[self setRenderer:_renderer];
@@ -100,6 +111,20 @@
 	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
 	
 	return self;
+}
+
+-(void) dealloc
+{
+	[renderer release];
+	[tileSource release];
+	[tileLoader release];
+	[latLongToMercatorProjection release];
+	[mercatorToTileProjection release];
+	[mercatorToScreenProjection release];
+	[tileSource release];
+	[layer release];
+	
+	[super dealloc];
 }
 
 #pragma mark Forwarded Events
@@ -169,7 +194,10 @@
 
 -(CGRect) screenBounds
 {
-	return [mercatorToScreenProjection screenBounds];
+	if (mercatorToScreenProjection != nil)
+		return [mercatorToScreenProjection screenBounds];
+	else
+		return CGRectMake(0, 0, 0, 0);
 }
 
 -(float) scale
@@ -215,6 +243,11 @@
 -(id<RMTileSource>) tileSource
 {
 	return [[tileSource retain] autorelease];
+}
+
+- (CALayer *)layer
+{
+	return [[layer retain] autorelease];
 }
 
 static BOOL _performExpensiveOperations = YES;

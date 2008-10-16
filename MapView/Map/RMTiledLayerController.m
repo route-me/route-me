@@ -126,48 +126,9 @@
 	CGContextDrawImage(theContext, rect, image);
 }
 
-/*
--(CGPoint) projectMercatorPoint: (MercatorPoint) mercator
+- (CALayer*) layer
 {
-	CGPoint point;
-	point.x = (mercator.x - topLeft.x) / scale;
-	point.y = -(mercator.y - topLeft.y) / scale;
-	return point;
+	return layer;
 }
-
--(CGRect) projectMercatorRect: (MercatorRect) mercator
-{
-	CGRect rect;
-	rect.origin = [self projectMercatorPoint: mercator.origin];
-	mercator.size.width = rect.size.width / scale;
-	mercator.size.height = rect.size.height / scale;
-	return rect;
-}
-
--(MercatorPoint) projectInversePoint: (CGPoint) point
-{
-	MercatorPoint mercator;
-	mercator.x = (scale * point.x) + topLeft.x;
-	mercator.y = -(scale * point.y) + topLeft.y;
-	return mercator;
-}
-
--(MercatorRect) projectInverseRect: (CGRect) rect
-{
-	MercatorRect mercator;
-	mercator.origin = [self projectInversePoint: rect.origin];
-	mercator.size.width = rect.size.width * scale;
-	mercator.size.height = rect.size.height * scale;
-	return mercator;
-}
-
--(MercatorRect) bounds
-{
-	MercatorRect rect;
-	rect.origin = topLeft;
-	rect.size.width = viewSize.width * scale;
-	rect.size.height = viewSize.height * scale;
-	return rect;
-}*/
 
 @end

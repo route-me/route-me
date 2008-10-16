@@ -16,25 +16,34 @@
 
 @implementation RMCoreAnimationRenderer
 
-- (id) initForView: (UIView*)view WithContent: (RMMapContents *)_contents
+- (id) initWithContent: (RMMapContents *)_contents
 {
-	if (![super initForView:view WithContent:_contents])
+	if (![super initWithContent:_contents])
 		return nil;
+	
+	// NOTE: RMMapContents may still be initialising when this function
+	//       is called. Be careful using any of methods - they might return
+	//       strange data.
 
 	layer = [[CAScrollLayer layer] retain];
 	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
 	layer.masksToBounds = YES;
-	layer.frame = [view bounds];
+	// If the frame is set incorrectly here, it will be fixed when setRenderer is called in RMMapContents
+	layer.frame = [content screenBounds];
 	
-	NSMutableDictionary *customActions=[NSMutableDictionary dictionaryWithDictionary:[layer actions]];
+	NSMutableDictionary *customActions = [NSMutableDictionary dictionaryWithDictionary:[layer actions]];
 	[customActions setObject:[NSNull null] forKey:@"sublayers"];
 	layer.actions = customActions;
 	
 	layer.delegate = self;
 	
-	[[view layer] addSublayer:layer]; 
-	
 	return self;
+}
+
+-(void) dealloc
+{
+	[layer release];
+	[super dealloc];
 }
 
 -(void)mapImageLoaded: (NSNotification*)notification
@@ -91,6 +100,11 @@
 -(NSString*) description
 {
 	return @"CoreAnimation map renderer";
+}
+
+- (CALayer*) layer
+{
+	return layer;
 }
 
 /*

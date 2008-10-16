@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "RMMapLayer.h"
+#import "RMMercator.h"
+
+@class UIImage;
 
 @interface RMMarker : RMMapLayer {
-	
+	RMMercatorPoint point;
 }
 
 - (id) initWithCGImage: (CGImageRef) image;

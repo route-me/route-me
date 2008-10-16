@@ -7,28 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 #import "RMMercator.h"
 #import "RMMapLayer.h"
 
 @class RMMapRenderer;
+@class RMMapContents;
 
-@interface RMLayerSet : NSObject
+@interface RMLayerSet : RMMapLayer
 {
-	NSMutableArray *layers;
+	// This is the set of all sublayers, including those offscreen.
+	// It is ordered back to front.
+	NSMutableArray *set;
 	
-	CALayer *container;
+	// We need this reference so we can access the projections...
+	RMMapContents *mapContents;
 }
 
-- (void)insertSublayer:(RMMapLayer*) layer below:(RMMapLayer*)sibling;
-- (void)insertSublayer:(RMMapLayer*) layer above:(RMMapLayer*)sibling;
-- (void)removeSublayer:(RMMapLayer*) layer;
+- (id)initForContents: (RMMapContents *)contents;
+
+//- (void)insertSublayer:(RMMapLayer*) layer below:(RMMapLayer*)sibling;
+//- (void)insertSublayer:(RMMapLayer*) layer above:(RMMapLayer*)sibling;
+//- (void)removeSublayer:(RMMapLayer*) layer;
 
 - (void)moveToMercator: (RMMercatorPoint)mercator;
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
--(void) drawRect: (CGRect)rect;
--(CALayer*) layer;
+//-(void) drawRect: (CGRect)rect;
+//-(CALayer*) layer;
 
 @end

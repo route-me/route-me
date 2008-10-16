@@ -18,7 +18,6 @@
 		B83E66C30E80F053001663B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		B83E67170E80F1CE001663B6 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E670F0E80F1B5001663B6 /* loading.png */; };
 		B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C80E80E73F001663B6 /* RMMercatorToScreenProjection.h */; };
-		B8C974180E8A19B2007D16AD /* RMQuartzRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BA0E80E73F001663B6 /* RMQuartzRenderer.h */; };
 		B8C974190E8A19B2007D16AD /* RMMapRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64CA0E80E73F001663B6 /* RMMapRenderer.h */; };
 		B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */; };
 		B8C974200E8A19B2007D16AD /* RMDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D40E80E73F001663B6 /* RMDiskCache.h */; };
@@ -36,7 +35,6 @@
 		B8C974300E8A19B2007D16AD /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = B8D27AFB0E8780CD00F596FE /* RMLatLong.h */; };
 		B8C974310E8A19B2007D16AD /* RMAbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* RMAbstractMecatorWebSource.h */; };
 		B8C974350E8A19B2007D16AD /* RMMercatorToScreenProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C90E80E73F001663B6 /* RMMercatorToScreenProjection.m */; };
-		B8C974370E8A19B2007D16AD /* RMQuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64BB0E80E73F001663B6 /* RMQuartzRenderer.m */; };
 		B8C974380E8A19B2007D16AD /* RMMapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64CB0E80E73F001663B6 /* RMMapRenderer.m */; };
 		B8C9743A0E8A19B2007D16AD /* RMCoreAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */; };
 		B8C9743F0E8A19B2007D16AD /* RMTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */; };
@@ -126,8 +124,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B83E64B60E80E73F001663B6 /* RMPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
 		B83E64B70E80E73F001663B6 /* RMPixel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
-		B83E64BA0E80E73F001663B6 /* RMQuartzRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMQuartzRenderer.h; sourceTree = "<group>"; };
-		B83E64BB0E80E73F001663B6 /* RMQuartzRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMQuartzRenderer.m; sourceTree = "<group>"; };
 		B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCoreAnimationRenderer.h; sourceTree = "<group>"; };
 		B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCoreAnimationRenderer.m; sourceTree = "<group>"; };
 		B83E64C40E80E73F001663B6 /* RMTiledLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTiledLayerController.h; sourceTree = "<group>"; };
@@ -300,18 +296,8 @@
 				B83E64CB0E80E73F001663B6 /* RMMapRenderer.m */,
 				B83E64C30E80E73F001663B6 /* Tiled Layer Renderer */,
 				B83E64BC0E80E73F001663B6 /* Core Animation Renderer */,
-				B83E64B90E80E73F001663B6 /* Quartz Renderer */,
 			);
 			name = Renderers;
-			sourceTree = "<group>";
-		};
-		B83E64B90E80E73F001663B6 /* Quartz Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				B83E64BA0E80E73F001663B6 /* RMQuartzRenderer.h */,
-				B83E64BB0E80E73F001663B6 /* RMQuartzRenderer.m */,
-			);
-			name = "Quartz Renderer";
 			sourceTree = "<group>";
 		};
 		B83E64BC0E80E73F001663B6 /* Core Animation Renderer */ = {
@@ -417,8 +403,8 @@
 		B86F26A80E8742ED007A3773 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				B8F3FC600EA2B382004D8F85 /* RMMapLayer.m */,
 				B86F26AC0E87442C007A3773 /* RMMapLayer.h */,
+				B8F3FC600EA2B382004D8F85 /* RMMapLayer.m */,
 				B8FA92170E9315EC003A9FE6 /* RMLayerSet.h */,
 				B8FA92180E9315EC003A9FE6 /* RMLayerSet.m */,
 				B8F3FC620EA2E792004D8F85 /* RMMarker.h */,
@@ -478,7 +464,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */,
-				B8C974180E8A19B2007D16AD /* RMQuartzRenderer.h in Headers */,
 				B8C974190E8A19B2007D16AD /* RMMapRenderer.h in Headers */,
 				B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */,
 				B8C974200E8A19B2007D16AD /* RMDiskCache.h in Headers */,
@@ -614,7 +599,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8C974350E8A19B2007D16AD /* RMMercatorToScreenProjection.m in Sources */,
-				B8C974370E8A19B2007D16AD /* RMQuartzRenderer.m in Sources */,
 				B8C974380E8A19B2007D16AD /* RMMapRenderer.m in Sources */,
 				B8C9743A0E8A19B2007D16AD /* RMCoreAnimationRenderer.m in Sources */,
 				B8C9743F0E8A19B2007D16AD /* RMTileImage.m in Sources */,

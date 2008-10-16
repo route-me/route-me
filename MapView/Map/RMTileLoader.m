@@ -91,7 +91,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	if ([self screenIsLoaded])
 		return;
 	
-	NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
+//	NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
 	
 	RMTileRect newTileRect = [content tileBounds];
 	

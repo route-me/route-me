@@ -20,8 +20,10 @@
 	RMMapContents *content;
 }
 
-- (id) initForView: (UIView*) view WithContent: (RMMapContents *)contents;
+- (id) initWithContent: (RMMapContents *)contents;
 - (void) setNeedsDisplay;
 - (void)drawRect:(CGRect)rect;
+
+- (CALayer*) layer;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "RMMarker.h"
 
-
 @implementation RMMarker
 
 - (id) initWithCGImage: (CGImageRef) image

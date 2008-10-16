@@ -7,6 +7,7 @@
 //
 
 #import "RMMapLayer.h"
+#import "RMPixel.h"
 
 @implementation RMMapLayer
 
@@ -28,12 +29,15 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	
+	self.position = RMTranslateCGPointBy(self.position, delta);
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
 {
-	
+	CGRect currentRect = CGRectMake(self.position.x, self.position.y, self.bounds.size.width, self.bounds.size.height);
+	CGRect newRect = RMScaleCGRectAboutPoint(currentRect, zoomFactor, center);
+	self.position = newRect.origin;
+	self.bounds = CGRectMake(0, 0, newRect.size.width, newRect.size.height);
 }
 
 @end
