@@ -72,7 +72,7 @@
 {
 	for (id layer in set)
 	{
-//		if ([layer respondsToSelector:@selector(moveBy:)])
+		if ([layer respondsToSelector:@selector(moveBy:)])
 			[layer moveBy:delta];
 
 		// if layer moves on and offscreen...
@@ -83,7 +83,7 @@
 {
 	for (id layer in set)
 	{
-//		if ([layer respondsToSelector:@selector(zoomByFactor:Near:)])
+		if ([layer respondsToSelector:@selector(zoomByFactor:Near:)])
 			[layer zoomByFactor:zoomFactor Near:center];
 	}
 }

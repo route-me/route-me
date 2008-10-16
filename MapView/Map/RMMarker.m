@@ -17,6 +17,8 @@
 	
 	self.contents = (id)image;
 	
+	self.anchorPoint = CGPointMake(0.5, 1.0);
+	
 	return self;
 }
 

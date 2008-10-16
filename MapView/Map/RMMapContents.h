@@ -17,6 +17,7 @@
 @class RMTileImageSet;
 @class RMTileLoader;
 @class RMMapRenderer;
+@class RMMapLayer;
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
 
@@ -59,9 +60,13 @@
 @property (readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
 @property (readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
 
-@property (readonly)  id<RMTileSource> tileSource;
+@property (retain, readwrite) id<RMTileSource> tileSource;
+@property (retain, readwrite) RMMapRenderer *renderer;
 
 @property (readonly)  CALayer *layer;
+
+@property (retain, readwrite) RMMapLayer *background;
+@property (retain, readwrite) RMMapLayer *overlay;
 
 - (id) initForView: (UIView*) view;
 

@@ -22,6 +22,8 @@
 #import "RMCoreAnimationRenderer.h"
 #import "RMCachedTileSource.h"
 
+#import "RMLayerSet.h"
+
 @implementation RMMapContents
 
 #pragma mark Initialisation
@@ -42,37 +44,6 @@
 	[_renderer release];
 	
 	return mapContents;
-}
-
-- (void) setTileSource: (id<RMTileSource>)newTileSource
-{
-	[tileSource release];
-	tileSource = [newTileSource retain];
-	
-	[latLongToMercatorProjection release];
-	latLongToMercatorProjection = [[tileSource latLongToMercatorProjection] retain];
-	
-	[mercatorToTileProjection release];
-	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
-	
-	[imagesOnScreen setTileSource:tileSource];
-}
-
-- (void) setRenderer: (RMMapRenderer*) newRenderer
-{
-	if (renderer == newRenderer)
-		return;
-	
-	[[renderer layer] removeFromSuperlayer];
-	[renderer release];
-	
-	renderer = [newRenderer retain];
-	
-//	CGRect rect = [self screenBounds];
-//	NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-	[[renderer layer] setFrame:[self screenBounds]];
-	
-	[layer addSublayer:[renderer layer]];
 }
 
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
@@ -105,6 +76,15 @@
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];
+	
+	// TODO: Make a nice background class
+	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
+	[self setBackground:theBackground];
+	[theBackground release];
+	
+	RMMapLayer *theOverlay = [[RMLayerSet alloc] init];
+	[self setOverlay:theOverlay];
+	[theOverlay release];
 	
 	[view setNeedsDisplay];
 	
@@ -166,6 +146,100 @@
 }
 
 #pragma mark Properties
+
+- (void) setTileSource: (id<RMTileSource>)newTileSource
+{
+	[tileSource release];
+	tileSource = [newTileSource retain];
+	
+	[latLongToMercatorProjection release];
+	latLongToMercatorProjection = [[tileSource latLongToMercatorProjection] retain];
+	
+	[mercatorToTileProjection release];
+	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
+	
+	[imagesOnScreen setTileSource:tileSource];
+}
+
+- (id<RMTileSource>) tileSource
+{
+	return [[tileSource retain] autorelease];
+}
+
+- (void) setRenderer: (RMMapRenderer*) newRenderer
+{
+	if (renderer == newRenderer)
+		return;
+	
+	[[renderer layer] removeFromSuperlayer];
+	[renderer release];
+	
+	renderer = [newRenderer retain];
+	
+	//	CGRect rect = [self screenBounds];
+	//	NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	[[renderer layer] setFrame:[self screenBounds]];
+	
+	if (background != nil)
+		[layer insertSublayer:[renderer layer] above:background];
+	else if (overlay != nil)
+		[layer insertSublayer:[renderer layer] below:overlay];
+	else
+		[layer addSublayer:[renderer layer]];
+}
+
+- (RMMapRenderer *)renderer
+{
+	return [[renderer retain] autorelease];
+}
+
+- (void) setBackground: (RMMapLayer*) aLayer
+{
+	if (background != nil)
+	{
+		[background release];
+		[background removeFromSuperlayer];		
+	}
+	
+	background = [aLayer retain];
+	background.frame = [self screenBounds];
+	
+	if ([renderer layer] != nil)
+		[layer insertSublayer:background below:[renderer layer]];
+	else if (overlay != nil)
+		[layer insertSublayer:background below:overlay];
+	else
+		[layer addSublayer:background];
+}
+
+- (RMMapLayer *)background
+{
+	return [[background retain] autorelease];
+}
+
+- (void) setOverlay: (RMMapLayer*) aLayer
+{
+	if (overlay != nil)
+	{
+		[overlay release];
+		[overlay removeFromSuperlayer];		
+	}
+	
+	overlay = [aLayer retain];
+	overlay.frame = [self screenBounds];
+	
+	if ([renderer layer] != nil)
+		[layer insertSublayer:overlay above:[renderer layer]];
+	else if (background != nil)
+		[layer insertSublayer:overlay above:background];
+	else
+		[layer addSublayer:overlay];
+}
+
+- (RMMapLayer *)overlay
+{
+	return [[overlay retain] autorelease];
+}
 
 - (CLLocationCoordinate2D) mapCenter
 {
@@ -238,11 +312,6 @@
 -(RMMercatorToScreenProjection*) mercatorToScreenProjection
 {
 	return [[mercatorToScreenProjection retain] autorelease];
-}
-
--(id<RMTileSource>) tileSource
-{
-	return [[tileSource retain] autorelease];
 }
 
 - (CALayer *)layer
