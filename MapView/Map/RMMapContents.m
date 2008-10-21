@@ -82,7 +82,7 @@
 	[self setBackground:theBackground];
 	[theBackground release];
 	
-	RMMapLayer *theOverlay = [[RMLayerSet alloc] init];
+	RMMapLayer *theOverlay = [[RMLayerSet alloc] initForContents:self];
 	[self setOverlay:theOverlay];
 	[theOverlay release];
 	
@@ -130,6 +130,7 @@
 	[mercatorToScreenProjection moveScreenBy:delta];
 	[imagesOnScreen moveBy:delta];
 	[tileLoader moveBy:delta];
+	[overlay moveBy:delta];
 	[renderer setNeedsDisplay];
 }
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) pivot
@@ -137,6 +138,7 @@
 	[mercatorToScreenProjection zoomScreenByFactor:zoomFactor Near:pivot];
 	[imagesOnScreen zoomByFactor:zoomFactor Near:pivot];
 	[tileLoader zoomByFactor:zoomFactor Near:pivot];
+	[overlay zoomByFactor:zoomFactor Near:pivot];
 	[renderer setNeedsDisplay];
 }
 
