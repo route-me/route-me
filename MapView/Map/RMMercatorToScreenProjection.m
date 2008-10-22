@@ -38,7 +38,9 @@
 - (RMMercatorPoint)zoomPoint: (RMMercatorPoint)point ByFactor: (float)factor Near:(CGPoint) pivot
 {
 	RMMercatorPoint mercatorPivot = [self projectScreenPointToMercator:pivot];
-	return RMScaleMercatorPointAboutPoint(point, factor, mercatorPivot);	
+	RMMercatorPoint result = RMScaleMercatorPointAboutPoint(point, factor, mercatorPivot);
+//	NSLog(@"RMScaleMercatorPointAboutPoint %f %f about %f %f to %f %f", point.x, point.y, mercatorPivot.x, mercatorPivot.y, result.x, result.y);
+	return result;
 }
 
 - (RMMercatorRect)zoomRect: (RMMercatorRect)rect ByFactor: (float)factor Near:(CGPoint) pivot
@@ -66,14 +68,26 @@
 
 - (void) zoomScreenByFactor: (float) factor Near:(CGPoint) pivot;
 {
-//	NSLog(@"zoomBy: %f", zoomFactor);
+	// The result of this function should be the same as this:
+	//RMMercatorPoint test = [self zoomPoint:origin ByFactor:1.0f / factor Near:pivot];
+
+	// First we move the origin to the pivot...
 	origin.x += pivot.x * scale;
 	origin.y += (screenBounds.size.height - pivot.y) * scale;
+	// Then scale by 1/factor
 	scale /= factor;
+	// Then translate back
 	origin.x -= pivot.x * scale;
 	origin.y -= (screenBounds.size.height - pivot.y) * scale;
 
-//	origin = [self zoomPoint:origin ByFactor:factor Near:pivot];
+	//NSLog(@"test: %f %f", test.x, test.y);
+	//NSLog(@"correct: %f %f", origin.x, origin.y);
+	
+//	CGPoint p = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(0,0)]];
+//	NSLog(@"origin at %f %f", p.x, p.y);
+//	CGPoint q = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(100,100)]];
+//	NSLog(@"100 100 at %f %f", q.x, q.y);
+
 }
 
 - (void)zoomBy: (float) factor
@@ -85,7 +99,7 @@
 {
 	CGPoint point;
 	point.x = (mercator.x - origin.x) / scale;
-	point.y = -(mercator.y - origin.y) / scale;
+	point.y = screenBounds.size.height - (mercator.y - origin.y) / scale;
 	return point;
 }
 
@@ -93,18 +107,23 @@
 {
 	CGRect rect;
 	rect.origin = [self projectMercatorPoint: mercator.origin];
-	mercator.size.width = rect.size.width / scale;
-	mercator.size.height = rect.size.height / scale;
+	rect.size.width = mercator.size.width / scale;
+	rect.size.height = mercator.size.height / scale;
 	return rect;
 }
 
 -(RMMercatorPoint) projectScreenPointToMercator: (CGPoint) point
 {
-	// There is something wrong with this code
-	NSAssert(NO, @"There is something dreadfully wrong with this code but its late and I'm tired.");
+	// I will assume the point is within the screenbounds rectangle.
+	
 	RMMercatorPoint mercatorPoint;
-	mercatorPoint.x = origin.x + (point.x - screenBounds.origin.x) * scale;
-	mercatorPoint.y = origin.y + (screenBounds.size.height - point.y + screenBounds.origin.y) * scale;
+	mercatorPoint.x = origin.x + point.x * scale;
+	mercatorPoint.y = origin.y + (screenBounds.size.height - point.y) * scale;
+
+//	NSLog(@"point %f %f -> %f %f", point.x, point.y, mercatorPoint.x, mercatorPoint.y);
+
+//	NSLog(@"origin: %f %f", origin.x, origin.y);
+	
 	return mercatorPoint;
 }
 
