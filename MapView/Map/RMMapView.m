@@ -192,6 +192,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	lastGesture = [self getGestureDetails:[event allTouches]];
 	
 	//	NSLog(@"touchesEnded %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
@@ -204,6 +205,27 @@
 		// When factoring, beware these two instructions need to happen in this order.
 		[RMMapContents setPerformExpensiveOperations:YES];
 	}
+	//*************************************************************************************
+	//Double-tap detection (currently used for debugging pixelToLatLng() method)
+	if (touch.tapCount == 2)
+	{
+		NSLog(@"***************************************************");
+		NSLog(@"Begin double-tap pixel/LatLng translation debug test");
+		CGPoint pixel = [touch locationInView:self];
+		NSLog(@"Double-tap detected at: x=%f, y=%f", pixel.x, pixel.y);
+		CLLocationCoordinate2D touchLatLng = [self pixelToLatLng:pixel];
+		
+		NSLog(@"Double-tap (x=%f, y=%f) is equivalent to: %f, %f", pixel.x, pixel.y, touchLatLng.latitude, touchLatLng.longitude);
+		CLLocationCoordinate2D point;
+		point.latitude = touchLatLng.latitude;
+		point.longitude = touchLatLng.longitude;
+		CGPoint screenPoint = [self latLngToPixel:point];
+		
+		NSLog(@"Converted LatLng to Pixel says we tapped at: x=%f, y=%f", screenPoint.x, screenPoint.y);
+		NSLog(@"***************************************************");
+	}
+	//***************************************************************************************
+	
 //		[contents recalculateImageSet];
 }
 
@@ -237,6 +259,23 @@
 	lastGesture = newGesture;
 	
 	[self registerPausedDraggingDispatcher];
+}
+
+#pragma mark LatLng/Pixel translation functions
+
+- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong
+{
+	return [contents latLngToPixel:latlong];
+}
+- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel
+{
+	return [contents pixelToLatLng:pixel];
+}
+
+#pragma mark Manual Zoom
+- (void)setZoom:(int)zoomInt
+{
+	[contents setZoom:zoomInt];
 }
 
 @end

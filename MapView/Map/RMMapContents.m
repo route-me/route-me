@@ -339,4 +339,15 @@ static BOOL _performExpensiveOperations = YES;
 		[[NSNotificationCenter defaultCenter] postNotificationName:RMSuspendExpensiveOperations object:self];
 }
 
+#pragma mark LatLng/Pixel translation functions
+
+- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong
+{	
+	return [mercatorToScreenProjection projectMercatorPoint:[latLongToMercatorProjection projectLatLongToMercator:latlong]];
+}
+- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel
+{
+	return [latLongToMercatorProjection projectMercatorToLatLong:[mercatorToScreenProjection projectScreenPointToMercator:pixel]];
+}
+
 @end

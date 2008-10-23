@@ -45,5 +45,7 @@ typedef struct {
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
-
+- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
+- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
+- (void)setZoom:(int)zoomInt;
 @end

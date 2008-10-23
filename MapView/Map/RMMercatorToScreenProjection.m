@@ -98,10 +98,21 @@
 -(CGPoint) projectMercatorPoint: (RMMercatorPoint) mercator
 {
 	CGPoint point;
-	point.x = (mercator.x - origin.x) / scale;
+	/*Old calculation of point.x was flawed in the case of a negative mercator.x and a positive origin.x value 
+	 (like Los Angeles' mercator) where the actual difference between mercator.x and origin.x was not calculated correctly.*/
+	
+	if(mercator.x > origin.x)
+	{
+		point.x = (mercator.x - origin.x) / scale;
+	}
+	else
+	{
+		point.x = (origin.x - mercator.x) / scale;
+	}
 	point.y = screenBounds.size.height - (mercator.y - origin.y) / scale;
 	return point;
 }
+
 
 -(CGRect) projectMercatorRect: (RMMercatorRect) mercator
 {
@@ -121,7 +132,7 @@
 	mercatorPoint.y = origin.y + (screenBounds.size.height - point.y) * scale;
 
 //	NSLog(@"point %f %f -> %f %f", point.x, point.y, mercatorPoint.x, mercatorPoint.y);
-
+//	NSLog(@"origin: %f %f", origin.x, origin.y);
 //	NSLog(@"origin: %f %f", origin.x, origin.y);
 	
 	return mercatorPoint;

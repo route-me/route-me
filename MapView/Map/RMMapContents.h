@@ -90,4 +90,7 @@
 + (BOOL) performExpensiveOperations;
 + (void) setPerformExpensiveOperations: (BOOL)p;
 
+- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
+- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
+
 @end
