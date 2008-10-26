@@ -10,6 +10,7 @@
 
 #import "RMMemoryCache.h"
 #import "RMDiskCache.h"
+#import "RMDatabaseCache.h"
 
 static RMTileCache *cache = nil;
 
@@ -20,16 +21,19 @@ static RMTileCache *cache = nil;
 	if (![super init])
 		return nil;
 	
+	caches = [[NSMutableArray alloc] init];
+
 	RMMemoryCache *memoryCache = [[RMMemoryCache alloc] init];
 	RMDiskCache *diskCache = [[RMDiskCache alloc] init];
-	
-	caches = [[NSMutableArray alloc] init];
-	
+	RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] init];
+
 	[self addCache:memoryCache];
 	[self addCache:diskCache];
+	[self addCache:dbCache];
 	
 	[memoryCache release];
 	[diskCache release];
+	[dbCache release];
 	
 	return self;
 }
