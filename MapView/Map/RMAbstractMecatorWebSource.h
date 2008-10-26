@@ -20,4 +20,6 @@
 	RMFractalTileProjection *tileProjection;
 }
 
++(int)tileSideLength;
+
 @end

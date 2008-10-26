@@ -26,9 +26,4 @@
 
 -(RMMercatorRect) bounds;
 
-//
-//@optional
-//
-//-(void) setCache: (TileCache*)cache;
-
 @end

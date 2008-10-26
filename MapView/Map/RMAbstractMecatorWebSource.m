@@ -26,7 +26,9 @@
 	bounds.origin.y = -20037508.34;
 	bounds.size.width = 20037508.34 * 2;
 	bounds.size.height = 20037508.34 * 2;
-	tileProjection = [[RMFractalTileProjection alloc] initWithBounds:bounds TileSideLength:256 MaxZoom:18];
+	
+	int sideLength = [[self class] tileSideLength];
+	tileProjection = [[RMFractalTileProjection alloc] initWithBounds:bounds TileSideLength:sideLength MaxZoom:18];
 	
 	return self;
 }
@@ -35,6 +37,11 @@
 {
 	[tileProjection release];
 	[super dealloc];
+}
+
++(int)tileSideLength
+{
+	return 256;
 }
 
 -(NSString*) tileURL: (RMTile) tile
@@ -46,7 +53,6 @@
 {
 	tile = [tileProjection normaliseTile:tile];
 	RMTileImage* image = [RMTileImage imageWithTile: tile FromURL:[self tileURL:tile]];
-	//		[cache addTile:tile WithImage:image];
 	return image;
 }
 
@@ -64,8 +70,6 @@
 {
 	return [tileProjection bounds];
 }
-
-//@synthesize cache;
 
 @end
 
