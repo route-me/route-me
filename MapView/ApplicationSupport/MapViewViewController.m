@@ -8,9 +8,12 @@
 
 #import "MapViewViewController.h"
 
+#import "RMMapView.h"
+#import "RMMapContents.h"
+#import "RMMercator.h"
+#import "RMMarker.h"
+
 @implementation MapViewViewController
-
-
 
 /*
 // Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
@@ -29,12 +32,24 @@
 */
 
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+/*	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerBlueKey];
+	
+	RMMercatorRect loc = [[(RMMapView*)[self view] contents] mercatorBounds];
+	loc.origin.x += loc.size.width / 2;
+	loc.origin.y += loc.size.height / 2;
+
+	marker.location = loc.origin;
+	[[[(RMMapView*)[self view] contents] overlay] addSublayer:marker];
+	NSLog(@"marker added to %f %f", loc.origin.x, loc.origin.y);*/
+	
+	RMMapView *view = (RMMapView*)[self view];
+	[(RMMapView*)view addDefaultMarkerAt:[[(RMMapView*)view contents] mapCenter]];
 }
-*/
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

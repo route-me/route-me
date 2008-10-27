@@ -18,6 +18,7 @@
 @class RMTileLoader;
 @class RMMapRenderer;
 @class RMMapLayer;
+@class RMMarker;
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
 
@@ -92,5 +93,9 @@
 
 - (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
 - (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
+
+- (void) addMarker: (RMMarker*)marker;
+- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
+- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
 
 @end

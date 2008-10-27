@@ -17,3 +17,10 @@
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
 
 @end
+
+#import "RMMercator.h"
+@protocol RMMovingMapLayer
+
+@property (assign, nonatomic) RMMercatorPoint location;
+
+@end

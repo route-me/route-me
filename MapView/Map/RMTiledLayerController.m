@@ -122,6 +122,7 @@
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
+	CGDataProviderRelease(dataProvider);
 	
 	CGContextDrawImage(theContext, rect, image);
 }

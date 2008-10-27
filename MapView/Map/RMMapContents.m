@@ -24,6 +24,8 @@
 
 #import "RMLayerSet.h"
 
+#import "RMMarker.h"
+
 @implementation RMMapContents
 
 #pragma mark Initialisation
@@ -236,6 +238,15 @@
 		[layer insertSublayer:overlay above:background];
 	else
 		[layer addSublayer:overlay];
+	
+	/* Test to make sure the overlay is working.
+	CALayer *testLayer = [[CALayer alloc] init];
+	
+	[testLayer setFrame:CGRectMake(100, 100, 200, 200)];
+	[testLayer setBackgroundColor:[[UIColor brownColor] CGColor]];
+	
+	NSLog(@"added test layer");
+	[overlay addSublayer:testLayer];*/
 }
 
 - (RMMapLayer *)overlay
@@ -350,4 +361,25 @@ static BOOL _performExpensiveOperations = YES;
 	return [latLongToMercatorProjection projectMercatorToLatLong:[mercatorToScreenProjection projectScreenPointToMercator:pixel]];
 }
 
+#pragma mark Markers and overlays
+
+// Move overlays stuff here - at the moment overlay stuff is above...
+
+- (void) addMarker: (RMMarker*)marker
+{
+	[overlay addSublayer:marker];
+}
+
+- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
+{
+	[marker setLocation:[latLongToMercatorProjection projectLatLongToMercator:point]];
+	[self addMarker: marker];
+}
+
+- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
+{
+	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerRedKey];
+	[self addMarker:marker AtLatLong:point];
+	[marker release];
+}
 @end

@@ -11,6 +11,9 @@
 
 #import "RMTileLoader.h"
 
+#import "RMMercatorToScreenProjection.h"
+#import "RMMarker.h"
+
 @implementation RMMapView
 
 -(void) initValues
@@ -216,6 +219,10 @@
 		CLLocationCoordinate2D touchLatLng = [self pixelToLatLng:pixel];
 		
 		NSLog(@"Double-tap (x=%f, y=%f) is equivalent to: %f, %f", pixel.x, pixel.y, touchLatLng.latitude, touchLatLng.longitude);
+		
+		RMMercatorPoint merc = [[contents mercatorToScreenProjection] projectScreenPointToMercator:pixel];
+		NSLog(@"Which is mercator %f %f", merc.x, merc.y);
+		
 		CLLocationCoordinate2D point;
 		point.latitude = touchLatLng.latitude;
 		point.longitude = touchLatLng.longitude;
@@ -276,6 +283,21 @@
 - (void)setZoom:(int)zoomInt
 {
 	[contents setZoom:zoomInt];
+}
+
+#pragma mark Markers
+
+- (void) addMarker: (RMMarker*)marker
+{
+	[contents addMarker:marker];
+}
+- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
+{
+	[contents addMarker:marker AtLatLong:point];
+}
+- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
+{
+	[contents addDefaultMarkerAt:point];
 }
 
 @end

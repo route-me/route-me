@@ -21,8 +21,8 @@ typedef struct {
 	int numTouches;
 } RMGestureDetails;
 
-
 @class RMMapContents;
+@class RMMarker;
 
 // This class is a wrapper around RMMapContents for the iphone.
 // It implements event handling; but thats about it. All the interesting map
@@ -48,4 +48,9 @@ typedef struct {
 - (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
 - (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
 - (void)setZoom:(int)zoomInt;
+
+- (void) addMarker: (RMMarker*)marker;
+- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
+- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
+
 @end

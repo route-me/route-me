@@ -12,11 +12,20 @@
 
 @class UIImage;
 
-@interface RMMarker : RMMapLayer {
-	RMMercatorPoint point;
+extern NSString * const RMMarkerBlueKey;
+extern NSString * const RMMarkerRedKey;
+
+@interface RMMarker : RMMapLayer <RMMovingMapLayer> {
+	RMMercatorPoint location;
 }
 
+- (id) initWithKey: (NSString*) key;
 - (id) initWithCGImage: (CGImageRef) image;
 - (id) initWithUIImage: (UIImage*) image;
+
+@property (assign, nonatomic) RMMercatorPoint location;
+
+// Call this with either RMMarkerBlue or RMMarkerRed for the key.
++ (CGImageRef) markerImage: (NSString *) key;
 
 @end

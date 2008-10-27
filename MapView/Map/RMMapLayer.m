@@ -27,6 +27,15 @@
 	return self;
 }
 
+- (id<CAAction>)actionForKey:(NSString *)key
+{
+	if ([key isEqualToString:@"position"]
+		|| [key isEqualToString:@"bounds"])
+		return nil;
+	
+	else return [super actionForKey:key];
+}
+
 - (void)moveBy: (CGSize) delta
 {
 	self.position = RMTranslateCGPointBy(self.position, delta);

@@ -7,7 +7,8 @@
 //
 
 #import "RMLayerSet.h"
-
+#import "RMMapContents.h"
+#import "RMMercatorToScreenProjection.h"
 
 @implementation RMLayerSet
 
@@ -22,8 +23,24 @@
 	return self;
 }
 
+- (void)correctScreenPosition: (CALayer *)layer
+{
+	if ([layer conformsToProtocol:@protocol(RMMovingMapLayer)])
+	{
+		// Kinda ugly.
+		CALayer<RMMovingMapLayer>* layer_with_proto = (CALayer<RMMovingMapLayer>*)layer;
+		RMMercatorPoint location = [layer_with_proto location];
+		layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectMercatorPoint:location];
+	}
+}
+
 - (void)setSublayers: (NSArray*)array
 {
+	for (CALayer *layer in array)
+	{
+		[self correctScreenPosition:layer];
+	}
+	
 	[set removeAllObjects];
 	[set addObjectsFromArray:array];
 	[super setSublayers:array];
@@ -31,12 +48,14 @@
 
 - (void)addSublayer:(CALayer *)layer
 {
+	[self correctScreenPosition:layer];
 	[set addObject:layer];
 	[super addSublayer:layer];
 }
 
 - (void)insertSublayer:(CALayer *)layer above:(CALayer *)siblingLayer
 {
+	[self correctScreenPosition:layer];
 	int index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index + 1];
 	[super insertSublayer:layer above:siblingLayer];
@@ -44,6 +63,7 @@
 
 - (void)insertSublayer:(CALayer *)layer below:(CALayer *)siblingLayer
 {
+	[self correctScreenPosition:layer];
 	int index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index];
 	[super insertSublayer:layer below:siblingLayer];
@@ -51,6 +71,7 @@
 
 - (void)insertSublayer:(CALayer *)layer atIndex:(unsigned)index
 {
+	[self correctScreenPosition:layer];
 	[set insertObject:layer atIndex:index];
 
 	// TODO: Fix this.
