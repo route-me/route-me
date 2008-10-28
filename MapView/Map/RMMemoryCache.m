@@ -16,6 +16,8 @@
 	if (![super init])
 		return nil;
 
+	NSLog(@"initializing memory cache with capacity %d", _capacity);
+	
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
 	if (_capacity < 1)

@@ -12,6 +12,8 @@
 #import "RMDiskCache.h"
 #import "RMDatabaseCache.h"
 
+#import "RMConfiguration.h"
+
 static RMTileCache *cache = nil;
 
 @implementation RMTileCache
@@ -23,18 +25,59 @@ static RMTileCache *cache = nil;
 	
 	caches = [[NSMutableArray alloc] init];
 
-	RMMemoryCache *memoryCache = [[RMMemoryCache alloc] init];
-	RMDiskCache *diskCache = [[RMDiskCache alloc] init];
-	RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] init];
+	id cacheCfg = [[RMConfiguration configuration] cacheConfiguration];
+	
+	if (cacheCfg==nil)
+	{
+		cacheCfg = [NSArray arrayWithObjects:
+			[NSDictionary dictionaryWithObject: @"memory-cache" forKey: @"type"],
+			[NSDictionary dictionaryWithObject: @"disk-cache"   forKey: @"type"],
+			[NSDictionary dictionaryWithObject: @"db-cache"     forKey: @"type"],
+			nil
+		];
+	}
 
-	[self addCache:memoryCache];
-	[self addCache:diskCache];
-	[self addCache:dbCache];
-	
-	[memoryCache release];
-	[diskCache release];
-	[dbCache release];
-	
+	for (id cfg in cacheCfg) 
+	{
+		RMTileCache* newCache = nil;
+				
+		@try {
+			NSString* type = [cfg valueForKey:@"type"];
+			
+			if ([@"memory-cache" isEqualToString: type]) 
+			{
+				NSNumber* capacity = [cfg objectForKey:@"capacity"];
+				if (capacity == nil) capacity = [NSNumber numberWithInt: 32];
+				newCache = [[RMMemoryCache alloc] initWithCapacity: [capacity intValue]];
+			}
+			
+			if ([@"disk-cache" isEqualToString: type]) 
+			{
+				NSLog(@"creating disk cache");
+				newCache = [[RMDiskCache alloc] init];
+			}
+			
+			if ([@"db-cache" isEqualToString: type]) 
+			{
+				newCache = [[RMDatabaseCache alloc] init];
+			}
+
+			if (newCache)
+			{
+				[caches addObject: newCache];
+				[newCache release];
+			}
+			else
+			{
+				NSLog(@"failed to create cache of type %@", type);
+			}
+
+		}
+		@catch (NSException * e) {
+			NSLog(@"*** configuration error: %@", [e reason]);
+		}
+				
+	}
 	return self;
 }
 
