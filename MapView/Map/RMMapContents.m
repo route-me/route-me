@@ -382,4 +382,10 @@ static BOOL _performExpensiveOperations = YES;
 	[self addMarker:marker AtLatLong:point];
 	[marker release];
 }
+
+- (void) removeMarkers
+{
+	overlay.sublayers = [NSArray arrayWithObjects:nil]; 
+}
+
 @end

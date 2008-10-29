@@ -7,6 +7,8 @@
 //
 
 #import "RMMarker.h"
+#import "RMMarkerStyle.h"
+#import "RMMarkerStyles.h"
 
 #import "RMPixel.h"
 
@@ -20,7 +22,17 @@ static CGImageRef _markerBlue = nil;
 
 @synthesize location;
 
++ (RMMarker*) markerWithNamedStyle: (NSString*) styleName
+{
+	return [[[RMMarker alloc] initWithNamedStyle: styleName] autorelease];
+}
+
 - (id) initWithCGImage: (CGImageRef) image
+{
+	return [self initWithCGImage: image anchorPoint: CGPointMake(0.5, 1.0)];
+}
+
+- (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) _anchorPoint
 {
 	if (![super init])
 		return nil;
@@ -29,7 +41,7 @@ static CGImageRef _markerBlue = nil;
 
 	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
 	
-	self.anchorPoint = CGPointMake(0.5, 1.0);
+	self.anchorPoint = _anchorPoint;
 	
 	return self;
 }
@@ -42,6 +54,22 @@ static CGImageRef _markerBlue = nil;
 - (id) initWithKey: (NSString*) key
 {
 	return [self initWithCGImage:[RMMarker markerImage:key]];
+}
+
+- (id) initWithStyle: (RMMarkerStyle*) style
+{
+	return [self initWithCGImage: [style.markerIcon CGImage] anchorPoint: style.anchorPoint]; 
+}
+
+- (id) initWithNamedStyle: (NSString*) styleName
+{
+	RMMarkerStyle* style = [[RMMarkerStyles styles] styleNamed: styleName];
+	
+	if (style==nil) {
+		NSLog(@"problem creating marker: style '%@' not found", styleName);
+		return [self initWithCGImage: [RMMarker markerImage: RMMarkerRedKey]];
+	}
+	return [self initWithStyle: style];
 }
 
 - (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center

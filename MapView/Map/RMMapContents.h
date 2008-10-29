@@ -97,5 +97,6 @@
 - (void) addMarker: (RMMarker*)marker;
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
 - (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
+- (void) removeMarkers;
 
 @end

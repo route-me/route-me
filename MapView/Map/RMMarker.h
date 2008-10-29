@@ -10,7 +10,7 @@
 #import "RMMapLayer.h"
 #import "RMMercator.h"
 
-@class UIImage;
+@class RMMarkerStyle;
 
 extern NSString * const RMMarkerBlueKey;
 extern NSString * const RMMarkerRedKey;
@@ -19,9 +19,14 @@ extern NSString * const RMMarkerRedKey;
 	RMMercatorPoint location;
 }
 
-- (id) initWithKey: (NSString*) key;
++ (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
+
+- (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
 - (id) initWithCGImage: (CGImageRef) image;
+- (id) initWithKey: (NSString*) key;
 - (id) initWithUIImage: (UIImage*) image;
+- (id) initWithStyle: (RMMarkerStyle*) style;
+- (id) initWithNamedStyle: (NSString*) styleName;
 
 @property (assign, nonatomic) RMMercatorPoint location;
 

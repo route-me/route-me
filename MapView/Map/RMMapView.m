@@ -300,4 +300,9 @@
 	[contents addDefaultMarkerAt:point];
 }
 
+- (void) removeMarkers
+{
+	[contents removeMarkers];
+}
+
 @end

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		126692A10EB75C0A00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
 		126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
+		1296F5610EB8743500FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
+		1296F5640EB8745300FF25E0 /* RMMarkerStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */; };
+		1296F56B0EB8849A00FF25E0 /* RMMarkerStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */; };
+		1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
+		1296F56D0EB8849B00FF25E0 /* RMMarkerStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */; };
+		1296F56E0EB8849C00FF25E0 /* RMMarkerStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */; };
 		1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapViewAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -132,6 +138,10 @@
 /* Begin PBXFileReference section */
 		1266929F0EB75C0A00E002D5 /* RMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMConfiguration.h; sourceTree = "<group>"; };
 		126692A00EB75C0A00E002D5 /* RMConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMConfiguration.m; sourceTree = "<group>"; };
+		1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerStyle.h; sourceTree = "<group>"; };
+		1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerStyle.m; sourceTree = "<group>"; };
+		1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerStyles.h; sourceTree = "<group>"; };
+		1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerStyles.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapViewAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapViewAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAppDelegate.m; sourceTree = "<group>"; };
@@ -501,6 +511,10 @@
 				B8FA92180E9315EC003A9FE6 /* RMLayerSet.m */,
 				B8F3FC620EA2E792004D8F85 /* RMMarker.h */,
 				B8F3FC630EA2E792004D8F85 /* RMMarker.m */,
+				1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */,
+				1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */,
+				1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */,
+				1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -593,6 +607,8 @@
 				B8474B9F0EB40094006A0BC1 /* FMResultSet.h in Headers */,
 				B8474BA20EB40094006A0BC1 /* RMTileCacheDAO.h in Headers */,
 				B8474BA40EB40094006A0BC1 /* RMDatabaseCache.h in Headers */,
+				1296F56B0EB8849A00FF25E0 /* RMMarkerStyle.h in Headers */,
+				1296F56D0EB8849B00FF25E0 /* RMMarkerStyles.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +712,8 @@
 				1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MapViewViewController.m in Sources */,
 				126692A10EB75C0A00E002D5 /* RMConfiguration.m in Sources */,
+				1296F5610EB8743500FF25E0 /* RMMarkerStyle.m in Sources */,
+				1296F5640EB8745300FF25E0 /* RMMarkerStyles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,6 +756,8 @@
 				B8474BA30EB40094006A0BC1 /* RMTileCacheDAO.m in Sources */,
 				B8474BA50EB40094006A0BC1 /* RMDatabaseCache.m in Sources */,
 				126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */,
+				1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */,
+				1296F56E0EB8849C00FF25E0 /* RMMarkerStyles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
