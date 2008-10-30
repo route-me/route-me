@@ -1,19 +1,25 @@
 //
-//  Projection.m
-//  Images
+//  RMProjection.m
+//  MapView
 //
 //  Created by Joseph Gentle on 18/08/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
 #import "RMProjection.h"
-#import "proj_api.h"
+
+
+NS_INLINE RMLatLong RMPixelPointAsLatLong(RMXYPoint xypoint) {
+    union _ {RMXYPoint xy; RMLatLong latLong;};
+    return ((union _ *)&xypoint)->latLong;
+}
+
 
 @implementation RMProjection
 
 @synthesize internalProjection;
 
--(id) initWithString: (NSString*)params
+- (id)initWithString: (NSString*)params
 {
 	if (![super init])
 		return nil;
@@ -29,12 +35,12 @@
 	return self;
 }
 
--(id) init
+-(id)init
 {
 	return [self initWithString:@"+proj=latlong +ellps=WGS84"];
 }
 
--(void) dealloc
+-(void)dealloc
 {
 	if (internalProjection)
 		pj_free(internalProjection);
@@ -42,44 +48,44 @@
 	[super dealloc];
 }
 
--(CLLocationCoordinate2D) projectForward: (CLLocationCoordinate2D)point
+- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong
 {
 	projUV uv = {
-		point.longitude * DEG_TO_RAD,
-		point.latitude * DEG_TO_RAD
+		aLatLong.longitude * DEG_TO_RAD,
+		aLatLong.latitude * DEG_TO_RAD
 	};
 	
 	projUV result = pj_fwd(uv, internalProjection);
 	
-	CLLocationCoordinate2D result_point = {
-		result.v,
+	RMXYPoint result_point = {
 		result.u,
+		result.v,
 	};
 	
 	return result_point;
 }
 
--(CLLocationCoordinate2D) projectInverse: (CLLocationCoordinate2D)point
+- (RMLatLong)pointToLatLong:(RMXYPoint)aPoint
 {
 	projUV uv = {
-		point.longitude,
-		point.latitude,
+		aPoint.x,
+		aPoint.y,
 	};
 	
 	projUV result = pj_inv(uv, internalProjection);
 	
-	CLLocationCoordinate2D result_point = {
+	RMLatLong result_coordinate = {
 		result.v * RAD_TO_DEG,
 		result.u * RAD_TO_DEG,
 	};
 	
-	return result_point;
+	return result_coordinate;
 }
 
 static RMProjection* _google = nil;
 static RMProjection* _latlong = nil;
 
-+(RMProjection*) EPSGGoogle
++ (RMProjection*)googleProjection
 {
 	if (_google)
 	{
@@ -92,7 +98,7 @@ static RMProjection* _latlong = nil;
 	}
 }
 
-+(RMProjection*) EPSGLatLong;
++ (RMProjection*)EPSGLatLong;
 {
 	if (_latlong)
 	{

@@ -8,9 +8,8 @@
 
 #import "RMMapContents.h"
 
-#import "RMLatLong.h"
-#import "RMMercator.h"
-#import "RMLatLongToMercatorProjection.h"
+#import "RMFoundation.h"
+#import "RMProjection.h"
 #import "RMMercatorToScreenProjection.h"
 #import "RMMercatorToTileProjection.h"
 
@@ -57,7 +56,7 @@
 	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initWithScreenBounds:[view bounds]];
 
 	tileSource = nil;
-	latLongToMercatorProjection = nil;
+	projection = nil;
 	mercatorToTileProjection = nil;
 	
 	renderer = nil;
@@ -100,7 +99,7 @@
 	[renderer release];
 	[tileSource release];
 	[tileLoader release];
-	[latLongToMercatorProjection release];
+	[projection release];
 	[mercatorToTileProjection release];
 	[mercatorToScreenProjection release];
 	[tileSource release];
@@ -113,12 +112,12 @@
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong
 {
-	RMMercatorPoint mercator = [latLongToMercatorProjection projectLatLongToMercator:latlong];
-	[self moveToMercator: mercator];
+	RMXYPoint aPoint = [projection latLongToPoint:latlong];
+	[self moveToXYPoint: aPoint];
 }
-- (void)moveToMercator: (RMMercatorPoint)mercator
+- (void)moveToXYPoint: (RMXYPoint)aPoint
 {
-	[mercatorToScreenProjection setMercatorCenter:mercator];
+	[mercatorToScreenProjection setXYCenter:aPoint];
 	
 //	[imagesOnScreen removeAllTiles];
 	[tileLoader clearLoadedBounds];
@@ -135,18 +134,18 @@
 	[overlay moveBy:delta];
 	[renderer setNeedsDisplay];
 }
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) pivot
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
-	[mercatorToScreenProjection zoomScreenByFactor:zoomFactor Near:pivot];
-	[imagesOnScreen zoomByFactor:zoomFactor Near:pivot];
-	[tileLoader zoomByFactor:zoomFactor Near:pivot];
-	[overlay zoomByFactor:zoomFactor Near:pivot];
+	[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
+	[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+	[tileLoader zoomByFactor:zoomFactor near:pivot];
+	[overlay zoomByFactor:zoomFactor near:pivot];
 	[renderer setNeedsDisplay];
 }
 
-- (void) drawRect: (CGRect) rect
+- (void) drawRect: (CGRect) aRect
 {
-	[renderer drawRect:rect];
+	[renderer drawRect:aRect];
 }
 
 #pragma mark Properties
@@ -156,8 +155,8 @@
 	[tileSource release];
 	tileSource = [newTileSource retain];
 	
-	[latLongToMercatorProjection release];
-	latLongToMercatorProjection = [[tileSource latLongToMercatorProjection] retain];
+	[projection release];
+	projection = [[tileSource projection] retain];
 	
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
@@ -256,8 +255,8 @@
 
 - (CLLocationCoordinate2D) mapCenter
 {
-	RMMercatorPoint mercCenter = [mercatorToScreenProjection mercatorCenter];
-	return [latLongToMercatorProjection projectMercatorToLatLong:mercCenter];
+	RMXYPoint aPoint = [mercatorToScreenProjection XYCenter];
+	return [projection pointToLatLong:aPoint];
 }
 
 -(void) setMapCenter: (CLLocationCoordinate2D) center
@@ -265,13 +264,13 @@
 	[self moveToLatLong:center];
 }
 
--(RMMercatorRect) mercatorBounds
+-(RMXYRect) XYBounds
 {
-	return [mercatorToScreenProjection mercatorBounds];
+	return [mercatorToScreenProjection XYBounds];
 }
--(void) setMercatorBounds: (RMMercatorRect) bounds
+-(void) setXYBounds: (RMXYRect) boundsRect
 {
-	[mercatorToScreenProjection setMercatorBounds:bounds];
+	[mercatorToScreenProjection setXYBounds:boundsRect];
 }
 
 -(RMTileRect) tileBounds
@@ -314,9 +313,9 @@
 	return [[imagesOnScreen retain] autorelease];
 }
 
--(RMLatLongToMercatorProjection*) latLongToMercatorProjection
+-(RMProjection*) projection
 {
-	return [[latLongToMercatorProjection retain] autorelease];
+	return [[projection retain] autorelease];
 }
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection
 {
@@ -352,13 +351,13 @@ static BOOL _performExpensiveOperations = YES;
 
 #pragma mark LatLng/Pixel translation functions
 
-- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong
 {	
-	return [mercatorToScreenProjection projectMercatorPoint:[latLongToMercatorProjection projectLatLongToMercator:latlong]];
+	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong]];
 }
-- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel
 {
-	return [latLongToMercatorProjection projectMercatorToLatLong:[mercatorToScreenProjection projectScreenPointToMercator:pixel]];
+	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:pixel]];
 }
 
 #pragma mark Markers and overlays
@@ -372,7 +371,7 @@ static BOOL _performExpensiveOperations = YES;
 
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
-	[marker setLocation:[latLongToMercatorProjection projectLatLongToMercator:point]];
+	[marker setLocation:[projection latLongToPoint:point]];
 	[self addMarker: marker];
 }
 

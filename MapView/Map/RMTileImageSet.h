@@ -51,7 +51,7 @@
 -(NSUInteger) count;
 
 - (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
 - (void) drawRect:(CGRect) rect;
 

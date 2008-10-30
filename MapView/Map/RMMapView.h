@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CGGeometry.h>
 
+#import "RMFoundation.h"
 #import "RMLatLong.h"
-#import "RMMercator.h"
 
 // iPhone-specific mapview stuff.
 // Handles event handling, whatnot.
@@ -41,12 +41,12 @@ typedef struct {
 @property (readonly) RMMapContents *contents;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
-- (void)moveToMercator: (RMMercatorPoint)mercator;
+- (void)moveToXYPoint: (RMXYPoint)aPoint;
 
 - (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
-- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
-- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint;
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
 - (void)setZoom:(int)zoomInt;
 
 - (void) addMarker: (RMMarker*)marker;

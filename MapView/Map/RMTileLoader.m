@@ -116,7 +116,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	[self updateLoadedImages];
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	loadedBounds = RMScaleCGRectAboutPoint(loadedBounds, zoomFactor, center);
 	[self updateLoadedImages];

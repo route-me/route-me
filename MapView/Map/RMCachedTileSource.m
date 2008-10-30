@@ -56,12 +56,12 @@
 	return [tileSource mercatorToTileProjection];
 }
 
--(RMLatLongToMercatorProjection*) latLongToMercatorProjection
+-(RMProjection*) projection
 {
-	return [tileSource latLongToMercatorProjection];
+	return [tileSource projection];
 }
 
--(RMMercatorRect) bounds
+-(RMXYRect) bounds
 {
 	return [tileSource bounds];
 }

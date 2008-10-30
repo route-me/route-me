@@ -7,15 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
-#import "RMLatLong.h"
+#import "RMFoundation.h"
 
 // This is a stateful projection. As the screen moves around, so too do projections change.
 
 @interface RMMercatorToScreenProjection : NSObject
 {
 	// What the screen is currently looking at.
-	RMMercatorPoint origin;
+	RMXYPoint origin;
 	
 	// Bounds of the screen in pixels
 	CGRect screenBounds;
@@ -26,39 +25,36 @@
 	float scale;
 }
 
--(id) initWithScreenBounds: (CGRect)screenBounds;
+- (id) initWithScreenBounds: (CGRect)aScreenBounds;
 
 // Deltas in screen coordinates.
-- (RMMercatorPoint)movePoint: (RMMercatorPoint)point By:(CGSize) delta;
-- (RMMercatorRect)moveRect: (RMMercatorRect)rect By:(CGSize) delta;
+- (RMXYPoint)movePoint: (RMXYPoint)aPoint by:(CGSize) delta;
+- (RMXYRect)moveRect: (RMXYRect)aRect by:(CGSize) delta;
 
 // pivot given in screen coordinates.
-- (RMMercatorPoint)zoomPoint: (RMMercatorPoint)point ByFactor: (float)factor Near:(CGPoint) pivot;
-- (RMMercatorRect)zoomRect: (RMMercatorRect)rect ByFactor: (float)factor Near:(CGPoint) pivot;
+- (RMXYPoint)zoomPoint: (RMXYPoint)aPoint byFactor: (float)factor near:(CGPoint) pivot;
+- (RMXYRect)zoomRect: (RMXYRect)aRect byFactor: (float)factor near:(CGPoint) pivot;
 
 // Move the screen.
 - (void) moveScreenBy: (CGSize) delta;
-- (void) zoomScreenByFactor: (float) factor Near:(CGPoint) point;
+- (void) zoomScreenByFactor: (float) factor near:(CGPoint) aPoint;
 
 // Project -> screen coordinates.
 
--(CGPoint) projectMercatorPoint: (RMMercatorPoint) point;
--(CGRect) projectMercatorRect: (RMMercatorRect) rect;
+- (CGPoint) projectXYPoint: (RMXYPoint) aPoint;
+- (CGRect) projectXYRect: (RMXYRect) aRect;
 
--(RMMercatorPoint) projectScreenPointToMercator: (CGPoint) point;
--(RMMercatorRect) projectScreenRectToMercator: (CGRect) rect;
-- (RMMercatorSize)projectScreenSizeToMercator: (CGSize) size;
+- (RMXYPoint) projectScreenPointToXY: (CGPoint) aPoint;
+- (RMXYRect) projectScreenRectToXY: (CGRect) aRect;
+- (RMXYSize)projectScreenSizeToXY: (CGSize) aSize;
 
--(RMMercatorRect) mercatorBounds;
--(void) setMercatorBounds: (RMMercatorRect) bounds;
--(RMMercatorPoint) mercatorCenter;
--(void) setMercatorCenter: (RMMercatorPoint) center;
--(CGRect) screenBounds;
+- (RMXYRect) XYBounds;
+- (void) setXYBounds: (RMXYRect) bounds;
+- (RMXYPoint) XYCenter;
+- (void) setXYCenter: (RMXYPoint) aPoint;
+- (CGRect) screenBounds;
 
 @property (assign, readwrite) float scale;
-//@property (readonly) RMMercatorPoint topLeft;
-
-//@property (assign, readwrite) CGSize viewSize;
 
 
 @end

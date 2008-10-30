@@ -71,10 +71,10 @@
 
 #pragma mark Movement
 
--(void) moveToMercator: (RMMercatorPoint) point
+-(void) moveToXYPoint: (RMXYPoint) aPoint
 {
 	// TODO Add delegate hooks
-	[contents moveToMercator:point];
+	[contents moveToXYPoint:aPoint];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point
 {
@@ -87,10 +87,10 @@
 	// TODO Add delegate hooks
 	[contents moveBy:delta];
 }
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	// TODO Add delegate hooks
-	[contents zoomByFactor:zoomFactor Near:center];
+	[contents zoomByFactor:zoomFactor near:center];
 }
 
 #pragma mark Event handling
@@ -216,17 +216,17 @@
 		NSLog(@"Begin double-tap pixel/LatLng translation debug test");
 		CGPoint pixel = [touch locationInView:self];
 		NSLog(@"Double-tap detected at: x=%f, y=%f", pixel.x, pixel.y);
-		CLLocationCoordinate2D touchLatLng = [self pixelToLatLng:pixel];
+		CLLocationCoordinate2D touchLatLng = [self pixelToLatLong:pixel];
 		
 		NSLog(@"Double-tap (x=%f, y=%f) is equivalent to: %f, %f", pixel.x, pixel.y, touchLatLng.latitude, touchLatLng.longitude);
 		
-		RMMercatorPoint merc = [[contents mercatorToScreenProjection] projectScreenPointToMercator:pixel];
+		RMXYPoint merc = [[contents mercatorToScreenProjection] projectScreenPointToXY:pixel];
 		NSLog(@"Which is mercator %f %f", merc.x, merc.y);
 		
 		CLLocationCoordinate2D point;
 		point.latitude = touchLatLng.latitude;
 		point.longitude = touchLatLng.longitude;
-		CGPoint screenPoint = [self latLngToPixel:point];
+		CGPoint screenPoint = [self latLongToPixel:point];
 		
 		NSLog(@"Converted LatLng to Pixel says we tapped at: x=%f, y=%f", screenPoint.x, screenPoint.y);
 		NSLog(@"***************************************************");
@@ -254,7 +254,7 @@
 			double zoomFactor = newGesture.averageDistanceFromCenter / lastGesture.averageDistanceFromCenter;
 			
 			[self moveBy:delta];
-			[self zoomByFactor: zoomFactor Near: newGesture.center];
+			[self zoomByFactor: zoomFactor near: newGesture.center];
 		}
 		else
 		{
@@ -270,13 +270,13 @@
 
 #pragma mark LatLng/Pixel translation functions
 
-- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong
 {
-	return [contents latLngToPixel:latlong];
+	return [contents latLongToPixel:latlong];
 }
-- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel
 {
-	return [contents pixelToLatLng:pixel];
+	return [contents pixelToLatLong:pixel];
 }
 
 #pragma mark Manual Zoom

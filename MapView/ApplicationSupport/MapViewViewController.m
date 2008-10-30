@@ -10,7 +10,7 @@
 
 #import "RMMapView.h"
 #import "RMMapContents.h"
-#import "RMMercator.h"
+#import "RMFoundation.h"
 #import "RMMarker.h"
 
 @implementation MapViewViewController

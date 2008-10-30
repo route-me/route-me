@@ -41,7 +41,7 @@
 	self.position = RMTranslateCGPointBy(self.position, delta);
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	CGRect currentRect = CGRectMake(self.position.x, self.position.y, self.bounds.size.width, self.bounds.size.height);
 	CGRect newRect = RMScaleCGRectAboutPoint(currentRect, zoomFactor, center);

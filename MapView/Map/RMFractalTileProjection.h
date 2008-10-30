@@ -14,7 +14,7 @@
 	int maxZoom;
 	
 	// Mercator bounds of the earth 
-	RMMercatorRect bounds;
+	RMXYRect bounds;
 	
 	// Normally 256. This class assumes tiles are square.
 	int tileSideLength;
@@ -28,6 +28,6 @@
 	double scaleFactor;
 }
 
--(id) initWithBounds: (RMMercatorRect)bounds TileSideLength:(int)tileSideLength MaxZoom: (int) max_zoom;
+-(id) initWithBounds:(RMXYRect)boundsRect tileSideLength:(int)tileSideLength maxZoom: (int) max_zoom;
 
 @end

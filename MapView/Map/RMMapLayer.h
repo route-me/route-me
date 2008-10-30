@@ -14,13 +14,13 @@
 }
 
 - (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
 @end
 
-#import "RMMercator.h"
+#import "RMFoundation.h"
 @protocol RMMovingMapLayer
 
-@property (assign, nonatomic) RMMercatorPoint location;
+@property (assign, nonatomic) RMXYPoint location;
 
 @end

@@ -262,7 +262,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	self.screenLocation = RMTranslateCGRectBy(screenLocation, delta);
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	self.screenLocation = RMScaleCGRectAboutPoint(screenLocation, zoomFactor, center);
 }

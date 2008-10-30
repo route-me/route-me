@@ -14,12 +14,12 @@
 
 @synthesize maxZoom, tileSideLength, bounds;
 
--(id) initWithBounds: (RMMercatorRect)_bounds TileSideLength:(int)_tileSideLength MaxZoom: (int)_maxZoom
+- (id) initWithBounds: (RMXYRect)boundsRect tileSideLength:(int)_tileSideLength maxZoom: (int)_maxZoom
 {
 	if (![super init])
 		return nil;
 	
-	bounds = _bounds;
+	bounds = boundsRect;
 	tileSideLength = _tileSideLength;
 	maxZoom = _maxZoom;
 	
@@ -28,7 +28,7 @@
 	return self;
 }
 
--(float) normaliseZoom: (float) zoom
+- (float) normaliseZoom: (float) zoom
 {
 	float normalised_zoom = roundf(zoom);
 	//16;
@@ -40,27 +40,27 @@
 	return normalised_zoom;
 }
 
--(float) limitFromNormalisedZoom: (float) zoom
+- (float) limitFromNormalisedZoom: (float) zoom
 {
 	return exp2f(zoom);
 }
 
--(RMMercatorPoint) constrainPointHorizontally: (RMMercatorPoint) point
+- (RMXYPoint) constrainPointHorizontally: (RMXYPoint) aPoint
 {
-	while (point.x < bounds.origin.x)
-		point.x += bounds.size.width;
-	while (point.x > (bounds.origin.x + bounds.size.width))
-		point.x -= bounds.size.width;
+	while (aPoint.x < bounds.origin.x)
+		aPoint.x += bounds.size.width;
+	while (aPoint.x > (bounds.origin.x + bounds.size.width))
+		aPoint.x -= bounds.size.width;
 
 //	if (point.y < bounds.origin.y)
 //		point.y = bounds.origin.y;
 //	else if (point.y > (bounds.origin.y + bounds.size.height))
 //		point.y = bounds.origin.y + bounds.size.height;
 	
-	return point;
+	return aPoint;
 }
 
--(RMTile) normaliseTile: (RMTile) tile
+- (RMTile) normaliseTile: (RMTile) tile
 {
 	// The mask contains a 1 for every valid x-coordinate bit.
 	uint32_t mask = 1;
@@ -100,14 +100,14 @@
 	}
 }*/
 
--(RMTilePoint) projectInternal: (RMMercatorPoint)mercator AtNormalisedZoom:(float)zoom Limit:(float) limit
+- (RMTilePoint) projectInternal: (RMXYPoint)aPoint normalisedZoom:(float)zoom limit:(float) limit
 {
 	RMTilePoint tile;
-	mercator = [self constrainPointHorizontally:mercator];
+	RMXYPoint newPoint = [self constrainPointHorizontally:aPoint];
 	
-	double x = (mercator.x - bounds.origin.x) / bounds.size.width * limit;
+	double x = (newPoint.x - bounds.origin.x) / bounds.size.width * limit;
 	// Unfortunately, y is indexed from the bottom left.. hence we have to translate it.
-	double y = (double)limit * ((bounds.origin.y - mercator.y) / bounds.size.height + 1);
+	double y = (double)limit * ((bounds.origin.y - newPoint.y) / bounds.size.height + 1);
 	
 	tile.tile.x = (uint32_t)x;
 	tile.tile.y = (uint32_t)y;
@@ -118,43 +118,43 @@
 	return tile;
 }
 
--(RMTilePoint) project: (RMMercatorPoint)mercator AtZoom:(float)zoom
+- (RMTilePoint) project: (RMXYPoint)aPoint atZoom:(float)zoom
 {
 	float normalised_zoom = [self normaliseZoom:zoom];
 	float limit = [self limitFromNormalisedZoom:normalised_zoom];
 	
-	return [self projectInternal:mercator AtNormalisedZoom:normalised_zoom Limit:limit];
+	return [self projectInternal:aPoint normalisedZoom:normalised_zoom limit:limit];
 }
 
--(RMTileRect) projectRect: (RMMercatorRect)mercator AtZoom:(float)zoom
+- (RMTileRect) projectRect: (RMXYRect)aRect atZoom:(float)zoom
 {
 	int normalised_zoom = [self normaliseZoom:zoom];
 	float limit = [self limitFromNormalisedZoom:normalised_zoom];
 
-	RMTileRect rect;
+	RMTileRect tileRect;
 	// The origin for projectInternal will have to be the top left instead of the bottom left.
-	RMMercatorPoint topLeft = mercator.origin;
-	topLeft.y += mercator.size.height;
-	rect.origin = [self projectInternal:topLeft AtNormalisedZoom:normalised_zoom Limit:limit];
+	RMXYPoint topLeft = aRect.origin;
+	topLeft.y += aRect.size.height;
+	tileRect.origin = [self projectInternal:topLeft normalisedZoom:normalised_zoom limit:limit];
 
-	rect.size.width = mercator.size.width / bounds.size.width * limit;
-	rect.size.height = mercator.size.height / bounds.size.height * limit;
+	tileRect.size.width = aRect.size.width / bounds.size.width * limit;
+	tileRect.size.height = aRect.size.height / bounds.size.height * limit;
 	
-	return rect;
+	return tileRect;
 }
 
--(RMTilePoint) project: (RMMercatorPoint)mercator AtScale:(float)scale
+-(RMTilePoint) project: (RMXYPoint)aPoint atScale:(float)scale
 {
-	return [self project:mercator AtZoom:[self calculateZoomFromScale:scale]];
+	return [self project:aPoint atZoom:[self calculateZoomFromScale:scale]];
 }
--(RMTileRect) projectRect: (RMMercatorRect)mercatorRect AtScale:(float)scale
+-(RMTileRect) projectRect: (RMXYRect)aRect atScale:(float)scale
 {
-	return [self projectRect:mercatorRect AtZoom:[self calculateZoomFromScale:scale]];
+	return [self projectRect:aRect atZoom:[self calculateZoomFromScale:scale]];
 }
 
 -(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
 {
-	return [self projectRect:[screen mercatorBounds] AtScale:[screen scale]];
+	return [self projectRect:[screen XYBounds] atScale:[screen scale]];
 }
 
 -(float) calculateZoomFromScale: (float) scale

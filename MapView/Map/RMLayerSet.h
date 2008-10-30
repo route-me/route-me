@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
+#import "RMFoundation.h"
 #import "RMMapLayer.h"
 
 @class RMMapRenderer;
@@ -29,9 +29,9 @@
 //- (void)insertSublayer:(RMMapLayer*) layer above:(RMMapLayer*)sibling;
 //- (void)removeSublayer:(RMMapLayer*) layer;
 
-- (void)moveToMercator: (RMMercatorPoint)mercator;
+- (void)moveToXYPoint: (RMXYPoint)aPoint;
 - (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
 //-(void) drawRect: (CGRect)rect;
 //-(CALayer*) layer;

@@ -1,36 +1,30 @@
 //
-//  Projection.h
-//  Images
+//  RMProjection.h
+//  MapView
 //
 //  Created by Joseph Gentle on 18/08/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "RMLatLong.h"
+#import <CoreLocation/CoreLocation.h>
 #import "proj_api.h"
 
-// A light objective-c wrapper around proj4.
+#import "RMFoundation.h"
+
 
 @interface RMProjection : NSObject {
-	projPJ internalProjection;
+	projPJ		internalProjection;
 }
-
--(id) initWithString: (NSString*)params;
--(id) init;
-
--(CLLocationCoordinate2D) projectForward: (CLLocationCoordinate2D)point;
--(CLLocationCoordinate2D) projectInverse: (CLLocationCoordinate2D)point;
 
 @property (readonly) projPJ internalProjection;
 
-+(RMProjection*) EPSGGoogle;
-+(RMProjection*) EPSGLatLong;
++ (RMProjection *) googleProjection;
++ (RMProjection *) EPSGLatLong;
+
+- (id) initWithString: (NSString*)params;
+
+- (RMLatLong)pointToLatLong:(RMXYPoint)aPoint;
+- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;
 
 @end
-
-
-/*
-	bool is_initialized() const;
-	bool is_geographic() const;
-*/

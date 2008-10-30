@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
-#import "RMLatLong.h"
+#import "RMFoundation.h"
 #import <QuartzCore/QuartzCore.h>
 
 @protocol RMTileSource;
@@ -36,10 +35,10 @@
 
 -(void) setScale: (float) scale;
 
--(void) centerMercator: (RMMercatorPoint) point Animate: (BOOL) animate;
--(void) centerLatLong: (CLLocationCoordinate2D) point Animate: (BOOL) animate;
+-(void) centerXYPoint: (RMXYPoint) aPoint animate: (BOOL) animate;
+-(void) centerLatLong: (CLLocationCoordinate2D) point animate: (BOOL) animate;
 -(void) dragBy: (CGSize) delta;
--(void) zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+-(void) zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
 /*
 -(CGPoint) projectMercatorPoint: (MercatorPoint) point;

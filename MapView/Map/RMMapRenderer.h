@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
+#import "RMFoundation.h"
 
 @class CALayer;
 @class UIView;
@@ -20,10 +20,10 @@
 	RMMapContents *content;
 }
 
-- (id) initWithContent: (RMMapContents *)contents;
-- (void) setNeedsDisplay;
+- (id)initWithContent:(RMMapContents *)contents;
+- (void)setNeedsDisplay;
 - (void)drawRect:(CGRect)rect;
 
-- (CALayer*) layer;
+- (CALayer*)layer;
 
 @end

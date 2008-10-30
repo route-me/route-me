@@ -215,11 +215,11 @@
 	}
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	for (RMTileImage *image in images)
 	{
-		[image zoomByFactor:zoomFactor Near:center];
+		[image zoomByFactor:zoomFactor near:center];
 	}
 }
 

@@ -12,7 +12,7 @@
 #import "RMTileLoader.h"
 #import "RMFractalTileProjection.h"
 #import "RMTiledLayerController.h"
-#import "RMLatLongToMercatorProjection.h"
+#import "RMProjection.h"
 
 @implementation RMAbstractMecatorWebSource
 
@@ -21,14 +21,14 @@
 	if (![super init])
 		return nil;
 	
-	RMMercatorRect bounds;
+	RMXYRect bounds;
 	bounds.origin.x = -20037508.34;
 	bounds.origin.y = -20037508.34;
 	bounds.size.width = 20037508.34 * 2;
 	bounds.size.height = 20037508.34 * 2;
 	
 	int sideLength = [[self class] tileSideLength];
-	tileProjection = [[RMFractalTileProjection alloc] initWithBounds:bounds TileSideLength:sideLength MaxZoom:18];
+	tileProjection = [[RMFractalTileProjection alloc] initWithBounds:bounds tileSideLength:sideLength maxZoom:18];
 	
 	return self;
 }
@@ -61,12 +61,12 @@
 	return [[tileProjection retain] autorelease];
 }
 
--(RMLatLongToMercatorProjection*) latLongToMercatorProjection
+-(RMProjection*) projection
 {
-	return [RMLatLongToMercatorProjection googleProjection];
+	return [RMProjection googleProjection];
 }
 
--(RMMercatorRect) bounds
+-(RMXYRect) bounds
 {
 	return [tileProjection bounds];
 }

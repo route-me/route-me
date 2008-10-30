@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RMMapLayer.h"
-#import "RMMercator.h"
+#import "RMFoundation.h"
 
 @class RMMarkerStyle;
 
@@ -16,7 +16,7 @@ extern NSString * const RMMarkerBlueKey;
 extern NSString * const RMMarkerRedKey;
 
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
-	RMMercatorPoint location;
+	RMXYPoint location;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -28,7 +28,7 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
 
-@property (assign, nonatomic) RMMercatorPoint location;
+@property (assign, nonatomic) RMXYPoint location;
 
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;

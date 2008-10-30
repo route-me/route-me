@@ -34,8 +34,8 @@
 	layer.tileSize = CGSizeMake(tileProjection.tileSideLength,
 								tileProjection.tileSideLength);
 	
-	RMMercatorRect mercBounds = tileProjection.bounds;
-	layer.bounds = CGRectMake(mercBounds.origin.x, mercBounds.origin.y, mercBounds.size.width, mercBounds.size.height) ;
+	RMXYRect boundsRect = tileProjection.bounds;
+	layer.bounds = CGRectMake(boundsRect.origin.x, boundsRect.origin.y, boundsRect.size.width, boundsRect.size.height) ;
 	layer.position = CGPointMake(0, 0);
 
 	[self setScale:1];
@@ -63,7 +63,7 @@
 	return scale;
 }
 
--(void) centerMercator: (RMMercatorPoint) point Animate: (BOOL) animate
+-(void) centerXYPoint: (RMXYPoint) aPoint animate: (BOOL) animate
 {
 	if (animate == NO)
 	{
@@ -84,9 +84,9 @@
 //	topLeft.y -= viewSize.height * scale / 2;
 }
 
--(void) centerLatLong: (CLLocationCoordinate2D) point Animate: (BOOL) animate
+-(void) centerLatLong: (CLLocationCoordinate2D) aPoint animate: (BOOL) animate
 {
-	[self centerMercator:[RMMercator toMercator:point] Animate: animate];
+	[self centerMercator:[RMMercator toMercator:aPoint] animate: animate];
 }
 
 -(void) dragBy: (CGSize) delta
@@ -100,7 +100,7 @@
 	[CATransaction commit];
 }
 
--(void) zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+-(void) zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	[self setScale: scale * zoomFactor];
 }

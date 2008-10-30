@@ -72,7 +72,7 @@ static CGImageRef _markerBlue = nil;
 	return [self initWithStyle: style];
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, center);
 	

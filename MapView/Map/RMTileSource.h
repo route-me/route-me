@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RMTile.h"
-#import "RMMercator.h"
+#import "RMFoundation.h"
 
 @class RMTileImage;
 @class RMFractalTileProjection;
@@ -16,14 +16,14 @@
 @class RMTiledLayerController;
 @class RMTileCache;
 @protocol RMMercatorToTileProjection;
-@class RMLatLongToMercatorProjection;
+@class RMProjection;
 
 @protocol RMTileSource <NSObject>
 
 -(RMTileImage *) tileImage: (RMTile) tile;
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection;
--(RMLatLongToMercatorProjection*) latLongToMercatorProjection;
+-(RMProjection*) projection;
 
--(RMMercatorRect) bounds;
+-(RMXYRect) bounds;
 
 @end

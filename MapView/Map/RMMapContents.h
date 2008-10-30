@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RMFoundation.h"
 #import "RMLatLong.h"
-#import "RMMercator.h"
 #import "RMTile.h"
 
-@class RMLatLongToMercatorProjection;
+@class RMProjection;
 @class RMMercatorToScreenProjection;
 @class RMTileImageSet;
 @class RMTileLoader;
@@ -33,7 +33,7 @@
 	RMMapLayer *overlay;
 	
 	// Latlong is calculated dynamically from mercatorBounds.
-	RMLatLongToMercatorProjection *latLongToMercatorProjection;
+	RMProjection *projection;
 	
 	id<RMMercatorToTileProjection> mercatorToTileProjection;
 //	RMTileRect tileBounds;
@@ -49,7 +49,7 @@
 }
 
 @property (readwrite) CLLocationCoordinate2D mapCenter;
-@property (readwrite) RMMercatorRect mercatorBounds;
+@property (readwrite) RMXYRect XYBounds;
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
 @property (readwrite) float scale;
@@ -57,7 +57,7 @@
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 
-@property (readonly)  RMLatLongToMercatorProjection *latLongToMercatorProjection;
+@property (readonly)  RMProjection *projection;
 @property (readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
 @property (readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
 
@@ -72,13 +72,13 @@
 - (id) initForView: (UIView*) view;
 
 // Designated initialiser
-- (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)tileSource WithRenderer: (RMMapRenderer*) renderer LookingAt:(CLLocationCoordinate2D)latlong;
+- (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
-- (void)moveToMercator: (RMMercatorPoint)mercator;
+- (void)moveToXYPoint: (RMXYPoint)aPoint;
 
 - (void)moveBy: (CGSize) delta;
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
 - (void) drawRect: (CGRect) rect;
 
@@ -91,8 +91,8 @@
 + (BOOL) performExpensiveOperations;
 + (void) setPerformExpensiveOperations: (BOOL)p;
 
-- (CGPoint)latLngToPixel:(CLLocationCoordinate2D)latlong;
-- (CLLocationCoordinate2D)pixelToLatLng:(CGPoint)pixel;
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel;
 
 - (void) addMarker: (RMMarker*)marker;
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;

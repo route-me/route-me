@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RMMercator.h"
+#import "RMFoundation.h"
 #import "RMTile.h"
 #import "RMMercatorToTileProjection.h"
 
@@ -19,11 +19,11 @@
 
 @protocol RMMercatorToTileProjection<NSObject>
 
--(RMTilePoint) project: (RMMercatorPoint)mercator AtZoom:(float)zoom;
--(RMTileRect) projectRect: (RMMercatorRect)mercatorRect AtZoom:(float)zoom;
+-(RMTilePoint) project: (RMXYPoint)aPoint atZoom:(float)zoom;
+-(RMTileRect) projectRect: (RMXYRect)aRect atZoom:(float)zoom;
 
--(RMTilePoint) project: (RMMercatorPoint)mercator AtScale:(float)scale;
--(RMTileRect) projectRect: (RMMercatorRect)mercatorRect AtScale:(float)scale;
+-(RMTilePoint) project: (RMXYPoint)aPoint atScale:(float)scale;
+-(RMTileRect) projectRect: (RMXYRect)aRect atScale:(float)scale;
 
 // This is a helper for projectRect above. Much simpler for the caller.
 -(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
@@ -36,8 +36,8 @@
 -(float) calculateNormalisedZoomFromScale: (float) scale;
 -(float) calculateScaleFromZoom: (float) zoom;
 
-// Mercator bounds of the earth.
-@property(readonly, nonatomic) RMMercatorRect bounds;
+// XY bounds of the earth.
+@property(readonly, nonatomic) RMXYRect bounds;
 
 // Maximum zoom for which we have tile images
 @property(readonly, nonatomic) int maxZoom;

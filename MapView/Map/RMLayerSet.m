@@ -29,8 +29,8 @@
 	{
 		// Kinda ugly.
 		CALayer<RMMovingMapLayer>* layer_with_proto = (CALayer<RMMovingMapLayer>*)layer;
-		RMMercatorPoint location = [layer_with_proto location];
-		layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectMercatorPoint:location];
+		RMXYPoint location = [layer_with_proto location];
+		layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectXYPoint:location];
 	}
 }
 
@@ -84,7 +84,7 @@
 - (void)removeSublayer:(RMMapLayer*) layer;
  */
 
-- (void)moveToMercator: (RMMercatorPoint)mercator
+- (void)moveToXYPoint: (RMXYPoint)aPoint
 {
 	// TODO: Me
 }
@@ -100,12 +100,12 @@
 	}
 }
 
-- (void)zoomByFactor: (float) zoomFactor Near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	for (id layer in set)
 	{
-		if ([layer respondsToSelector:@selector(zoomByFactor:Near:)])
-			[layer zoomByFactor:zoomFactor Near:center];
+		if ([layer respondsToSelector:@selector(zoomByFactor:near:)])
+			[layer zoomByFactor:zoomFactor near:center];
 	}
 }
 
