@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+
 #import "RMFoundation.h"
+
 
 // This is a stateful projection. As the screen moves around, so too do projections change.
 

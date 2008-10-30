@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #import "FMDatabase.h"
 
 @implementation FMDatabase
