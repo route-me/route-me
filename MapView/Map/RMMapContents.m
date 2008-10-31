@@ -192,7 +192,7 @@
 	else if (overlay != nil)
 		[layer insertSublayer:[renderer layer] below:overlay];
 	else
-		[layer addSublayer:[renderer layer]];
+		[layer insertSublayer:[renderer layer] atIndex: 0];
 }
 
 - (RMMapRenderer *)renderer
