@@ -21,6 +21,8 @@
 
 + (RMProjection *) googleProjection;
 + (RMProjection *) EPSGLatLong;
++ (RMProjection *) OSGB;
+
 
 - (id) initWithString: (NSString*)params;
 

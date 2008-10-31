@@ -212,7 +212,7 @@
 	//Double-tap detection (currently used for debugging pixelToLatLng() method)
 	if (touch.tapCount == 2)
 	{
-		NSLog(@"***************************************************");
+/*		NSLog(@"***************************************************");
 		NSLog(@"Begin double-tap pixel/LatLng translation debug test");
 		CGPoint pixel = [touch locationInView:self];
 		NSLog(@"Double-tap detected at: x=%f, y=%f", pixel.x, pixel.y);
@@ -230,6 +230,12 @@
 		
 		NSLog(@"Converted LatLng to Pixel says we tapped at: x=%f, y=%f", screenPoint.x, screenPoint.y);
 		NSLog(@"***************************************************");
+*/
+
+		
+		// For consistancy with the built-in map app, I want to do something like this:
+		//		[contents zoomInToNextNativeZoom];
+	
 	}
 	//***************************************************************************************
 	

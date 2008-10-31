@@ -84,6 +84,7 @@ NS_INLINE RMLatLong RMPixelPointAsLatLong(RMXYPoint xypoint) {
 
 static RMProjection* _google = nil;
 static RMProjection* _latlong = nil;
+static RMProjection* _osgb = nil;
 
 + (RMProjection*)googleProjection
 {
@@ -98,7 +99,7 @@ static RMProjection* _latlong = nil;
 	}
 }
 
-+ (RMProjection*)EPSGLatLong;
++ (RMProjection*)EPSGLatLong
 {
 	if (_latlong)
 	{
@@ -110,5 +111,21 @@ static RMProjection* _latlong = nil;
 		return _latlong;
 	}
 }
+
++(RMProjection*) OSGB
+{
+	if (_osgb)
+	{
+		return _osgb;
+	}
+	else
+	{// OSGB36 and tmerc
+		_osgb = [[RMProjection alloc] initWithString:@"+proj=tmerc
+					+lat_0=49 +lon_0=-2 +k=0.999601 +x_0=400000 +y_0=-100000 +ellps=airy
+					+datum=OSGB36 +units=m +no_defs"];
+		return _osgb;
+	}
+}
+
 
 @end
