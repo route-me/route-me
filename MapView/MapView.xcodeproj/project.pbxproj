@@ -46,6 +46,8 @@
 		B8474C720EB53A41006A0BC1 /* marker-red-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6E0EB53A41006A0BC1 /* marker-red-withletter.png */; };
 		B8474C730EB53A41006A0BC1 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6F0EB53A41006A0BC1 /* marker-red.png */; };
 		B8474C740EB53A41006A0BC1 /* marker-blue-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C700EB53A41006A0BC1 /* marker-blue-withletter.png */; };
+		B885ABB20EBB1332002206AB /* RMCloudMadeMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B885ABB00EBB1332002206AB /* RMCloudMadeMapSource.h */; };
+		B885ABB30EBB1332002206AB /* RMCloudMadeMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B885ABB10EBB1332002206AB /* RMCloudMadeMapSource.m */; };
 		B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C80E80E73F001663B6 /* RMMercatorToScreenProjection.h */; };
 		B8C974190E8A19B2007D16AD /* RMMapRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64CA0E80E73F001663B6 /* RMMapRenderer.h */; };
 		B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */; };
@@ -216,6 +218,8 @@
 		B8474C700EB53A41006A0BC1 /* marker-blue-withletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue-withletter.png"; sourceTree = "<group>"; };
 		B86F26AC0E87442C007A3773 /* RMMapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapLayer.h; sourceTree = "<group>"; };
 		B86F26E10E877802007A3773 /* DesktopMapView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DesktopMapView-Info.plist"; sourceTree = "<group>"; };
+		B885ABB00EBB1332002206AB /* RMCloudMadeMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCloudMadeMapSource.h; sourceTree = "<group>"; };
+		B885ABB10EBB1332002206AB /* RMCloudMadeMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCloudMadeMapSource.m; sourceTree = "<group>"; };
 		B8C9740E0E8A198F007D16AD /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		B8C974590E8A19B2007D16AD /* libMapView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMapView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C974690E8A1A50007D16AD /* RMMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapView.h; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 				B83E64EE0E80E73F001663B6 /* RMOpenStreetMapsSource.m */,
 				C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */,
 				C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */,
+				B885ABB00EBB1332002206AB /* RMCloudMadeMapSource.h */,
+				B885ABB10EBB1332002206AB /* RMCloudMadeMapSource.m */,
 			);
 			name = "Tile Source";
 			sourceTree = "<group>";
@@ -595,6 +601,7 @@
 				1296F56D0EB8849B00FF25E0 /* RMMarkerStyles.h in Headers */,
 				23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */,
 				23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */,
+				B885ABB20EBB1332002206AB /* RMCloudMadeMapSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,6 +749,7 @@
 				1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */,
 				1296F56E0EB8849C00FF25E0 /* RMMarkerStyles.m in Sources */,
 				23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */,
+				B885ABB30EBB1332002206AB /* RMCloudMadeMapSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

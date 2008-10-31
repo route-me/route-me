@@ -25,11 +25,14 @@
 
 #import "RMMarker.h"
 
+//#import "RMCloudMadeMapSource.h"
+
 @implementation RMMapContents
 
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
 {
+//	id<RMTileSource> _tileSource = [[RMCloudMadeMapSource alloc] init];
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
