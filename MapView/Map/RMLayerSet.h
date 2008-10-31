@@ -33,6 +33,8 @@
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
+- (void) correctPositionOfAllSublayers;
+
 //-(void) drawRect: (CGRect)rect;
 //-(CALayer*) layer;
 

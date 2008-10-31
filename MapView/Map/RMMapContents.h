@@ -18,6 +18,7 @@
 @class RMTileLoader;
 @class RMMapRenderer;
 @class RMMapLayer;
+@class RMLayerSet;
 @class RMMarker;
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
@@ -30,7 +31,7 @@
 	CALayer *layer;
 	
 	RMMapLayer *background;
-	RMMapLayer *overlay;
+	RMLayerSet *overlay;
 	
 	// Latlong is calculated dynamically from mercatorBounds.
 	RMProjection *projection;
@@ -67,7 +68,7 @@
 @property (readonly)  CALayer *layer;
 
 @property (retain, readwrite) RMMapLayer *background;
-@property (retain, readwrite) RMMapLayer *overlay;
+@property (retain, readwrite) RMLayerSet *overlay;
 
 - (id) initForView: (UIView*) view;
 

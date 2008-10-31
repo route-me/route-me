@@ -1,5 +1,6 @@
 #include <unistd.h>
 
+#import <Foundation/Foundation.h>
 #import "FMResultSet.h"
 #import "FMDatabase.h"
 

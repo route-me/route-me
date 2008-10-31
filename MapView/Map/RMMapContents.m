@@ -83,7 +83,7 @@
 	[self setBackground:theBackground];
 	[theBackground release];
 	
-	RMMapLayer *theOverlay = [[RMLayerSet alloc] initForContents:self];
+	RMLayerSet *theOverlay = [[RMLayerSet alloc] initForContents:self];
 	[self setOverlay:theOverlay];
 	[theOverlay release];
 	
@@ -220,7 +220,7 @@
 	return [[background retain] autorelease];
 }
 
-- (void) setOverlay: (RMMapLayer*) aLayer
+- (void) setOverlay: (RMLayerSet*) aLayer
 {
 	if (overlay != nil)
 	{
@@ -248,7 +248,7 @@
 	[overlay addSublayer:testLayer];*/
 }
 
-- (RMMapLayer *)overlay
+- (RMLayerSet *)overlay
 {
 	return [[overlay retain] autorelease];
 }

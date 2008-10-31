@@ -9,7 +9,6 @@
 #import "RMTileCache.h"
 
 #import "RMMemoryCache.h"
-#import "RMDiskCache.h"
 #import "RMDatabaseCache.h"
 
 #import "RMConfiguration.h"
@@ -31,7 +30,6 @@ static RMTileCache *cache = nil;
 	{
 		cacheCfg = [NSArray arrayWithObjects:
 			[NSDictionary dictionaryWithObject: @"memory-cache" forKey: @"type"],
-			[NSDictionary dictionaryWithObject: @"disk-cache"   forKey: @"type"],
 			[NSDictionary dictionaryWithObject: @"db-cache"     forKey: @"type"],
 			nil
 		];
@@ -50,13 +48,7 @@ static RMTileCache *cache = nil;
 				if (capacity == nil) capacity = [NSNumber numberWithInt: 32];
 				newCache = [[RMMemoryCache alloc] initWithCapacity: [capacity intValue]];
 			}
-			
-			if ([@"disk-cache" isEqualToString: type]) 
-			{
-				NSLog(@"creating disk cache");
-				newCache = [[RMDiskCache alloc] init];
-			}
-			
+
 			if ([@"db-cache" isEqualToString: type]) 
 			{
 				newCache = [[RMDatabaseCache alloc] init];
