@@ -25,14 +25,11 @@
 
 #import "RMMarker.h"
 
-//#import "RMCloudMadeMapSource.h"
-
 @implementation RMMapContents
 
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
 {
-//	id<RMTileSource> _tileSource = [[RMCloudMadeMapSource alloc] init];
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
@@ -72,7 +69,7 @@
 	[self setRenderer:_renderer];
 	
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
-	[imagesOnScreen setTileSource:[RMCachedTileSource cachedTileSourceWithSource:tileSource]];
+	[imagesOnScreen setTileSource:tileSource];
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
@@ -121,11 +118,8 @@
 - (void)moveToXYPoint: (RMXYPoint)aPoint
 {
 	[mercatorToScreenProjection setXYCenter:aPoint];
-	
-//	[imagesOnScreen removeAllTiles];
-	[tileLoader clearLoadedBounds];
-	
-	[tileLoader updateLoadedImages];
+
+	[tileLoader reload];
 	[renderer setNeedsDisplay];
 }
 
@@ -155,6 +149,11 @@
 
 - (void) setTileSource: (id<RMTileSource>)newTileSource
 {
+	if (tileSource == newTileSource)
+		return;
+
+	newTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
+	
 	[tileSource release];
 	tileSource = [newTileSource retain];
 	
@@ -165,6 +164,8 @@
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
 	
 	[imagesOnScreen setTileSource:tileSource];
+
+	[tileLoader reload];
 }
 
 - (id<RMTileSource>) tileSource

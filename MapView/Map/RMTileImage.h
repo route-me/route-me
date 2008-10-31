@@ -62,11 +62,13 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 
 - (void)makeLayer;
 
--(void) cancelLoading;
+- (void)cancelLoading;
 
 - (void)setImageToData: (NSData*) data;
 
--(void) touch;
+- (void)touch;
+
+- (BOOL)isLoaded;
 
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) RMTile tile;

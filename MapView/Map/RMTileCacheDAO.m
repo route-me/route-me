@@ -11,7 +11,6 @@
 #import "RMTileCache.h"
 #import "RMTileImage.h"
 
-static RMTileCacheDAO *sharedDAOManager = nil;
 
 @implementation RMTileCacheDAO
 
@@ -21,30 +20,18 @@ static RMTileCacheDAO *sharedDAOManager = nil;
 	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DATE, zdata BLOB)"];
 }
 
-- (NSString*)dbPath
-{
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	if ([paths count] > 0)
-	{
-		// only copying one file
-		return [[paths objectAtIndex:0]  stringByAppendingPathComponent:@"Map.sqlite"];
-	}
-	return nil;
-}
-
-- (id)init
+-(id) initWithDatabase: (NSString*)path
 {
 	if (![super init])
 		return nil;
 
-	NSString *path = [self dbPath];
 	NSLog(@"Opening database at %@", path);
 	
 	db = [[FMDatabase alloc] initWithPath:path];
 	if (![db open])
 	{
 		NSLog(@"Could not connect to database - %@", [db lastErrorMessage]);
-//		return nil;
+		return nil;
 	}
 	
 	[db setCrashOnErrors:TRUE];
@@ -100,14 +87,17 @@ static RMTileCacheDAO *sharedDAOManager = nil;
 	
 	return data;
 }
+
 -(void) removeOldestFromDatabase
 {
 	
 }
+
 -(void) touchTile: (uint64_t) tileHash
 {
 	
 }
+
 -(void) addData: (NSData*) data LastUsed: (NSDate*)date ForTile: (uint64_t) tileHash
 {
 	// Fixme
@@ -119,49 +109,5 @@ static RMTileCacheDAO *sharedDAOManager = nil;
 	}
 //	NSLog(@"done\t%d", tileHash);
 }
-
-
-
-// Singleton gunk as per CocoaFundamentals page 99.
-+ (RMTileCacheDAO*)sharedManager 
-{ 
-	@synchronized(self) { 
-		if (sharedDAOManager == nil) { 
-			[[self alloc] init]; // assignment not done here 
-		} 
-	} 
-	return sharedDAOManager; 
-} 
-+ (id)allocWithZone:(NSZone *)zone 
-{ 
-	@synchronized(self) { 
-		if (sharedDAOManager == nil) { 
-			sharedDAOManager = [super allocWithZone:zone]; 
-			return sharedDAOManager; // assignment and return on first allocation 
-		} 
-	} 
-	return nil; //on subsequent allocation attempts return nil 
-} 
-- (id)copyWithZone:(NSZone *)zone 
-{ 
-	return self; 
-} 
-- (id)retain 
-{ 
-	return self; 
-} 
-- (unsigned)retainCount 
-{ 
-	return UINT_MAX; //denotes an object that cannot be released 
-} 
-- (void)release 
-{
-	//do nothing 
-} 
-- (id)autorelease 
-{ 
-	return self; 
-}
-
 
 @end

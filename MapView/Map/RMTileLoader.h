@@ -34,14 +34,16 @@ extern NSString * const RMResumeExpensiveOperations;
 }
 
 // Designated initialiser
--(id) initWithContent: (RMMapContents *)contents;
+- (id)initWithContent: (RMMapContents *)contents;
 
--(void) updateLoadedImages;
+- (void)updateLoadedImages;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
--(void) clearLoadedBounds;
+- (void)clearLoadedBounds;
+
+- (void)reload;
 
 @property (readonly, nonatomic) CGRect loadedBounds;
 @property (readonly, nonatomic) int loadedZoom;

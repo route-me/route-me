@@ -11,23 +11,38 @@
 #import "RMTileImage.h"
 #import "RMTile.h"
 
-//static BOOL installed = NO;
-
 @implementation RMDatabaseCache
 
--(id) init
++ (NSString*)dbPathForTileSource: (id<RMTileSource>) source
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	if ([paths count] > 0) // Should only be one...
+	{
+		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source description]];
+		
+		return [[paths objectAtIndex:0] stringByAppendingPathComponent:filename];
+	}
+	return nil;
+}
+
+-(id) initWithDatabase: (NSString*)path
 {
 	if (![super init])
 		return nil;
 	
-//	NSLog(@"%d items in DB", [[DAO sharedManager] count]);
+	//	NSLog(@"%d items in DB", [[DAO sharedManager] count]);
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(addImageData:)
-												 name:RMMapImageLoadedNotification
-											   object:nil];
+	dao = [[RMTileCacheDAO alloc] initWithDatabase:path];
+
+	if (dao == nil)
+		return nil;
 	
-	return self;
+	return self;	
+}
+
+-(id) initWithTileSource: (id<RMTileSource>) source
+{
+	return [self initWithDatabase:[RMDatabaseCache dbPathForTileSource:source]];
 }
 
 -(void) dealloc
@@ -37,22 +52,40 @@
 	[super dealloc];
 }
 
+-(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image
+{
+	// The tile probably hasn't loaded any data yet... we must be patient.
+	// However, if the image is already loaded we probably don't need to cache it.
+	
+	// This will be the case for any other web caches which are active.
+	if (![image isLoaded])
+	{
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(addImageData:)
+													 name:RMMapImageLoadedNotification
+												   object:image];
+	}
+}
+
 -(void) addImageData: (NSNotification *)notification
 {
-//	NSLog(@"AddImageData");
 	NSData *data = [[notification userInfo] objectForKey:@"data"];
 	RMTileImage *image = (RMTileImage*)[notification object];
-	[[RMTileCacheDAO sharedManager] addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
+	[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
 	
-//	NSLog(@"%d items in DB", [[DAO sharedManager] count]);
-
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:RMMapImageLoadedNotification
+												  object:image];
+	
+	
+//	NSLog(@"%d items in DB", [dao count]);
 }
 
 -(RMTileImage*) cachedImage:(RMTile)tile
 {
 //	NSLog(@"Looking for cached image in DB");
 	
-	NSData *data = [[RMTileCacheDAO sharedManager] dataForTile:RMTileHash(tile)];
+	NSData *data = [dao dataForTile:RMTileHash(tile)];
 	if (data == nil)
 		return nil;
 	
@@ -60,17 +93,5 @@
 //	NSLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
 	return image;
 }
-/*
-+(void) install
-{
-	if (installed)
-		return;
-	
-	RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] init];
-	[[RMTileCache sharedCache] addCache:dbCache];
-	[dbCache release];
-	
-	installed = YES;
-}*/
 
 @end

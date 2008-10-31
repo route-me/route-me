@@ -13,11 +13,11 @@
 
 #import "RMConfiguration.h"
 
-static RMTileCache *cache = nil;
+#import "RMTileSource.h"
 
 @implementation RMTileCache
 
--(id)init
+-(id)initWithTileSource: (id<RMTileSource>) tileSource
 {
 	if (![super init])
 		return nil;
@@ -51,7 +51,7 @@ static RMTileCache *cache = nil;
 
 			if ([@"db-cache" isEqualToString: type]) 
 			{
-				newCache = [[RMDatabaseCache alloc] init];
+				newCache = [[RMDatabaseCache alloc] initWithTileSource: tileSource];
 			}
 
 			if (newCache)
@@ -77,15 +77,6 @@ static RMTileCache *cache = nil;
 {
 	[caches release];
 	[super dealloc];
-}
-
-+(RMTileCache*)sharedCache
-{
-	if (cache == nil)
-	{
-		cache = [[RMTileCache alloc] init];
-	}
-	return cache;
 }
 
 -(void)addCache: (id<RMTileCache>)cache

@@ -24,12 +24,15 @@
 	
 	tileSource = [_source retain];
 	
+	cache = [[RMTileCache alloc] initWithTileSource:tileSource];
+	
 	return self;
 }
 
 - (void) dealloc
 {
 	[tileSource release];
+	[cache release];
 	[super dealloc];
 }
 
@@ -40,14 +43,16 @@
 
 -(RMTileImage *) tileImage: (RMTile) tile
 {
-	RMTileImage *cachedImage = [[RMTileCache sharedCache] cachedImage:tile];
+	RMTileImage *cachedImage = [cache cachedImage:tile];
 	if (cachedImage != nil)
 	{
 		return cachedImage;
 	}
 	else
 	{
-		return [tileSource tileImage:tile];
+		RMTileImage *image = [tileSource tileImage:tile];
+		[cache addTile:tile WithImage:image];
+		return image;
 	}
 }
 
@@ -66,5 +71,11 @@
 	return [tileSource bounds];
 }
 
+- (id<RMTileSource>) underlyingTileSource
+{
+	// I'm assuming that our tilesource isn't itself a cachedtilesource.
+	// This class's initialiser should make sure of that.
+	return tileSource;
+}
 
 @end

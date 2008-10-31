@@ -14,7 +14,7 @@
 	FMDatabase* db;	
 }
 
-+(RMTileCacheDAO*) sharedManager;
+-(id) initWithDatabase: (NSString*)path;
 
 -(NSUInteger) count;
 -(NSData*) dataForTile: (uint64_t) tileHash;

@@ -29,13 +29,14 @@
 	NSMutableArray *caches;
 }
 
-+(RMTileCache*)sharedCache;
+-(id)initWithTileSource: (id<RMTileSource>) tileSource;
 
 +(NSNumber*) tileHash: (RMTile)tile;
 
 // Add tile to cache
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image;
 
+// Add another cache to the chain
 -(void)addCache: (id<RMTileCache>)cache;
 
 @end

@@ -21,7 +21,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 @synthesize tile, layer, image, lastUsedTime;
 
-- (id) initWithTile: (RMTile)_tile AddToCache: (BOOL) addToCache
+- (id) initWithTile: (RMTile)_tile
 {
 	if (![super init])
 		return nil;
@@ -39,17 +39,8 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(tileRemovedFromScreen:)
 												 name:RMMapImageRemovedFromScreenNotification object:self];
-	
-	// Should this be done as a notification?
-	if (addToCache)
-		[[RMTileCache sharedCache] addTile:tile WithImage:self];
-	
+		
 	return self;
-}
-
-- (id) initWithTile: (RMTile)_tile
-{
-	return [self initWithTile:_tile AddToCache: YES];
 }
 	 
 -(void) tileRemovedFromScreen: (NSNotification*) notification
@@ -66,7 +57,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 + (RMTileImage*) dummyTile: (RMTile)tile
 {
-	return [[[RMTileImage alloc] initWithTile:tile AddToCache:NO] autorelease];
+	return [[[RMTileImage alloc] initWithTile:tile] autorelease];
 }
 
 - (void)dealloc
@@ -139,11 +130,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadingCancelledNotification
 														object:self];
 }
-//
-//- (void)setImageToData: (NSData*) data
-//{
-//	image = [[UIImage imageWithData:data] retain];
-//}
 
 - (void) loadPendingData: (NSNotification*)notification
 {
@@ -170,21 +156,17 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPendingData:) name:RMResumeExpensiveOperations object:nil];
 		return;
 	}
-	
-//	CGContextRef context = 
+
 	CGDataProviderRef provider = CGDataProviderCreateWithCFData ((CFDataRef)data);
 	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(provider, NULL, FALSE, kCGRenderingIntentDefault);
 	CGDataProviderRelease(provider);
-//	CGImageRetain(image);
-	
-//	NSLog(@"setImageToData");
+
 	if (layer == nil)
 	{
 		image = [[UIImage imageWithCGImage:cgImage] retain];
 	}
 	else
 	{
-//		NSLog(@"Replacing layer contents with data");
 		layer.contents = (id)cgImage;
 	}
 	
@@ -194,6 +176,12 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification
 														object:self
 													  userInfo:d];
+}
+
+- (BOOL)isLoaded
+{
+	return image != nil
+		|| (layer != nil && layer.contents != NULL);
 }
 
 - (NSUInteger)hash

@@ -59,12 +59,6 @@
 {
 	NSNumber *key = [RMTileCache tileHash: tile];
 	RMTileImage *image = [cache objectForKey:key];
-	
-/*	if (image == nil)
-		NSLog(@"cache miss %@", key);
-	else
-		NSLog(@"cache hit %@", key);
-*/	
 	return image;
 }
 

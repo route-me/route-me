@@ -135,6 +135,12 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 		[self updateLoadedImages];
 }
 
+- (void)reload
+{
+	[self clearLoadedBounds];
+	[self updateLoadedImages];
+}
+
 //-(BOOL) containsRect: (CGRect)bounds
 //{
 //	return CGRectContainsRect(loadedBounds, bounds);

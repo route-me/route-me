@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "RMTileCache.h"
 
+@class RMTileCacheDAO;
+
 @interface RMDatabaseCache : NSObject<RMTileCache> {
-	
+	RMTileCacheDAO *dao;
 }
 
-// +(void) install;
++ (NSString*)dbPathForTileSource: (id<RMTileSource>) source;
+-(id) initWithDatabase: (NSString*)path;
+-(id) initWithTileSource: (id<RMTileSource>) source;
 
 @end
