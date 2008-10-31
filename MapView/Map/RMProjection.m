@@ -120,9 +120,7 @@ static RMProjection* _osgb = nil;
 	}
 	else
 	{// OSGB36 and tmerc
-		_osgb = [[RMProjection alloc] initWithString:@"+proj=tmerc
-					+lat_0=49 +lon_0=-2 +k=0.999601 +x_0=400000 +y_0=-100000 +ellps=airy
-					+datum=OSGB36 +units=m +no_defs"];
+		_osgb = [[RMProjection alloc] initWithString:@"+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.999601 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs"];
 		return _osgb;
 	}
 }
