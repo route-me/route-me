@@ -285,6 +285,13 @@
 	[contents setZoom:zoomInt];
 }
 
+#pragma mark Zoom With Bounds
+- (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se
+{
+	[contents zoomWithLatLngBoundsNorthEast:ne SouthWest:se];
+}
+
+
 #pragma mark Markers
 
 - (void) addMarker: (RMMarker*)marker

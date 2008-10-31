@@ -93,6 +93,8 @@
 
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel;
+- (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
+- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
 - (void) addMarker: (RMMarker*)marker;
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;

@@ -360,6 +360,80 @@ static BOOL _performExpensiveOperations = YES;
 	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:pixel]];
 }
 
+
+#pragma mark Zoom With Bounds
+- (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)sw
+{
+	if(ne.latitude == sw.latitude && ne.longitude == sw.longitude)//There are no bounds, probably only one marker.
+	{
+		RMXYRect zoomRect;
+		RMXYPoint myOrigin = [projection latLongToPoint:sw];
+		//Default is with scale = 2.0 mercators/pixel
+		zoomRect.size.width = [self screenBounds].size.width * 2.0;
+		zoomRect.size.height = [self screenBounds].size.height * 2.0;
+		myOrigin.x = myOrigin.x - (zoomRect.size.width / 2);
+		myOrigin.y = myOrigin.y - (zoomRect.size.height / 2);
+		zoomRect.origin = myOrigin;
+		[self zoomWithRMMercatorRectBounds:zoomRect];
+	}
+	else
+	{
+		//convert ne/sw into RMMercatorRect and call zoomWithBounds
+		float pixelBuffer = 50;
+		CLLocationCoordinate2D latLngBounds;
+		latLngBounds.longitude = ne.longitude - sw.longitude;
+		latLngBounds.latitude = ne.latitude - sw.latitude;
+		CLLocationCoordinate2D midpoint;
+		midpoint.latitude = (ne.latitude + sw.latitude) / 2;
+		midpoint.longitude = (ne.longitude + sw.longitude) / 2;
+		RMXYPoint myOrigin = [projection latLongToPoint:midpoint];
+		RMXYPoint myPoint = [projection latLongToPoint:latLngBounds];
+		//Create the new zoom layout
+		RMXYRect zoomRect;
+		//Default is with scale = 2.0 mercators/pixel
+		zoomRect.size.width = [self screenBounds].size.width * 2.0;
+		zoomRect.size.height = [self screenBounds].size.height * 2.0;
+		if((myPoint.x / ([self screenBounds].size.width)) < (myPoint.y / ([self screenBounds].size.height)))
+		{
+			if((myPoint.y / ([self screenBounds].size.height - pixelBuffer)) > 1)
+			{
+				zoomRect.size.width = [self screenBounds].size.width * (myPoint.y / ([self screenBounds].size.height - pixelBuffer));
+				zoomRect.size.height = [self screenBounds].size.height * (myPoint.y / ([self screenBounds].size.height - pixelBuffer));
+			}
+		}
+		else
+		{
+			if((myPoint.x / ([self screenBounds].size.width - pixelBuffer)) > 1)
+			{
+				zoomRect.size.width = [self screenBounds].size.width * (myPoint.x / ([self screenBounds].size.width - pixelBuffer));
+				zoomRect.size.height = [self screenBounds].size.height * (myPoint.x / ([self screenBounds].size.width - pixelBuffer));
+			}
+		}
+		myOrigin.x = myOrigin.x - (zoomRect.size.width / 2);
+		myOrigin.y = myOrigin.y - (zoomRect.size.height / 2);
+		NSLog(@"Origin is calculated at: %f, %f", [projection pointToLatLong:myOrigin].latitude, [projection pointToLatLong:myOrigin].longitude);
+		/*It gets all messed up if our origin is lower than the lowest place on the map, so we check.
+		 if(myOrigin.y < -19971868.880409)
+		 {
+		 myOrigin.y = -19971868.880409;
+		 }*/
+		zoomRect.origin = myOrigin;
+		[self zoomWithRMMercatorRectBounds:zoomRect];
+	}
+}
+
+
+- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds
+{
+	[self setXYBounds:bounds];
+	[overlay correctPositionOfAllSublayers];
+	[tileLoader clearLoadedBounds];
+	[tileLoader updateLoadedImages];
+	[renderer setNeedsDisplay];
+	
+}
+
+
 #pragma mark Markers and overlays
 
 // Move overlays stuff here - at the moment overlay stuff is above...

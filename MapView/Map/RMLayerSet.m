@@ -109,4 +109,12 @@
 	}
 }
 
+- (void) correctPositionOfAllSublayers
+{
+	for (id layer in set)
+	{
+		[self correctScreenPosition:layer];
+	}
+}
+
 @end
