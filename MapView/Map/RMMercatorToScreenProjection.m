@@ -98,18 +98,10 @@
 - (CGPoint) projectXYPoint: (RMXYPoint) aPoint
 {
 	CGPoint aPixelPoint;
-	/*Old calculation of point.x was flawed in the case of a negative mercator.x and a positive origin.x value 
-	 (like Los Angeles' mercator) where the actual difference between mercator.x and origin.x was not calculated correctly.*/
-	
-	if(aPoint.x > origin.x)
-	{
-		aPixelPoint.x = (aPoint.x - origin.x) / scale;
-	}
-	else
-	{
-		aPixelPoint.x = (origin.x - aPoint.x) / scale;
-	}
+
+	aPixelPoint.x = (aPoint.x - origin.x) / scale;
 	aPixelPoint.y = screenBounds.size.height - (aPoint.y - origin.y) / scale;
+
 	return aPixelPoint;
 }
 
