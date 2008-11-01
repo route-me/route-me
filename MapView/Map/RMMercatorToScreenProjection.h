@@ -44,12 +44,14 @@
 
 // Project -> screen coordinates.
 
+- (CGPoint)projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale;
 - (CGPoint) projectXYPoint: (RMXYPoint) aPoint;
 - (CGRect) projectXYRect: (RMXYRect) aRect;
 
 - (RMXYPoint) projectScreenPointToXY: (CGPoint) aPoint;
 - (RMXYRect) projectScreenRectToXY: (CGRect) aRect;
 - (RMXYSize)projectScreenSizeToXY: (CGSize) aSize;
+- (RMXYPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale;
 
 - (RMXYRect) XYBounds;
 - (void) setXYBounds: (RMXYRect) bounds;

@@ -95,14 +95,19 @@
 	scale *= factor;
 }
 
-- (CGPoint) projectXYPoint: (RMXYPoint) aPoint
+- (CGPoint) projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale
 {
-	CGPoint aPixelPoint;
-
-	aPixelPoint.x = (aPoint.x - origin.x) / scale;
-	aPixelPoint.y = screenBounds.size.height - (aPoint.y - origin.y) / scale;
-
+	CGPoint	aPixelPoint;
+	
+	aPixelPoint.x = (aPoint.x - origin.x) / aScale;
+	aPixelPoint.y = screenBounds.size.height - (aPoint.y - origin.y) / aScale;
+	
 	return aPixelPoint;
+}
+
+- (CGPoint) projectXYPoint: (RMXYPoint)aPoint
+{
+	return [self projectXYPoint:aPoint withScale:scale];
 }
 
 
@@ -115,19 +120,20 @@
 	return aPixelRect;
 }
 
+- (RMXYPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale
+{
+	RMXYPoint aPoint;
+	aPoint.x = origin.x + aPixelPoint.x * aScale;
+	aPoint.y = origin.y + (screenBounds.size.height - aPixelPoint.y) * aScale;
+	
+	return aPoint;
+}
+
 - (RMXYPoint) projectScreenPointToXY: (CGPoint) aPixelPoint
 {
 	// I will assume the point is within the screenbounds rectangle.
 	
-	RMXYPoint aPoint;
-	aPoint.x = origin.x + aPixelPoint.x * scale;
-	aPoint.y = origin.y + (screenBounds.size.height - aPixelPoint.y) * scale;
-
-//	NSLog(@"point %f %f -> %f %f", point.x, point.y, mercatorPoint.x, mercatorPoint.y);
-//	NSLog(@"origin: %f %f", origin.x, origin.y);
-//	NSLog(@"origin: %f %f", origin.x, origin.y);
-	
-	return aPoint;
+	return [self projectScreenPointToXY:aPixelPoint withScale:scale];
 }
 
 - (RMXYRect) projectScreenRectToXY: (CGRect) aPixelRect

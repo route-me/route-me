@@ -27,6 +27,8 @@
 
 @implementation RMMapContents
 
+@synthesize boundingMask;
+
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
 {
@@ -40,7 +42,6 @@
 //	here.longitude = 189.9;
 	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
-	
 	[_tileSource release];
 	[_renderer release];
 	
@@ -52,6 +53,7 @@
 	if (![super init])
 		return nil;
 	
+	self.boundingMask = RMMapMinWidthBound;
 //	targetView = view;
 	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initWithScreenBounds:[view bounds]];
 
@@ -131,8 +133,92 @@
 	[overlay moveBy:delta];
 	[renderer setNeedsDisplay];
 }
+
+- (float)adjustZoomForBoundingMask:(float)zoomFactor
+{
+	if ( boundingMask ==  RMMapNoMinBound )
+		return zoomFactor;
+	
+	double newScale = self.scale / zoomFactor;
+	
+	// Check for MinWidthBound
+	if ( boundingMask & RMMapMinWidthBound )
+	{
+		double newMapContentsWidth = [tileSource bounds].size.width / newScale;
+		double screenBoundsWidth = [self screenBounds].size.width;
+		double mapContentWidth;
+		
+		if ( newMapContentsWidth < screenBoundsWidth )
+		{
+			// Calculate new zoom facter so that it does not shrink the map any further. 
+			mapContentWidth = [tileSource bounds].size.width / self.scale;
+			zoomFactor = screenBoundsWidth / mapContentWidth;
+			
+			newScale = self.scale / zoomFactor;
+			newMapContentsWidth = [tileSource bounds].size.width / newScale;
+		}
+		
+	}
+	
+	// Check for MinHeightBound	
+	if ( boundingMask & RMMapMinHeightBound )
+	{
+		double newMapContentsHeight = [tileSource bounds].size.height / newScale;
+		double screenBoundsHeight = [self screenBounds].size.height;
+		double mapContentHeight;
+		
+		if ( newMapContentsHeight < screenBoundsHeight )
+		{
+			// Calculate new zoom facter so that it does not shrink the map any further. 
+			mapContentHeight = [tileSource bounds].size.height / self.scale;
+			zoomFactor = screenBoundsHeight / mapContentHeight;
+			
+			newScale = self.scale / zoomFactor;
+			newMapContentsHeight = [tileSource bounds].size.height / newScale;
+		}
+		
+	}
+	
+	//[self adjustMapPlacementWithScale:newScale];
+	
+	return zoomFactor;
+}
+
+// This currently is not called because it does not handle the case when the map is continous or not continous.  At a certain scale
+// you can continuously move to the west or east until you get to a certain scale level that simply shows the entire world.
+- (void)adjustMapPlacementWithScale:(float)aScale
+{
+	CGSize		adjustmentDelta = {0.0, 0.0};
+	RMLatLong	rightEdgeLatLong = {0, 180};
+	RMLatLong	leftEdgeLatLong = {0,- 180};
+	
+	CGPoint		rightEdge = [self latLongToPixel:rightEdgeLatLong withScale:aScale];
+	CGPoint		leftEdge = [self latLongToPixel:leftEdgeLatLong withScale:aScale];
+	//CGPoint		topEdge = [self latLongToPixel:myLatLong withScale:aScale];
+	//CGPoint		bottomEdge = [self latLongToPixel:myLatLong withScale:aScale];
+	
+	CGRect		containerBounds = [self screenBounds];
+
+	if ( rightEdge.x < containerBounds.size.width ) 
+	{
+		adjustmentDelta.width = containerBounds.size.width - rightEdge.x;
+		[self moveBy:adjustmentDelta];
+	}
+	
+	if ( leftEdge.x > containerBounds.origin.x ) 
+	{
+		adjustmentDelta.width = containerBounds.origin.x - leftEdge.x;
+		[self moveBy:adjustmentDelta];
+	}
+	
+	
+}
+
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
+	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
+	
+
 	[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
 	[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
 	[tileLoader zoomByFactor:zoomFactor near:pivot];
@@ -359,9 +445,20 @@ static BOOL _performExpensiveOperations = YES;
 {	
 	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong]];
 }
-- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel
+
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale
+{	
+	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong] withScale:aScale];
+}
+
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel
 {
-	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:pixel]];
+	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel]];
+}
+
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale
+{
+	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel withScale:aScale]];
 }
 
 
