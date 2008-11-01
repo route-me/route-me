@@ -8,11 +8,20 @@
 
 #import "RMMapView.h"
 #import "RMMapContents.h"
+#import "RMMapViewDelegate.h"
 
 #import "RMTileLoader.h"
 
 #import "RMMercatorToScreenProjection.h"
 #import "RMMarker.h"
+
+@implementation RMMapView (Internal)
+	BOOL delegateHasBeforeMapMove;
+	BOOL delegateHasAfterMapMove;
+	BOOL delegateHasBeforeMapZoomByFactor;
+	BOOL delegateHasAfterMapZoomByFactor;
+	BOOL delegateHasDoubleTapOnMap;
+@end
 
 @implementation RMMapView
 
@@ -69,28 +78,58 @@
 	return [[contents retain] autorelease];
 }
 
+#pragma mark Delegate 
+
+@dynamic delegate;
+
+- (void) setDelegate: (id<RMMapViewDelegate>) _delegate
+{
+	if (delegate == _delegate) return;
+	delegate = _delegate;
+	
+	delegateHasBeforeMapMove = [(NSObject*) delegate respondsToSelector: @selector(beforeMapMove:)];
+	delegateHasAfterMapMove  = [(NSObject*) delegate respondsToSelector: @selector(afterMapMove:)];
+	
+	delegateHasBeforeMapZoomByFactor = [(NSObject*) delegate respondsToSelector: @selector(beforeMapZoom: byFactor: near:)];
+	delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
+
+	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:)];	
+
+	NSLog(@"%d %d %d %d %d", delegateHasBeforeMapMove, delegateHasAfterMapMove, delegateHasBeforeMapZoomByFactor, delegateHasAfterMapZoomByFactor, delegateHasDoubleTapOnMap);
+
+}
+
+- (id<RMMapViewDelegate>) delegate
+{
+	return delegate;
+}
+
 #pragma mark Movement
 
 -(void) moveToXYPoint: (RMXYPoint) aPoint
 {
-	// TODO Add delegate hooks
+	if (delegateHasBeforeMapMove) [delegate beforeMapMove: self];
 	[contents moveToXYPoint:aPoint];
+	if (delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point
 {
-	// TODO Add delegate hooks
+	if (delegateHasBeforeMapMove) [delegate beforeMapMove: self];
 	[contents moveToLatLong:point];
+	if (delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 
 - (void)moveBy: (CGSize) delta
 {
-	// TODO Add delegate hooks
+	if (delegateHasBeforeMapMove) [delegate beforeMapMove: self];
 	[contents moveBy:delta];
+	if (delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
-	// TODO Add delegate hooks
+	if (delegateHasBeforeMapZoomByFactor) [delegate beforeMapZoom: self byFactor: zoomFactor near: center];
 	[contents zoomByFactor:zoomFactor near:center];
+	if (delegateHasAfterMapZoomByFactor) [delegate afterMapZoom: self byFactor: zoomFactor near: center];
 }
 
 #pragma mark Event handling
@@ -212,30 +251,12 @@
 	//Double-tap detection (currently used for debugging pixelToLatLng() method)
 	if (touch.tapCount == 2)
 	{
-/*		NSLog(@"***************************************************");
-		NSLog(@"Begin double-tap pixel/LatLng translation debug test");
-		CGPoint pixel = [touch locationInView:self];
-		NSLog(@"Double-tap detected at: x=%f, y=%f", pixel.x, pixel.y);
-		CLLocationCoordinate2D touchLatLng = [self pixelToLatLong:pixel];
-		
-		NSLog(@"Double-tap (x=%f, y=%f) is equivalent to: %f, %f", pixel.x, pixel.y, touchLatLng.latitude, touchLatLng.longitude);
-		
-		RMXYPoint merc = [[contents mercatorToScreenProjection] projectScreenPointToXY:pixel];
-		NSLog(@"Which is mercator %f %f", merc.x, merc.y);
-		
-		CLLocationCoordinate2D point;
-		point.latitude = touchLatLng.latitude;
-		point.longitude = touchLatLng.longitude;
-		CGPoint screenPoint = [self latLongToPixel:point];
-		
-		NSLog(@"Converted LatLng to Pixel says we tapped at: x=%f, y=%f", screenPoint.x, screenPoint.y);
-		NSLog(@"***************************************************");
-*/
-
-		
-		// For consistancy with the built-in map app, I want to do something like this:
-		//		[contents zoomInToNextNativeZoom];
-	
+		if (delegateHasDoubleTapOnMap) {
+			[delegate doubleTapOnMap: self];
+		} else {
+			// TODO: default behaviour
+			// [contents zoomInToNextNativeZoom];
+		}
 	}
 	//***************************************************************************************
 	

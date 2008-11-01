@@ -11,6 +11,7 @@
 
 #import "RMFoundation.h"
 #import "RMLatLong.h"
+#import "RMMapViewDelegate.h"
 
 // iPhone-specific mapview stuff.
 // Handles event handling, whatnot.
@@ -30,15 +31,20 @@ typedef struct {
 @interface RMMapView : UIView
 {
 	RMMapContents *contents;
+	id<RMMapViewDelegate> delegate;
 	
-	bool enableDragging;
-	bool enableZoom;
+	BOOL enableDragging;
+	BOOL enableZoom;
 	RMGestureDetails lastGesture;
 }
 
 // Any other functions you need to manipulate the mapyou can access through this
 // property. The contents structure holds the actual map bits.
 @property (readonly) RMMapContents *contents;
+
+// do not retain the delegate so you can let the corresponding controller implement the
+// delegate without circular references
+@property (assign) id<RMMapViewDelegate> delegate;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
 - (void)moveToXYPoint: (RMXYPoint)aPoint;

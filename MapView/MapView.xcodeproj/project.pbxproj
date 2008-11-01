@@ -140,6 +140,7 @@
 		1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerStyle.m; sourceTree = "<group>"; };
 		1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerStyles.h; sourceTree = "<group>"; };
 		1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerStyles.m; sourceTree = "<group>"; };
+		12F2031E0EBB65E9003D7B6B /* RMMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapViewDelegate.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapViewAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapViewAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAppDelegate.m; sourceTree = "<group>"; };
@@ -521,6 +522,7 @@
 				B8C9746A0E8A1A50007D16AD /* RMMapView.m */,
 				B8C974B60E8A280A007D16AD /* RMMapContents.h */,
 				B8C974B70E8A280A007D16AD /* RMMapContents.m */,
+				12F2031E0EBB65E9003D7B6B /* RMMapViewDelegate.h */,
 				B8C974B30E8A23C5007D16AD /* Coordinate Systems */,
 				B83E64E20E80E73F001663B6 /* Projections */,
 				B83E64EB0E80E73F001663B6 /* Tile Source */,
