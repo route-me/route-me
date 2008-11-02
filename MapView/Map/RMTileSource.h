@@ -24,6 +24,4 @@
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection;
 -(RMProjection*) projection;
 
--(RMXYRect) bounds;
-
 @end

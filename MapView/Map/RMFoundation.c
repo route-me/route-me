@@ -38,3 +38,22 @@ RMXYRect  RMTranslateXYRectBy(RMXYRect rect,   RMXYSize delta)
 	rect.origin = RMTranslateXYPointBy(rect.origin, delta);
 	return rect;
 }
+
+RMXYPoint  RMXYMakePoint (double x, double y)
+{
+	RMXYPoint point = {
+		x, y
+	};
+	
+	return point;
+}
+
+RMXYRect  RMXYMakeRect (double x, double y, double width, double height)
+{
+	RMXYRect rect = {
+		{x, y},
+		{width, height}
+	};
+	
+	return rect;
+}

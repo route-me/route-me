@@ -8,20 +8,30 @@
 
 #import "RMFractalTileProjection.h"
 #import "RMMercatorToScreenProjection.h"
+#import "RMProjection.h"
 #import <math.h>
 
 @implementation RMFractalTileProjection
 
 @synthesize maxZoom, tileSideLength, bounds;
 
-- (id) initWithBounds: (RMXYRect)boundsRect tileSideLength:(int)_tileSideLength maxZoom: (int)_maxZoom
+-(id) initFromProjection:(RMProjection*)projection tileSideLength:(int)aTileSideLength maxZoom: (int) aMaxZoom
 {
 	if (![super init])
 		return nil;
 	
-	bounds = boundsRect;
-	tileSideLength = _tileSideLength;
-	maxZoom = _maxZoom;
+	// We don't care about the rest of the projection... just the bounds is important.
+	bounds = [projection bounds];
+	
+	if (bounds.size.width == 0.0f || bounds.size.height == 0.0f)
+	{
+		@throw [NSException exceptionWithName:@"RMUnknownBoundsException"
+									   reason:@"RMFractalTileProjection was initialised with a projection with unknown bounds"
+									 userInfo:nil];
+	}
+	
+	tileSideLength = aTileSideLength;
+	maxZoom = aMaxZoom;
 	
 	scaleFactor = log2(bounds.size.width / tileSideLength);
 	
@@ -45,21 +55,6 @@
 	return exp2f(zoom);
 }
 
-- (RMXYPoint) constrainPointHorizontally: (RMXYPoint) aPoint
-{
-	while (aPoint.x < bounds.origin.x)
-		aPoint.x += bounds.size.width;
-	while (aPoint.x > (bounds.origin.x + bounds.size.width))
-		aPoint.x -= bounds.size.width;
-
-//	if (point.y < bounds.origin.y)
-//		point.y = bounds.origin.y;
-//	else if (point.y > (bounds.origin.y + bounds.size.height))
-//		point.y = bounds.origin.y + bounds.size.height;
-	
-	return aPoint;
-}
-
 - (RMTile) normaliseTile: (RMTile) tile
 {
 	// The mask contains a 1 for every valid x-coordinate bit.
@@ -80,25 +75,15 @@
 	return tile;
 }
 
-/*
--(RMMercatorRect) constrainRectToBounds: (RMMercatorRect) rect
+- (RMXYPoint) constrainPointHorizontally: (RMXYPoint) aPoint
 {
-	while (rect.origin.x < bounds.origin.x)
-		rect.origin.x += bounds.size.width;
-	while (rect.origin.x > (bounds.origin.x + bounds.size.width))
-		rect.origin.x -= bounds.size.width;
+	while (aPoint.x < bounds.origin.x)
+		aPoint.x += bounds.size.width;
+	while (aPoint.x > (bounds.origin.x + bounds.size.width))
+		aPoint.x -= bounds.size.width;
 	
-	if (rect.origin.y < bounds.origin.y)
-	{
-		rect.size.height -= bounds.origin.y - rect.origin.y;
-		rect.origin.y = bounds.origin.y;
-	}
-	else if (point.y > (bounds.origin.y + bounds.size.height))
-	{
-		point.y = bounds.origin.y + bounds.size.height;
-		
-	}
-}*/
+	return aPoint;
+}
 
 - (RMTilePoint) projectInternal: (RMXYPoint)aPoint normalisedZoom:(float)zoom limit:(float) limit
 {

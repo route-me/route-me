@@ -55,7 +55,7 @@
 	
 	self.boundingMask = RMMapMinWidthBound;
 //	targetView = view;
-	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initWithScreenBounds:[view bounds]];
+	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[_tileSource projection] ToScreenBounds:[view bounds]];
 
 	tileSource = nil;
 	projection = nil;
@@ -141,21 +141,23 @@
 	
 	double newScale = self.scale / zoomFactor;
 	
+	RMXYRect mercatorBounds = [[tileSource projection] bounds];
+	
 	// Check for MinWidthBound
 	if ( boundingMask & RMMapMinWidthBound )
 	{
-		double newMapContentsWidth = [tileSource bounds].size.width / newScale;
+		double newMapContentsWidth = mercatorBounds.size.width / newScale;
 		double screenBoundsWidth = [self screenBounds].size.width;
 		double mapContentWidth;
 		
 		if ( newMapContentsWidth < screenBoundsWidth )
 		{
 			// Calculate new zoom facter so that it does not shrink the map any further. 
-			mapContentWidth = [tileSource bounds].size.width / self.scale;
+			mapContentWidth = mercatorBounds.size.width / self.scale;
 			zoomFactor = screenBoundsWidth / mapContentWidth;
 			
 			newScale = self.scale / zoomFactor;
-			newMapContentsWidth = [tileSource bounds].size.width / newScale;
+			newMapContentsWidth = mercatorBounds.size.width / newScale;
 		}
 		
 	}
@@ -163,18 +165,18 @@
 	// Check for MinHeightBound	
 	if ( boundingMask & RMMapMinHeightBound )
 	{
-		double newMapContentsHeight = [tileSource bounds].size.height / newScale;
+		double newMapContentsHeight = mercatorBounds.size.height / newScale;
 		double screenBoundsHeight = [self screenBounds].size.height;
 		double mapContentHeight;
 		
 		if ( newMapContentsHeight < screenBoundsHeight )
 		{
 			// Calculate new zoom facter so that it does not shrink the map any further. 
-			mapContentHeight = [tileSource bounds].size.height / self.scale;
+			mapContentHeight = mercatorBounds.size.height / self.scale;
 			zoomFactor = screenBoundsHeight / mapContentHeight;
 			
 			newScale = self.scale / zoomFactor;
-			newMapContentsHeight = [tileSource bounds].size.height / newScale;
+			newMapContentsHeight = mercatorBounds.size.height / newScale;
 		}
 		
 	}

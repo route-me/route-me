@@ -15,16 +15,27 @@
 
 @interface RMProjection : NSObject {
 	projPJ		internalProjection;
+	
+	RMXYRect	bounds;
+	
+	BOOL		projectionWrapsHorizontally;
 }
 
 @property (readonly) projPJ internalProjection;
+@property (readonly) RMXYRect bounds;
+@property (readwrite) BOOL projectionWrapsHorizontally;
+
+// Assuming the earth is round, this will wrap a point around the bounds. 
+- (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint;
+
+// This method wraps the x and clamps the y.
+- (RMXYPoint) constrainPointToBounds: (RMXYPoint) aPoint;
 
 + (RMProjection *) googleProjection;
 + (RMProjection *) EPSGLatLong;
 + (RMProjection *) OSGB;
 
-
-- (id) initWithString: (NSString*)params;
+- (id) initWithString: (NSString*)params InBounds: (RMXYRect) projBounds;
 
 - (RMLatLong)pointToLatLong:(RMXYPoint)aPoint;
 - (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;

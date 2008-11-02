@@ -21,14 +21,8 @@
 	if (![super init])
 		return nil;
 	
-	RMXYRect bounds;
-	bounds.origin.x = -20037508.34;
-	bounds.origin.y = -20037508.34;
-	bounds.size.width = 20037508.34 * 2;
-	bounds.size.height = 20037508.34 * 2;
-	
 	int sideLength = [[self class] tileSideLength];
-	tileProjection = [[RMFractalTileProjection alloc] initWithBounds:bounds tileSideLength:sideLength maxZoom:18];
+	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:sideLength maxZoom:18];
 	
 	return self;
 }
@@ -64,11 +58,6 @@
 -(RMProjection*) projection
 {
 	return [RMProjection googleProjection];
-}
-
--(RMXYRect) bounds
-{
-	return [tileProjection bounds];
 }
 
 @end

@@ -28,4 +28,6 @@ RMXYRect  RMScaleXYRectAboutPoint (RMXYRect rect,   float factor, RMXYPoint pivo
 RMXYPoint RMTranslateXYPointBy    (RMXYPoint point, RMXYSize delta);
 RMXYRect  RMTranslateXYRectBy     (RMXYRect rect,   RMXYSize delta);
 
+RMXYPoint  RMXYMakePoint (double x, double y);
+RMXYRect  RMXYMakeRect (double x, double y, double width, double height);
 

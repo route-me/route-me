@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "RMMercatorToTileProjection.h"
 
+@class RMProjection;
+
 @interface RMFractalTileProjection : NSObject<RMMercatorToTileProjection> {
 	// Maximum zoom for which our tile server stores images
 	int maxZoom;
@@ -28,6 +30,6 @@
 	double scaleFactor;
 }
 
--(id) initWithBounds:(RMXYRect)boundsRect tileSideLength:(int)tileSideLength maxZoom: (int) max_zoom;
+-(id) initFromProjection:(RMProjection*)projection tileSideLength:(int)tileSideLength maxZoom: (int) max_zoom;
 
 @end

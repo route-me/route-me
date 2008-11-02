@@ -11,6 +11,7 @@
 
 #import "RMFoundation.h"
 
+@class RMProjection;
 
 // This is a stateful projection. As the screen moves around, so too do projections change.
 
@@ -18,6 +19,10 @@
 {
 	// What the screen is currently looking at.
 	RMXYPoint origin;
+
+	// The mercator -or-whatever- projection that the map is in.
+	// This projection move linearly with the screen.
+	RMProjection *projection;
 	
 	// Bounds of the screen in pixels
 	CGRect screenBounds;
@@ -28,7 +33,7 @@
 	float scale;
 }
 
-- (id) initWithScreenBounds: (CGRect)aScreenBounds;
+- (id) initFromProjection: (RMProjection*) projection ToScreenBounds: (CGRect)aScreenBounds;
 
 // Deltas in screen coordinates.
 - (RMXYPoint)movePoint: (RMXYPoint)aPoint by:(CGSize) delta;

@@ -38,7 +38,9 @@
 
 + (RMCachedTileSource*) cachedTileSourceWithSource: (id<RMTileSource>) source
 {
-	return [[[RMCachedTileSource alloc] initWithSource:source] autorelease];
+	// Doing this fixes a strange build warning...
+	id theSource = source;
+	return [[[RMCachedTileSource alloc] initWithSource:theSource] autorelease];
 }
 
 -(RMTileImage *) tileImage: (RMTile) tile
@@ -64,11 +66,6 @@
 -(RMProjection*) projection
 {
 	return [tileSource projection];
-}
-
--(RMXYRect) bounds
-{
-	return [tileSource bounds];
 }
 
 - (id<RMTileSource>) underlyingTileSource
