@@ -8,7 +8,6 @@
 
 #import "MapViewViewController.h"
 
-#import "RMMapView.h"
 #import "RMMapContents.h"
 #import "RMFoundation.h"
 #import "RMMarker.h"
@@ -38,16 +37,15 @@
 
 /*	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerBlueKey];
 	
-	RMMercatorRect loc = [[(RMMapView*)[self view] contents] mercatorBounds];
+	RMMercatorRect loc = [[mapView contents] mercatorBounds];
 	loc.origin.x += loc.size.width / 2;
 	loc.origin.y += loc.size.height / 2;
 
 	marker.location = loc.origin;
-	[[[(RMMapView*)[self view] contents] overlay] addSublayer:marker];
+	[[[mapView contents] overlay] addSublayer:marker];
 	NSLog(@"marker added to %f %f", loc.origin.x, loc.origin.y);*/
 	
-	RMMapView *view = (RMMapView*)[self view];
-	[(RMMapView*)view addDefaultMarkerAt:[[(RMMapView*)view contents] mapCenter]];
+	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
 }
 
 

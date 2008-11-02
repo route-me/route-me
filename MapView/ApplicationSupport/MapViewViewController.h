@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RMMapView.h"
 
 @interface MapViewViewController : UIViewController {
-
+	IBOutlet RMMapView * mapView;
 }
 
 @end
