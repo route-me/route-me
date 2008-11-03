@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class RMMapView;
+@class RMMarker;
 
 @protocol RMMapViewDelegate 
 
@@ -21,5 +22,7 @@
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
 
 - (void) doubleTapOnMap: (RMMapView*) map;
+
+- (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map;
 
 @end

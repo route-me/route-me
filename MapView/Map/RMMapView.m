@@ -21,6 +21,7 @@
 	BOOL delegateHasBeforeMapZoomByFactor;
 	BOOL delegateHasAfterMapZoomByFactor;
 	BOOL delegateHasDoubleTapOnMap;
+	BOOL delegateHasTapOnMarker;
 @end
 
 @implementation RMMapView
@@ -94,9 +95,7 @@
 	delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
 
 	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:)];	
-
-	NSLog(@"%d %d %d %d %d", delegateHasBeforeMapMove, delegateHasAfterMapMove, delegateHasBeforeMapZoomByFactor, delegateHasAfterMapZoomByFactor, delegateHasDoubleTapOnMap);
-
+	delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
 }
 
 - (id<RMMapViewDelegate>) delegate
@@ -247,8 +246,7 @@
 		// When factoring, beware these two instructions need to happen in this order.
 		[RMMapContents setPerformExpensiveOperations:YES];
 	}
-	//*************************************************************************************
-	//Double-tap detection (currently used for debugging pixelToLatLng() method)
+
 	if (touch.tapCount == 2)
 	{
 		if (delegateHasDoubleTapOnMap) {
@@ -258,7 +256,14 @@
 			// [contents zoomInToNextNativeZoom];
 		}
 	}
-	//***************************************************************************************
+	
+	if (touch.tapCount == 1) 
+	{
+		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
+		if (hit != nil && [hit isMemberOfClass: [RMMarker class]]) {
+			if (delegateHasTapOnMarker) [delegate tapOnMarker: (RMMarker*) hit onMap: self];
+		}
+	}
 	
 //		[contents recalculateImageSet];
 }

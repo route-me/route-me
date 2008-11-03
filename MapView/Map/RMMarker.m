@@ -21,6 +21,7 @@ static CGImageRef _markerBlue = nil;
 @implementation RMMarker
 
 @synthesize location;
+@synthesize data;
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName
 {

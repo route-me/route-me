@@ -16,7 +16,8 @@ extern NSString * const RMMarkerBlueKey;
 extern NSString * const RMMarkerRedKey;
 
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
-	RMXYPoint location;
+	RMXYPoint location;	
+	NSObject* data;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -29,6 +30,7 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithNamedStyle: (NSString*) styleName;
 
 @property (assign, nonatomic) RMXYPoint location;
+@property (retain) NSObject* data;
 
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;
