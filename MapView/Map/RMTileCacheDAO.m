@@ -17,7 +17,7 @@
 -(void)configureDBForFirstUse
 {
 	// [db executeUpdate:@"DROP TABLE ZCACHE"];
-	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DATE, zdata BLOB)"];
+	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DOUBLE, zdata BLOB)"];
 }
 
 -(id) initWithDatabase: (NSString*)path
@@ -88,21 +88,36 @@
 	return data;
 }
 
--(void) removeOldestFromDatabase
+-(void) purgeTiles: (NSUInteger) count;
 {
+	NSLog(@"purging %u old tiles from db cache", count);
+	
+	// does not work: "DELETE FROM ZCACHE ORDER BY zlastUsed LIMIT"
+
+	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE WHERE ztileHash IN (SELECT ztileHash FROM ZCACHE ORDER BY zlastUsed LIMIT ? )", 
+				   [NSNumber numberWithUnsignedInt: count]];
+	if (result == NO) {
+		NSLog(@"Error purging cache");
+	}
 	
 }
 
--(void) touchTile: (uint64_t) tileHash
+-(void) touchTile: (uint64_t) tileHash withDate: (NSDate*) date
 {
+	BOOL result = [db executeUpdate: @"UPDATE ZCACHE SET zlastUsed = ? WHERE ztileHash = ? ", 
+				   date, [NSNumber numberWithUnsignedInt: tileHash]];
 	
+	if (result == NO) {
+		NSLog(@"Error touching tile");
+	}
 }
 
 -(void) addData: (NSData*) data LastUsed: (NSDate*)date ForTile: (uint64_t) tileHash
 {
 	// Fixme
 //	NSLog(@"addData\t%d", tileHash);
-	BOOL result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (ztileHash, zlastUsed, zdata) VALUES (?, ?, ?)", [NSNumber numberWithUnsignedLongLong:tileHash], date, data];
+	BOOL result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (ztileHash, zlastUsed, zdata) VALUES (?, ?, ?)", 
+		[NSNumber numberWithUnsignedLongLong:tileHash], date, data];
 	if (result == NO)
 	{
 		NSLog(@"Error occured adding data");

@@ -13,10 +13,17 @@
 
 @interface RMDatabaseCache : NSObject<RMTileCache> {
 	RMTileCacheDAO *dao;
+	RMCachePurgeStrategy purgeStrategy;
+	NSUInteger capacity;
+	NSUInteger minimalPurge;
 }
 
-+ (NSString*)dbPathForTileSource: (id<RMTileSource>) source;
++ (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir;
 -(id) initWithDatabase: (NSString*)path;
--(id) initWithTileSource: (id<RMTileSource>) source;
+-(id) initWithTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir;
+
+-(void) setPurgeStrategy: (RMCachePurgeStrategy) theStrategy;
+-(void) setCapacity: (NSUInteger) theCapacity;
+-(void) setMinimalPurge: (NSUInteger) thePurgeMinimum;
 
 @end

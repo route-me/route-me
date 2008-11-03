@@ -12,6 +12,12 @@
 
 @class RMTileImage;
 
+typedef enum {
+	RMCachePurgeStrategyLRU,
+	RMCachePurgeStrategyFIFO,
+} RMCachePurgeStrategy;
+
+
 @protocol RMTileCache<NSObject>
 
 // Returns the cached image if it exists. nil otherwise.

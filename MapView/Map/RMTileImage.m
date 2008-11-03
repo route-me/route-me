@@ -192,7 +192,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 -(void) touch
 {
 	[lastUsedTime release];
-	lastUsedTime = [NSDate init];
+	lastUsedTime = [[NSDate date] retain];
 }
 
 - (BOOL)isEqual:(id)anObject

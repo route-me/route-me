@@ -18,9 +18,9 @@
 
 -(NSUInteger) count;
 -(NSData*) dataForTile: (uint64_t) tileHash;
--(void) touchTile: (uint64_t) tileHash;
+-(void) touchTile: (uint64_t) tileHash withDate: (NSDate*) date;
 -(void) addData: (NSData*) data LastUsed: (NSDate*)date ForTile: (uint64_t) tileHash;
--(void) removeOldestFromDatabase;
+-(void) purgeTiles: (NSUInteger) count;
 
 //-(NSArray*) getLocalTimetableInformationAt: (int)stopId;
 

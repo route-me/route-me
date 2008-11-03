@@ -3,7 +3,7 @@
 //  MapView
 //
 //  Created by Hauke Brandes on 31.10.08.
-//  Copyright 2008 Orbster GmbH. All rights reserved.
+//  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -13,9 +13,16 @@
 
 @implementation RMDatabaseCache
 
-+ (NSString*)dbPathForTileSource: (id<RMTileSource>) source
++ (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSArray *paths;
+	
+	if (useCacheDir) {
+		paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+	} else {
+		paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	}
+	
 	if ([paths count] > 0) // Should only be one...
 	{
 		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source description]];
@@ -40,9 +47,9 @@
 	return self;	
 }
 
--(id) initWithTileSource: (id<RMTileSource>) source
+-(id) initWithTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
-	return [self initWithDatabase:[RMDatabaseCache dbPathForTileSource:source]];
+	return [self initWithDatabase:[RMDatabaseCache dbPathForTileSource:source usingCacheDir: useCacheDir]];
 }
 
 -(void) dealloc
@@ -50,6 +57,21 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[super dealloc];
+}
+
+-(void) setPurgeStrategy: (RMCachePurgeStrategy) theStrategy
+{
+	purgeStrategy = theStrategy;
+}
+
+-(void) setCapacity: (NSUInteger) theCapacity
+{
+	capacity = theCapacity;
+}
+
+-(void) setMinimalPurge: (NSUInteger) theMinimalPurge
+{
+	minimalPurge = theMinimalPurge;
 }
 
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image
@@ -71,6 +93,15 @@
 {
 	NSData *data = [[notification userInfo] objectForKey:@"data"];
 	RMTileImage *image = (RMTileImage*)[notification object];
+	
+	
+	if (capacity != 0) {
+		NSUInteger tilesInDb = [dao count];
+		if (capacity <= tilesInDb) {
+			[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
+		}
+	}
+	
 	[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
@@ -88,6 +119,10 @@
 	NSData *data = [dao dataForTile:RMTileHash(tile)];
 	if (data == nil)
 		return nil;
+	
+	if (capacity != 0 && purgeStrategy == RMCachePurgeStrategyLRU) {
+		[dao touchTile: RMTileHash(tile) withDate: [NSDate date]];
+	}
 	
 	RMTileImage *image = [RMTileImage imageWithTile:tile FromData:data];
 //	NSLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
