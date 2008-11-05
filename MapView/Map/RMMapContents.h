@@ -63,6 +63,8 @@ enum {
 	
 	RMMapRenderer *renderer;
 	NSUInteger		boundingMask;
+	
+	float minZoom, maxZoom;
 }
 
 @property (readwrite) CLLocationCoordinate2D mapCenter;
@@ -71,6 +73,8 @@ enum {
 @property (readonly)  CGRect screenBounds;
 @property (readwrite) float scale;
 @property (readwrite) float zoom;
+
+@property (readwrite) float minZoom, maxZoom;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 
@@ -99,6 +103,7 @@ enum {
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
+- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
 - (void) drawRect: (CGRect) rect;
 

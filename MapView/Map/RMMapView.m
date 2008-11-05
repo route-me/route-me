@@ -317,6 +317,12 @@
 	[contents setZoom:zoomInt];
 }
 
+-(void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom
+{
+	[contents setZoomBounds:aMinZoom maxZoom:aMaxZoom];
+
+}
+
 #pragma mark Zoom With Bounds
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se
 {

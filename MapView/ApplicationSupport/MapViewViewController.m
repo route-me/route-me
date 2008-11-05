@@ -74,6 +74,8 @@
 	
 	NSLog(@"Nb Markers in Screen: %d", [markers count]);
 	
+	[mapView setZoomBounds:0.0 maxZoom:17.0];
+	
 	[mapView getScreenCoordinateBounds];
 	
 	

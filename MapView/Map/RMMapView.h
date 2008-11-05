@@ -56,6 +56,7 @@ typedef struct {
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
 - (void)setZoom:(int)zoomInt;
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
+- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
 
 - (void) addMarker: (RMMarker*)marker;

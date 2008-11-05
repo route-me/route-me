@@ -28,6 +28,8 @@
 @implementation RMMapContents
 
 @synthesize boundingMask;
+@synthesize minZoom;
+@synthesize maxZoom;
 
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
@@ -52,6 +54,8 @@
 {
 	if (![super init])
 		return nil;
+	
+	[self setMaxZoom:50.0];
 	
 	self.boundingMask = RMMapMinWidthBound;
 //	targetView = view;
@@ -216,16 +220,32 @@
 	
 }
 
+- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom
+{
+	[self setMinZoom: aMinZoom];
+	[self setMaxZoom: aMaxZoom];
+}
+
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
 	
-
-	[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
-	[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
-	[tileLoader zoomByFactor:zoomFactor near:pivot];
-	[overlay zoomByFactor:zoomFactor near:pivot];
-	[renderer setNeedsDisplay];
+	NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
+	
+	if(([self zoom] >= [self minZoom]) && ([self zoom] <= [self maxZoom]))
+	{
+		[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
+		[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+		[tileLoader zoomByFactor:zoomFactor near:pivot];
+		[overlay zoomByFactor:zoomFactor near:pivot];
+		[renderer setNeedsDisplay];
+	}else
+	{
+		if([self zoom] > [self maxZoom])
+			[self setZoom:[self maxZoom]];
+		if([self zoom] < [self minZoom])
+			[self setZoom:[self minZoom]];
+	}
 }
 
 - (void) drawRect: (CGRect) aRect
