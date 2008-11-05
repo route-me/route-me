@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface RMMapLayer : CALayer
+@interface RMMapLayer : CAScrollLayer
 {
 }
 

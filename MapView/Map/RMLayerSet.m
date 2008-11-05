@@ -19,7 +19,7 @@
 
 	set = [[NSMutableArray alloc] init];
 	mapContents = _contents;
-	
+	self.masksToBounds = YES;
 	return self;
 }
 
