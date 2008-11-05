@@ -574,4 +574,9 @@ static BOOL _performExpensiveOperations = YES;
 	[marker removeFromSuperlayer];
 }
 
+- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
+{
+	return [mercatorToScreenProjection projectXYPoint:[marker location]];
+}
+
 @end

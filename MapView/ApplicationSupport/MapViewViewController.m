@@ -58,7 +58,10 @@
 		
 	{
 		RMXYPoint point = [aMarker location];
-		NSLog(@"Marker location: X:%d, Y:%d", point.x, point.y);
+		NSLog(@"Marker mercator location: X:%lf, Y:%lf", point.x, point.y);
+		CGPoint screenPoint = [mapView getMarkerScreenCoordinate: aMarker];
+		NSLog(@"Marker screen location: X:%lf, Y:%lf", screenPoint.x, screenPoint.y);
+
 		[mapView removeMarker:aMarker];
 	}
 	

@@ -354,4 +354,9 @@
 	[contents removeMarker:marker];
 }
 
+- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
+{
+	return [contents getMarkerScreenCoordinate:marker];
+}
+
 @end
