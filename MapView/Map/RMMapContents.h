@@ -12,6 +12,11 @@
 #import "RMLatLong.h"
 #import "RMTile.h"
 
+typedef struct {
+	CLLocationCoordinate2D northWest;
+	CLLocationCoordinate2D southEast;
+} CLLocationCoordinate2DBounds;
+
 // constants for boundingMask
 enum {
 	// Map can be zoomed out past view limits
@@ -122,5 +127,9 @@ enum {
 - (void) removeMarker:(RMMarker *)marker;
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
+- (NSArray *) getMarkersForScreenBounds;
+
+- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
+
 
 @end

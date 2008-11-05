@@ -70,6 +70,12 @@
 	// Put the marker back
 	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	
+	markers  = [mapView getMarkersForScreenBounds];
+	
+	NSLog(@"Nb Markers in Screen: %d", [markers count]);
+	
+	[mapView getScreenCoordinateBounds];
+	
 	
 
 	

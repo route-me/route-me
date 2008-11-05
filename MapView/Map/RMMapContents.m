@@ -584,4 +584,53 @@ static BOOL _performExpensiveOperations = YES;
 	return [self pixelToLatLong:[self getMarkerScreenCoordinate:marker]];
 }
 
+- (NSArray *) getMarkersForScreenBounds
+{
+	NSMutableArray *markers;
+	markers  = [NSMutableArray array];
+	CGRect rect = [mercatorToScreenProjection screenBounds];
+	
+	NSArray *allMarkers = [self getMarkers];
+	
+	NSEnumerator *markerEnumerator = [allMarkers objectEnumerator];
+	RMMarker *aMarker;
+	
+	while (aMarker = (RMMarker *)[markerEnumerator nextObject])
+	{
+		CGPoint markerCoord = [self getMarkerScreenCoordinate:aMarker];
+		
+		if( ((markerCoord.x > rect.origin.x) && (markerCoord.y > rect.origin.y)) &&
+		   ((markerCoord.x < (rect.origin.x + rect.size.width)) && (markerCoord.y < (rect.origin.y + rect.size.height))))
+		{
+			[markers addObject:aMarker];
+		}
+	}
+	
+	return markers;
+}
+
+- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
+{
+	CLLocationCoordinate2DBounds bounds;
+	CGRect rect = [mercatorToScreenProjection screenBounds];
+	
+	CGPoint northWest = rect.origin;
+	
+	CGPoint southEast;
+	southEast.x = rect.origin.x + rect.size.width;
+	southEast.y = rect.origin.y + rect.size.height;
+
+	NSLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
+	NSLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
+	
+	bounds.northWest = [self pixelToLatLong:northWest];
+	bounds.southEast = [self pixelToLatLong:southEast];
+	
+	NSLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
+	NSLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
+	
+	return bounds;
+}
+
+
 @end

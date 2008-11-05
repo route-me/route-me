@@ -364,4 +364,14 @@
 	return [contents getMarkerCoordinate2D:marker];
 }
 
+- (NSArray *) getMarkersForScreenBounds
+{
+	return [contents getMarkersForScreenBounds];
+}
+
+- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
+{
+	return [contents getScreenCoordinateBounds];
+}
+
 @end

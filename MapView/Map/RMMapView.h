@@ -12,6 +12,7 @@
 #import "RMFoundation.h"
 #import "RMLatLong.h"
 #import "RMMapViewDelegate.h"
+#import "RMMapContents.h"
 
 // iPhone-specific mapview stuff.
 // Handles event handling, whatnot.
@@ -65,5 +66,9 @@ typedef struct {
 - (void) removeMarker:(RMMarker *)marker;
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
+- (NSArray *) getMarkersForScreenBounds;
+
+- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
+
 
 @end
