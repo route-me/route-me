@@ -118,5 +118,7 @@ enum {
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
 - (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
 - (void) removeMarkers;
+- (NSArray *)getMarkers;
+- (void) removeMarker:(RMMarker *)marker;
 
 @end

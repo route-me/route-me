@@ -46,6 +46,28 @@
 	NSLog(@"marker added to %f %f", loc.origin.x, loc.origin.y);*/
 	
 	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
+	
+	NSArray *markers = [mapView getMarkers];
+	
+	NSLog(@"Nb markers %d", [markers count]);
+	
+	NSEnumerator *markerEnumerator = [markers objectEnumerator];
+	RMMarker *aMarker;
+	
+	while (aMarker = (RMMarker *)[markerEnumerator nextObject])
+		
+	{
+		RMXYPoint point = [aMarker location];
+		NSLog(@"Marker location: X:%d, Y:%d", point.x, point.y);
+		[mapView removeMarker:aMarker];
+	}
+	
+	// Put the marker back
+	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
+	
+	
+
+	
 }
 
 

@@ -344,4 +344,14 @@
 	[contents removeMarkers];
 }
 
+- (NSArray *) getMarkers
+{
+	return [contents getMarkers];
+}
+
+- (void) removeMarker: (RMMarker *)marker
+{
+	[contents removeMarker:marker];
+}
+
 @end

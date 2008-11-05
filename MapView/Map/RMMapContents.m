@@ -564,4 +564,14 @@ static BOOL _performExpensiveOperations = YES;
 	overlay.sublayers = [NSArray arrayWithObjects:nil]; 
 }
 
+- (NSArray *)getMarkers
+{
+	return [overlay sublayers];
+}
+
+- (void) removeMarker:(RMMarker *)marker
+{
+	[marker removeFromSuperlayer];
+}
+
 @end
