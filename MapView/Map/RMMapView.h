@@ -64,5 +64,6 @@ typedef struct {
 - (NSArray *) getMarkers;
 - (void) removeMarker:(RMMarker *)marker;
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
+- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
 
 @end

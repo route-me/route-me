@@ -579,4 +579,9 @@ static BOOL _performExpensiveOperations = YES;
 	return [mercatorToScreenProjection projectXYPoint:[marker location]];
 }
 
+- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
+{
+	return [self pixelToLatLong:[self getMarkerScreenCoordinate:marker]];
+}
+
 @end

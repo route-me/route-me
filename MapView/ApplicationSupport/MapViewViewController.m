@@ -61,7 +61,9 @@
 		NSLog(@"Marker mercator location: X:%lf, Y:%lf", point.x, point.y);
 		CGPoint screenPoint = [mapView getMarkerScreenCoordinate: aMarker];
 		NSLog(@"Marker screen location: X:%lf, Y:%lf", screenPoint.x, screenPoint.y);
-
+		CLLocationCoordinate2D coordinates =  [mapView getMarkerCoordinate2D: aMarker];
+		NSLog(@"Marker Lat/Lon location: Lat:%lf, Lon:%lf", coordinates.latitude, coordinates.longitude);
+		
 		[mapView removeMarker:aMarker];
 	}
 	

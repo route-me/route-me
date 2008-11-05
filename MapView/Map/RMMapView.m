@@ -359,4 +359,9 @@
 	return [contents getMarkerScreenCoordinate:marker];
 }
 
+- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
+{
+	return [contents getMarkerCoordinate2D:marker];
+}
+
 @end
