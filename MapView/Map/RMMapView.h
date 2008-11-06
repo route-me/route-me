@@ -25,6 +25,7 @@ typedef struct {
 
 @class RMMapContents;
 @class RMMarker;
+@class RMMarkerManager;
 
 // This class is a wrapper around RMMapContents for the iphone.
 // It implements event handling; but thats about it. All the interesting map
@@ -32,6 +33,7 @@ typedef struct {
 @interface RMMapView : UIView
 {
 	RMMapContents *contents;
+	RMMarkerManager *markerManager;
 	id<RMMapViewDelegate> delegate;
 	
 	BOOL enableDragging;
@@ -42,6 +44,8 @@ typedef struct {
 // Any other functions you need to manipulate the mapyou can access through this
 // property. The contents structure holds the actual map bits.
 @property (readonly) RMMapContents *contents;
+
+@property (retain, readonly) RMMarkerManager *markerManager;
 
 // do not retain the delegate so you can let the corresponding controller implement the
 // delegate without circular references
@@ -58,16 +62,6 @@ typedef struct {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
-
-- (void) addMarker: (RMMarker*)marker;
-- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
-- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
-- (void) removeMarkers;
-- (NSArray *) getMarkers;
-- (void) removeMarker:(RMMarker *)marker;
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
-- (NSArray *) getMarkersForScreenBounds;
 
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
 

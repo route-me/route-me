@@ -15,6 +15,8 @@
 #import "RMMercatorToScreenProjection.h"
 #import "RMMarker.h"
 
+#import "RMMarkerManager.h"
+
 @implementation RMMapView (Internal)
 	BOOL delegateHasBeforeMapMove;
 	BOOL delegateHasAfterMapMove;
@@ -26,9 +28,12 @@
 
 @implementation RMMapView
 
+@synthesize markerManager;
+
 -(void) initValues
 {
 	contents = [[RMMapContents alloc] initForView:self];
+	markerManager = [[RMMarkerManager alloc] initWithContents:contents];
 	
 	enableDragging = YES;
 	enableZoom = YES;
@@ -330,50 +335,6 @@
 }
 
 
-#pragma mark Markers
-
-- (void) addMarker: (RMMarker*)marker
-{
-	[contents addMarker:marker];
-}
-- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
-{
-	[contents addMarker:marker AtLatLong:point];
-}
-- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
-{
-	[contents addDefaultMarkerAt:point];
-}
-
-- (void) removeMarkers
-{
-	[contents removeMarkers];
-}
-
-- (NSArray *) getMarkers
-{
-	return [contents getMarkers];
-}
-
-- (void) removeMarker: (RMMarker *)marker
-{
-	[contents removeMarker:marker];
-}
-
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
-{
-	return [contents getMarkerScreenCoordinate:marker];
-}
-
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
-{
-	return [contents getMarkerCoordinate2D:marker];
-}
-
-- (NSArray *) getMarkersForScreenBounds
-{
-	return [contents getMarkersForScreenBounds];
-}
 
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
 {

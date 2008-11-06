@@ -12,6 +12,8 @@
 #import "RMFoundation.h"
 #import "RMMarker.h"
 
+#import "RMMarkerManager.h"
+
 @implementation MapViewViewController
 
 /*
@@ -35,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	
 /*	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerBlueKey];
 	
 	RMMercatorRect loc = [[mapView contents] mercatorBounds];
@@ -45,9 +48,13 @@
 	[[[mapView contents] overlay] addSublayer:marker];
 	NSLog(@"marker added to %f %f", loc.origin.x, loc.origin.y);*/
 	
-	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
+		
+	RMMarkerManager *markerManager = [mapView markerManager];
 	
-	NSArray *markers = [mapView getMarkers];
+	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
+
+	
+	NSArray *markers = [markerManager getMarkers];
 	
 	NSLog(@"Nb markers %d", [markers count]);
 	
@@ -59,18 +66,18 @@
 	{
 		RMXYPoint point = [aMarker location];
 		NSLog(@"Marker mercator location: X:%lf, Y:%lf", point.x, point.y);
-		CGPoint screenPoint = [mapView getMarkerScreenCoordinate: aMarker];
+		CGPoint screenPoint = [markerManager getMarkerScreenCoordinate: aMarker];
 		NSLog(@"Marker screen location: X:%lf, Y:%lf", screenPoint.x, screenPoint.y);
-		CLLocationCoordinate2D coordinates =  [mapView getMarkerCoordinate2D: aMarker];
+		CLLocationCoordinate2D coordinates =  [markerManager getMarkerCoordinate2D: aMarker];
 		NSLog(@"Marker Lat/Lon location: Lat:%lf, Lon:%lf", coordinates.latitude, coordinates.longitude);
 		
-		[mapView removeMarker:aMarker];
+		[markerManager removeMarker:aMarker];
 	}
 	
 	// Put the marker back
-	[mapView addDefaultMarkerAt:[[mapView contents] mapCenter]];
+	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	
-	markers  = [mapView getMarkersForScreenBounds];
+	markers  = [markerManager getMarkersForScreenBounds];
 	
 	NSLog(@"Nb Markers in Screen: %d", [markers count]);
 	

@@ -124,16 +124,7 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
-- (void) addMarker: (RMMarker*)marker;
-- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
-- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
-- (void) removeMarkers;
-- (NSArray *)getMarkers;
-- (void) removeMarker:(RMMarker *)marker;
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
-- (NSArray *) getMarkersForScreenBounds;
-
+- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
 
 

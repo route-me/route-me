@@ -561,72 +561,9 @@ static BOOL _performExpensiveOperations = YES;
 
 // Move overlays stuff here - at the moment overlay stuff is above...
 
-- (void) addMarker: (RMMarker*)marker
+- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong
 {
-	[overlay addSublayer:marker];
-}
-
-- (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
-{
-	[marker setLocation:[projection latLongToPoint:point]];
-	[self addMarker: marker];
-}
-
-- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
-{
-	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerRedKey];
-	[self addMarker:marker AtLatLong:point];
-	[marker release];
-}
-
-- (void) removeMarkers
-{
-	overlay.sublayers = [NSArray arrayWithObjects:nil]; 
-}
-
-- (NSArray *)getMarkers
-{
-	return [overlay sublayers];
-}
-
-- (void) removeMarker:(RMMarker *)marker
-{
-	[marker removeFromSuperlayer];
-}
-
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
-{
-	return [mercatorToScreenProjection projectXYPoint:[marker location]];
-}
-
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
-{
-	return [self pixelToLatLong:[self getMarkerScreenCoordinate:marker]];
-}
-
-- (NSArray *) getMarkersForScreenBounds
-{
-	NSMutableArray *markers;
-	markers  = [NSMutableArray array];
-	CGRect rect = [mercatorToScreenProjection screenBounds];
-	
-	NSArray *allMarkers = [self getMarkers];
-	
-	NSEnumerator *markerEnumerator = [allMarkers objectEnumerator];
-	RMMarker *aMarker;
-	
-	while (aMarker = (RMMarker *)[markerEnumerator nextObject])
-	{
-		CGPoint markerCoord = [self getMarkerScreenCoordinate:aMarker];
-		
-		if( ((markerCoord.x > rect.origin.x) && (markerCoord.y > rect.origin.y)) &&
-		   ((markerCoord.x < (rect.origin.x + rect.size.width)) && (markerCoord.y < (rect.origin.y + rect.size.height))))
-		{
-			[markers addObject:aMarker];
-		}
-	}
-	
-	return markers;
+	return [projection latLongToPoint:aLatLong];
 }
 
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
