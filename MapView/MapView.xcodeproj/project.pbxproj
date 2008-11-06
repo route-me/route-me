@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		090C948D0EC23FCD003AEE25 /* RMMarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 090C948C0EC23FCD003AEE25 /* RMMarkerManager.m */; };
-		126692A10EB75C0A00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
 		126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
-		1296F5610EB8743500FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
-		1296F5640EB8745300FF25E0 /* RMMarkerStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */; };
 		1296F56B0EB8849A00FF25E0 /* RMMarkerStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */; };
 		1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
 		1296F56D0EB8849B00FF25E0 /* RMMarkerStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */; };
@@ -47,6 +43,10 @@
 		B8474C720EB53A41006A0BC1 /* marker-red-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6E0EB53A41006A0BC1 /* marker-red-withletter.png */; };
 		B8474C730EB53A41006A0BC1 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6F0EB53A41006A0BC1 /* marker-red.png */; };
 		B8474C740EB53A41006A0BC1 /* marker-blue-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C700EB53A41006A0BC1 /* marker-blue-withletter.png */; };
+		B8800FF00EC3A237003E9CDD /* RMMarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 090C948C0EC23FCD003AEE25 /* RMMarkerManager.m */; };
+		B8800FF10EC3A237003E9CDD /* RMMarkerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 090C948B0EC23FCD003AEE25 /* RMMarkerManager.h */; };
+		B8800FF20EC3A239003E9CDD /* RMMapViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 12F2031E0EBB65E9003D7B6B /* RMMapViewDelegate.h */; };
+		B8800FF30EC3A23D003E9CDD /* RMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 1266929F0EB75C0A00E002D5 /* RMConfiguration.h */; };
 		B885ABB20EBB1332002206AB /* RMCloudMadeMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B885ABB00EBB1332002206AB /* RMCloudMadeMapSource.h */; };
 		B885ABB30EBB1332002206AB /* RMCloudMadeMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B885ABB10EBB1332002206AB /* RMCloudMadeMapSource.m */; };
 		B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64C80E80E73F001663B6 /* RMMercatorToScreenProjection.h */; };
@@ -609,6 +609,9 @@
 				23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */,
 				23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */,
 				B885ABB20EBB1332002206AB /* RMCloudMadeMapSource.h in Headers */,
+				B8800FF10EC3A237003E9CDD /* RMMarkerManager.h in Headers */,
+				B8800FF20EC3A239003E9CDD /* RMMapViewDelegate.h in Headers */,
+				B8800FF30EC3A23D003E9CDD /* RMConfiguration.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,10 +714,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MapViewAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* MapViewViewController.m in Sources */,
-				126692A10EB75C0A00E002D5 /* RMConfiguration.m in Sources */,
-				1296F5610EB8743500FF25E0 /* RMMarkerStyle.m in Sources */,
-				1296F5640EB8745300FF25E0 /* RMMarkerStyles.m in Sources */,
-				090C948D0EC23FCD003AEE25 /* RMMarkerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +757,7 @@
 				1296F56E0EB8849C00FF25E0 /* RMMarkerStyles.m in Sources */,
 				23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */,
 				B885ABB30EBB1332002206AB /* RMCloudMadeMapSource.m in Sources */,
+				B8800FF00EC3A237003E9CDD /* RMMarkerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
