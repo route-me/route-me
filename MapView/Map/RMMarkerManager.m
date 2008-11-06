@@ -8,6 +8,7 @@
 
 #import "RMMarkerManager.h"
 #import "RMMercatorToScreenProjection.h"
+#import "RMProjection.h"
 
 @implementation RMMarkerManager
 
@@ -30,7 +31,7 @@
 
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
-	[marker setLocation:[contents latLongToPoint:point]];
+	[marker setLocation:[[contents projection]latLongToPoint:point]];
 	[self addMarker: marker];
 }
 

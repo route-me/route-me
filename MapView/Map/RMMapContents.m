@@ -561,11 +561,6 @@ static BOOL _performExpensiveOperations = YES;
 
 // Move overlays stuff here - at the moment overlay stuff is above...
 
-- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong
-{
-	return [projection latLongToPoint:aLatLong];
-}
-
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
 {
 	CLLocationCoordinate2DBounds bounds;

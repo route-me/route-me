@@ -124,7 +124,6 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
-- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
 
 
