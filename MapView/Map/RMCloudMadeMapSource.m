@@ -13,7 +13,7 @@
 
 -(NSString*) tileURL: (RMTile) tile
 {
-	return [NSString stringWithFormat:@"http://a.tile.cloudmade.com/0199bdee456e59ce950b0156029d6934/2/64/%d/%d/%d.png", tile.zoom, tile.x, tile.y];
+	return [NSString stringWithFormat:@"http://a.tile.cloudmade.com/0199bdee456e59ce950b0156029d6934/2/%d/%d/%d/%d.png",[RMCloudMadeMapSource tileSideLength], tile.zoom, tile.x, tile.y];
 }
 
 -(NSString*) description
@@ -23,7 +23,7 @@
 
 +(int)tileSideLength
 {
-	return 64;
+	return 256;
 }
 
 @end
