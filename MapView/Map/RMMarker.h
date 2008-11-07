@@ -28,6 +28,7 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithUIImage: (UIImage*) image;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
+- (void) dealloc;
 
 @property (assign, nonatomic) RMXYPoint location;
 @property (retain) NSObject* data;
