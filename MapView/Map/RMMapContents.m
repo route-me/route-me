@@ -124,7 +124,7 @@
 - (void)moveToXYPoint: (RMXYPoint)aPoint
 {
 	[mercatorToScreenProjection setXYCenter:aPoint];
-
+	[overlay correctPositionOfAllSublayers];
 	[tileLoader reload];
 	[renderer setNeedsDisplay];
 }
@@ -230,7 +230,7 @@
 {
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
 	
-	NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
+//	NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
 	
 	if(([self zoom] >= [self minZoom]) && ([self zoom] <= [self maxZoom]))
 	{
