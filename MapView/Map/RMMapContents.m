@@ -563,15 +563,20 @@ static BOOL _performExpensiveOperations = YES;
 
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
 {
-	CLLocationCoordinate2DBounds bounds;
 	CGRect rect = [mercatorToScreenProjection screenBounds];
 	
+	return [self getCoordinateBounds:rect];
+}
+
+- (CLLocationCoordinate2DBounds) getCoordinateBounds:(CGRect) rect
+{	
+	CLLocationCoordinate2DBounds bounds;
 	CGPoint northWest = rect.origin;
 	
 	CGPoint southEast;
 	southEast.x = rect.origin.x + rect.size.width;
 	southEast.y = rect.origin.y + rect.size.height;
-
+	
 	NSLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
 	NSLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
 	
@@ -583,6 +588,7 @@ static BOOL _performExpensiveOperations = YES;
 	
 	return bounds;
 }
+
 
 
 @end

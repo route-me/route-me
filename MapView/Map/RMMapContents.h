@@ -125,6 +125,7 @@ enum {
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
+- (CLLocationCoordinate2DBounds) getCoordinateBounds:(CGRect) rect;
 
 
 @end
