@@ -154,7 +154,7 @@
 
 -(float) calculateScaleFromZoom: (float) zoom
 {
-	return bounds.size.width / 256 / exp2(zoom);	
+	return bounds.size.width / tileSideLength / exp2(zoom);	
 }
 
 @end

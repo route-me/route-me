@@ -64,6 +64,7 @@
 
 -(void) dealloc
 {
+	[markerManager release];
 	[contents release];
 	[super dealloc];
 }
