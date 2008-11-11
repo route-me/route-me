@@ -297,7 +297,8 @@ static NSDateFormatter *timeFormatter = nil;
 
 - (NSDate*) dateForColumnIndex:(int)columnIdx withFormatString:(NSString*)formatString
 {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] initWithDateFormat:formatString allowNaturalLanguage:NO];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:formatString];
 
 	NSDate *d = [self dateForColumnIndex:columnIdx withFormatter:formatter];
 	
@@ -326,7 +327,8 @@ static NSDateFormatter *timeFormatter = nil;
 - (NSDate*) dateForColumnIndex:(int)columnIdx {
 	if (dateFormatter == nil)
 	{
-		dateFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%d" allowNaturalLanguage:NO];
+		dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"%Y-%m-%d"];
 	}
 	return [self dateForColumnIndex:columnIdx withFormatter:dateFormatter];
 }
@@ -352,7 +354,8 @@ static NSDateFormatter *timeFormatter = nil;
 {
 	if (timeFormatter == nil)
 	{
-		timeFormatter = [[NSDateFormatter alloc] initWithDateFormat:@"%H:%M:%S" allowNaturalLanguage:NO];
+		timeFormatter = [[NSDateFormatter alloc] init];
+		[timeFormatter setDateFormat:@"%H:%M:%S"];
 	}
 	return [self dateForColumnIndex:columnIdx withFormatter:timeFormatter];
 }
