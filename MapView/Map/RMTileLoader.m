@@ -82,6 +82,32 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	return contained && targetZoom == loadedZoom;
 }
 
+-(void) announceNewBounds
+{
+	//NSLog(@"===> TILES LOADED. X:%lf Y:%lf WIDTH:%lf HEIGHT:%lf",newLoadedBounds.origin.x, newLoadedBounds.origin.y, newLoadedBounds.size.width, newLoadedBounds.size.height);
+	
+	CLLocationCoordinate2DBounds locationBounds  = [content getCoordinateBounds:loadedBounds];
+	
+	//NSLog(@"===> AFTER CONVERSION - BOUNDS: NW Lat: %lf NW Lon:%lf SW Lat:%lf SW Lon:%lf", 
+	//	locationBounds.northWest.latitude,locationBounds.northWest.longitude, 
+	//	  locationBounds.southEast.latitude, locationBounds.southEast.longitude);
+	
+	CLLocation *NWLocation = [[CLLocation alloc] initWithLatitude:locationBounds.northWest.latitude longitude:locationBounds.northWest.longitude];
+	CLLocation *SELocation = [[CLLocation alloc] initWithLatitude:locationBounds.southEast.latitude longitude:locationBounds.southEast.longitude];
+	
+	NSArray *keys = [NSArray arrayWithObjects:@"NWBounds", @"SEBounds", nil];
+	NSArray *objects = [NSArray arrayWithObjects:NWLocation, SELocation, nil];
+	NSDictionary *tilesBounds = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+	
+	[NWLocation release];
+	[SELocation release];
+	
+	// Send notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapNewTilesBoundsNotification
+														object:self
+													  userInfo:tilesBounds];
+}
+
 -(void) updateLoadedImages
 {
 	if (suppressLoading)
@@ -99,32 +125,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	
 	RMTileImageSet *images = [content imagesOnScreen];
 	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:[content screenBounds]];
-	
-	//NSLog(@"===> TILES LOADED. X:%lf Y:%lf WIDTH:%lf HEIGHT:%lf",newLoadedBounds.origin.x, newLoadedBounds.origin.y, newLoadedBounds.size.width, newLoadedBounds.size.height);
-	
-	CLLocationCoordinate2DBounds locationBounds  = [content getCoordinateBounds:newLoadedBounds];
-	
-	//NSLog(@"===> AFTER CONVERSION - BOUNDS: NW Lat: %lf NW Lon:%lf SW Lat:%lf SW Lon:%lf", 
-	//	locationBounds.northWest.latitude,locationBounds.northWest.longitude, 
-	//	  locationBounds.southEast.latitude, locationBounds.southEast.longitude);
-	
-	CLLocation *NWLocation = [[CLLocation alloc] initWithLatitude:locationBounds.northWest.latitude longitude:locationBounds.northWest.longitude];
-	CLLocation *SELocation = [[CLLocation alloc] initWithLatitude:locationBounds.southEast.latitude longitude:locationBounds.southEast.longitude];
-	
-	NSArray *keys = [NSArray arrayWithObjects:@"NWBounds", @"SEBounds", nil];
-	NSArray *objects = [NSArray arrayWithObjects:NWLocation, SELocation, nil];
-	NSDictionary *tilesBounds = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-	
-	[NWLocation release];
-	[SELocation release];
-	
-	// Send notification
-	 [[NSNotificationCenter defaultCenter] postNotificationName:RMMapNewTilesBoundsNotification
-	 object:self
-	 userInfo:tilesBounds];
-	 
-	
-	
+		
 	if (!RMTileIsDummy(loadedTiles.origin.tile))
 		[images removeTiles:loadedTiles];
 
@@ -133,6 +134,8 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	loadedBounds = newLoadedBounds;
 	loadedZoom = newTileRect.origin.tile.zoom;
 	loadedTiles = newTileRect;
+	
+	[self announceNewBounds];
 }
 
 - (void)moveBy: (CGSize) delta

@@ -546,7 +546,6 @@ static BOOL _performExpensiveOperations = YES;
 	}
 }
 
-
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds
 {
 	[self setXYBounds:bounds];
@@ -554,7 +553,6 @@ static BOOL _performExpensiveOperations = YES;
 	[tileLoader clearLoadedBounds];
 	[tileLoader updateLoadedImages];
 	[renderer setNeedsDisplay];
-	
 }
 
 
