@@ -13,6 +13,12 @@
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
 #import <CoreLocation/CoreLocation.h>
+
+typedef struct {
+	CLLocationCoordinate2D northWest;
+	CLLocationCoordinate2D southEast;
+} RMLatLongBounds;
+
 #else
 
 /* From CoreLocation by Apple inc. Copyright 2008 Apple Computer, Inc. All rights reserved. */

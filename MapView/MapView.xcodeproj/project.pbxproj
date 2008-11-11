@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0913410D0EC816EE0017BB92 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65630E80E81C001663B6 /* CoreLocation.framework */; };
 		126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
 		1296F56B0EB8849A00FF25E0 /* RMMarkerStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */; };
 		1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
@@ -138,6 +137,7 @@
 /* Begin PBXFileReference section */
 		090C948B0EC23FCD003AEE25 /* RMMarkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerManager.h; sourceTree = "<group>"; };
 		090C948C0EC23FCD003AEE25 /* RMMarkerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerManager.m; sourceTree = "<group>"; };
+		096B8E350EC93E16004B5B6D /* RMTilesUpdateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTilesUpdateDelegate.h; sourceTree = "<group>"; };
 		1266929F0EB75C0A00E002D5 /* RMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMConfiguration.h; sourceTree = "<group>"; };
 		126692A00EB75C0A00E002D5 /* RMConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMConfiguration.m; sourceTree = "<group>"; };
 		1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerStyle.h; sourceTree = "<group>"; };
@@ -256,7 +256,6 @@
 				B83E66C30E80F053001663B6 /* QuartzCore.framework in Frameworks */,
 				B8C9787B0E8BE130007D16AD /* libMapView.a in Frameworks */,
 				B8474BC30EB401AF006A0BC1 /* libsqlite3.dylib in Frameworks */,
-				0913410D0EC816EE0017BB92 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +523,7 @@
 		B8C9740D0E8A196E007D16AD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				096B8E350EC93E16004B5B6D /* RMTilesUpdateDelegate.h */,
 				B8C9740E0E8A198F007D16AD /* README.txt */,
 				B8C974690E8A1A50007D16AD /* RMMapView.h */,
 				B8C9746A0E8A1A50007D16AD /* RMMapView.m */,
