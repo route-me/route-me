@@ -17,8 +17,6 @@
 
 #import "RMTileCache.h"
 
-NSString * const RMMapNewTilesBoundsNotification = @"NewTilesBounds";
-
 NSString* const RMMapImageRemovedFromScreenNotification = @"RMMapImageRemovedFromScreen";
 NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen";
 
