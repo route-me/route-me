@@ -53,25 +53,6 @@ RMTileRect RMTileRectRound(RMTileRect rect)
 	return rect;
 }
 
-int maxi(int a, int b)
-{
-	return a > b ? a : b;
-}
-
-int mini(int a, int b)
-{
-	return a < b ? a : b;
-}
-
-float maxf(float a, float b)
-{
-	return a > b ? a : b;
-}
-
-float minf(float a, float b)
-{
-	return a < b ? a : b;
-}
 /*
 // Calculate and return the intersection of two rectangles
 TileRect TileRectIntersection(TileRect one, TileRect two)

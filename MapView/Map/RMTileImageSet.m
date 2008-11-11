@@ -152,6 +152,10 @@
 	// ... Should be the same as equivalent calculation for height.
 	float pixelsPerTile = bounds.size.width / rect.size.width;
 	
+	// Until the proper root cause of the seam problem is discovered, I'm hacking around it with this
+	////////////// HACKY FIX ////////////
+	pixelsPerTile += 0.2;
+	
 	CGRect screenLocation;
 	screenLocation.size.width = pixelsPerTile;
 	screenLocation.size.height = pixelsPerTile;
@@ -229,6 +233,42 @@
 	{
 		[image draw];
 	}
+}
+
+- (void) printDebuggingInformation
+{
+	float biggestSeamRight = 0.0f;
+	float biggestSeamDown = 0.0f;
+	
+	for (RMTileImage *image in images)
+	{
+		CGRect location = [image screenLocation];
+/*		NSLog(@"Image at %f, %f %f %f",
+			  location.origin.x,
+			  location.origin.y,
+			  location.origin.x + location.size.width,
+			  location.origin.y + location.size.height);
+*/
+		float seamRight = INFINITY;
+		float seamDown = INFINITY;
+		
+		for (RMTileImage *other_image in images)
+		{
+			CGRect other_location = [other_image screenLocation];
+			if (other_location.origin.x > location.origin.x)
+				seamRight = MIN(seamRight, other_location.origin.x - (location.origin.x + location.size.width));
+			if (other_location.origin.y > location.origin.y)
+				seamDown = MIN(seamDown, other_location.origin.y - (location.origin.y + location.size.height));
+		}
+		
+		if (seamRight != INFINITY)
+			biggestSeamRight = MAX(biggestSeamRight, seamRight);
+		
+		if (seamDown != INFINITY)
+			biggestSeamDown = MAX(biggestSeamDown, seamDown);
+	}
+	
+	NSLog(@"Biggest seam right: %f  down: %f", biggestSeamRight, biggestSeamDown);
 }
 
 @end

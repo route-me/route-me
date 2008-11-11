@@ -239,7 +239,8 @@
 		[tileLoader zoomByFactor:zoomFactor near:pivot];
 		[overlay zoomByFactor:zoomFactor near:pivot];
 		[renderer setNeedsDisplay];
-	}else
+	}
+	else
 	{
 		if([self zoom] > [self maxZoom])
 			[self setZoom:[self maxZoom]];
@@ -577,18 +578,22 @@ static BOOL _performExpensiveOperations = YES;
 	southEast.x = rect.origin.x + rect.size.width;
 	southEast.y = rect.origin.y + rect.size.height;
 	
-	NSLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
-	NSLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
+//	NSLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
+//	NSLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
 	
 	bounds.northWest = [self pixelToLatLong:northWest];
 	bounds.southEast = [self pixelToLatLong:southEast];
 	
-	NSLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
-	NSLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
+//	NSLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
+//	NSLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
 	
 	return bounds;
 }
 
+- (void) printDebuggingInformation
+{
+	[imagesOnScreen printDebuggingInformation];
+}
 
 
 @end

@@ -255,6 +255,8 @@
 
 	if (touch.tapCount == 2)
 	{
+//		[contents printDebuggingInformation];
+		
 		if (delegateHasDoubleTapOnMap) {
 			[delegate doubleTapOnMap: self];
 		} else {
@@ -262,7 +264,7 @@
 			// [contents zoomInToNextNativeZoom];
 		}
 	}
-	
+		
 	if (touch.tapCount == 1) 
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
