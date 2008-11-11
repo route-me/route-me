@@ -90,7 +90,9 @@
 
 -(void) removeAllTiles
 {
-	[images removeAllObjects];
+	for (RMTileImage* img in images) {
+		[self removeTile: img.tile];
+	}
 }
 
 /* Untested.
