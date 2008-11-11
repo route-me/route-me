@@ -333,7 +333,7 @@
 	[contents zoomWithLatLngBoundsNorthEast:ne SouthWest:se];
 }
 
-- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
+- (RMLatLongBounds) getScreenCoordinateBounds
 {
 	return [contents getScreenCoordinateBounds];
 }

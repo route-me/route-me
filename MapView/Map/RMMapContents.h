@@ -12,10 +12,8 @@
 #import "RMLatLong.h"
 #import "RMTile.h"
 
-typedef struct {
-	CLLocationCoordinate2D northWest;
-	CLLocationCoordinate2D southEast;
-} CLLocationCoordinate2DBounds;
+#import "RMTilesUpdateDelegate.h"
+
 
 // constants for boundingMask
 enum {
@@ -67,6 +65,8 @@ enum {
 	NSUInteger		boundingMask;
 	
 	float minZoom, maxZoom;
+
+	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 }
 
 @property (readwrite) CLLocationCoordinate2D mapCenter;
@@ -92,7 +92,7 @@ enum {
 @property (retain, readwrite) RMMapLayer *background;
 @property (retain, readwrite) RMLayerSet *overlay;
 @property (retain, readonly)  RMMarkerManager *markerManager;
-
+@property (assign) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 
 - (id) initForView: (UIView*) view;
@@ -128,8 +128,9 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
-- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
-- (CLLocationCoordinate2DBounds) getCoordinateBounds:(CGRect) rect;
+- (RMLatLongBounds) getScreenCoordinateBounds;
+- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
 
+- (void) tilesUpdatedRegion:(CGRect)region;
 
 @end

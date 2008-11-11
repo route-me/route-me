@@ -23,6 +23,11 @@ typedef struct {
 	RMXYSize size;
 } RMXYRect;
 
+typedef struct {
+	CLLocationCoordinate2D northWest;
+	CLLocationCoordinate2D southEast;
+} RMLatLongBounds;
+
 RMXYPoint RMScaleXYPointAboutPoint(RMXYPoint point, float factor, RMXYPoint pivot);
 RMXYRect  RMScaleXYRectAboutPoint (RMXYRect rect,   float factor, RMXYPoint pivot);
 RMXYPoint RMTranslateXYPointBy    (RMXYPoint point, RMXYSize delta);

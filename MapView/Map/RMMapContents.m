@@ -26,12 +26,18 @@
 
 #import "RMMarker.h"
 
+@implementation RMMapContents (Internal)
+	BOOL delegateHasRegionUpdate;
+@end
+
 @implementation RMMapContents
 
 @synthesize boundingMask;
 @synthesize minZoom;
 @synthesize maxZoom;
 @synthesize markerManager;
+
+
 
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
@@ -567,16 +573,16 @@ static BOOL _performExpensiveOperations = YES;
 
 // Move overlays stuff here - at the moment overlay stuff is above...
 
-- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
+- (RMLatLongBounds) getScreenCoordinateBounds
 {
 	CGRect rect = [mercatorToScreenProjection screenBounds];
 	
 	return [self getCoordinateBounds:rect];
 }
 
-- (CLLocationCoordinate2DBounds) getCoordinateBounds:(CGRect) rect
+- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect
 {	
-	CLLocationCoordinate2DBounds bounds;
+	RMLatLongBounds bounds;
 	CGPoint northWest = rect.origin;
 	
 	CGPoint southEast;
@@ -595,10 +601,37 @@ static BOOL _performExpensiveOperations = YES;
 	return bounds;
 }
 
+- (void) tilesUpdatedRegion:(CGRect)region
+{
+	if(delegateHasRegionUpdate)
+	{
+		RMLatLongBounds locationBounds  = [self getCoordinateBounds:newLoadedBounds];
+		NSLog(@"===> AFTER CONVERSION - BOUNDS: NW Lat: %lf NW Lon:%lf SW Lat:%lf SW Lon:%lf", 
+		locationBounds.northWest.latitude,locationBounds.northWest.longitude, 
+	      locationBounds.southEast.latitude, locationBounds.southEast.longitude);
+		
+		[tilesUpdateDelegate regionUpdate(locationBounds.northWest.latitude,locationBounds.northWest.longitude, 
+	      locationBounds.southEast.latitude, locationBounds.southEast.longitude);
+	}
+}
 - (void) printDebuggingInformation
 {
 	[imagesOnScreen printDebuggingInformation];
 }
 
+@dynamic tilesUpdateDelegate;
+
+- (void) setTilesUpdateDelegate: (id<RMTilesUpdateDelegate>) _tilesUpdateDelegate
+{
+	if (tilesUpdateDelegate == _tilesUpdateDelegate) return;
+	tilesUpdateDelegate= _tilesUpdateDelegate;
+	
+	delegateHasRegionUpdate  = [(NSObject*) tilesUpdateDelegate respondsToSelector: @selector(regionUpdate: NWLon: SELat: SELon:)];
+}
+
+- (id<RMTilesUpdateDelegate>) tilesUpdateDelegate
+{
+	return tilesUpdateDelegate;
+}
 
 @end

@@ -60,7 +60,7 @@ typedef struct {
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
 
-- (CLLocationCoordinate2DBounds) getScreenCoordinateBounds;
+- (RMLatLongBounds) getScreenCoordinateBounds;
 
 
 @end
