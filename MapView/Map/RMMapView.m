@@ -28,12 +28,9 @@
 
 @implementation RMMapView
 
-@synthesize markerManager;
-
 -(void) initValues
 {
 	contents = [[RMMapContents alloc] initForView:self];
-	markerManager = [[RMMarkerManager alloc] initWithContents:contents];
 	
 	enableDragging = YES;
 	enableZoom = YES;
@@ -64,7 +61,6 @@
 
 -(void) dealloc
 {
-	[markerManager release];
 	[contents release];
 	[super dealloc];
 }
@@ -77,7 +73,7 @@
 -(NSString*) description
 {
 	CGRect bounds = [self bounds];
-	return [NSString stringWithFormat:@"iPhone MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
+	return [NSString stringWithFormat:@"MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
 }
 
 -(RMMapContents*) contents
@@ -337,11 +333,14 @@
 	[contents zoomWithLatLngBoundsNorthEast:ne SouthWest:se];
 }
 
-
-
 - (CLLocationCoordinate2DBounds) getScreenCoordinateBounds
 {
 	return [contents getScreenCoordinateBounds];
+}
+
+- (RMMarkerManager *)markerManager
+{
+	return [contents markerManager];
 }
 
 @end

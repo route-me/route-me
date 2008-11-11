@@ -22,6 +22,7 @@
 #import "RMCachedTileSource.h"
 
 #import "RMLayerSet.h"
+#import "RMMarkerManager.h"
 
 #import "RMMarker.h"
 
@@ -30,6 +31,7 @@
 @synthesize boundingMask;
 @synthesize minZoom;
 @synthesize maxZoom;
+@synthesize markerManager;
 
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
@@ -93,6 +95,8 @@
 	[self setOverlay:theOverlay];
 	[theOverlay release];
 	
+	markerManager = [[RMMarkerManager alloc] initWithContents:self];
+	
 	[view setNeedsDisplay];
 	
 	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
@@ -110,6 +114,9 @@
 	[mercatorToScreenProjection release];
 	[tileSource release];
 	[layer release];
+	[overlay release];
+	[background release];
+	[markerManager release];
 	
 	[super dealloc];
 }

@@ -24,8 +24,6 @@ typedef struct {
 } RMGestureDetails;
 
 @class RMMapContents;
-@class RMMarker;
-@class RMMarkerManager;
 
 // This class is a wrapper around RMMapContents for the iphone.
 // It implements event handling; but thats about it. All the interesting map
@@ -33,7 +31,6 @@ typedef struct {
 @interface RMMapView : UIView
 {
 	RMMapContents *contents;
-	RMMarkerManager *markerManager;
 	id<RMMapViewDelegate> delegate;
 	
 	BOOL enableDragging;

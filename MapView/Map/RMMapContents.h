@@ -27,6 +27,7 @@ enum {
 	RMMapMinWidthBound		= 2
 };
 
+@class RMMarkerManager;
 @class RMProjection;
 @class RMMercatorToScreenProjection;
 @class RMTileImageSet;
@@ -45,6 +46,7 @@ enum {
 	// This is the underlying UIView's layer.
 	CALayer *layer;
 	
+	RMMarkerManager *markerManager;
 	RMMapLayer *background;
 	RMLayerSet *overlay;
 	
@@ -89,6 +91,8 @@ enum {
 
 @property (retain, readwrite) RMMapLayer *background;
 @property (retain, readwrite) RMLayerSet *overlay;
+@property (retain, readonly)  RMMarkerManager *markerManager;
+
 @property (readwrite) NSUInteger boundingMask;
 
 - (id) initForView: (UIView*) view;
