@@ -17,7 +17,7 @@
 	RMMapContents *contents;
 }
 
-@property (retain, readwrite)  RMMapContents *contents;
+@property (assign, readwrite)  RMMapContents *contents;
 
 - (id)initWithContents:(RMMapContents *)mapContents;
 

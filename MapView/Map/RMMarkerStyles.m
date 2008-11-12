@@ -77,6 +77,12 @@ static RMMarkerStyles *sharedMarkerStyles = nil;
     return self;
 }
 
+- (void)dealloc
+{
+	[styles release];
+	[super dealloc];
+}
+
 - (void) addStyle: (RMMarkerStyle*) style withName: (NSString*) name
 {
 	[styles setObject:style	forKey:name];

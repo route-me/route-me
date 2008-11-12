@@ -96,6 +96,7 @@ static CGImageRef _markerBlue = nil;
 	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
+	[NSMakeCollectable(image) autorelease];
 	CGDataProviderRelease(dataProvider);
 	
 	return image;
