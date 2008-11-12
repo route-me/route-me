@@ -28,9 +28,16 @@
 
 @implementation RMMapView
 
--(void) initValues
+-(void) initValues:(CLLocationCoordinate2D)latlong
 {
-	contents = [[RMMapContents alloc] initForView:self];
+		
+	if(round(latlong.latitude) != 0 && round(latlong.longitude) != 0)
+	{
+		contents = [[RMMapContents alloc] initForView:self WithLocation:latlong];
+	}else
+	{
+		contents = [[RMMapContents alloc] initForView:self];
+	}
 	
 	enableDragging = YES;
 	enableZoom = YES;
@@ -47,16 +54,27 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+	CLLocationCoordinate2D latlong;
+	
 	if (self = [super initWithFrame:frame]) {
-		[self initValues];
+		[self initValues:latlong];
+	}
+	return self;
+}
+
+- (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong
+{
+	if (self = [super initWithFrame:frame]) {
+		[self initValues:latlong];
 	}
 	return self;
 }
 
 - (void)awakeFromNib
 {
+	CLLocationCoordinate2D latlong;
 	[super awakeFromNib];
-	[self initValues];
+	[self initValues:latlong];
 }
 
 -(void) dealloc

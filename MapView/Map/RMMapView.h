@@ -48,6 +48,8 @@ typedef struct {
 // delegate without circular references
 @property (assign) id<RMMapViewDelegate> delegate;
 
+- (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong;
+
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
 - (void)moveToXYPoint: (RMXYPoint)aPoint;
 

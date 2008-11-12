@@ -58,6 +58,25 @@
 	return mapContents;
 }
 
+- (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong
+{
+	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
+	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
+	
+	CLLocationCoordinate2D here;
+	here.latitude = latlong.latitude;
+	here.longitude = latlong.longitude;
+	//	here.latitude = 65.146;
+	//	here.longitude = 189.9;
+	
+	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
+	[_tileSource release];
+	[_renderer release];
+	
+	return mapContents;
+}
+
+
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
 {
 	if (![super init])

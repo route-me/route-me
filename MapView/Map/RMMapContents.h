@@ -96,6 +96,7 @@ enum {
 @property (readwrite) NSUInteger boundingMask;
 
 - (id) initForView: (UIView*) view;
+- (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong;
 
 // Designated initialiser
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
