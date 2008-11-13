@@ -21,6 +21,7 @@ extern NSString * const RMMarkerRedKey;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
++ (CGImageRef) markerImage: (NSString *) key;
 
 - (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
 - (id) initWithCGImage: (CGImageRef) image;
