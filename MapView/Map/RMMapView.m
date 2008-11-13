@@ -234,6 +234,16 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	UITouch *touch = [[touches allObjects] objectAtIndex:0];
+	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
+	//so it can be handled there
+	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
+		if ([furthestLayerDown respondsToSelector:@selector(touchesBegan:withEvent:)]) {
+			[furthestLayerDown performSelector:@selector(touchesBegan:withEvent:) withObject:touches withObject:event];
+		}
+	}
+		
 	if (lastGesture.numTouches == 0)
 	{
 		[RMMapContents setPerformExpensiveOperations:NO];
@@ -247,6 +257,17 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	UITouch *touch = [[touches allObjects] objectAtIndex:0];
+	
+	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
+	//so it can be handled there
+	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
+		if ([furthestLayerDown respondsToSelector:@selector(touchesCancelled:withEvent:)]) {
+			[furthestLayerDown performSelector:@selector(touchesCancelled:withEvent:) withObject:touches withObject:event];
+		}
+	}
+
 	// I don't understand what the difference between this and touchesEnded is.
 	[self touchesEnded:touches withEvent:event];
 }
@@ -254,6 +275,16 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
+	
+	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
+	//so it can be handled there
+	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
+		if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
+			[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
+		}
+	}
+	
 	lastGesture = [self getGestureDetails:[event allTouches]];
 	
 	//	NSLog(@"touchesEnded %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
