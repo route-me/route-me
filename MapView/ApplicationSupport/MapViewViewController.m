@@ -85,8 +85,11 @@
 	
 	[mapView getScreenCoordinateBounds];
 	
-	
-
+/*	CLLocationCoordinate2D newLocation;
+	newLocation.latitude = -33.9495;
+	newLocation.longitude = 151.2381;
+	[[mapView contents] moveToLatLong:newLocation];
+*/
 	
 }
 
