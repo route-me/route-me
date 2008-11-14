@@ -72,7 +72,7 @@
 
 - (void)awakeFromNib
 {
-	CLLocationCoordinate2D latlong;
+	CLLocationCoordinate2D latlong = {0, 0};
 	[super awakeFromNib];
 	[self initValues:latlong];
 }
