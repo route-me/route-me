@@ -92,7 +92,7 @@ enum {
 @property (retain, readwrite) RMMapLayer *background;
 @property (retain, readwrite) RMLayerSet *overlay;
 @property (retain, readonly)  RMMarkerManager *markerManager;
-@property (assign) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
+@property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 
 - (id) initForView: (UIView*) view;

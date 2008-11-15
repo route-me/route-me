@@ -12,6 +12,6 @@
 
 @required
 
-- (void) regionUpdate: (double) northWestLatitude NWLon:(double) northWestLongitude SELat:(double) southEastLatitude  SELon:(double) southEastLongitude;
+- (void) regionUpdate: (RMLatLongBounds) region;
 
 @end

@@ -625,12 +625,7 @@ static BOOL _performExpensiveOperations = YES;
 	if(delegateHasRegionUpdate)
 	{
 		RMLatLongBounds locationBounds  = [self getCoordinateBounds:region];
-		NSLog(@"===> AFTER CONVERSION - BOUNDS: NW Lat: %lf NW Lon:%lf SW Lat:%lf SW Lon:%lf", 
-		locationBounds.northWest.latitude,locationBounds.northWest.longitude, 
-	      locationBounds.southEast.latitude, locationBounds.southEast.longitude);
-		
-		[tilesUpdateDelegate regionUpdate:locationBounds.northWest.latitude NWLon:locationBounds.northWest.longitude 
-									SELat:locationBounds.southEast.latitude SELon:locationBounds.southEast.longitude];
+		[tilesUpdateDelegate regionUpdate:locationBounds];
 	}
 }
 - (void) printDebuggingInformation
@@ -644,8 +639,8 @@ static BOOL _performExpensiveOperations = YES;
 {
 	if (tilesUpdateDelegate == _tilesUpdateDelegate) return;
 	tilesUpdateDelegate= _tilesUpdateDelegate;
-	
-	delegateHasRegionUpdate  = [(NSObject*) tilesUpdateDelegate respondsToSelector: @selector(regionUpdate: NWLon: SELat: SELon:)];
+	//NSLog(@"Delegate type:%@",[(NSObject *) tilesUpdateDelegate description]);
+	delegateHasRegionUpdate  = [(NSObject*) tilesUpdateDelegate respondsToSelector: @selector(regionUpdate:)];
 }
 
 - (id<RMTilesUpdateDelegate>) tilesUpdateDelegate
