@@ -32,4 +32,7 @@
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
 - (NSArray *) getMarkersForScreenBounds;
 
+- (void) hideAllMarkers;
+- (void) unhideAllMarkers;
+
 @end

@@ -92,4 +92,14 @@
 	return markers;
 }
 
+- (void) hideAllMarkers 
+{
+	[[contents overlay] setHidden:YES];
+}
+
+- (void) unhideAllMarkers
+{
+	[[contents overlay] setHidden:NO];
+}
+
 @end
