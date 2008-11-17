@@ -130,8 +130,11 @@
 	//	NSLog(@"addTile: %d %d", tile.x, tile.y);
 	
 	RMTileImage *dummyTile = [RMTileImage dummyTile:tile];
-	if ([images containsObject:dummyTile])
+	RMTileImage *tileImage = [images member:dummyTile];
+	
+	if (tileImage != nil)
 	{
+		[tileImage setScreenLocation:screenLocation];
 		[images addObject:dummyTile];
 	}
 	else
@@ -153,10 +156,6 @@
 	
 	// ... Should be the same as equivalent calculation for height.
 	float pixelsPerTile = bounds.size.width / rect.size.width;
-	
-	// Until the proper root cause of the seam problem is discovered, I'm hacking around it with this
-	////////////// HACKY FIX ////////////
-	pixelsPerTile += 0.2;
 	
 	CGRect screenLocation;
 	screenLocation.size.width = pixelsPerTile;
