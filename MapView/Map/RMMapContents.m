@@ -439,6 +439,7 @@
 -(void) setScale: (float) scale
 {
 	[mercatorToScreenProjection setScale:scale];
+	[overlay correctPositionOfAllSublayers];
 	[tileLoader updateLoadedImages];
 	[renderer setNeedsDisplay];
 }
@@ -447,9 +448,12 @@
 {
 	return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
 }
+
 -(void) setZoom: (float) zoom
 {
-	float scale = [mercatorToTileProjection calculateScaleFromZoom:zoom];
+	//limit the zoom to maxZoom and minZoom as specified by projection - why do we also store maxZoom?
+	float normalisedZoom = [mercatorToTileProjection normaliseZoom:zoom];		
+	float scale = [mercatorToTileProjection calculateScaleFromZoom:normalisedZoom];
 	[self setScale:scale];	
 }
 

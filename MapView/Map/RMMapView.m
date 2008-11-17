@@ -305,10 +305,11 @@
 		if (delegateHasDoubleTapOnMap) {
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
-			// TODO: default behaviour
-			// [contents zoomInToNextNativeZoom];
+			// Default behaviour matches built in maps.app
+			[self zoomInToNextNativeZoom];
 		}
 	}
+	
 		
 	if (touch.tapCount == 1) 
 	{
@@ -363,6 +364,20 @@
 {
 	return [contents pixelToLatLong:pixel];
 }
+
+
+
+#pragma mark Auto Zoom
+
+
+- (void)zoomInToNextNativeZoom
+{
+	
+	// Calculate rounded zoom
+	float newZoom = roundf([contents zoom] + 1);
+	[contents setZoom:newZoom];// Contents limits zooms which are too high
+}
+
 
 #pragma mark Manual Zoom
 - (void)setZoom:(int)zoomInt

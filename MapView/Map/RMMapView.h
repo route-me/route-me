@@ -57,6 +57,7 @@ typedef struct {
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint;
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
+- (void)zoomInToNextNativeZoom;
 - (void)setZoom:(int)zoomInt;
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
