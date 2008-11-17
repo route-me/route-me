@@ -41,12 +41,10 @@
 	self.position = RMTranslateCGPointBy(self.position, delta);
 }
 
-- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
-	CGRect currentRect = CGRectMake(self.position.x, self.position.y, self.bounds.size.width, self.bounds.size.height);
-	CGRect newRect = RMScaleCGRectAboutPoint(currentRect, zoomFactor, center);
-	self.position = newRect.origin;
-	self.bounds = CGRectMake(0, 0, newRect.size.width, newRect.size.height);
+	self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, pivot);
+	self.bounds = RMScaleCGRectAboutPoint(self.bounds, zoomFactor, self.anchorPoint);
 }
 
 @end

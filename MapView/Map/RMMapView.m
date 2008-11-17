@@ -114,7 +114,7 @@
 	delegateHasBeforeMapZoomByFactor = [(NSObject*) delegate respondsToSelector: @selector(beforeMapZoom: byFactor: near:)];
 	delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
 
-	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:)];	
+	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];	
 	delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
 }
 
@@ -303,7 +303,7 @@
 //		[contents printDebuggingInformation];
 		
 		if (delegateHasDoubleTapOnMap) {
-			[delegate doubleTapOnMap: self];
+			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// TODO: default behaviour
 			// [contents zoomInToNextNativeZoom];

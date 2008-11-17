@@ -357,7 +357,7 @@
 	else if (overlay != nil)
 		[layer insertSublayer:background below:overlay];
 	else
-		[layer addSublayer:background];
+		[layer insertSublayer:[renderer layer] atIndex: 0];
 }
 
 - (RMMapLayer *)background
@@ -381,7 +381,7 @@
 	else if (background != nil)
 		[layer insertSublayer:overlay above:background];
 	else
-		[layer addSublayer:overlay];
+		[layer insertSublayer:[renderer layer] atIndex: 0];
 	
 	/* Test to make sure the overlay is working.
 	CALayer *testLayer = [[CALayer alloc] init];

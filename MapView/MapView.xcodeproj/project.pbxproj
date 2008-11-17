@@ -502,7 +502,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		B86F26A80E8742ED007A3773 /* Layers */ = {
+		B86F26A80E8742ED007A3773 /* Markers and other layers */ = {
 			isa = PBXGroup;
 			children = (
 				090C948B0EC23FCD003AEE25 /* RMMarkerManager.h */,
@@ -518,7 +518,7 @@
 				1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */,
 				1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */,
 			);
-			name = Layers;
+			name = "Markers and other layers";
 			sourceTree = "<group>";
 		};
 		B8C9740D0E8A196E007D16AD /* Map */ = {
@@ -536,7 +536,7 @@
 				B83E64EB0E80E73F001663B6 /* Tile Source */,
 				B83E64CE0E80E73F001663B6 /* Tile Images */,
 				B83E64B80E80E73F001663B6 /* Renderers */,
-				B86F26A80E8742ED007A3773 /* Layers */,
+				B86F26A80E8742ED007A3773 /* Markers and other layers */,
 				1266929E0EB75BEA00E002D5 /* Configuration */,
 				B8474C610EB53A01006A0BC1 /* Resources */,
 			);

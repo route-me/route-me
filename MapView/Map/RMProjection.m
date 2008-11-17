@@ -138,7 +138,8 @@ static RMProjection* _osgb = nil;
 	{
 		RMXYRect theBounds = RMXYMakeRect(-20037508.34, -20037508.34, 20037508.34 * 2, 20037508.34 * 2);
 		
-		_google = [[RMProjection alloc] initWithString:@"+title= Google Mercator EPSG:900913 +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"
+		_google = [[RMProjection alloc] initWithString:@"+title= Google Mercator EPSG:900913\
+				   +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"
 											  InBounds: theBounds];
 		return _google;
 	}
