@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RMLatLong.h"
 
 @protocol RMTilesUpdateDelegate 
 
