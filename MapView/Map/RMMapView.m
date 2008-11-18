@@ -24,6 +24,7 @@
 	BOOL delegateHasAfterMapZoomByFactor;
 	BOOL delegateHasDoubleTapOnMap;
 	BOOL delegateHasTapOnMarker;
+	BOOL delegateHasAfterMapTouch;
 @end
 
 @implementation RMMapView
@@ -116,6 +117,8 @@
 
 	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];	
 	delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
+	
+	delegateHasAfterMapTouch  = [(NSObject*) delegate respondsToSelector: @selector(afterMapTouch:)];
 }
 
 - (id<RMMapViewDelegate>) delegate
@@ -319,6 +322,8 @@
 		}
 	}
 	
+	if (delegateHasAfterMapTouch) [delegate afterMapTouch: self];
+
 //		[contents recalculateImageSet];
 }
 

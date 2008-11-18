@@ -25,4 +25,6 @@
 
 - (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map;
 
+- (void) afterMapTouch: (RMMapView*) map;
+
 @end
