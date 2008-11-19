@@ -49,7 +49,8 @@ typedef struct {
 } CLLocationCoordinate2D;
 
 
-
 #endif
+
+typedef CLLocationCoordinate2D RMLatLong;
 
 #endif

@@ -11,6 +11,7 @@
 #import "proj_api.h"
 
 #import "RMFoundation.h"
+#import "RMLatLong.h"
 
 
 @interface RMProjection : NSObject {

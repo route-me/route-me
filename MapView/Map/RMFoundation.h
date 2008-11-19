@@ -6,10 +6,6 @@
  *
  */
 
-
-
-#define RMLatLong					CLLocationCoordinate2D
-
 typedef struct {
 	double x, y;
 } RMXYPoint;
@@ -22,9 +18,6 @@ typedef struct {
 	RMXYPoint origin;
 	RMXYSize size;
 } RMXYRect;
-
-
-
 
 RMXYPoint RMScaleXYPointAboutPoint(RMXYPoint point, float factor, RMXYPoint pivot);
 RMXYRect  RMScaleXYRectAboutPoint (RMXYRect rect,   float factor, RMXYPoint pivot);
