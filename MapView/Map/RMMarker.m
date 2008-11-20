@@ -115,7 +115,6 @@ static CGImageRef _markerBlue = nil;
 */
 }
 
-
 + (CGImageRef) loadPNGFromBundle: (NSString *)filename
 {
 	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
@@ -151,6 +150,11 @@ static CGImageRef _markerBlue = nil;
 
 - (NSInteger) getPixelWidthForFont:(NSString *)aString font:(UIFont *)aFont {
 	return [aString sizeWithFont:aFont].width;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//	NSLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
 }
 
 @end

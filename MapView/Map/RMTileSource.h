@@ -24,4 +24,7 @@
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection;
 -(RMProjection*) projection;
 
+-(float) minZoom;
+-(float) maxZoom;
+
 @end

@@ -22,4 +22,7 @@
 
 +(int)tileSideLength;
 
+-(float) minZoom;
+-(float) maxZoom;
+
 @end

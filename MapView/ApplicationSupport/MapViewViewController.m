@@ -32,28 +32,9 @@
 }
 */
 
-
-// Implement viewDidLoad to do additional setup after loading the view.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-	
-/*	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerBlueKey];
-	
-	RMMercatorRect loc = [[mapView contents] mercatorBounds];
-	loc.origin.x += loc.size.width / 2;
-	loc.origin.y += loc.size.height / 2;
-
-	marker.location = loc.origin;
-	[[[mapView contents] overlay] addSublayer:marker];
-	NSLog(@"marker added to %f %f", loc.origin.x, loc.origin.y);*/
-	
-		
+- (void)testMarkers
+{
 	RMMarkerManager *markerManager = [mapView markerManager];
-	
-	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
-
-	
 	NSArray *markers = [markerManager getMarkers];
 	
 	NSLog(@"Nb markers %d", [markers count]);
@@ -80,28 +61,37 @@
 	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 //	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
-	
+	[marker release];
 	markers  = [markerManager getMarkersForScreenBounds];
 	
 	NSLog(@"Nb Markers in Screen: %d", [markers count]);
 	
-	[mapView setZoomBounds:0.0 maxZoom:17.0];
-	
-	[mapView getScreenCoordinateBounds];
-	
+	//	[mapView getScreenCoordinateBounds];
 	
 	[markerManager hideAllMarkers];
 	[markerManager unhideAllMarkers];
-	
-/*	CLLocationCoordinate2D newLocation;
-	newLocation.latitude = -33.9495;
-	newLocation.longitude = 151.2381;
-	[[mapView contents] moveToLatLong:newLocation];
-*/
-	
 }
 
-
+// Implement viewDidLoad to do additional setup after loading the view.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+		
+	RMMarkerManager *markerManager = [mapView markerManager];
+	
+	CLLocationCoordinate2D coolPlace;
+	coolPlace.latitude = -33.9464;
+	coolPlace.longitude = 151.2381;
+	
+//	[markerManager addDefaultMarkerAt:coolPlace];
+	
+	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
+	[marker addTextLabel:@"Hello"];
+	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
+	[marker release];
+	
+	// What did this do?
+	//	[mapView setZoomBounds:0.0 maxZoom:17.0];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations

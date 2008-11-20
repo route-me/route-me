@@ -41,7 +41,7 @@
 - (float) normaliseZoom: (float) zoom
 {
 	float normalised_zoom = roundf(zoom);
-	//16;
+
 	if (normalised_zoom > maxZoom)
 		normalised_zoom = maxZoom;
 	if (normalised_zoom < 0)

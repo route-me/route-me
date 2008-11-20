@@ -86,7 +86,8 @@
 
 - (void)moveToXYPoint: (RMXYPoint)aPoint
 {
-	// TODO: Me
+	// TODO: Test this. Does it work?
+	[self correctPositionOfAllSublayers];
 }
 
 - (void)moveBy: (CGSize) delta

@@ -75,4 +75,13 @@
 	return tileSource;
 }
 
+-(float) minZoom
+{
+	return [tileSource minZoom];
+}
+-(float) maxZoom
+{
+	return [tileSource maxZoom];
+}
+
 @end

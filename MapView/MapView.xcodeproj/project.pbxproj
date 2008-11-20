@@ -509,8 +509,6 @@
 		B86F26A80E8742ED007A3773 /* Markers and other layers */ = {
 			isa = PBXGroup;
 			children = (
-				B8CEB1C30ED5A3480014C431 /* RMPath.h */,
-				B8CEB1C40ED5A3480014C431 /* RMPath.m */,
 				090C948B0EC23FCD003AEE25 /* RMMarkerManager.h */,
 				090C948C0EC23FCD003AEE25 /* RMMarkerManager.m */,
 				B86F26AC0E87442C007A3773 /* RMMapLayer.h */,
@@ -523,6 +521,8 @@
 				1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */,
 				1296F5620EB8745300FF25E0 /* RMMarkerStyles.h */,
 				1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */,
+				B8CEB1C30ED5A3480014C431 /* RMPath.h */,
+				B8CEB1C40ED5A3480014C431 /* RMPath.m */,
 			);
 			name = "Markers and other layers";
 			sourceTree = "<group>";

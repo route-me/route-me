@@ -37,8 +37,6 @@
 @synthesize maxZoom;
 @synthesize markerManager;
 
-
-
 #pragma mark Initialisation
 - (id) initForView: (UIView*) view
 {
@@ -46,8 +44,8 @@
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
 	CLLocationCoordinate2D here;
-	here.latitude = -33.9464;
-	here.longitude = 151.2381;
+	here.latitude = -35;
+	here.longitude = 146.2381;
 //	here.latitude = 65.146;
 //	here.longitude = 189.9;
 	
@@ -106,7 +104,7 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
-	[self setZoom:15];
+	[self setZoom:5];
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];
@@ -317,6 +315,9 @@
 	
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
+
+	[self setMinZoom:[newTileSource minZoom]];
+	[self setMaxZoom:[newTileSource maxZoom]];
 	
 	[imagesOnScreen setTileSource:tileSource];
 

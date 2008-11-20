@@ -221,7 +221,6 @@
 - (void)userPausedDragging
 {
 	[RMMapContents setPerformExpensiveOperations:YES];
-//	NSLog(@"expensive.");
 }
 
 - (void)unRegisterPausedDraggingDispatcher
@@ -299,7 +298,7 @@
 		[RMMapContents setPerformExpensiveOperations:YES];
 	}
 
-	if (touch.tapCount == 2)
+	if (touch.tapCount >= 2)
 	{
 		if (delegateHasDoubleTapOnMap) {
 			[delegate doubleTapOnMap: self At: lastGesture.center];

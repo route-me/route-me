@@ -38,6 +38,15 @@
 	return 256;
 }
 
+-(float) minZoom
+{
+	return 0;
+}
+-(float) maxZoom
+{
+	return 18;
+}
+
 -(NSString*) tileURL: (RMTile) tile
 {
 	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"tileURL invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
