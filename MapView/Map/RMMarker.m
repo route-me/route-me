@@ -133,6 +133,16 @@ static CGImageRef _markerBlue = nil;
 	
 }
 
+- (void) removeLabel
+{
+	if (label != nil)
+	{
+		[[label layer] removeFromSuperlayer];
+		[label release];
+	}
+
+}
+		
 - (void) toggleLabel
 {
 	if (label == nil) {

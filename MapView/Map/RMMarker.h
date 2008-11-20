@@ -40,6 +40,7 @@ extern NSString * const RMMarkerRedKey;
 - (void) toggleLabel;
 - (void) showLabel;
 - (void) hideLabel;
+- (void) removeLabel;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
 
