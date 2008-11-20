@@ -75,7 +75,11 @@ static CGImageRef _markerBlue = nil;
 
 - (void) addLabel: (UIView*)label
 {
-	[self addSublayer:[label layer]];
+	[label retain];
+	CALayer *layer = [label layer];
+	//[layer 
+	[self addSublayer:layer];
+	
 	//[self insertSublayer:[label layer] above:self];
 }
 
