@@ -281,6 +281,20 @@
 	}
 }
 
+- (void)zoomInToNextNativeZoomAt:(CGPoint) pivot
+{
+	// Calculate rounded zoom
+	float newZoom = roundf([self zoom] + 1);
+	NSLog(@"zoom %f -> %f", [self zoom], newZoom);
+	if (newZoom >= [self maxZoom])
+		return;
+	else
+	{
+		float factor = exp2f(newZoom - [self zoom]);
+		[self zoomByFactor:factor near:pivot];
+	}
+}
+
 - (void) drawRect: (CGRect) aRect
 {
 	[renderer drawRect:aRect];

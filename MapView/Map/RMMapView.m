@@ -288,12 +288,10 @@
 		}
 	}
 	
+	// Calculate the gesture.
 	lastGesture = [self getGestureDetails:[event allTouches]];
-	
-	//	NSLog(@"touchesEnded %d  ... lastgesture at %f, %f", [[event allTouches] count], lastGesture.center.x, lastGesture.center.y);
-	
-	//	NSLog(@"Assemble.");
 
+	// If there are no more fingers on the screen, resume any slow operations.
 	if (lastGesture.numTouches == 0)
 	{
 		[self unRegisterPausedDraggingDispatcher];
@@ -303,13 +301,11 @@
 
 	if (touch.tapCount == 2)
 	{
-//		[contents printDebuggingInformation];
-		
 		if (delegateHasDoubleTapOnMap) {
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// Default behaviour matches built in maps.app
-			[self zoomInToNextNativeZoom];
+			[self zoomInToNextNativeZoomAt: [touch locationInView:self]];
 		}
 	}
 	
@@ -374,13 +370,9 @@
 
 #pragma mark Auto Zoom
 
-
-- (void)zoomInToNextNativeZoom
+- (void)zoomInToNextNativeZoomAt: (CGPoint) point
 {
-	
-	// Calculate rounded zoom
-	float newZoom = roundf([contents zoom] + 1);
-	[contents setZoom:newZoom];// Contents limits zooms which are too high
+	[contents zoomInToNextNativeZoomAt:point];
 }
 
 

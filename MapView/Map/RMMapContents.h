@@ -106,6 +106,8 @@ enum {
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
+
+- (void)zoomInToNextNativeZoomAt:(CGPoint) pivot;
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
