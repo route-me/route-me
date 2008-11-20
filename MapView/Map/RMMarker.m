@@ -172,11 +172,11 @@ static CGImageRef _markerBlue = nil;
 	return nil;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+/*- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //	[label setAlpha:1.0f - [label alpha]];
 //	[self setTextLabel:@"hello there"];
 	//	NSLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
-}
+}*/
 
 @end
