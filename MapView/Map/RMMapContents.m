@@ -285,7 +285,7 @@
 {
 	// Calculate rounded zoom
 	float newZoom = roundf([self zoom] + 1);
-	NSLog(@"zoom %f -> %f", [self zoom], newZoom);
+	
 	if (newZoom >= [self maxZoom])
 		return;
 	else
