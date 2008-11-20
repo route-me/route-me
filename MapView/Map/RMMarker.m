@@ -48,6 +48,16 @@ static CGImageRef _markerBlue = nil;
 	return self;
 }
 
+- (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint
+{
+	self.contents = (id)image;
+	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
+	self.anchorPoint = _anchorPoint;
+	
+	self.masksToBounds = NO;
+	label = nil;	
+}
+
 - (id) initWithUIImage: (UIImage*) image
 {
 	return [self initWithCGImage: [image CGImage]];

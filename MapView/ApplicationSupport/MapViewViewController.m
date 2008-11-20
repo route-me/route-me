@@ -72,11 +72,27 @@
 	[markerManager unhideAllMarkers];
 }
 
+- (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map
+{
+	NSLog(@"MARKER TAPPED!");
+	if(!tap)
+	{
+		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
+		tap=YES;
+	}else
+	{
+		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
+		tap=NO;
+	}
+
+}
+
 // Implement viewDidLoad to do additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
-		
+	tap=NO;
 	RMMarkerManager *markerManager = [mapView markerManager];
+	[mapView setDelegate:self];
 	
 	CLLocationCoordinate2D coolPlace;
 	coolPlace.latitude = -33.9464;

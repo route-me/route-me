@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RMMapView.h"
 
-@interface MapViewViewController : UIViewController {
+@interface MapViewViewController : UIViewController <RMMapViewDelegate> {
 	IBOutlet RMMapView * mapView;
+	BOOL tap;
 }
 
 @end

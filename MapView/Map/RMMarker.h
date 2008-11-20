@@ -38,6 +38,8 @@ extern NSString * const RMMarkerRedKey;
 - (void) setTextLabel: (NSString*)text;
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
 
+- (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
+
 - (void) dealloc;
 
 @property (assign, nonatomic) RMXYPoint location;
