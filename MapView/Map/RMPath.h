@@ -40,6 +40,7 @@
 	 kCGPathEOFillStroke */
 	CGPathDrawingMode drawingMode;
 	
+	BOOL scaleLineWidth;
 	
 	float renderedScale;
 	RMMapContents *contents;

@@ -26,11 +26,13 @@
 
 	path = CGPathCreateMutable();
 	
-	lineWidth = 10.0f;
+	lineWidth = 100.0f;
 	drawingMode = kCGPathFillStroke;
-	lineColor = [UIColor blueColor];
+	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
 	self.masksToBounds = NO;
+	
+	scaleLineWidth = YES;
 //	self.frame = CGRectMake(100, 100, 100, 100);
 //	[self setNeedsDisplayOnBoundsChange:YES];
 	
@@ -140,6 +142,7 @@
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
 	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
 	CGContextDrawPath(theContext, drawingMode);
+	CGContextClosePath(theContext);
 }
 
 - (void) closePath
@@ -197,8 +200,8 @@
 	[super zoomByFactor:zoomFactor near:pivot];
 	
 	float newScale = [contents scale];
-	if (newScale / renderedScale >= 1.2f
-		|| newScale / renderedScale <= 0.8f)
+	if (newScale / renderedScale >= 2.0f
+		|| newScale / renderedScale <= 0.4f)
 	{
 		[self setNeedsDisplay];
 	}

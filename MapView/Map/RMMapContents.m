@@ -308,8 +308,9 @@
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
 
-	[self setMinZoom:[newTileSource minZoom]];
-	[self setMaxZoom:[newTileSource maxZoom]];
+	// TODO: Fix the min / max zoom.
+//	[self setMinZoom:[newTileSource minZoom]];
+//	[self setMaxZoom:[newTileSource maxZoom]];
 	
 	[imagesOnScreen setTileSource:tileSource];
 

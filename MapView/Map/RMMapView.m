@@ -243,6 +243,7 @@
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesBegan:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesBegan:withEvent:) withObject:touches withObject:event];
+			return;
 		}
 	}
 		
@@ -267,6 +268,7 @@
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesCancelled:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesCancelled:withEvent:) withObject:touches withObject:event];
+			return;
 		}
 	}
 
@@ -284,6 +286,7 @@
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
+			return;
 		}
 	}
 	
@@ -324,6 +327,18 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	UITouch *touch = [[touches allObjects] objectAtIndex:0];
+	
+	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
+	//so it can be handled there
+	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
+		if ([furthestLayerDown respondsToSelector:@selector(touchesMoved:withEvent:)]) {
+			[furthestLayerDown performSelector:@selector(touchesMoved:withEvent:) withObject:touches withObject:event];
+			return;
+		}
+	}
+	
 	RMGestureDetails newGesture = [self getGestureDetails:[event allTouches]];
 	
 	if (enableDragging && newGesture.numTouches == lastGesture.numTouches)

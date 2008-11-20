@@ -18,6 +18,9 @@ extern NSString * const RMMarkerRedKey;
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
 	RMXYPoint location;	
 	NSObject* data;
+	
+	// A label which comes up when you tap the marker
+	UIView* label;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -30,8 +33,9 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithUIImage: (UIImage*) image;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
-- (void) addLabel: (UIView*)label;
-- (void) addTextLabel: (NSString*)text atPosition:(CGPoint)position;
+
+- (void) setLabel: (UIView*)aLabel;
+- (void) setTextLabel: (NSString*)text;
 
 - (void) dealloc;
 
@@ -41,5 +45,4 @@ extern NSString * const RMMarkerRedKey;
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;
 
-- (NSInteger) getPixelWidthForFont:(NSString *)aString font:(UIFont *)aFont;
 @end

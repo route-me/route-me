@@ -64,6 +64,8 @@ enum {
 	RMMapRenderer *renderer;
 	NSUInteger		boundingMask;
 	
+	// These should probably not be here. Instead equivalent functions
+	// should just fetch them when needed from the tileosurce.
 	float minZoom, maxZoom;
 
 	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
