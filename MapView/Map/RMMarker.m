@@ -73,6 +73,31 @@ static CGImageRef _markerBlue = nil;
 	return [self initWithStyle: style];
 }
 
+- (void) addLabel: (UIView*)label
+{
+	[self addSublayer:[label layer]];
+	//[self insertSublayer:[label layer] above:self];
+}
+
+- (void) addTextLabel: (NSString*)text
+{
+	NSInteger textWidth = [self getPixelWidthForFont:text font:[UIFont systemFontOfSize:12]];
+	NSLog(@"TEXT WIDTH: %d",textWidth);
+	
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,textWidth, 20)];
+	
+	[label setNumberOfLines:1];
+	[label setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+	[label setBackgroundColor:[UIColor clearColor]];
+	[label setTextColor:[UIColor blackColor]];
+	[label setFont:[UIFont systemFontOfSize:12]];
+	[label setText:text];
+	
+	[self addLabel:label];
+	[label release];
+	
+}
+
 - (void) dealloc 
 {
 	[data release];
@@ -122,6 +147,10 @@ static CGImageRef _markerBlue = nil;
 	}
 	
 	return nil;
+}
+
+- (NSInteger) getPixelWidthForFont:(NSString *)aString font:(UIFont *)aFont {
+	return [aString sizeWithFont:aFont].width;
 }
 
 @end

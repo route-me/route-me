@@ -30,6 +30,9 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithUIImage: (UIImage*) image;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
+- (void) addLabel: (UIView*)label;
+- (void) addTextLabel: (NSString*)text;
+
 - (void) dealloc;
 
 @property (assign, nonatomic) RMXYPoint location;
@@ -38,4 +41,5 @@ extern NSString * const RMMarkerRedKey;
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;
 
+- (NSInteger) getPixelWidthForFont:(NSString *)aString font:(UIFont *)aFont;
 @end

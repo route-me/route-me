@@ -75,7 +75,11 @@
 	}
 	
 	// Put the marker back
-	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
+	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
+	[marker addTextLabel:@"Hello"];
+	
+	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
+//	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	
 	markers  = [markerManager getMarkersForScreenBounds];
 	
