@@ -84,4 +84,9 @@
 	return [tileSource maxZoom];
 }
 
+- (void) didReceiveMemoryWarning
+{
+	[cache didReceiveMemoryWarning];
+}
+
 @end

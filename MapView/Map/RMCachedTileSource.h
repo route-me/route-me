@@ -20,6 +20,7 @@
 }
 
 - (id) initWithSource: (id<RMTileSource>) source;
+- (void) didReceiveMemoryWarning;
 
 // Bleah ugly name.
 + (RMCachedTileSource*) cachedTileSourceWithSource: (id<RMTileSource>) source;

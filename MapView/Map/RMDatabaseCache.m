@@ -13,6 +13,8 @@
 
 @implementation RMDatabaseCache
 
+@synthesize databasePath;
+
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
 	NSArray *paths;
@@ -39,6 +41,7 @@
 	
 	//	NSLog(@"%d items in DB", [[DAO sharedManager] count]);
 	
+	self.databasePath = path;
 	dao = [[RMTileCacheDAO alloc] initWithDatabase:path];
 
 	if (dao == nil)
@@ -55,6 +58,8 @@
 -(void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[databasePath release];
+	[dao release];
 	
 	[super dealloc];
 }
@@ -94,15 +99,17 @@
 	NSData *data = [[notification userInfo] objectForKey:@"data"];
 	RMTileImage *image = (RMTileImage*)[notification object];
 	
-	
-	if (capacity != 0) {
-		NSUInteger tilesInDb = [dao count];
-		if (capacity <= tilesInDb) {
-			[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
+	@synchronized (self) {
+
+		if (capacity != 0) {
+			NSUInteger tilesInDb = [dao count];
+			if (capacity <= tilesInDb) {
+				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
+			}
 		}
-	}
 	
-	[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
+		[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
+	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
 													name:RMMapImageLoadedNotification
@@ -115,18 +122,38 @@
 -(RMTileImage*) cachedImage:(RMTile)tile
 {
 //	NSLog(@"Looking for cached image in DB");
+
+	NSData *data = nil;
 	
-	NSData *data = [dao dataForTile:RMTileHash(tile)];
-	if (data == nil)
-		return nil;
+	@synchronized (self) {
 	
-	if (capacity != 0 && purgeStrategy == RMCachePurgeStrategyLRU) {
-		[dao touchTile: RMTileHash(tile) withDate: [NSDate date]];
+		data = [dao dataForTile:RMTileHash(tile)];
+		if (data == nil)
+			return nil;
+	
+		if (capacity != 0 && purgeStrategy == RMCachePurgeStrategyLRU) {
+			[dao touchTile: RMTileHash(tile) withDate: [NSDate date]];
+		}
+		
 	}
 	
 	RMTileImage *image = [RMTileImage imageWithTile:tile FromData:data];
 //	NSLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
 	return image;
+}
+
+-(void)didReceiveMemoryWarning
+{
+	if (self.databasePath==nil) {
+		NSLog(@"unknown db path, unable to reinitialize dao!");
+		return;
+	}
+
+	@synchronized (self) {
+		[dao release];
+		dao = [[RMTileCacheDAO alloc] initWithDatabase:self.databasePath];
+	}
+
 }
 
 @end

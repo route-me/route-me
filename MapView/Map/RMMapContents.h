@@ -101,6 +101,8 @@ enum {
 // Designated initialiser
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
 
+- (void) didReceiveMemoryWarning;
+
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
 - (void)moveToXYPoint: (RMXYPoint)aPoint;
 

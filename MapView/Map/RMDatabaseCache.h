@@ -12,11 +12,14 @@
 @class RMTileCacheDAO;
 
 @interface RMDatabaseCache : NSObject<RMTileCache> {
+	NSString* databasePath;
 	RMTileCacheDAO *dao;
 	RMCachePurgeStrategy purgeStrategy;
 	NSUInteger capacity;
 	NSUInteger minimalPurge;
 }
+
+@property (retain) NSString* databasePath;
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir;
 -(id) initWithDatabase: (NSString*)path;

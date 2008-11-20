@@ -27,4 +27,6 @@
 -(float) minZoom;
 -(float) maxZoom;
 
+-(void) didReceiveMemoryWarning;
+
 @end

@@ -100,8 +100,10 @@
 
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
+	// due to a bug, RMMapView should never be released, as it causes the application to crash
+    //[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+
+	[mapView.contents didReceiveMemoryWarning];
 }
 
 

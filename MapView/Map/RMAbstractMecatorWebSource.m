@@ -69,5 +69,9 @@
 	return [RMProjection googleProjection];
 }
 
+-(void) didReceiveMemoryWarning
+{
+}
+
 @end
 

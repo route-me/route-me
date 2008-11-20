@@ -44,6 +44,11 @@
 	[super dealloc];
 }
 
+-(void) didReceiveMemoryWarning
+{
+	[cache removeAllObjects];
+}
+
 -(void) removeTile: (RMTile) tile
 {
 //	NSLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);

@@ -38,36 +38,22 @@
 @synthesize markerManager;
 
 #pragma mark Initialisation
+
 - (id) initForView: (UIView*) view
-{
-	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
-	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
-	
+{	
 	CLLocationCoordinate2D here;
 	here.latitude = -35;
 	here.longitude = 146.2381;
-//	here.latitude = 65.146;
-//	here.longitude = 189.9;
-	
-	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
-	[_tileSource release];
-	[_renderer release];
-	
-	return mapContents;
+
+	return [self initForView:view WithLocation: here];
 }
 
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong
 {
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
-	
-	CLLocationCoordinate2D here;
-	here.latitude = latlong.latitude;
-	here.longitude = latlong.longitude;
-	//	here.latitude = 65.146;
-	//	here.longitude = 189.9;
-	
-	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:here];
+		
+	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:latlong];
 	[_tileSource release];
 	[_renderer release];
 	
@@ -143,6 +129,12 @@
 	
 	[super dealloc];
 }
+
+- (void) didReceiveMemoryWarning
+{
+	[tileSource didReceiveMemoryWarning];
+}
+
 
 #pragma mark Forwarded Events
 
@@ -358,6 +350,8 @@
 
 - (void) setBackground: (RMMapLayer*) aLayer
 {
+	if (background == aLayer) return;
+	
 	if (background != nil)
 	{
 		[background release];
@@ -382,6 +376,8 @@
 
 - (void) setOverlay: (RMLayerSet*) aLayer
 {
+	if (overlay == aLayer) return;
+	
 	if (overlay != nil)
 	{
 		[overlay release];

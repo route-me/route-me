@@ -112,6 +112,14 @@
 	}
 }
 
+-(void)didReceiveMemoryWarning
+{
+	for (id<RMTileCache> cache in caches)
+	{
+		[cache didReceiveMemoryWarning];
+	}
+}
+
 @end
 
 @implementation RMTileCache ( Configuration )

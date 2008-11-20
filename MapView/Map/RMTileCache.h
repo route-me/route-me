@@ -22,6 +22,7 @@ typedef enum {
 
 // Returns the cached image if it exists. nil otherwise.
 -(RMTileImage*) cachedImage:(RMTile)tile;
+-(void)didReceiveMemoryWarning;
 
 @optional
 
@@ -44,5 +45,7 @@ typedef enum {
 
 // Add another cache to the chain
 -(void)addCache: (id<RMTileCache>)cache;
+
+-(void)didReceiveMemoryWarning;
 
 @end
