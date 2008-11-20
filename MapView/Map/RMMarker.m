@@ -22,6 +22,7 @@ static CGImageRef _markerBlue = nil;
 
 @synthesize location;
 @synthesize data;
+@synthesize label;
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName
 {
@@ -84,7 +85,7 @@ static CGImageRef _markerBlue = nil;
 	return [self initWithStyle: style];
 }
 
-- (void) setLabel: (UIView*)aLabel
+- (void) setLabel: (UILabel*)aLabel
 {
 	if (label != nil)
 	{
@@ -95,6 +96,7 @@ static CGImageRef _markerBlue = nil;
 	if (aLabel != nil)
 	{	
 		label = [aLabel retain];
+		//[self addSublayer:[label layer]];
 		[self addSublayer:[label layer]];
 	}
 }
@@ -127,8 +129,39 @@ static CGImageRef _markerBlue = nil;
 	//	[aLabel setCenter:CGPointMake(,0)];
 	
 	[self setLabel:aLabel];
-	[label release];
+	[aLabel release];
 	
+}
+
+- (void) toggleLabel
+{
+	if (label == nil) {
+		return;
+	}
+	
+	if ([label isHidden]) {
+		[self showLabel];
+	} else {
+		[self hideLabel];
+	}
+}
+
+- (void) showLabel
+{
+	if ([label isHidden]) {
+		// Using addSublayer will animate showing the label, whereas setHidden is not animated
+		[self addSublayer:[label layer]];
+		[label setHidden:NO];
+	}
+}
+
+- (void) hideLabel
+{
+	if (![label isHidden]) {
+		// Using removeFromSuperlayer will animate hiding the label, whereas setHidden is not animated
+		[[label layer] removeFromSuperlayer];
+		[label setHidden:YES];
+	}
 }
 
 - (void) dealloc 

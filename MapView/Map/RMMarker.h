@@ -20,7 +20,7 @@ extern NSString * const RMMarkerRedKey;
 	NSObject* data;
 	
 	// A label which comes up when you tap the marker
-	UIView* label;
+	UILabel* label;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -34,9 +34,12 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
 
-- (void) setLabel: (UIView*)aLabel;
+- (void) setLabel: (UILabel*)aLabel;
 - (void) setTextLabel: (NSString*)text;
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
+- (void) toggleLabel;
+- (void) showLabel;
+- (void) hideLabel;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
 
@@ -44,6 +47,7 @@ extern NSString * const RMMarkerRedKey;
 
 @property (assign, nonatomic) RMXYPoint location;
 @property (retain) NSObject* data;
+@property (nonatomic, retain) UILabel* label;
 
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;
