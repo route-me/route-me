@@ -75,16 +75,15 @@
 - (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map
 {
 	NSLog(@"MARKER TAPPED!");
+	[marker removeLabel];
 	if(!tap)
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-		[marker removeLabel];
 	//	[marker setTextLabel:@"World"];
 		tap=YES;
 	}else
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-		[marker removeLabel];
 	//	[marker setTextLabel:@"Hello"];
 		tap=NO;
 	}

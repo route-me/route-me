@@ -94,7 +94,7 @@ static CGImageRef _markerBlue = nil;
 	}
 	
 	if (aLabel != nil)
-	{	
+	{
 		label = [aLabel retain];
 		//[self addSublayer:[label layer]];
 		[self addSublayer:[label layer]];
@@ -139,6 +139,7 @@ static CGImageRef _markerBlue = nil;
 	{
 		[[label layer] removeFromSuperlayer];
 		[label release];
+		label = nil;
 	}
 
 }
