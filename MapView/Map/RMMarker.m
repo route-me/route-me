@@ -91,28 +91,34 @@ static CGImageRef _markerBlue = nil;
 
 - (void) setTextLabel: (NSString*)text
 {
+	[self setTextLabel:text toPosition:CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4)];;	
+}
+
+- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
+{
 	CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize:15]];
-	CGRect frame = CGRectMake([self bounds].size.width / 2 - textSize.width / 2,
-							  4,
+	CGRect frame = CGRectMake(position.x,
+							  position.y,
 							  textSize.width+4,
 							  textSize.height+4);
 	
 	frame.size = [text sizeWithFont:[UIFont systemFontOfSize:15]];
 	
 	UILabel *aLabel = [[UILabel alloc] initWithFrame:frame];
-//	UITextField *aLabel = [[UITextField alloc] initWithFrame:frame];
-//	[aLabel setBorderStyle:UITextBorderStyleRoundedRect];
-//	[aLabel setNumberOfLines:1];
+	//	UITextField *aLabel = [[UITextField alloc] initWithFrame:frame];
+	//	[aLabel setBorderStyle:UITextBorderStyleRoundedRect];
+	//	[aLabel setNumberOfLines:1];
 	[aLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[aLabel setBackgroundColor:[UIColor clearColor]];
 	[aLabel setTextColor:[UIColor blackColor]];
 	[aLabel setFont:[UIFont systemFontOfSize:15]];
 	[aLabel setTextAlignment:UITextAlignmentCenter];
 	[aLabel setText:text];
-//	[aLabel setCenter:CGPointMake(,0)];
-
+	//	[aLabel setCenter:CGPointMake(,0)];
+	
 	[self setLabel:aLabel];
 	[label release];
+	
 }
 
 - (void) dealloc 
@@ -168,7 +174,7 @@ static CGImageRef _markerBlue = nil;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[label setAlpha:1.0f - [label alpha]];
+//	[label setAlpha:1.0f - [label alpha]];
 //	[self setTextLabel:@"hello there"];
 	//	NSLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
 }

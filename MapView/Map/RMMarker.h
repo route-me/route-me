@@ -36,6 +36,7 @@ extern NSString * const RMMarkerRedKey;
 
 - (void) setLabel: (UIView*)aLabel;
 - (void) setTextLabel: (NSString*)text;
+- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
 
 - (void) dealloc;
 
