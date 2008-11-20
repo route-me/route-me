@@ -31,7 +31,7 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithStyle: (RMMarkerStyle*) style;
 - (id) initWithNamedStyle: (NSString*) styleName;
 - (void) addLabel: (UIView*)label;
-- (void) addTextLabel: (NSString*)text;
+- (void) addTextLabel: (NSString*)text atPosition:(CGPoint)position;
 
 - (void) dealloc;
 

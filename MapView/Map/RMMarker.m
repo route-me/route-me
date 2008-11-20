@@ -77,18 +77,15 @@ static CGImageRef _markerBlue = nil;
 {
 	[label retain];
 	CALayer *layer = [label layer];
-	//[layer 
 	[self addSublayer:layer];
-	
 	//[self insertSublayer:[label layer] above:self];
 }
 
-- (void) addTextLabel: (NSString*)text
+- (void) addTextLabel: (NSString*)text atPosition:(CGPoint)position
 {
 	NSInteger textWidth = [self getPixelWidthForFont:text font:[UIFont systemFontOfSize:12]];
 	NSLog(@"TEXT WIDTH: %d",textWidth);
-	
-	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,textWidth, 20)];
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(position.x,position.y,textWidth, 20)];
 	
 	[label setNumberOfLines:1];
 	[label setAutoresizingMask:UIViewAutoresizingFlexibleWidth];

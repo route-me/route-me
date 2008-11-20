@@ -85,7 +85,8 @@
 //	[markerManager addDefaultMarkerAt:coolPlace];
 	
 	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
-	[marker addTextLabel:@"Hello"];
+	[marker addTextLabel:@"Hello" atPosition:CGPointMake(15.0,15.0)];
+	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
 	
