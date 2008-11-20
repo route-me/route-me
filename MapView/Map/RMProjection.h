@@ -8,21 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "proj_api.h"
 
 #import "RMFoundation.h"
 #import "RMLatLong.h"
 
-
-@interface RMProjection : NSObject {
-	projPJ		internalProjection;
+@interface RMProjection : NSObject
+{
+	// This is actually a projPJ, but I don't want to need
+	// to include proj_api here.
+	void*		internalProjection;
 	
 	RMXYRect	bounds;
 	
 	BOOL		projectionWrapsHorizontally;
 }
 
-@property (readonly) projPJ internalProjection;
+@property (readonly) void* internalProjection;
 @property (readonly) RMXYRect bounds;
 @property (readwrite) BOOL projectionWrapsHorizontally;
 
