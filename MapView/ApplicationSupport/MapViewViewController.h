@@ -12,6 +12,7 @@
 @interface MapViewViewController : UIViewController <RMMapViewDelegate> {
 	IBOutlet RMMapView * mapView;
 	BOOL tap;
+	NSInteger tapCount;
 }
 
 @end

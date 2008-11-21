@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		090FE3140ECD71A500035FBC /* RMTilesUpdateDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */; };
-		095FBB830ED67A24008211BD /* RMLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 095FBB810ED67A24008211BD /* RMLabel.h */; };
-		095FBB840ED67A24008211BD /* RMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 095FBB820ED67A24008211BD /* RMLabel.m */; };
 		126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
 		1296F56B0EB8849A00FF25E0 /* RMMarkerStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */; };
 		1296F56C0EB8849B00FF25E0 /* RMMarkerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1296F5600EB8743500FF25E0 /* RMMarkerStyle.m */; };
@@ -143,8 +141,6 @@
 		090C948B0EC23FCD003AEE25 /* RMMarkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerManager.h; sourceTree = "<group>"; };
 		090C948C0EC23FCD003AEE25 /* RMMarkerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarkerManager.m; sourceTree = "<group>"; };
 		090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTilesUpdateDelegate.h; sourceTree = "<group>"; };
-		095FBB810ED67A24008211BD /* RMLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLabel.h; sourceTree = "<group>"; };
-		095FBB820ED67A24008211BD /* RMLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLabel.m; sourceTree = "<group>"; };
 		1266929F0EB75C0A00E002D5 /* RMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMConfiguration.h; sourceTree = "<group>"; };
 		126692A00EB75C0A00E002D5 /* RMConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMConfiguration.m; sourceTree = "<group>"; };
 		1296F55F0EB8743500FF25E0 /* RMMarkerStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarkerStyle.h; sourceTree = "<group>"; };
@@ -527,8 +523,6 @@
 				1296F5630EB8745300FF25E0 /* RMMarkerStyles.m */,
 				B8CEB1C30ED5A3480014C431 /* RMPath.h */,
 				B8CEB1C40ED5A3480014C431 /* RMPath.m */,
-				095FBB810ED67A24008211BD /* RMLabel.h */,
-				095FBB820ED67A24008211BD /* RMLabel.m */,
 			);
 			name = "Markers and other layers";
 			sourceTree = "<group>";
@@ -629,7 +623,6 @@
 				B8800FF30EC3A23D003E9CDD /* RMConfiguration.h in Headers */,
 				090FE3140ECD71A500035FBC /* RMTilesUpdateDelegate.h in Headers */,
 				B8CEB1C50ED5A3480014C431 /* RMPath.h in Headers */,
-				095FBB830ED67A24008211BD /* RMLabel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,7 +770,6 @@
 				B885ABB30EBB1332002206AB /* RMCloudMadeMapSource.m in Sources */,
 				B8800FF00EC3A237003E9CDD /* RMMarkerManager.m in Sources */,
 				B8CEB1C60ED5A3480014C431 /* RMPath.m in Sources */,
-				095FBB840ED67A24008211BD /* RMLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

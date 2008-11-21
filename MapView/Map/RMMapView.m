@@ -24,6 +24,7 @@
 	BOOL delegateHasAfterMapZoomByFactor;
 	BOOL delegateHasDoubleTapOnMap;
 	BOOL delegateHasTapOnMarker;
+	BOOL delegateHasTapOnLabelForMarker;
 	BOOL delegateHasAfterMapTouch;
 @end
 
@@ -115,8 +116,9 @@
 	delegateHasBeforeMapZoomByFactor = [(NSObject*) delegate respondsToSelector: @selector(beforeMapZoom: byFactor: near:)];
 	delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
 
-	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];	
+	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];
 	delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
+	delegateHasTapOnLabelForMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnLabelForMarker:onMap:)];
 	
 	delegateHasAfterMapTouch  = [(NSObject*) delegate respondsToSelector: @selector(afterMapTouch:)];
 }
@@ -316,15 +318,20 @@
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
 		NSLog(@"LAYER od type %@",[hit description]);
-		CALayer *superlayer = [hit superlayer];
-		if(superlayer != nil)
-			NSLog(@"SUPER LAYER %@",[superlayer description]);
-		if (superlayer != nil && [superlayer isMemberOfClass: [RMMarker class]] && [(RMMarker *)superlayer isLabelClickable])
-			hit = superlayer;
 		
-		if (hit != nil && [hit isMemberOfClass: [RMMarker class]])
-		{ 
-			if (delegateHasTapOnMarker) [delegate tapOnMarker: (RMMarker*) hit onMap: self];
+		if (hit != nil) {
+			CALayer *superlayer = [hit superlayer];
+			
+			// See if tap was on a marker or marker label and send delegate protocol method
+			if ([hit isMemberOfClass: [RMMarker class]]) {
+				if (delegateHasTapOnMarker) {
+					[delegate tapOnMarker:(RMMarker*)hit onMap:self];
+				}
+			} else if (superlayer != nil && [superlayer isMemberOfClass: [RMMarker class]]) {
+				if (delegateHasTapOnLabelForMarker) {
+					[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
+				}
+			}
 		}
 	}
 	
