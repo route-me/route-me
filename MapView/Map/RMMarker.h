@@ -21,7 +21,6 @@ extern NSString * const RMMarkerRedKey;
 	
 	// A label which comes up when you tap the marker
 	UILabel* label;
-	BOOL clickableLabel;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -44,8 +43,6 @@ extern NSString * const RMMarkerRedKey;
 - (void) removeLabel;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
-- (BOOL)isLabelClickable;
-- (void)setClickableLabel:(BOOL)clickable;
 
 - (void) dealloc;
 

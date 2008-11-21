@@ -111,7 +111,6 @@
 	
 	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
 	[marker setTextLabel:@"Hello"];
-	[marker setClickableLabel:YES];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
 	

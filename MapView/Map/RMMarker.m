@@ -86,16 +86,6 @@ static CGImageRef _markerBlue = nil;
 	return [self initWithStyle: style];
 }
 
-- (BOOL)isLabelClickable
-{
-	return clickableLabel;
-}
-
-- (void)setClickableLabel:(BOOL)clickable
-{
-	clickableLabel = clickable;
-}
-
 - (void) setLabel: (UILabel*)aLabel
 {
 	if (label != nil)
