@@ -39,6 +39,7 @@ static CGImageRef _markerBlue = nil;
 	if (![super init])
 		return nil;
 	
+	clickableLabel = NO;
 	self.contents = (id)image;
 	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
 	self.anchorPoint = _anchorPoint;
@@ -83,6 +84,16 @@ static CGImageRef _markerBlue = nil;
 		return [self initWithCGImage: [RMMarker markerImage: RMMarkerRedKey]];
 	}
 	return [self initWithStyle: style];
+}
+
+- (BOOL)isLabelClickable
+{
+	return clickableLabel;
+}
+
+- (void)setClickableLabel:(BOOL)clickable
+{
+	clickableLabel = clickable;
 }
 
 - (void) setLabel: (UILabel*)aLabel

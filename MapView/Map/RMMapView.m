@@ -315,7 +315,15 @@
 	if (touch.tapCount == 1) 
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-		if (hit != nil && [hit isMemberOfClass: [RMMarker class]]) {
+		NSLog(@"LAYER od type %@",[hit description]);
+		CALayer *superlayer = [hit superlayer];
+		if(superlayer != nil)
+			NSLog(@"SUPER LAYER %@",[superlayer description]);
+		if (superlayer != nil && [superlayer isMemberOfClass: [RMMarker class]] && [(RMMarker *)superlayer isLabelClickable])
+			hit = superlayer;
+		
+		if (hit != nil && [hit isMemberOfClass: [RMMarker class]])
+		{ 
 			if (delegateHasTapOnMarker) [delegate tapOnMarker: (RMMarker*) hit onMap: self];
 		}
 	}
