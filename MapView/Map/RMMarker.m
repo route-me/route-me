@@ -91,6 +91,7 @@ static CGImageRef _markerBlue = nil;
 	{
 		[[label layer] removeFromSuperlayer];
 		[label release];
+		label = nil;
 	}
 	
 	if (aLabel != nil)

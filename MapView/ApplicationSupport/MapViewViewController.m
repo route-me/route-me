@@ -79,12 +79,12 @@
 	if(!tap)
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-	//	[marker setTextLabel:@"World"];
+		[marker setTextLabel:@"World"];
 		tap=YES;
 	}else
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-	//	[marker setTextLabel:@"Hello"];
+		[marker setTextLabel:@"Hello"];
 		tap=NO;
 	}
 
