@@ -90,7 +90,7 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
-	[self setZoom:5];
+	[self setZoom:15];
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];
@@ -115,18 +115,18 @@
 
 -(void) dealloc
 {
-	[renderer release];
+	[self setRenderer:nil];
 	[tileSource release];
 	[tileLoader release];
 	[projection release];
 	[mercatorToTileProjection release];
 	[mercatorToScreenProjection release];
 	[tileSource release];
+	[self setOverlay:nil];
+	[self setBackground:nil];
 	[layer release];
-	[overlay release];
-	[background release];
 	[markerManager release];
-	
+	NSLog(@"mapcontents dealloced");
 	[super dealloc];
 }
 
@@ -332,6 +332,9 @@
 	
 	renderer = [newRenderer retain];
 	
+	if (renderer == nil)
+		return;
+	
 	//	CGRect rect = [self screenBounds];
 	//	NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 	[[renderer layer] setFrame:[self screenBounds]];
@@ -360,6 +363,10 @@
 	}
 	
 	background = [aLayer retain];
+	
+	if (background == nil)
+		return;
+	
 	background.frame = [self screenBounds];
 	
 	if ([renderer layer] != nil)
@@ -386,6 +393,10 @@
 	}
 	
 	overlay = [aLayer retain];
+	
+	if (overlay == nil)
+		return;
+	
 	overlay.frame = [self screenBounds];
 	
 	if ([renderer layer] != nil)
