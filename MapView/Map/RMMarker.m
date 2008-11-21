@@ -39,7 +39,6 @@ static CGImageRef _markerBlue = nil;
 	if (![super init])
 		return nil;
 	
-	clickableLabel = NO;
 	self.contents = (id)image;
 	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
 	self.anchorPoint = _anchorPoint;
