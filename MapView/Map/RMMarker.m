@@ -226,6 +226,17 @@ static CGImageRef _markerBlue = nil;
 	return nil;
 }
 
+- (void) hide 
+{
+	[self setHidden:YES];
+}
+
+- (void) unhide
+{
+	[self setHidden:NO];
+}
+
+
 /*- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //	[label setAlpha:1.0f - [label alpha]];
