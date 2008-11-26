@@ -116,8 +116,8 @@
 -(void) dealloc
 {
 	[self setRenderer:nil];
-	[tileSource release];
 	[tileLoader release];
+	[imagesOnScreen release];
 	[projection release];
 	[mercatorToTileProjection release];
 	[mercatorToScreenProjection release];
