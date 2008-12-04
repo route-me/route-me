@@ -25,14 +25,17 @@
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point;
 - (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point;
 - (void) removeMarkers;
+- (void) hideAllMarkers;
+- (void) unhideAllMarkers;
 
 - (NSArray *)getMarkers;
 - (void) removeMarker:(RMMarker *)marker;
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
 - (NSArray *) getMarkersForScreenBounds;
+- (BOOL) isMarkerWithinScreenBounds:(RMMarker*)marker;
+- (BOOL) isMarker:(RMMarker*)marker withinBounds:(CGRect)rect;
+- (BOOL) managingMarker:(RMMarker*)marker;
 
-- (void) hideAllMarkers;
-- (void) unhideAllMarkers;
 
 @end

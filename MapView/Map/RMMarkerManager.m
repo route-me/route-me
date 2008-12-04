@@ -24,6 +24,10 @@
 	return self;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark 
+#pragma mark Adding / Removing / Displaying Markers
+
 - (void) addMarker: (RMMarker*)marker
 {
 	[[contents overlay] addSublayer:marker];
@@ -47,6 +51,20 @@
 	[[contents overlay] setSublayers:[NSArray arrayWithObjects:nil]]; 
 }
 
+- (void) hideAllMarkers 
+{
+	[[contents overlay] setHidden:YES];
+}
+
+- (void) unhideAllMarkers
+{
+	[[contents overlay] setHidden:NO];
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark 
+#pragma mark Marker information
+
 - (NSArray *)getMarkers
 {
 	return [[contents overlay] sublayers];
@@ -69,38 +87,47 @@
 
 - (NSArray *) getMarkersForScreenBounds
 {
-	NSMutableArray *markers;
-	markers  = [NSMutableArray array];
+	NSMutableArray *markersInScreenBounds = [NSMutableArray array];
 	CGRect rect = [[contents mercatorToScreenProjection] screenBounds];
 	
-	NSArray *allMarkers = [self getMarkers];
-	
-	NSEnumerator *markerEnumerator = [allMarkers objectEnumerator];
-	RMMarker *aMarker;
-	
-	while (aMarker = (RMMarker *)[markerEnumerator nextObject])
-	{
-		CGPoint markerCoord = [self getMarkerScreenCoordinate:aMarker];
-		
-		if( ((markerCoord.x > rect.origin.x) && (markerCoord.y > rect.origin.y)) &&
-		   ((markerCoord.x < (rect.origin.x + rect.size.width)) && (markerCoord.y < (rect.origin.y + rect.size.height))))
-		{
-			[markers addObject:aMarker];
+	for (RMMarker *marker in [self getMarkers]) {
+		if ([self isMarker:marker withinBounds:rect]) {
+			[markersInScreenBounds addObject:marker];
 		}
 	}
 	
-	return markers;
+	return markersInScreenBounds;
 }
 
-- (void) hideAllMarkers 
+- (BOOL) isMarkerWithinScreenBounds:(RMMarker*)marker
 {
-	[[contents overlay] setHidden:YES];
+	return [self isMarker:marker withinBounds:[[contents mercatorToScreenProjection] screenBounds]];
 }
 
-- (void) unhideAllMarkers
+- (BOOL) isMarker:(RMMarker*)marker withinBounds:(CGRect)rect
 {
-	[[contents overlay] setHidden:NO];
+	if (![self managingMarker:marker]) {
+		return NO;
+	}
+	
+	CGPoint markerCoord = [self getMarkerScreenCoordinate:marker];
+	
+	if (   markerCoord.x > rect.origin.x
+		&& markerCoord.x < rect.origin.x + rect.size.width
+		&& markerCoord.y > rect.origin.y
+		&& markerCoord.y < rect.origin.y + rect.size.height)
+	{
+		return YES;
+	}
+	return NO;
 }
 
+- (BOOL) managingMarker:(RMMarker*)marker
+{
+	if (marker != nil && [[self getMarkers] indexOfObject:marker] != NSNotFound) {
+		return YES;
+	}
+	return NO;
+}
 
 @end
