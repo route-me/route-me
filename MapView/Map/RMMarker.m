@@ -22,7 +22,7 @@ static CGImageRef _markerBlue = nil;
 
 @synthesize location;
 @synthesize data;
-@synthesize view;
+@synthesize labelView;
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName
 {
@@ -44,7 +44,7 @@ static CGImageRef _markerBlue = nil;
 	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-	view = nil;
+	labelView = nil;
 	
 	return self;
 }
@@ -56,7 +56,7 @@ static CGImageRef _markerBlue = nil;
 	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-	view = nil;	
+	labelView = nil;	
 }
 
 - (id) initWithUIImage: (UIImage*) image
@@ -88,17 +88,17 @@ static CGImageRef _markerBlue = nil;
 - (void) setLabel: (UIView*)aView
 {
 
-	if (view != nil)
+	if (labelView != nil)
 	{
-		[[view layer] removeFromSuperlayer];
-		[view release];
-		view = nil;
+		[[labelView layer] removeFromSuperlayer];
+		[labelView release];
+		labelView = nil;
 	}
 	
 	if (aView != nil)
 	{
-		view = [aView retain];
-		[self addSublayer:[view layer]];
+		labelView = [aView retain];
+		[self addSublayer:[labelView layer]];
 	}
 }
 
@@ -137,22 +137,22 @@ static CGImageRef _markerBlue = nil;
 
 - (void) removeLabel
 {
-	if (view != nil)
+	if (labelView != nil)
 	{
-		[[view layer] removeFromSuperlayer];
-		[view release];
-		view = nil;
+		[[labelView layer] removeFromSuperlayer];
+		[labelView release];
+		labelView = nil;
 	}
 
 }
 		
 - (void) toggleLabel
 {
-	if (view == nil) {
+	if (labelView == nil) {
 		return;
 	}
 	
-	if ([view isHidden]) {
+	if ([labelView isHidden]) {
 		[self showLabel];
 	} else {
 		[self hideLabel];
@@ -161,25 +161,25 @@ static CGImageRef _markerBlue = nil;
 
 - (void) showLabel
 {
-	if ([view isHidden]) {
+	if ([labelView isHidden]) {
 		// Using addSublayer will animate showing the label, whereas setHidden is not animated
-		[self addSublayer:[view layer]];
-		[view setHidden:NO];
+		[self addSublayer:[labelView layer]];
+		[labelView setHidden:NO];
 	}
 }
 
 - (void) hideLabel
 {
-	if (![view isHidden]) {
+	if (![labelView isHidden]) {
 		// Using removeFromSuperlayer will animate hiding the label, whereas setHidden is not animated
-		[[view layer] removeFromSuperlayer];
-		[view setHidden:YES];
+		[[labelView layer] removeFromSuperlayer];
+		[labelView setHidden:YES];
 	}
 }
 
 - (void) dealloc 
 {
-	[view release];
+	[labelView release];
 	[data release];
 	[super dealloc];
 }

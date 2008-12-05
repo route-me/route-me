@@ -20,7 +20,7 @@ extern NSString * const RMMarkerRedKey;
 	NSObject* data;
 	
 	// A label which comes up when you tap the marker
-	UIView* view;
+	UIView* labelView;
 }
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
@@ -50,7 +50,7 @@ extern NSString * const RMMarkerRedKey;
 
 @property (assign, nonatomic) RMXYPoint location;
 @property (retain) NSObject* data;
-@property (nonatomic, retain) UIView* view;
+@property (nonatomic, retain) UIView* labelView;
 
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
 + (CGImageRef) markerImage: (NSString *) key;
