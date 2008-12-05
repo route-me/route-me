@@ -11,7 +11,6 @@
 #import "RMMapContents.h"
 #import "RMFoundation.h"
 #import "RMMarker.h"
-
 #import "RMMarkerManager.h"
 
 @implementation MapViewViewController
@@ -75,6 +74,17 @@
 	[markerManager hideAllMarkers];
 	[markerManager unhideAllMarkers];
 	
+
+}
+
+- (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position
+{
+	RMMarkerManager *markerManager = [mapView markerManager];
+
+	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
+	CGRect rect = [marker bounds];
+	
+	[markerManager moveMarker:marker AtXY:CGPointMake(position.x,position.y +rect.size.height/3)];
 
 }
 

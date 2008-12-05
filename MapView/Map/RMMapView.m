@@ -26,6 +26,7 @@
 	BOOL delegateHasTapOnMarker;
 	BOOL delegateHasTapOnLabelForMarker;
 	BOOL delegateHasAfterMapTouch;
+	BOOL delegateHasDragMarkerPosition;
 @end
 
 @implementation RMMapView
@@ -121,6 +122,8 @@
 	delegateHasTapOnLabelForMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnLabelForMarker:onMap:)];
 	
 	delegateHasAfterMapTouch  = [(NSObject*) delegate respondsToSelector: @selector(afterMapTouch:)];
+	
+	delegateHasDragMarkerPosition = [(NSObject*) delegate respondsToSelector: @selector(dragMarkerPosition: onMap: position:)];
 }
 
 - (id<RMMapViewDelegate>) delegate
@@ -317,7 +320,7 @@
 	if (touch.tapCount == 1) 
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-		NSLog(@"LAYER od type %@",[hit description]);
+		NSLog(@"LAYER of type %@",[hit description]);
 		
 		if (hit != nil) {
 			CALayer *superlayer = [hit superlayer];
@@ -351,6 +354,19 @@
 		if ([furthestLayerDown respondsToSelector:@selector(touchesMoved:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesMoved:withEvent:) withObject:touches withObject:event];
 			return;
+		}
+	}
+	
+	CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
+	NSLog(@"LAYER of type %@",[hit description]);
+	
+	if (hit != nil) {
+		
+		if ([hit isMemberOfClass: [RMMarker class]]) {
+			if (delegateHasDragMarkerPosition) {
+				[delegate dragMarkerPosition:(RMMarker*)hit onMap:self position:[[[event allTouches] anyObject]locationInView:self]];
+				return;
+			}
 		}
 	}
 	
