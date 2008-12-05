@@ -16,6 +16,7 @@
 
 @implementation MapViewViewController
 
+@synthesize mapView;
 /*
 // Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -60,6 +61,9 @@
 	[marker setTextLabel:@"Hello"];
 	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
+	
+
+	
 //	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	[marker release];
 	markers  = [markerManager getMarkersForScreenBounds];
@@ -70,21 +74,26 @@
 	
 	[markerManager hideAllMarkers];
 	[markerManager unhideAllMarkers];
+	
+
 }
 
 - (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map
 {
 	NSLog(@"MARKER TAPPED!");
+	RMMarkerManager *markerManager = [mapView markerManager];
 	[marker removeLabel];
 	if(!tap)
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
 		[marker setTextLabel:@"World"];
 		tap=YES;
+		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y + 20.0)];
 	}else
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
 		[marker setTextLabel:@"Hello"];
+		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y - 20.0)];
 		tap=NO;
 	}
 
@@ -133,6 +142,7 @@
 
 
 - (void)dealloc {
+	[mapView release];
     [super dealloc];
 }
 

@@ -130,4 +130,16 @@
 	return NO;
 }
 
+- (void) moveMarker:(RMMarker *)marker AtLatLon:(RMLatLong)point
+{
+	[marker setLocation:[[contents projection]latLongToPoint:point]];
+	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]]];
+}
+
+- (void) moveMarker:(RMMarker *)marker AtXY:(CGPoint)point
+{
+	[marker setLocation:[[contents mercatorToScreenProjection] projectScreenPointToXY:point]];
+	[marker setPosition:point];
+}
+
 @end

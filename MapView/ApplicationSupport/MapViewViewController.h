@@ -15,5 +15,7 @@
 	NSInteger tapCount;
 }
 
+@property (nonatomic, retain) IBOutlet RMMapView * mapView;
+
 @end
 
