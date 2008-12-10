@@ -116,17 +116,18 @@ static CGImageRef _markerBlue = nil;
 							  textSize.width+4,
 							  textSize.height+4);
 	
-	frame.size = [text sizeWithFont:[UIFont systemFontOfSize:15]];
+	//This screws up the label in the case the label has multiple lines. NOT NEEDED!!!
+	//frame.size = [text sizeWithFont:[UIFont systemFontOfSize:15]];
 	
 	UILabel *aLabel = [[UILabel alloc] initWithFrame:frame];
 	//	UITextField *aLabel = [[UITextField alloc] initWithFrame:frame];
 	//	[aLabel setBorderStyle:UITextBorderStyleRoundedRect];
-	//	[aLabel setNumberOfLines:1];
+	[aLabel setNumberOfLines:0];
 	[aLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[aLabel setBackgroundColor:[UIColor clearColor]];
 	[aLabel setTextColor:[UIColor blackColor]];
 	[aLabel setFont:[UIFont systemFontOfSize:15]];
-	[aLabel setTextAlignment:UITextAlignmentCenter];
+	[aLabel setTextAlignment:UITextAlignmentLeft];
 	[aLabel setText:text];
 	//	[aLabel setCenter:CGPointMake(,0)];
 	
