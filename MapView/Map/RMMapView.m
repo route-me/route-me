@@ -35,8 +35,8 @@
 	BOOL delegateHasTapOnLabelForMarker;
 	BOOL delegateHasAfterMapTouch;
 	BOOL delegateHasDragMarkerPosition;
-	NSTimer *coastTimer;
-	CGSize coastDelta;
+	NSTimer *decelerationTimer;
+	CGSize decelerationDelta;
 @end
 
 @implementation RMMapView
@@ -271,7 +271,7 @@
 	//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self getGestureDetails:[event allTouches]];
 
-	if (coastTimer != nil) {
+	if (decelerationTimer != nil) {
 		[self stopDeceleration];
 	}
 
@@ -331,7 +331,7 @@
 			[self zoomInToNextNativeZoomAt: [touch locationInView:self]];
 		}
 	} else if (lastTouches == 1) {
-		// coast
+		// deceleration
 		CGPoint prevLocation = [touch previousLocationInView:self];
 		CGPoint currLocation = [touch locationInView:self];
 		CGSize touchDelta = CGSizeMake(currLocation.x - prevLocation.x, currLocation.y - prevLocation.y);
@@ -475,29 +475,33 @@
 
 - (void)startDecelerationWithDelta:(CGSize)delta {
 	if (ABS(delta.width) >= 1.0f && ABS(delta.height) >= 1.0f) {
-		coastDelta = delta;
-		coastTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(incrementCoast:) userInfo:nil repeats:YES];
+		decelerationDelta = delta;
+		decelerationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f 
+															 target:self
+														   selector:@selector(incrementDeceleration:) 
+														   userInfo:nil 
+															repeats:YES];
 	}
 }
 
-- (void)incrementCoast:(NSTimer *)timer {
-	if (ABS(coastDelta.width) < 0.01f && ABS(coastDelta.height) < 0.01f) {
+- (void)incrementDeceleration:(NSTimer *)timer {
+	if (ABS(decelerationDelta.width) < 0.01f && ABS(decelerationDelta.height) < 0.01f) {
 		[self stopDeceleration];
 		return;
 	}
 
 	// avoid calling delegate methods? design call here
-	[contents moveBy:coastDelta];
+	[contents moveBy:decelerationDelta];
 
-	coastDelta.width *= 0.99f;
-	coastDelta.height *= 0.99f;
+	decelerationDelta.width *= 0.99f;
+	decelerationDelta.height *= 0.99f;
 }
 
 - (void)stopDeceleration {
-	if (coastTimer != nil) {
-		[coastTimer invalidate];
-		coastTimer = nil;
-		coastDelta = CGSizeZero;
+	if (decelerationTimer != nil) {
+		[decelerationTimer invalidate];
+		decelerationTimer = nil;
+		decelerationDelta = CGSizeZero;
 
 		// call delegate methods; design call (see above)
 		[self moveBy:CGSizeZero];
