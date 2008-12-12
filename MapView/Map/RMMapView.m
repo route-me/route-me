@@ -330,7 +330,6 @@
 			// Default behaviour matches built in maps.app
 			[self zoomInToNextNativeZoomAt: [touch locationInView:self]];
 		}
-		return;
 	} else if (lastTouches == 1) {
 		// coast
 		CGPoint prevLocation = [touch previousLocationInView:self];
