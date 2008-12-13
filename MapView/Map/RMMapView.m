@@ -439,7 +439,7 @@
 
 - (void)zoomInToNextNativeZoomAt: (CGPoint) point
 {
-	[contents zoomInToNextNativeZoomAt:point];
+	[contents zoomInToNextNativeZoomAt:point animated:YES];
 }
 
 

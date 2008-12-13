@@ -26,6 +26,11 @@
 
 #import "RMMarker.h"
 
+
+@interface RMMapContents (PrivateMethods)
+- (void)animatedZoomStep:(NSTimer *)timer;
+@end
+
 @implementation RMMapContents (Internal)
 	BOOL delegateHasRegionUpdate;
 @end
@@ -250,28 +255,84 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
+	[self zoomByFactor:zoomFactor near:pivot animated:NO];
+}
+
+
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot animated:(BOOL) animated
+{
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
 	
-//	NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
-	
-	if(([self zoom] >= [self minZoom]) && ([self zoom] <= [self maxZoom]))
+	if (animated)
 	{
-		[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
-		[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
-		[tileLoader zoomByFactor:zoomFactor near:pivot];
-		[overlay zoomByFactor:zoomFactor near:pivot];
-		[renderer setNeedsDisplay];
+		float zoomDelta = log2f(zoomFactor);
+		float targetZoom = zoomDelta + [self zoom];
+
+		// goal is to complete the animation in animTime seconds
+		static const float stepTime = 0.03f;
+		static const float animTime = 0.1f;
+		float nSteps = animTime / stepTime;
+		float zoomIncr = zoomDelta / nSteps;
+
+		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+								  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
+								  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
+								  CGPointCreateDictionaryRepresentation(pivot), @"pivot", nil];
+		[NSTimer scheduledTimerWithTimeInterval:stepTime
+										 target:self 
+									   selector:@selector(animatedZoomStep:) 
+									   userInfo:userInfo
+										repeats:YES];
 	}
 	else
 	{
-		if([self zoom] > [self maxZoom])
-			[self setZoom:[self maxZoom]];
-		if([self zoom] < [self minZoom])
-			[self setZoom:[self minZoom]];
+		if(([self zoom] >= [self minZoom]) && ([self zoom] <= [self maxZoom]))
+		{
+			[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
+			[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+			[tileLoader zoomByFactor:zoomFactor near:pivot];
+			[overlay zoomByFactor:zoomFactor near:pivot];
+			[renderer setNeedsDisplay];
+		}
+		else
+		{
+			if([self zoom] > [self maxZoom])
+				[self setZoom:[self maxZoom]];
+			if([self zoom] < [self minZoom])
+				[self setZoom:[self minZoom]];
+		}
 	}
 }
 
+
+- (void)animatedZoomStep:(NSTimer *)timer
+{
+	float zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] floatValue];
+	float targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] floatValue];
+
+	if ((zoomIncr > 0 && [self zoom] >= targetZoom) || (zoomIncr < 0 && [self zoom] <= targetZoom))
+	{
+		[timer invalidate];
+	}
+	else
+	{
+		float zoomFactorStep = exp2f(zoomIncr);
+
+		CGPoint pivot;
+		CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)[[timer userInfo] objectForKey:@"pivot"], &pivot);
+		
+		[self zoomByFactor:zoomFactorStep near:pivot animated:NO];
+	}
+}
+
+
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot
+{
+	[self zoomInToNextNativeZoomAt:pivot animated:NO];
+}
+
+
+- (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated
 {
 	// Calculate rounded zoom
 	float newZoom = roundf([self zoom] + 1);
@@ -281,7 +342,7 @@
 	else
 	{
 		float factor = exp2f(newZoom - [self zoom]);
-		[self zoomByFactor:factor near:pivot];
+		[self zoomByFactor:factor near:pivot animated:animated];
 	}
 }
 
