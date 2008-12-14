@@ -157,20 +157,19 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		return;
 	}
 
-	CGDataProviderRef provider = CGDataProviderCreateWithCFData ((CFDataRef)data);
-	CGImageRef cgImage = CGImageCreateWithPNGDataProvider(provider, NULL, FALSE, kCGRenderingIntentDefault);
-	CGDataProviderRelease(provider);
+	UIImage *tileImage = [[UIImage alloc] initWithData:data];
 
 	if (layer == nil)
 	{
-		image = [[UIImage imageWithCGImage:cgImage] retain];
+		image = [tileImage retain];
 	}
 	else
 	{
+		CGImageRef cgImage = [tileImage CGImage];
 		layer.contents = (id)cgImage;
 	}
 	
-	CGImageRelease(cgImage);
+	[tileImage release];
 	
 	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification
