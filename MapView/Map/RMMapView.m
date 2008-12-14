@@ -40,6 +40,7 @@
 @end
 
 @implementation RMMapView
+@synthesize decelerationFactor;
 
 -(void) initValues:(CLLocationCoordinate2D)latlong
 {
@@ -54,6 +55,7 @@
 	
 	enableDragging = YES;
 	enableZoom = YES;
+	decelerationFactor = 0.88f;
 	
 	//	[self recalculateImageSet];
 	
@@ -493,8 +495,8 @@
 	// avoid calling delegate methods? design call here
 	[contents moveBy:decelerationDelta];
 
-	decelerationDelta.width *= 0.99f;
-	decelerationDelta.height *= 0.99f;
+	decelerationDelta.width *= [self decelerationFactor];
+	decelerationDelta.height *= [self decelerationFactor];
 }
 
 - (void)stopDeceleration {
