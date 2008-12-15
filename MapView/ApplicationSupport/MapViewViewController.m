@@ -88,6 +88,11 @@
 
 }
 
+- (void) singleTapOnMap: (RMMapView*) map At: (CGPoint) point
+{
+	NSLog(@"Clicked on Map - New location: X:%lf Y:%lf", point.x, point.y);
+}
+
 - (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map
 {
 	NSLog(@"MARKER TAPPED!");

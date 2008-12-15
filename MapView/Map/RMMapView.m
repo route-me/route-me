@@ -31,6 +31,7 @@
 	BOOL delegateHasBeforeMapZoomByFactor;
 	BOOL delegateHasAfterMapZoomByFactor;
 	BOOL delegateHasDoubleTapOnMap;
+	BOOL delegateHasSingleTapOnMap;
 	BOOL delegateHasTapOnMarker;
 	BOOL delegateHasTapOnLabelForMarker;
 	BOOL delegateHasAfterMapTouch;
@@ -130,6 +131,8 @@
 	delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
 
 	delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];
+	delegateHasSingleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(singleTapOnMap:At:)];
+	
 	delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
 	delegateHasTapOnLabelForMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnLabelForMarker:onMap:)];
 	
@@ -359,6 +362,9 @@
 					[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
 				}
 			}
+		}
+		if (delegateHasSingleTapOnMap) {
+			[delegate singleTapOnMap: self At: [touch locationInView:self]];
 		}
 	}
 

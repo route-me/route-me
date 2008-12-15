@@ -22,6 +22,7 @@
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
 
 - (void) doubleTapOnMap: (RMMapView*) map At: (CGPoint) point;
+- (void) singleTapOnMap: (RMMapView*) map At: (CGPoint) point;
 
 - (void) tapOnMarker: (RMMarker*) marker onMap: (RMMapView*) map;
 - (void) tapOnLabelForMarker: (RMMarker*) marker onMap: (RMMapView*) map;
