@@ -362,10 +362,11 @@
 					[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
 				}
 			}
+			else if (delegateHasSingleTapOnMap) {
+				[delegate singleTapOnMap: self At: [touch locationInView:self]];
+			}
 		}
-		if (delegateHasSingleTapOnMap) {
-			[delegate singleTapOnMap: self At: [touch locationInView:self]];
-		}
+		
 	}
 
 	if (delegateHasAfterMapTouch) [delegate afterMapTouch: self];
