@@ -442,6 +442,10 @@
 	return [contents pixelToLatLong:pixel];
 }
 
+- (CLLocationCoordinate2D)centerCoordinates
+{
+	return [contents pixelToLatLong:[self frame].origin];
+}
 
 
 #pragma mark Auto Zoom

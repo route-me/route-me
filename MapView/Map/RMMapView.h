@@ -32,7 +32,6 @@ typedef struct {
 {
 	RMMapContents *contents;
 	id<RMMapViewDelegate> delegate;
-	
 	BOOL enableDragging;
 	BOOL enableZoom;
 	RMGestureDetails lastGesture;
@@ -63,7 +62,7 @@ typedef struct {
 - (void)setZoom:(int)zoomInt;
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
-
+- (CLLocationCoordinate2D)centerCoordinates;
 
 - (RMLatLongBounds) getScreenCoordinateBounds;
 
