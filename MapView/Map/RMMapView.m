@@ -335,7 +335,7 @@
 			// Default behaviour matches built in maps.app
 			[self zoomInToNextNativeZoomAt: [touch locationInView:self]];
 		}
-	} else if (lastTouches == 1) {
+	} else if (lastTouches == 1 && touch.tapCount != 1) {
 		// deceleration
 		CGPoint prevLocation = [touch previousLocationInView:self];
 		CGPoint currLocation = [touch locationInView:self];
