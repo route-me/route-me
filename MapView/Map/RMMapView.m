@@ -444,7 +444,8 @@
 
 - (CLLocationCoordinate2D)centerCoordinates
 {
-	return [contents pixelToLatLong:[self frame].origin];
+	CGPoint point = CGPointMake([self frame].size.width/2, [self frame].size.height/2);
+	return [contents pixelToLatLong:point];
 }
 
 
