@@ -442,12 +442,6 @@
 	return [contents pixelToLatLong:pixel];
 }
 
-- (CLLocationCoordinate2D)centerCoordinates
-{
-	CGPoint point = CGPointMake([self frame].size.width/2, [self frame].size.height/2);
-	return [contents pixelToLatLong:point];
-}
-
 
 #pragma mark Auto Zoom
 
