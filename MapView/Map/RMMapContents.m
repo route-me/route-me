@@ -123,7 +123,6 @@
 	[imagesOnScreen release];
 	[self setRenderer:nil];
 	[tileLoader release];
-	[imagesOnScreen release];
 	[projection release];
 	[mercatorToTileProjection release];
 	[mercatorToScreenProjection release];
@@ -388,6 +387,8 @@
 {
 	if (renderer == newRenderer)
 		return;
+	
+	[imagesOnScreen setDelegate:newRenderer];
 	
 	[[renderer layer] removeFromSuperlayer];
 	[renderer release];
