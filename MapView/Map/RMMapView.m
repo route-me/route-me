@@ -115,6 +115,25 @@
 	return [[contents retain] autorelease];
 }
 
+// Forward invocations to RMMapContents
+- (void)forwardInvocation:(NSInvocation *)invocation
+{
+    SEL aSelector = [invocation selector];
+	
+    if ([contents respondsToSelector:aSelector])
+        [invocation invokeWithTarget:contents];
+    else
+        [self doesNotRecognizeSelector:aSelector];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+	if ([super respondsToSelector:aSelector])
+		return [super methodSignatureForSelector:aSelector];
+	else
+		return [contents methodSignatureForSelector:aSelector];
+}
+
 #pragma mark Delegate 
 
 @dynamic delegate;
@@ -347,7 +366,7 @@
 	if (touch.tapCount == 1) 
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-		NSLog(@"LAYER of type %@",[hit description]);
+//		NSLog(@"LAYER of type %@",[hit description]);
 		
 		if (hit != nil) {
 			CALayer *superlayer = [hit superlayer];
@@ -389,7 +408,7 @@
 	}
 	
 	CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-	NSLog(@"LAYER of type %@",[hit description]);
+//	NSLog(@"LAYER of type %@",[hit description]);
 	
 	if (hit != nil) {
 		
@@ -429,54 +448,6 @@
 	lastGesture = newGesture;
 	
 	[self registerPausedDraggingDispatcher];
-}
-
-#pragma mark LatLng/Pixel translation functions
-
-- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong
-{
-	return [contents latLongToPixel:latlong];
-}
-- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)pixel
-{
-	return [contents pixelToLatLong:pixel];
-}
-
-
-#pragma mark Auto Zoom
-
-- (void)zoomInToNextNativeZoomAt: (CGPoint) point
-{
-	[contents zoomInToNextNativeZoomAt:point animated:YES];
-}
-
-
-#pragma mark Manual Zoom
-- (void)setZoom:(int)zoomInt
-{
-	[contents setZoom:zoomInt];
-}
-
--(void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom
-{
-	[contents setZoomBounds:aMinZoom maxZoom:aMaxZoom];
-
-}
-
-#pragma mark Zoom With Bounds
-- (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se
-{
-	[contents zoomWithLatLngBoundsNorthEast:ne SouthWest:se];
-}
-
-- (RMLatLongBounds) getScreenCoordinateBounds
-{
-	return [contents getScreenCoordinateBounds];
-}
-
-- (RMMarkerManager *)markerManager
-{
-	return [contents markerManager];
 }
 
 #pragma mark Deceleration
