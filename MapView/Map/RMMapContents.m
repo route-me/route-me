@@ -47,8 +47,8 @@
 - (id) initForView: (UIView*) view
 {	
 	CLLocationCoordinate2D here;
-	here.latitude = -35;
-	here.longitude = 146.2381;
+	here.latitude = -33.858771;
+	here.longitude = 151.201596;
 
 	return [self initForView:view WithLocation: here];
 }
@@ -95,7 +95,7 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
-	[self setZoom:15];
+	[self setZoom:13];
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];
