@@ -120,6 +120,7 @@
 
 -(void) dealloc
 {
+	[imagesOnScreen release];
 	[self setRenderer:nil];
 	[tileLoader release];
 	[imagesOnScreen release];

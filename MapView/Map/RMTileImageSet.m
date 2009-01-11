@@ -33,6 +33,7 @@
 
 -(void) dealloc
 {
+	[self removeAllTiles];
 	[tileSource release];
 	[images release];
 	[super dealloc];
@@ -91,7 +92,8 @@
 -(void) removeAllTiles
 {
 	for (RMTileImage* img in images) {
-		[self removeTile: img.tile];
+		for (int i = 0; i < [images countForObject:img]; i++)
+			[self removeTile: img.tile];
 	}
 }
 
