@@ -91,7 +91,8 @@
 
 -(void) removeAllTiles
 {
-	for (RMTileImage* img in images) {
+	NSArray * imagelist = [images allObjects];
+	for (RMTileImage * img in imagelist) {
 		for (int i = 0; i < [images countForObject:img]; i++)
 			[self removeTile: img.tile];
 	}
