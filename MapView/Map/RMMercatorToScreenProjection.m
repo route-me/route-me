@@ -206,6 +206,11 @@
 	origin.y -= screenBounds.size.height * scale / 2;
 }
 
+- (void) setScreenBounds:(CGRect)rect;
+{
+  screenBounds = rect;
+}
+
 -(CGRect) screenBounds
 {
 	return screenBounds;

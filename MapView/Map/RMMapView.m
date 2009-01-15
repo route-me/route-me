@@ -24,7 +24,6 @@
 - (void)stopDeceleration;
 @end
 
-
 @implementation RMMapView (Internal)
 	BOOL delegateHasBeforeMapMove;
 	BOOL delegateHasAfterMapMove;
@@ -43,9 +42,13 @@
 @implementation RMMapView
 @synthesize decelerationFactor;
 
+- (RMMarkerManager*)markerManager
+{
+  return contents.markerManager;
+}
+
 -(void) initValues:(CLLocationCoordinate2D)latlong
 {
-		
 	if(round(latlong.latitude) != 0 && round(latlong.longitude) != 0)
 	{
 		contents = [[RMMapContents alloc] initForView:self WithLocation:latlong];
@@ -487,5 +490,25 @@
 	}
 }
 
+- (void)didReceiveMemoryWarning
+{
+  CLLocationCoordinate2D coord = contents.mapCenter;
+  [contents release];
+  [self initValues:coord];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+  CGRect r = self.frame;
+  [super setFrame:frame];
+  // only change if the frame changes AND there is contents
+  if (!CGRectEqualToRect(r, frame) && contents) {
+    CLLocationCoordinate2D coord = contents.mapCenter;
+    float zoom = contents.zoom;
+    [contents release];
+    [self initValues:coord];
+    contents.zoom = zoom;
+  }
+}
 
 @end

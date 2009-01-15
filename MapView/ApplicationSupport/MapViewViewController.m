@@ -137,7 +137,7 @@
 	[marker setTextLabel:@"Hello"];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
-	NSLog(@"Center: Lat: %lf Lon: %lf", [mapView centerCoordinates].latitude, [mapView centerCoordinates].longitude);
+	NSLog(@"Center: Lat: %lf Lon: %lf", mapView.contents.mapCenter.latitude, mapView.contents.mapCenter.longitude);
 	
 	// What did this do?
 	//	[mapView setZoomBounds:0.0 maxZoom:17.0];

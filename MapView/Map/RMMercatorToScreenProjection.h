@@ -62,6 +62,7 @@
 - (void) setXYBounds: (RMXYRect) bounds;
 - (RMXYPoint) XYCenter;
 - (void) setXYCenter: (RMXYPoint) aPoint;
+- (void) setScreenBounds:(CGRect)rect;
 - (CGRect) screenBounds;
 
 @property (assign, readwrite) float scale;

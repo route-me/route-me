@@ -93,7 +93,8 @@
 {
 	NSArray * imagelist = [images allObjects];
 	for (RMTileImage * img in imagelist) {
-		for (int i = 0; i < [images countForObject:img]; i++)
+    NSInteger count = [images countForObject:img];
+		for (int i = 0; i < count; i++)
 			[self removeTile: img.tile];
 	}
 }
@@ -274,5 +275,14 @@
 	
 	NSLog(@"Biggest seam right: %f  down: %f", biggestSeamRight, biggestSeamDown);
 }
+
+- (void)cancelLoading
+{
+	for (RMTileImage *image in images)
+	{
+		[image cancelLoading];
+	}
+}
+
 
 @end

@@ -57,6 +57,8 @@
 
 - (void) printDebuggingInformation;
 
+- (void)cancelLoading;
+
 @property (assign, nonatomic, readwrite) id delegate;
 @property (retain, nonatomic, readwrite) id<RMTileSource> tileSource;
 @end

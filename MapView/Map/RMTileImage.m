@@ -69,10 +69,10 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 //	if (image)
 //		CGImageRelease(image);
 
-	[image release];
-	[layer release];
-	[dataPending release];
-	[lastUsedTime release];
+	[image release]; image = nil;
+	[layer release]; layer = nil;
+	[dataPending release]; dataPending = nil;
+	[lastUsedTime release]; lastUsedTime = nil;
 	
 	[super dealloc];
 }

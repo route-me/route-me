@@ -65,5 +65,6 @@ typedef struct {
 
 - (RMLatLongBounds) getScreenCoordinateBounds;
 
+- (void)didReceiveMemoryWarning;
 
 @end
