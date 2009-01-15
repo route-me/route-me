@@ -473,7 +473,7 @@
 	}
 
 	// avoid calling delegate methods? design call here
-	[contents moveBy:decelerationDelta];
+	// OOO [contents moveBy:decelerationDelta];
 
 	decelerationDelta.width *= [self decelerationFactor];
 	decelerationDelta.height *= [self decelerationFactor];

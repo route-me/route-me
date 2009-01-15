@@ -92,12 +92,14 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	for (id layer in set)
-	{
-		if ([layer respondsToSelector:@selector(moveBy:)])
-			[layer moveBy:delta];
+	@synchronized(self) {
+		for (id layer in set)
+		{
+			if ([layer respondsToSelector:@selector(moveBy:)])
+				[layer moveBy:delta];
 
-		// if layer moves on and offscreen...
+			// if layer moves on and offscreen...
+		}
 	}
 }
 
