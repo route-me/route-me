@@ -12,12 +12,14 @@
 @interface RMWebTileImage : RMTileImage {
 	// Before image is completely loaded a proxy image can be used.
 	// This will typically be a boilerplate image or a zoomed in or zoomed out version of another image.
-//	RMTileImage *proxy;
+	RMTileImage *proxy;
 	
 	NSURLConnection *connection;
 	// Data accumulator during loading.
 	NSMutableData *data;
 }
+
+@property (assign, nonatomic) RMTileImage *proxy;
 
 - (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
 

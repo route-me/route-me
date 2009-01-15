@@ -15,6 +15,8 @@
 
 @implementation RMWebTileImage
 
+@synthesize proxy;
+
 - (id) initWithTile: (RMTile)_tile FromURL:(NSString*)urlStr
 {
 	if (![super initWithTile:_tile])
@@ -25,8 +27,7 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	NSCachedURLResponse *cachedData = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
 	
-//	proxy = [RMTileProxy loadingTile];
-//	[proxy retain];
+	self.proxy = [RMTileProxy loadingTile];
 	
 	//	NSURLCache *cache = [NSURLCache sharedURLCache];
 	//	NSLog(@"Cache mem size: %d / %d disk size: %d / %d", [cache currentMemoryUsage], [cache memoryCapacity], [cache currentDiskUsage], [cache diskCapacity]);
@@ -44,8 +45,7 @@
 		if (connection == nil)
 		{
 			NSLog(@"Error: Connection is nil ?!?");
-//			proxy = [RMTileProxy errorTile];
-//			[proxy retain];
+			self.proxy = [RMTileProxy errorTile];
 		}
 		
 		if (startImmediately == NO)
@@ -76,6 +76,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 //	NSLog(@"Image dealloced");
+  
+  // we never retain so don't ever release it. The error and loading tiles are singletons
 //	[proxy release];
 	
 //	NSLog(@"loading cancelled because image dealloced");
@@ -105,12 +107,12 @@
 {
 	[super makeLayer];
 	
-//	if (image == nil
-//		&& layer != nil
-//		&& layer.contents == nil)
-//	{
-//		layer.contents = (id)[[proxy image] CGImage];
-//	}
+	if (image == nil
+		&& layer != nil
+		&& layer.contents == nil)
+	{
+		layer.contents = (id)[[proxy image] CGImage];
+	}
 }
 - (void)drawInRect:(CGRect)rect
 {
@@ -152,7 +154,7 @@
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error
 {
-//	proxy = [RMTileProxy errorTile];
+	self.proxy = [RMTileProxy errorTile];
 	[data release];
 	data = nil;
 	NSLog(@"Tile could not be loaded: %@", [error localizedDescription]);
