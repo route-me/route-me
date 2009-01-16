@@ -81,6 +81,7 @@ enum {
 @property (readwrite) float minZoom, maxZoom;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
+@property (readonly)  RMTileLoader *tileLoader;
 
 @property (readonly)  RMProjection *projection;
 @property (readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
@@ -102,6 +103,8 @@ enum {
 
 // Designated initialiser
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
+
+- (void)setFrame:(CGRect)frame;
 
 - (void) didReceiveMemoryWarning;
 
@@ -143,3 +146,35 @@ enum {
 - (void) tilesUpdatedRegion:(CGRect)region;
 
 @end
+
+@protocol RMMapContentsFacade
+
+@optional
+- (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
+- (void)moveToXYPoint: (RMXYPoint)aPoint;
+
+- (void)moveBy: (CGSize) delta;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
+- (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center animated:(BOOL) animated;
+
+- (void)zoomInToNextNativeZoomAt:(CGPoint) pivot;
+- (float)adjustZoomForBoundingMask:(float)zoomFactor;
+- (void)adjustMapPlacementWithScale:(float)aScale;
+- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
+
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
+
+- (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
+- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
+
+- (RMLatLongBounds) getScreenCoordinateBounds;
+- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
+
+- (void) tilesUpdatedRegion:(CGRect)region;
+
+@end
+

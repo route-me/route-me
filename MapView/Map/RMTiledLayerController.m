@@ -127,6 +127,10 @@
 	CGContextDrawImage(theContext, rect, image);
 }
 
+- (void)setFrame:(CGRect)frame
+{
+}
+
 - (CALayer*) layer
 {
 	return layer;

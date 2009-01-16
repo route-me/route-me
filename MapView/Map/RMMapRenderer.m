@@ -44,9 +44,16 @@
 - (void)drawRect:(CGRect)rect
 { }
 
+- (void)setFrame:(CGRect)frame
+{
+}
+
+
 - (CALayer*) layer
 {
 	return nil;
 }
+
+
 
 @end

@@ -25,6 +25,7 @@
 - (id)initWithContent:(RMMapContents *)contents;
 - (void)setNeedsDisplay;
 - (void)drawRect:(CGRect)rect;
+- (void)setFrame:(CGRect)frame;
 
 - (CALayer*)layer;
 

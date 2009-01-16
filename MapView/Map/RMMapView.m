@@ -506,18 +506,14 @@
   [self initValues:coord];
 }
 
-/*- (void)setFrame:(CGRect)frame
+- (void)setFrame:(CGRect)frame
 {
   CGRect r = self.frame;
   [super setFrame:frame];
   // only change if the frame changes AND there is contents
   if (!CGRectEqualToRect(r, frame) && contents) {
-    CLLocationCoordinate2D coord = contents.mapCenter;
-    float zoom = contents.zoom;
-    [contents release];
-    [self initValues:coord];
-    contents.zoom = zoom;
+    [contents setFrame:frame];
   }
-}*/
+}
 
 @end

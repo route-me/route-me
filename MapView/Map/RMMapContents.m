@@ -118,6 +118,18 @@
 	return self;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+  CGRect bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
+  [mercatorToScreenProjection setScreenBounds:bounds];
+  background.frame = bounds;
+  layer.frame = frame;
+  overlay.frame = bounds;
+  [tileLoader clearLoadedBounds];
+  [tileLoader updateLoadedImages];
+  [renderer setFrame:frame];
+}
+
 -(void) dealloc
 {
   [imagesOnScreen cancelLoading];
@@ -547,6 +559,11 @@
 -(RMTileImageSet*) imagesOnScreen
 {
 	return [[imagesOnScreen retain] autorelease];
+}
+
+-(RMTileLoader*) tileLoader
+{
+	return [[tileLoader retain] autorelease];
 }
 
 -(RMProjection*) projection

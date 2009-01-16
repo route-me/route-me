@@ -102,6 +102,11 @@
 	return @"CoreAnimation map renderer";
 }
 
+- (void)setFrame:(CGRect)frame
+{
+	layer.frame = [content screenBounds];
+}
+
 - (CALayer*) layer
 {
 	return layer;
