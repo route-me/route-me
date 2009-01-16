@@ -355,7 +355,7 @@
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// Default behaviour matches built in maps.app
-			[self zoomInToNextNativeZoomAt: [touch locationInView:self]];
+			[[self contents] zoomInToNextNativeZoomAt: [touch locationInView:self] animated:YES];
 		}
 	} else if (lastTouches == 1 && touch.tapCount != 1) {
 		// deceleration
