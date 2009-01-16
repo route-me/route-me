@@ -473,7 +473,8 @@
 	}
 
 	// avoid calling delegate methods? design call here
-	// OOO [contents moveBy:decelerationDelta];
+	// OOO
+	///OOO[contents moveBy:decelerationDelta];
 
 	decelerationDelta.width *= [self decelerationFactor];
 	decelerationDelta.height *= [self decelerationFactor];
@@ -492,12 +493,13 @@
 
 - (void)didReceiveMemoryWarning
 {
+	NSLog(@"MEMORY WARNING IN RMMAPView");
   CLLocationCoordinate2D coord = contents.mapCenter;
   [contents release];
   [self initValues:coord];
 }
 
-- (void)setFrame:(CGRect)frame
+/*- (void)setFrame:(CGRect)frame
 {
   CGRect r = self.frame;
   [super setFrame:frame];
@@ -509,6 +511,6 @@
     [self initValues:coord];
     contents.zoom = zoom;
   }
-}
+}*/
 
 @end
