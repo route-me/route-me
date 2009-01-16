@@ -36,6 +36,7 @@ typedef struct {
 	BOOL enableZoom;
 	RMGestureDetails lastGesture;
 	float decelerationFactor;
+	BOOL deceleration;
 }
 
 // Any other functions you need to manipulate the mapyou can access through this
@@ -48,6 +49,8 @@ typedef struct {
 // delegate without circular references
 @property (assign) id<RMMapViewDelegate> delegate;
 @property (readwrite) float decelerationFactor;
+@property (readwrite) BOOL deceleration;
+
 
 - (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong;
 

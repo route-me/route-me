@@ -41,6 +41,7 @@
 
 @implementation RMMapView
 @synthesize decelerationFactor;
+@synthesize deceleration;
 
 - (RMMarkerManager*)markerManager
 {
@@ -60,6 +61,7 @@
 	enableDragging = YES;
 	enableZoom = YES;
 	decelerationFactor = 0.88f;
+	deceleration = NO;
 	
 	//	[self recalculateImageSet];
 	
@@ -298,10 +300,13 @@
 	//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self getGestureDetails:[event allTouches]];
 
-	if (decelerationTimer != nil) {
-		[self stopDeceleration];
+	if(deceleration)
+	{
+		if (decelerationTimer != nil) {
+			[self stopDeceleration];
+		}
 	}
-
+	
 	[self registerPausedDraggingDispatcher];
 }
 
@@ -359,10 +364,13 @@
 		}
 	} else if (lastTouches == 1 && touch.tapCount != 1) {
 		// deceleration
-		CGPoint prevLocation = [touch previousLocationInView:self];
-		CGPoint currLocation = [touch locationInView:self];
-		CGSize touchDelta = CGSizeMake(currLocation.x - prevLocation.x, currLocation.y - prevLocation.y);
-		[self startDecelerationWithDelta:touchDelta];
+		if(deceleration)
+		{
+			CGPoint prevLocation = [touch previousLocationInView:self];
+			CGPoint currLocation = [touch locationInView:self];
+			CGSize touchDelta = CGSizeMake(currLocation.x - prevLocation.x, currLocation.y - prevLocation.y);
+			[self startDecelerationWithDelta:touchDelta];
+		}
 	}
 	
 		
@@ -473,8 +481,7 @@
 	}
 
 	// avoid calling delegate methods? design call here
-	// OOO
-	///OOO[contents moveBy:decelerationDelta];
+	[contents moveBy:decelerationDelta];
 
 	decelerationDelta.width *= [self decelerationFactor];
 	decelerationDelta.height *= [self decelerationFactor];

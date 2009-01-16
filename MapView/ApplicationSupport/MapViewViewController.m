@@ -104,12 +104,14 @@
 		[marker setTextLabel:@"World"];
 		tap=YES;
 		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y + 20.0)];
+		[mapView setDeceleration:YES];
 	}else
 	{
 		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
 		[marker setTextLabel:@"Hello"];
 		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y - 20.0)];
 		tap=NO;
+		[mapView setDeceleration:NO];
 	}
 
 }
