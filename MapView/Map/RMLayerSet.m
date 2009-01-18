@@ -40,42 +40,51 @@
 	{
 		[self correctScreenPosition:layer];
 	}
-	
+@synchronized(set) {	
 	[set removeAllObjects];
 	[set addObjectsFromArray:array];
 	[super setSublayers:array];
 }
+}
 
 - (void)addSublayer:(CALayer *)layer
 {
+@synchronized(set) {
 	[self correctScreenPosition:layer];
 	[set addObject:layer];
 	[super addSublayer:layer];
 }
+}
 
 - (void)insertSublayer:(CALayer *)layer above:(CALayer *)siblingLayer
 {
+@synchronized(set) {
 	[self correctScreenPosition:layer];
 	int index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index + 1];
 	[super insertSublayer:layer above:siblingLayer];
 }
+}
 
 - (void)insertSublayer:(CALayer *)layer below:(CALayer *)siblingLayer
 {
+@synchronized(set) {
 	[self correctScreenPosition:layer];
 	int index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index];
 	[super insertSublayer:layer below:siblingLayer];
 }
+}
 
 - (void)insertSublayer:(CALayer *)layer atIndex:(unsigned)index
 {
+@synchronized(set) {
 	[self correctScreenPosition:layer];
 	[set insertObject:layer atIndex:index];
 
 	// TODO: Fix this.
 	[super addSublayer:layer];	
+}
 }
 
 /*
@@ -92,7 +101,7 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	@synchronized(self) {
+	@synchronized(set) {
 		for (id layer in set)
 		{
 			if ([layer respondsToSelector:@selector(moveBy:)])
@@ -105,19 +114,23 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
+@synchronized(set) {
 	for (id layer in set)
 	{
 		if ([layer respondsToSelector:@selector(zoomByFactor:near:)])
 			[layer zoomByFactor:zoomFactor near:center];
 	}
 }
+}
 
 - (void) correctPositionOfAllSublayers
 {
+@synchronized(set) {
 	for (id layer in set)
 	{
 		[self correctScreenPosition:layer];
 	}
+}
 }
 
 @end
