@@ -30,6 +30,7 @@
 
 - (NSArray *)getMarkers;
 - (void) removeMarker:(RMMarker *)marker;
+- (void) removeMarkers:(NSArray *)markers;
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
 - (NSArray *) getMarkersForScreenBounds;

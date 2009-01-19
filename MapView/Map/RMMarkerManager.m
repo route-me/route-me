@@ -72,7 +72,12 @@
 
 - (void) removeMarker:(RMMarker *)marker
 {
-	[marker removeFromSuperlayer];
+	[[contents overlay] removeSublayer:marker];
+}
+
+- (void) removeMarkers:(NSArray *)markers
+{
+	[[contents overlay] removeSublayers:markers];
 }
 
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker

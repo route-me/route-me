@@ -56,6 +56,25 @@
 }
 }
 
+- (void)removeSublayer:(CALayer *)layer
+{
+	@synchronized(set) {
+		[set removeObject:layer];
+		[layer removeFromSuperlayer];
+	}
+}
+
+- (void)removeSublayers:(NSArray *)layers
+{
+	@synchronized(set) {
+		for(CALayer *aLayer in layers)
+		{
+			[set removeObject:aLayer];
+			[aLayer removeFromSuperlayer];
+		}
+	}
+}
+
 - (void)insertSublayer:(CALayer *)layer above:(CALayer *)siblingLayer
 {
 @synchronized(set) {
