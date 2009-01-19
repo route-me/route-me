@@ -9,6 +9,7 @@
 #import "RMMarkerManager.h"
 #import "RMMercatorToScreenProjection.h"
 #import "RMProjection.h"
+#import "RMLayerSet.h"
 
 @implementation RMMarkerManager
 
