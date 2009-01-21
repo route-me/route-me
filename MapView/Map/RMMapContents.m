@@ -268,7 +268,23 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
-	[self zoomByFactor:zoomFactor near:pivot animated:NO];
+	//[self zoomByFactor:zoomFactor near:pivot animated:NO];
+	
+	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
+	//NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
+	
+	// pre-calculate zoom so we can tell if we want to perform it
+	float newZoom = [mercatorToTileProjection  
+					 calculateZoomFromScale:self.scale/zoomFactor];
+	
+	if ((newZoom > minZoom) && (newZoom < maxZoom))
+	{
+		[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
+		[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+		[tileLoader zoomByFactor:zoomFactor near:pivot];
+		[overlay zoomByFactor:zoomFactor near:pivot];
+		[renderer setNeedsDisplay];
+	} 
 }
 
 
@@ -548,13 +564,26 @@
 	return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
 }
 
--(void) setZoom: (float) zoom
+/*-(void) setZoom: (float) zoom
 {
 	//limit the zoom to maxZoom and minZoom as specified by projection - why do we also store maxZoom?
 	float normalisedZoom = [mercatorToTileProjection normaliseZoom:zoom];		
 	float scale = [mercatorToTileProjection calculateScaleFromZoom:normalisedZoom];
 	[self setScale:scale];	
 }
+*/
+-(void) setZoom: (float) zoom
+{
+	//NSLog(@"set zoom: %f", zoom);
+	if (zoom > maxZoom)
+        return;
+	
+	float scale = [mercatorToTileProjection  
+				   calculateScaleFromZoom:zoom];
+	//NSLog(@"new scale: %f, scale");
+	[self setScale:scale];    
+	
+} 
 
 -(RMTileImageSet*) imagesOnScreen
 {

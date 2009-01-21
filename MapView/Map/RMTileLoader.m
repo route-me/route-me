@@ -79,6 +79,54 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	
 	return contained && targetZoom == loadedZoom;
 }
+
+
+-(void) updateLoadedImages
+{
+	if (suppressLoading)
+		return;
+	
+	if ([content mercatorToTileProjection] == nil || [content  
+													  mercatorToScreenProjection] == nil)
+		return;
+	
+	// delay display of new images until expensive operations are  
+	//allowed
+	[[NSNotificationCenter defaultCenter] removeObserver:self  
+													name:RMResumeExpensiveOperations object:nil];
+	if ([RMMapContents performExpensiveOperations] == NO)
+	{
+        [[NSNotificationCenter defaultCenter] addObserver:self  
+												 selector:@selector(updateLoadedImages)  
+													 name:RMResumeExpensiveOperations object:nil];
+        return;
+	}
+	
+	if ([self screenIsLoaded])
+		return;
+	
+	//      NSLog(@"assemble count = %d", [[content imagesOnScreen] count]);
+	
+	RMTileRect newTileRect = [content tileBounds];
+	
+	RMTileImageSet *images = [content imagesOnScreen];
+	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:
+							  [content screenBounds]];
+	
+	if (!RMTileIsDummy(loadedTiles.origin.tile))
+		[images removeTiles:loadedTiles];
+	
+	//      NSLog(@"-> count = %d", [images count]);
+	
+	loadedBounds = newLoadedBounds;
+	loadedZoom = newTileRect.origin.tile.zoom;
+	loadedTiles = newTileRect;
+	
+	[content tilesUpdatedRegion:newLoadedBounds];
+
+} 
+
+/*
 -(void) updateLoadedImages
 {
 	if (suppressLoading)
@@ -107,7 +155,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 	loadedTiles = newTileRect;
 	
 	[content tilesUpdatedRegion:newLoadedBounds];
-}
+}*/
 
 - (void)moveBy: (CGSize) delta
 {
