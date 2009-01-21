@@ -34,6 +34,7 @@
 	}
 }
 
+
 - (void)setSublayers: (NSArray*)array
 {
 	for (CALayer *layer in array)
@@ -150,6 +151,11 @@
 		[self correctScreenPosition:layer];
 	}
 }
+}
+
+- (BOOL) hasSubLayer:(CALayer *)layer
+{
+	return [set containsObject:layer];
 }
 
 @end

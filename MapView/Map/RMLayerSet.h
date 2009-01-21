@@ -35,6 +35,7 @@
 - (void)removeSublayer:(CALayer *)layer;
 - (void)removeSublayers:(NSArray *)layers;
 - (void) correctPositionOfAllSublayers;
+- (BOOL) hasSubLayer:(CALayer *)layer;
 
 //-(void) drawRect: (CGRect)rect;
 //-(CALayer*) layer;
