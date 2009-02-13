@@ -193,9 +193,23 @@
 }
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
+	[self zoomByFactor:zoomFactor near:center animated:NO];
+}
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center animated:(BOOL)animated
+{
 	if (delegateHasBeforeMapZoomByFactor) [delegate beforeMapZoom: self byFactor: zoomFactor near: center];
-	[contents zoomByFactor:zoomFactor near:center];
-	if (delegateHasAfterMapZoomByFactor) [delegate afterMapZoom: self byFactor: zoomFactor near: center];
+	[contents zoomByFactor:zoomFactor near:center animated:animated withCallback:(animated && delegateHasAfterMapZoomByFactor)?self:nil];
+	if (!animated)
+		if (delegateHasAfterMapZoomByFactor) [delegate afterMapZoom: self byFactor: zoomFactor near: center];
+}
+
+
+#pragma mark RMMapContentsAnimationCallback methods
+
+- (void)animationFinishedWithZoomFactor:(float)zoomFactor near:(CGPoint)p
+{
+	if (delegateHasAfterMapZoomByFactor)
+		[delegate afterMapZoom: self byFactor: zoomFactor near: p];
 }
 
 
@@ -360,7 +374,9 @@
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// Default behaviour matches built in maps.app
-			[[self contents] zoomInToNextNativeZoomAt: [touch locationInView:self] animated:YES];
+			float nextZoomFactor = [[self contents] getNextNativeZoomFactor];
+			if (nextZoomFactor != 0)
+				[self zoomByFactor:nextZoomFactor near:[touch locationInView:self] animated:YES];
 		}
 	} else if (lastTouches == 1 && touch.tapCount != 1) {
 		// deceleration

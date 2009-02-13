@@ -290,23 +290,29 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot animated:(BOOL) animated
 {
+	[self zoomByFactor:zoomFactor near:pivot animated:animated withCallback:nil];
+}
+
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot animated:(BOOL) animated withCallback:(id<RMMapContentsAnimationCallback>)callback
+{
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
 	
 	if (animated)
 	{
 		float zoomDelta = log2f(zoomFactor);
 		float targetZoom = zoomDelta + [self zoom];
-
+		
 		// goal is to complete the animation in animTime seconds
 		static const float stepTime = 0.03f;
 		static const float animTime = 0.1f;
 		float nSteps = animTime / stepTime;
 		float zoomIncr = zoomDelta / nSteps;
-
+		
 		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 								  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
 								  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
-								  CGPointCreateDictionaryRepresentation(pivot), @"pivot", nil];
+								  CGPointCreateDictionaryRepresentation(pivot), @"pivot", 
+								  callback, @"callback", nil];
 		[NSTimer scheduledTimerWithTimeInterval:stepTime
 										 target:self 
 									   selector:@selector(animatedZoomStep:) 
@@ -333,7 +339,6 @@
 	}
 }
 
-
 - (void)animatedZoomStep:(NSTimer *)timer
 {
 	float zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] floatValue];
@@ -341,7 +346,15 @@
 
 	if ((zoomIncr > 0 && [self zoom] >= targetZoom) || (zoomIncr < 0 && [self zoom] <= targetZoom))
 	{
-		[timer invalidate];
+		NSDictionary * userInfo = [[timer userInfo] retain];
+		[timer invalidate];	// ASAP
+		id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
+		if (callback && [callback respondsToSelector:@selector(animationFinishedWithZoomFactor:near:)]) {
+			CGPoint pivot;
+			CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)[userInfo objectForKey:@"pivot"], &pivot);
+			[callback animationFinishedWithZoomFactor:targetZoom near:pivot];
+		}
+		[userInfo release];
 	}
 	else
 	{
@@ -360,6 +373,11 @@
 	[self zoomInToNextNativeZoomAt:pivot animated:NO];
 }
 
+- (float)getNextNativeZoomFactor
+{
+	float newZoom = roundf([self zoom] + 1);
+	return newZoom >= [self maxZoom] ? 0 : exp2f(newZoom - [self zoom]);
+}
 
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated
 {

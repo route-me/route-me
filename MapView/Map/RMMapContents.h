@@ -37,6 +37,13 @@ enum {
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
 
+
+@protocol RMMapContentsAnimationCallback <NSObject>
+@optional
+- (void)animationFinishedWithZoomFactor:(float)zoomFactor near:(CGPoint)p;
+@end
+
+
 @interface RMMapContents : NSObject
 {
 	// TODO: Also support NSView.
@@ -115,11 +122,13 @@ enum {
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center animated:(BOOL) animated;
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center animated:(BOOL) animated withCallback:(id<RMMapContentsAnimationCallback>)callback;
 
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot;
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
+- (float)getNextNativeZoomFactor;
 
 - (void) drawRect: (CGRect) rect;
 

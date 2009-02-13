@@ -28,7 +28,7 @@ typedef struct {
 // This class is a wrapper around RMMapContents for the iphone.
 // It implements event handling; but thats about it. All the interesting map
 // logic is done by RMMapContents.
-@interface RMMapView : UIView <RMMapContentsFacade>
+@interface RMMapView : UIView <RMMapContentsFacade, RMMapContentsAnimationCallback>
 {
 	RMMapContents *contents;
 	id<RMMapViewDelegate> delegate;
@@ -59,7 +59,7 @@ typedef struct {
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint;
-
+- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint animated:(BOOL)animated;
 
 - (void)didReceiveMemoryWarning;
 
