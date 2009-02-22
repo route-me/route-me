@@ -1,10 +1,7 @@
 //
 //  main.m
-//  MapView
 //
-//  Created by Joseph Gentle on 17/09/08.
-//  Copyright __MyCompanyName__ 2008. All rights reserved.
-//
+// Apple boilerplate.
 
 #import <UIKit/UIKit.h>
 
