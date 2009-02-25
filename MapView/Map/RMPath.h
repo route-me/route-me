@@ -69,11 +69,12 @@
 - (id) initForMap: (RMMapView*)map;
 
 @property CGPathDrawingMode drawingMode;
+// This is the position on the map of the first point.
+
+@property float lineWidth;
+@property (nonatomic, assign) RMXYPoint origin;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
-// This is the position on the map of the first point.
-@property (readwrite, assign) RMXYPoint origin;
-@property float lineWidth;
 
 - (void) addLineToXY: (RMXYPoint) point;
 - (void) addLineToScreenPoint: (CGPoint) point;

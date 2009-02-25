@@ -66,6 +66,8 @@
 -(void) dealloc
 {
 	CGPathRelease(path);
+    [self setLineColor:nil];
+    [self setFillColor:nil];
 	
 	[super dealloc];
 }
@@ -192,26 +194,30 @@
 	[self setNeedsDisplay];
 }
 
-- (UIColor*) lineColor
+- (UIColor *)lineColor
 {
-	return lineColor;
+    return lineColor; 
+}
+- (void)setLineColor:(UIColor *)aLineColor
+{
+    if (lineColor != aLineColor) {
+        [lineColor release];
+        lineColor = [aLineColor retain];
+		[self setNeedsDisplay];
+    }
 }
 
-- (void) setLineColor: (UIColor*) newLineColor
+- (UIColor *)fillColor
 {
-	lineColor = newLineColor;
-	[self setNeedsDisplay];
+    return fillColor; 
 }
-
-- (UIColor*) fillColor
+- (void)setFillColor:(UIColor *)aFillColor
 {
-	return fillColor;
-}
-
-- (void) setFillColor: (UIColor*) newFillColor
-{
-	fillColor = newFillColor;
-	[self setNeedsDisplay];
+    if (fillColor != aFillColor) {
+        [fillColor release];
+        fillColor = [aFillColor retain];
+		[self setNeedsDisplay];
+    }
 }
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
