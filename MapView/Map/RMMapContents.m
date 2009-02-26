@@ -326,11 +326,13 @@
 		float nSteps = animTime / stepTime;
 		float zoomIncr = zoomDelta / nSteps;
 		
+		CFDictionaryRef pivotDictionary = CGPointCreateDictionaryRepresentation(pivot);
 		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 								  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
 								  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
-								  CGPointCreateDictionaryRepresentation(pivot), @"pivot", 
+								  pivotDictionary, @"pivot", 
 								  callback, @"callback", nil];
+		CFRelease(pivotDictionary);
 		[NSTimer scheduledTimerWithTimeInterval:stepTime
 										 target:self 
 									   selector:@selector(animatedZoomStep:) 
