@@ -793,7 +793,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Proj4;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
@@ -809,7 +809,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = Proj4;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Release;
 		};
@@ -817,13 +817,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
@@ -835,7 +836,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Release;
 		};
@@ -849,7 +850,7 @@
 				1DEB922008733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Proj4" */ = {
 			isa = XCConfigurationList;
@@ -858,7 +859,7 @@
 				1DEB922408733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
