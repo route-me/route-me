@@ -30,7 +30,6 @@
 		B8474B9B0EB40094006A0BC1 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B8E0EB40094006A0BC1 /* FMDatabase.m */; };
 		B8474B9C0EB40094006A0BC1 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B8F0EB40094006A0BC1 /* FMDatabaseAdditions.h */; };
 		B8474B9D0EB40094006A0BC1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B900EB40094006A0BC1 /* FMDatabaseAdditions.m */; };
-		B8474B9E0EB40094006A0BC1 /* fmdb.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B910EB40094006A0BC1 /* fmdb.m */; };
 		B8474B9F0EB40094006A0BC1 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B920EB40094006A0BC1 /* FMResultSet.h */; };
 		B8474BA00EB40094006A0BC1 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B930EB40094006A0BC1 /* FMResultSet.m */; };
 		B8474BA20EB40094006A0BC1 /* RMTileCacheDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B960EB40094006A0BC1 /* RMTileCacheDAO.h */; };
@@ -759,7 +758,6 @@
 				B8F3FC650EA2E792004D8F85 /* RMMarker.m in Sources */,
 				B8474B9B0EB40094006A0BC1 /* FMDatabase.m in Sources */,
 				B8474B9D0EB40094006A0BC1 /* FMDatabaseAdditions.m in Sources */,
-				B8474B9E0EB40094006A0BC1 /* fmdb.m in Sources */,
 				B8474BA00EB40094006A0BC1 /* FMResultSet.m in Sources */,
 				B8474BA30EB40094006A0BC1 /* RMTileCacheDAO.m in Sources */,
 				B8474BA50EB40094006A0BC1 /* RMDatabaseCache.m in Sources */,
@@ -848,13 +846,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
@@ -881,7 +879,7 @@
 				1D6058950D05DD3E006BFB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B8C974560E8A19B2007D16AD /* Build configuration list for PBXNativeTarget "MapView" */ = {
 			isa = XCConfigurationList;
@@ -890,7 +888,7 @@
 				B8C974580E8A19B2007D16AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MapView" */ = {
 			isa = XCConfigurationList;
@@ -899,7 +897,7 @@
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
