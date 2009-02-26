@@ -44,6 +44,12 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	contents = nil;
+	[super dealloc];
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark 
 #pragma mark Adding / Removing / Displaying Markers

@@ -42,6 +42,15 @@
 	return self;
 }
 
+- (void) dealloc 
+{
+	[set release];
+	set = nil;
+	mapContents = nil;
+	[super dealloc];
+}
+
+
 - (void)correctScreenPosition: (CALayer *)layer
 {
 	if ([layer conformsToProtocol:@protocol(RMMovingMapLayer)])
