@@ -153,12 +153,17 @@
 //– connection:didFailWithError:  delegate method
 //– connectionDidFinishLoading:  delegate method 
 
-- (void)connection:(NSURLConnection *)_connection didReceiveResponse:(NSURLResponse *)response
+- (void)connection:(NSURLConnection *)_connection
+didReceiveResponse:(NSURLResponse *)response
 {
 	if (data != nil)
 		[data release];
 	
-	data = [[NSMutableData alloc] initWithCapacity:[response expectedContentLength]];
+	NSInteger contentLength = [response expectedContentLength];
+	if (contentLength < 0) {
+		contentLength = 0;
+	}
+	data = [[NSMutableData alloc] initWithCapacity:contentLength];
 }
 
 - (void)connection:(NSURLConnection *)_connection didReceiveData:(NSData *)newData
