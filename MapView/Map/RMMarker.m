@@ -63,7 +63,7 @@ static CGImageRef _markerBlue = nil;
 	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-	labelView = nil;
+	self.labelView = nil;
 	
 	return self;
 }
@@ -75,7 +75,6 @@ static CGImageRef _markerBlue = nil;
 	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-	labelView = nil;	
 }
 
 - (id) initWithUIImage: (UIImage*) image
@@ -106,21 +105,20 @@ static CGImageRef _markerBlue = nil;
 
 - (void) setLabel: (UIView*)aView
 {
-	if (labelView == aView) {
+	if (self.labelView == aView) {
 		return;
 	}
 
 	if (labelView != nil)
 	{
-		[[labelView layer] removeFromSuperlayer];
-		[labelView release];
-		labelView = nil;
+		[[self.labelView layer] removeFromSuperlayer];
+		self.labelView = nil;
 	}
 	
 	if (aView != nil)
 	{
-		labelView = [aView retain];
-		[self addSublayer:[labelView layer]];
+		self.labelView = [aView retain];
+		[self addSublayer:[self.labelView layer]];
 	}
 }
 
@@ -154,22 +152,21 @@ static CGImageRef _markerBlue = nil;
 
 - (void) removeLabel
 {
-	if (labelView != nil)
+	if (self.labelView != nil)
 	{
-		[[labelView layer] removeFromSuperlayer];
-		[labelView release];
-		labelView = nil;
+		[[self.labelView layer] removeFromSuperlayer];
+		self.labelView = nil;
 	}
 
 }
 		
 - (void) toggleLabel
 {
-	if (labelView == nil) {
+	if (self.labelView == nil) {
 		return;
 	}
 	
-	if ([labelView isHidden]) {
+	if ([self.labelView isHidden]) {
 		[self showLabel];
 	} else {
 		[self hideLabel];
@@ -178,26 +175,26 @@ static CGImageRef _markerBlue = nil;
 
 - (void) showLabel
 {
-	if ([labelView isHidden]) {
+	if ([self.labelView isHidden]) {
 		// Using addSublayer will animate showing the label, whereas setHidden is not animated
-		[self addSublayer:[labelView layer]];
-		[labelView setHidden:NO];
+		[self addSublayer:[self.labelView layer]];
+		[self.labelView setHidden:NO];
 	}
 }
 
 - (void) hideLabel
 {
-	if (![labelView isHidden]) {
+	if (![self.labelView isHidden]) {
 		// Using removeFromSuperlayer will animate hiding the label, whereas setHidden is not animated
-		[[labelView layer] removeFromSuperlayer];
-		[labelView setHidden:YES];
+		[[self.labelView layer] removeFromSuperlayer];
+		[self.labelView setHidden:YES];
 	}
 }
 
 - (void) dealloc 
 {
-	[labelView release];
-	[data release];
+	self.labelView = nil;
+	self.data = nil;
 	[super dealloc];
 }
 
