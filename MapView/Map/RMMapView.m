@@ -94,7 +94,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-	CLLocationCoordinate2D latlong;
+	CLLocationCoordinate2D latlong = { 0, 0};
 	
 	if (self = [super initWithFrame:frame]) {
 		[self initValues:latlong];

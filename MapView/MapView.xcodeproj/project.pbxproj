@@ -798,6 +798,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_CFLAGS = (
+					"-Wuninitialized",
+					"-O",
+				);
 				PRODUCT_NAME = MapView;
 			};
 			name = Debug;
@@ -823,6 +827,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = ../Proj4;
+				OTHER_CFLAGS = (
+					"-O",
+					"-Wuninitialized",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = MapView;
 			};
