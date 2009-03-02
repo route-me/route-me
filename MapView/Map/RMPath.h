@@ -63,6 +63,7 @@
 	
 	float renderedScale;
 	RMMapContents *contents;
+	CGRect boundsInMercators;
 }
 
 - (id) initWithContents: (RMMapContents*)aContents;
@@ -71,10 +72,11 @@
 @property CGPathDrawingMode drawingMode;
 // This is the position on the map of the first point.
 
+@property (nonatomic, assign) BOOL scaleLineWidth;
 @property float lineWidth;
 @property (nonatomic, assign) RMXYPoint origin;
-@property (readwrite, assign) UIColor *lineColor;
-@property (readwrite, assign) UIColor *fillColor;
+@property (nonatomic, assign) UIColor *lineColor;
+@property (nonatomic, assign) UIColor *fillColor;
 
 - (void) addLineToXY: (RMXYPoint) point;
 - (void) addLineToScreenPoint: (CGPoint) point;
