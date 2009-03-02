@@ -42,7 +42,7 @@
     image = CGImageCreateWithPNGDataProvider (provider, NULL, true, kCGRenderingIntentDefault);
 */	
 	image = [[UIImage alloc] initWithContentsOfFile:file];
-	[image retain];
+//	[image retain];
 //	[self setImageToData:data];
 	
 	return self;
