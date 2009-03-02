@@ -60,11 +60,16 @@
 	{
 		BOOL startImmediately = [RMMapContents performExpensiveOperations];
 		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:startImmediately];
-		
+
 		if (connection == nil)
 		{
 			NSLog(@"Error: Connection is nil ?!?");
 			self.proxy = [RMTileProxy errorTile];
+		}
+		else
+		{
+			//Notify whatever is interested that we have requested a tile
+			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:nil];
 		}
 		
 		if (startImmediately == NO)
@@ -111,6 +116,7 @@
 		return;
 		
 //	NSLog(@"Image loading cancelled");
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
 	[connection cancel];
 	
 	[connection release];
@@ -182,6 +188,8 @@ didReceiveResponse:(NSURLResponse *)response
 	[data release];
 	data = nil;
 	NSLog(@"Tile could not be loaded: %@", [error localizedDescription]);
+	//If the tile failed, we still need to notify that this connection is done
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
@@ -193,6 +201,8 @@ didReceiveResponse:(NSURLResponse *)response
 	[connection release];
 	connection = nil;
 //	NSLog(@"finished loading image");
+	//Notify whatever is interested that we have retrieved a tile
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
 }
 
 @end

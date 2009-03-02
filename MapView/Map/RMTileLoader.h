@@ -40,6 +40,9 @@ extern NSString * const RMMapImageAddedToScreenNotification;
 extern NSString * const RMSuspendExpensiveOperations;
 extern NSString * const RMResumeExpensiveOperations;
 
+extern NSString * const RMTileRetrieved;
+extern NSString * const RMTileRequested;
+
 @protocol RMTileSource;
 
 @interface RMTileLoader : NSObject {

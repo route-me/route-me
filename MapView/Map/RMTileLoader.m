@@ -42,6 +42,9 @@ NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen"
 NSString* const RMSuspendExpensiveOperations = @"RMSuspendExpensiveOperations";
 NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 
+NSString* const RMTileRetrieved = @"RMTileRetrieved";
+NSString* const RMTileRequested = @"RMTileRequested";
+
 @implementation RMTileLoader
 
 @synthesize loadedBounds, loadedZoom;
