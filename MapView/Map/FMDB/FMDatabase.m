@@ -523,13 +523,16 @@
     checkedOut = flag;
 }
 
-
 - (int)busyRetryTimeout {
     return busyRetryTimeout;
 }
+
 - (void)setBusyRetryTimeout:(int)newBusyRetryTimeout {
     busyRetryTimeout = newBusyRetryTimeout;
 }
 
+- (int)changes {
+  return(sqlite3_changes(db));
+}
 
 @end

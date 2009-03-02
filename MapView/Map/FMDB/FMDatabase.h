@@ -69,6 +69,7 @@
 - (int)busyRetryTimeout;
 - (void)setBusyRetryTimeout:(int)newBusyRetryTimeout;
 
+- (int)changes;
 
 + (NSString*) sqliteLibVersion;
 
