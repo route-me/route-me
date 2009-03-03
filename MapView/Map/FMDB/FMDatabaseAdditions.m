@@ -47,4 +47,5 @@ return ret;
     RETURN_RESULT_FOR_QUERY_WITH_SELECTOR(NSData *, dataForColumnIndex);
 }
 
+
 @end

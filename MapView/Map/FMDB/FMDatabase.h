@@ -13,7 +13,10 @@
     BOOL        traceExecution;
     BOOL        checkedOut;
     int         busyRetryTimeout;
+    BOOL        shouldCacheStatements;
+    NSMutableDictionary *cachedStatements;
 }
+
 
 + (id)databaseWithPath:(NSString*)inPath;
 - (id)initWithPath:(NSString*)inPath;
@@ -21,6 +24,7 @@
 - (BOOL) open;
 - (void) close;
 - (BOOL) goodConnection;
+- (void) clearCachedStatements;
 
 // encryption methods.  You need to have purchased the sqlite encryption extensions for these to work.
 - (BOOL) setKey:(NSString*)key;
@@ -55,7 +59,7 @@
 - (void)setCrashOnErrors:(BOOL)flag;
 
 - (BOOL)inUse;
-- (void)setInUse:(BOOL)flag;
+- (void)setInUse:(BOOL)value;
 
 - (BOOL)inTransaction;
 - (void)setInTransaction:(BOOL)flag;
@@ -69,10 +73,39 @@
 - (int)busyRetryTimeout;
 - (void)setBusyRetryTimeout:(int)newBusyRetryTimeout;
 
-- (int)changes;
+- (BOOL)shouldCacheStatements;
+- (void)setShouldCacheStatements:(BOOL)value;
+
+- (NSMutableDictionary *)cachedStatements;
+- (void)setCachedStatements:(NSMutableDictionary *)value;
+
 
 + (NSString*) sqliteLibVersion;
 
 
+- (int)changes;
 
 @end
+
+@interface FMStatement : NSObject {
+    sqlite3_stmt *statement;
+    NSString *query;
+    long useCount;
+}
+
+
+- (void) close;
+- (void) reset;
+
+- (sqlite3_stmt *)statement;
+- (void)setStatement:(sqlite3_stmt *)value;
+
+- (NSString *)query;
+- (void)setQuery:(NSString *)value;
+
+- (long)useCount;
+- (void)setUseCount:(long)value;
+
+
+@end
+

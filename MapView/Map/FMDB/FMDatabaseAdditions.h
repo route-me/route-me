@@ -14,8 +14,11 @@
 - (long) longForQuery:(NSString*)objs, ...; 
 - (BOOL) boolForQuery:(NSString*)objs, ...;
 - (double) doubleForQuery:(NSString*)objs, ...;
-- (NSData*) dataForQuery:(NSString*)objs, ...;
 - (NSString*) stringForQuery:(NSString*)objs, ...; 
+- (NSData*) dataForQuery:(NSString*)objs, ...;
 
+// Notice that there's no dataNoCopyForQuery:.
+// That would be a bad idea, because we close out the result set, and then what
+// happens to the data that we just didn't copy?  Who knows, not I.
 
 @end
