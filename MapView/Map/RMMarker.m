@@ -77,6 +77,11 @@ static CGImageRef _markerBlue = nil;
 	self.masksToBounds = NO;
 }
 
+- (void) replaceKey: (NSString*) key
+{
+	[self replaceImage:[RMMarker markerImage:key] anchorPoint: CGPointMake(0.5, 1.0)];
+}
+
 - (id) initWithUIImage: (UIImage*) image
 {
 	return [self initWithCGImage: [image CGImage]];
@@ -125,12 +130,24 @@ static CGImageRef _markerBlue = nil;
 
 - (void) setTextLabel: (NSString*)text
 {
-	[self setTextLabel:text toPosition:CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4)];;	
+	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
+	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[UIColor blackColor] withBackgroundColor:[UIColor clearColor]];
 }
 
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
 {
-	CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize:15]];
+	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[UIColor blackColor] withBackgroundColor:[UIColor clearColor]];
+}
+
+- (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+{
+        CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
+	[self setTextLabel:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
+}
+
+- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+{
+	CGSize textSize = [text sizeWithFont:font];
 	CGRect frame = CGRectMake(position.x,
 							  position.y,
 							  textSize.width+4,
@@ -139,15 +156,14 @@ static CGImageRef _markerBlue = nil;
 	UILabel *aLabel = [[UILabel alloc] initWithFrame:frame];
 	[aLabel setNumberOfLines:0];
 	[aLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[aLabel setBackgroundColor:[UIColor clearColor]];
-	[aLabel setTextColor:[UIColor blackColor]];
-	[aLabel setFont:[UIFont systemFontOfSize:15]];
+	[aLabel setBackgroundColor:backgroundColor];
+	[aLabel setTextColor:textColor];
+	[aLabel setFont:font];
 	[aLabel setTextAlignment:UITextAlignmentCenter];
 	[aLabel setText:text];
 	
 	[self setLabel:aLabel];
 	[aLabel release];
-	
 }
 
 - (void) removeLabel

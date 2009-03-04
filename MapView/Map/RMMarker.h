@@ -56,12 +56,16 @@ extern NSString * const RMMarkerRedKey;
 - (void) setLabel: (UIView*)aView;
 - (void) setTextLabel: (NSString*)text;
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
+- (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
+- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
 - (void) toggleLabel;
 - (void) showLabel;
 - (void) hideLabel;
 - (void) removeLabel;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
+- (void) replaceKey: (NSString*) key;
+
 - (void) hide;
 - (void) unhide;
 
