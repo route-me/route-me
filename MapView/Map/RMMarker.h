@@ -36,7 +36,8 @@ extern NSString * const RMMarkerRedKey;
 
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
 	RMXYPoint location;	
-	NSObject* data;
+
+	NSObject* data; // provided for storage of arbitrary user data
 	
 	// A label which comes up when you tap the marker
 	UIView* labelView;

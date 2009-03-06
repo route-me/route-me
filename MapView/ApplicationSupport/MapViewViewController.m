@@ -96,16 +96,6 @@
 
 }
 
--(void)tileRequested:(NSNotification *)notification
-{
-   NSLog(@"A tile was requested!");
-}
-
--(void)tileRetrieved:(NSNotification *)notification;
-{
-   NSLog(@"A tile was retrieved");
-}
-
 - (BOOL)mapView:(RMMapView *)map shouldDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event
 {
    //If you do not implement this function, then all drags on markers will be sent to the didDragMarker function.
@@ -183,11 +173,6 @@
 	// What did this do?
 	//	[mapView setZoomBounds:0.0 maxZoom:17.0];
    
-   //Notifications for tile requests.  This code allows for a class to know when a tile is requested and retrieved
-   [[NSNotificationCenter defaultCenter] addObserver:self
-   selector:@selector(tileRequested:) name:@"RMTileRequested" object:nil ];
-   [[NSNotificationCenter defaultCenter] addObserver:self
-   selector:@selector(tileRetrieved:) name:@"RMTileRetrieved" object:nil ]; 
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
