@@ -96,8 +96,28 @@
 
 }
 
-- (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position
+-(void)tileRequested:(NSNotification *)notification
 {
+   NSLog(@"A tile was requested!");
+}
+
+-(void)tileRetrieved:(NSNotification *)notification;
+{
+   NSLog(@"A tile was retrieved");
+}
+
+- (BOOL)mapView:(RMMapView *)map shouldDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event
+{
+   //If you do not implement this function, then all drags on markers will be sent to the didDragMarker function.
+   //If you always return YES you will get the same result
+   //If you always return NO you will never get a call to the didDragMarker function
+   return YES;
+}
+
+- (void)mapView:(RMMapView *)map didDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event 
+{
+   CGPoint position = [[[event allTouches] anyObject] locationInView:mapView];
+   
 	RMMarkerManager *markerManager = [mapView markerManager];
 
 	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
@@ -162,6 +182,12 @@
 	
 	// What did this do?
 	//	[mapView setZoomBounds:0.0 maxZoom:17.0];
+   
+   //Notifications for tile requests.  This code allows for a class to know when a tile is requested and retrieved
+   [[NSNotificationCenter defaultCenter] addObserver:self
+   selector:@selector(tileRequested:) name:@"RMTileRequested" object:nil ];
+   [[NSNotificationCenter defaultCenter] addObserver:self
+   selector:@selector(tileRetrieved:) name:@"RMTileRetrieved" object:nil ]; 
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
