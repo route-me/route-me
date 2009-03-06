@@ -96,15 +96,7 @@
 
 }
 
-- (BOOL)mapView:(RMMapView *)map shouldDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event
-{
-   //If you do not implement this function, then all drags on markers will be sent to the didDragMarker function.
-   //If you always return YES you will get the same result
-   //If you always return NO you will never get a call to the didDragMarker function
-   return YES;
-}
-
-- (void)mapView:(RMMapView *)map didDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event 
+- (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position;
 {
    CGPoint position = [[[event allTouches] anyObject] locationInView:mapView];
    
