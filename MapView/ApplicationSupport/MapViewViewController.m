@@ -98,8 +98,6 @@
 
 - (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position;
 {
-   CGPoint position = [[[event allTouches] anyObject] locationInView:mapView];
-   
 	RMMarkerManager *markerManager = [mapView markerManager];
 
 	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
