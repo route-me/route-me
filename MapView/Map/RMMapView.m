@@ -43,6 +43,8 @@
 - (void)stopDeceleration;
 @end
 
+// FIXME: Issue 69. These globals mean you can only have one RMMapView in the entire app.
+// http://code.google.com/p/route-me/issues/detail?id=69
 @implementation RMMapView (Internal)
 	BOOL delegateHasBeforeMapMove;
 	BOOL delegateHasAfterMapMove;
