@@ -414,6 +414,23 @@
 	}
 }
 
+- (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated {
+       // Calculate rounded zoom
+       float newZoom = roundf([self zoom] - 1);
+      
+       if (newZoom <= [self minZoom])
+               return;
+       else {
+               float factor = exp2f(newZoom - [self zoom]);
+               [self zoomByFactor:factor near:pivot animated:animated];
+       }
+}
+
+- (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot {
+       [self zoomOutToNextNativeZoomAt: pivot animated: FALSE];
+}
+ 
+
 - (void) drawRect: (CGRect) aRect
 {
 	[renderer drawRect:aRect];
