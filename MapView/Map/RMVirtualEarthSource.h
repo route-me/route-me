@@ -25,9 +25,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import "RMAbstractMecatorWebSource.h"
+#import "RMAbstractMercatorWebSource.h"
 
-@interface RMVirtualEarthSource : RMAbstractMecatorWebSource <RMAbstractMecatorWebSource> {
+@interface RMVirtualEarthSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
 }
 
 -(NSString*) quadKeyForTile: (RMTile) tile;

@@ -1,5 +1,5 @@
 //
-//  RMMercatorWebSource.h
+//  RMMercatorWebSource.m
 //
 // Copyright (c) 2008, Route-Me Contributors
 // All rights reserved.
@@ -25,23 +25,72 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import "RMTileSource.h"
+#import "RMAbstractMercatorWebSource.h"
+#import "RMTransform.h"
+#import "RMTileImage.h"
+#import "RMTileLoader.h"
+#import "RMFractalTileProjection.h"
+#import "RMTiledLayerController.h"
+#import "RMProjection.h"
 
-@protocol RMAbstractMecatorWebSource
+@implementation RMAbstractMercatorWebSource
 
--(NSString*) tileURL: (RMTile) tile;
-
-@end
-
-@class RMFractalTileProjection;
-
-@interface RMAbstractMecatorWebSource : NSObject <RMTileSource> {
-	RMFractalTileProjection *tileProjection;
+-(id) init
+{
+	if (![super init])
+		return nil;
+	
+	int sideLength = [[self class] tileSideLength];
+	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:sideLength maxZoom:18];
+	
+	return self;
 }
 
-+(int)tileSideLength;
+-(void) dealloc
+{
+	[tileProjection release];
+	[super dealloc];
+}
 
--(float) minZoom;
--(float) maxZoom;
++(int)tileSideLength
+{
+	return 256;
+}
+
+-(float) minZoom
+{
+	return 0;
+}
+-(float) maxZoom
+{
+	return 18;
+}
+
+-(NSString*) tileURL: (RMTile) tile
+{
+	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"tileURL invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
+}
+
+-(RMTileImage *) tileImage: (RMTile)tile
+{
+	tile = [tileProjection normaliseTile:tile];
+	RMTileImage* image = [RMTileImage imageWithTile: tile FromURL:[self tileURL:tile]];
+	return image;
+}
+
+-(id<RMMercatorToTileProjection>) mercatorToTileProjection
+{
+	return [[tileProjection retain] autorelease];
+}
+
+-(RMProjection*) projection
+{
+	return [RMProjection googleProjection];
+}
+
+-(void) didReceiveMemoryWarning
+{
+}
 
 @end
+

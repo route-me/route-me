@@ -62,7 +62,7 @@
 		B8C9742B0E8A19B2007D16AD /* RMMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D20E80E73F001663B6 /* RMMemoryCache.h */; };
 		B8C9742D0E8A19B2007D16AD /* RMFractalTileProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E90E80E73F001663B6 /* RMFractalTileProjection.h */; };
 		B8C9742F0E8A19B2007D16AD /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B86F26AC0E87442C007A3773 /* RMMapLayer.h */; };
-		B8C974310E8A19B2007D16AD /* RMAbstractMecatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* RMAbstractMecatorWebSource.h */; };
+		B8C974310E8A19B2007D16AD /* RMAbstractMercatorWebSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */; };
 		B8C974350E8A19B2007D16AD /* RMMercatorToScreenProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C90E80E73F001663B6 /* RMMercatorToScreenProjection.m */; };
 		B8C974380E8A19B2007D16AD /* RMMapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64CB0E80E73F001663B6 /* RMMapRenderer.m */; };
 		B8C9743A0E8A19B2007D16AD /* RMCoreAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64BE0E80E73F001663B6 /* RMCoreAnimationRenderer.m */; };
@@ -75,7 +75,7 @@
 		B8C974460E8A19B2007D16AD /* RMFileTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64DF0E80E73F001663B6 /* RMFileTileImage.m */; };
 		B8C974480E8A19B2007D16AD /* RMTileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D10E80E73F001663B6 /* RMTileCache.m */; };
 		B8C9744A0E8A19B2007D16AD /* RMProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E40E80E73F001663B6 /* RMProjection.m */; };
-		B8C9744C0E8A19B2007D16AD /* RMAbstractMecatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* RMAbstractMecatorWebSource.m */; };
+		B8C9744C0E8A19B2007D16AD /* RMAbstractMercatorWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */; };
 		B8C974500E8A19B2007D16AD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65590E80E7EB001663B6 /* CoreFoundation.framework */; };
 		B8C974510E8A19B2007D16AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		B8C974520E8A19B2007D16AD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65630E80E81C001663B6 /* CoreLocation.framework */; };
@@ -243,8 +243,8 @@
 		B8F3FC630EA2E792004D8F85 /* RMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
 		B8FA92170E9315EC003A9FE6 /* RMLayerSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLayerSet.h; sourceTree = "<group>"; };
 		B8FA92180E9315EC003A9FE6 /* RMLayerSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLayerSet.m; sourceTree = "<group>"; };
-		C7A967500E8412930031BA75 /* RMAbstractMecatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMecatorWebSource.h; sourceTree = "<group>"; };
-		C7A967510E8412930031BA75 /* RMAbstractMecatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMecatorWebSource.m; sourceTree = "<group>"; };
+		C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMercatorWebSource.h; sourceTree = "<group>"; };
+		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
 		C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMVirtualEarthSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -436,8 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				B83E64EC0E80E73F001663B6 /* RMTileSource.h */,
-				C7A967500E8412930031BA75 /* RMAbstractMecatorWebSource.h */,
-				C7A967510E8412930031BA75 /* RMAbstractMecatorWebSource.m */,
+				C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */,
+				C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */,
 				B83E64ED0E80E73F001663B6 /* RMOpenStreetMapsSource.h */,
 				B83E64EE0E80E73F001663B6 /* RMOpenStreetMapsSource.m */,
 				C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */,
@@ -593,7 +593,7 @@
 				B8C9742B0E8A19B2007D16AD /* RMMemoryCache.h in Headers */,
 				B8C9742D0E8A19B2007D16AD /* RMFractalTileProjection.h in Headers */,
 				B8C9742F0E8A19B2007D16AD /* RMMapLayer.h in Headers */,
-				B8C974310E8A19B2007D16AD /* RMAbstractMecatorWebSource.h in Headers */,
+				B8C974310E8A19B2007D16AD /* RMAbstractMercatorWebSource.h in Headers */,
 				B8C9745C0E8A19E5007D16AD /* RMTileImageSet.h in Headers */,
 				B8C9745E0E8A19E6007D16AD /* RMTileLoader.h in Headers */,
 				B8C974600E8A19E7007D16AD /* RMTileProxy.h in Headers */,
@@ -743,7 +743,7 @@
 				B8C974460E8A19B2007D16AD /* RMFileTileImage.m in Sources */,
 				B8C974480E8A19B2007D16AD /* RMTileCache.m in Sources */,
 				B8C9744A0E8A19B2007D16AD /* RMProjection.m in Sources */,
-				B8C9744C0E8A19B2007D16AD /* RMAbstractMecatorWebSource.m in Sources */,
+				B8C9744C0E8A19B2007D16AD /* RMAbstractMercatorWebSource.m in Sources */,
 				B8C9745D0E8A19E6007D16AD /* RMTileImageSet.m in Sources */,
 				B8C9745F0E8A19E7007D16AD /* RMTileLoader.m in Sources */,
 				B8C974610E8A19E8007D16AD /* RMTileProxy.m in Sources */,
