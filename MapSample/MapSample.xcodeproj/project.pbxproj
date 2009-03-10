@@ -24,6 +24,11 @@
 		2B0C07420F65F1FD00214CE8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0C07410F65F1FD00214CE8 /* CoreLocation.framework */; };
 		2B0C07460F65F20700214CE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0C07450F65F20700214CE8 /* QuartzCore.framework */; };
 		2B0C074A0F65F23A00214CE8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0C07490F65F23A00214CE8 /* libsqlite3.dylib */; };
+		96616A520F6714D2002587F2 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 96616A4D0F6714D2002587F2 /* loading.png */; };
+		96616A530F6714D2002587F2 /* marker-blue-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96616A4E0F6714D2002587F2 /* marker-blue-withletter.png */; };
+		96616A540F6714D2002587F2 /* marker-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 96616A4F0F6714D2002587F2 /* marker-blue.png */; };
+		96616A550F6714D2002587F2 /* marker-red-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96616A500F6714D2002587F2 /* marker-red-withletter.png */; };
+		96616A560F6714D2002587F2 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 96616A510F6714D2002587F2 /* marker-red.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +82,11 @@
 		2B0C07490F65F23A00214CE8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MapSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSample_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96616A4D0F6714D2002587F2 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
+		96616A4E0F6714D2002587F2 /* marker-blue-withletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue-withletter.png"; sourceTree = "<group>"; };
+		96616A4F0F6714D2002587F2 /* marker-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue.png"; sourceTree = "<group>"; };
+		96616A500F6714D2002587F2 /* marker-red-withletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red-withletter.png"; sourceTree = "<group>"; };
+		96616A510F6714D2002587F2 /* marker-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +158,7 @@
 				080E96DDFE201D6D7F000001 /* Application Controllers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				96616A4C0F6714D2002587F2 /* images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				2B0C07410F65F1FD00214CE8 /* CoreLocation.framework */,
@@ -194,6 +205,18 @@
 				2B0C07340F65F00900214CE8 /* libMapView.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		96616A4C0F6714D2002587F2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				96616A4D0F6714D2002587F2 /* loading.png */,
+				96616A4E0F6714D2002587F2 /* marker-blue-withletter.png */,
+				96616A4F0F6714D2002587F2 /* marker-blue.png */,
+				96616A500F6714D2002587F2 /* marker-red-withletter.png */,
+				96616A510F6714D2002587F2 /* marker-red.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +295,11 @@
 				280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
+				96616A520F6714D2002587F2 /* loading.png in Resources */,
+				96616A530F6714D2002587F2 /* marker-blue-withletter.png in Resources */,
+				96616A540F6714D2002587F2 /* marker-blue.png in Resources */,
+				96616A550F6714D2002587F2 /* marker-red-withletter.png in Resources */,
+				96616A560F6714D2002587F2 /* marker-red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

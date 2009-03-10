@@ -20,6 +20,11 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
+		966169E10F671418002587F2 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 966169DC0F671418002587F2 /* loading.png */; };
+		966169E20F671418002587F2 /* marker-blue-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 966169DD0F671418002587F2 /* marker-blue-withletter.png */; };
+		966169E30F671418002587F2 /* marker-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 966169DE0F671418002587F2 /* marker-blue.png */; };
+		966169E40F671418002587F2 /* marker-red-withletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 966169DF0F671418002587F2 /* marker-red-withletter.png */; };
+		966169E50F671418002587F2 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 966169E00F671418002587F2 /* marker-red.png */; };
 		EB8BE5DE0F66AF6300094BF7 /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8BE5BF0F66AE6300094BF7 /* libMapView.a */; };
 		EB8BE5DF0F66AF6300094BF7 /* MapView.app in Resources */ = {isa = PBXBuildFile; fileRef = EB8BE5BD0F66AE6300094BF7 /* MapView.app */; };
 		EBDDE0E00F649CE100377FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */; };
@@ -74,6 +79,11 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Sample2_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample2_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		966169DC0F671418002587F2 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
+		966169DD0F671418002587F2 /* marker-blue-withletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue-withletter.png"; sourceTree = "<group>"; };
+		966169DE0F671418002587F2 /* marker-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue.png"; sourceTree = "<group>"; };
+		966169DF0F671418002587F2 /* marker-red-withletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red-withletter.png"; sourceTree = "<group>"; };
+		966169E00F671418002587F2 /* marker-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red.png"; sourceTree = "<group>"; };
 		EB8BE5AF0F66AE6300094BF7 /* MapView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MapView.xcodeproj; path = ../MapView/MapView.xcodeproj; sourceTree = SOURCE_ROOT; };
 		EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EBDDE0E10F649CE100377FFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -149,6 +159,7 @@
 				080E96DDFE201D6D7F000001 /* Application Controllers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				966169DB0F671418002587F2 /* images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -186,6 +197,18 @@
 				EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		966169DB0F671418002587F2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				966169DC0F671418002587F2 /* loading.png */,
+				966169DD0F671418002587F2 /* marker-blue-withletter.png */,
+				966169DE0F671418002587F2 /* marker-blue.png */,
+				966169DF0F671418002587F2 /* marker-red-withletter.png */,
+				966169E00F671418002587F2 /* marker-red.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		EB8BE5B00F66AE6300094BF7 /* Products */ = {
@@ -274,6 +297,11 @@
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				EB8BE5DF0F66AF6300094BF7 /* MapView.app in Resources */,
+				966169E10F671418002587F2 /* loading.png in Resources */,
+				966169E20F671418002587F2 /* marker-blue-withletter.png in Resources */,
+				966169E30F671418002587F2 /* marker-blue.png in Resources */,
+				966169E40F671418002587F2 /* marker-red-withletter.png in Resources */,
+				966169E50F671418002587F2 /* marker-red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
