@@ -1,6 +1,6 @@
 //
 //  RootViewController.m
-//  MapSample
+//  MapTestbed
 //
 //  Created by Hal Mueller on 3/9/09.
 // Copyright (c) 2008, Route-Me Contributors
@@ -65,7 +65,7 @@
     [aNavigationBar release];
     
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleView)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:@"MapSample"];
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:@"MapTestbed"];
     navigationItem.rightBarButtonItem = buttonItem;
     [flipsideNavigationBar pushNavigationItem:navigationItem animated:NO];
     [navigationItem release];

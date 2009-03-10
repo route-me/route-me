@@ -1,6 +1,6 @@
 //
 //  MainViewController.h
-//  MapSample
+//  MapTestbed
 //
 //  Created by Hal Mueller on 3/9/09.
 // Copyright (c) 2008, Route-Me Contributors
