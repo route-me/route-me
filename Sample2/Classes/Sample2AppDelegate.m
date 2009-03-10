@@ -21,6 +21,7 @@
 
 
 - (void)dealloc {
+    self.mapContents = nil;
     [rootViewController release];
     [window release];
     [super dealloc];

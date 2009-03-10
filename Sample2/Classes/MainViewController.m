@@ -50,6 +50,8 @@
 }
 
 - (void)dealloc {
+    self.infoTextView = nil; 
+    self.mapView = nil; 
     [super dealloc];
 }
 
