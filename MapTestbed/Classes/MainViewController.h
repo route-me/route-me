@@ -29,9 +29,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RMMapView.h"
 
 @interface MainViewController : UIViewController {
-    
+    RMMapView *testMapview;
 }
 
 @end

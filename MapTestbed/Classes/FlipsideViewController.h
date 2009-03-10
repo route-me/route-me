@@ -47,4 +47,9 @@
 @property(nonatomic,retain) IBOutlet UILabel *rmscale;
 @property(nonatomic,retain) IBOutlet UILabel *truescale;
 
+- (IBAction)useOpenStreetMap;
+- (IBAction)useCloudMadeMap;
+- (IBAction)useCloudMadeLowResMap;
+- (IBAction)useMicrosoftVirtualEarthMap;
+
 @end

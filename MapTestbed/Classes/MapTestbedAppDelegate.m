@@ -1,5 +1,5 @@
 //
-//  MapSampleAppDelegate.m
+//  MapTestbedAppDelegate.m
 //  MapTestbed
 //
 //  Created by Hal Mueller on 3/9/09.
@@ -28,10 +28,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "MapSampleAppDelegate.h"
+#import "MapTestbedAppDelegate.h"
 #import "RootViewController.h"
 
-@implementation MapSampleAppDelegate
+@implementation MapTestbedAppDelegate
 
 
 @synthesize window;

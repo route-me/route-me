@@ -29,7 +29,7 @@
 //
 
 #import "FlipsideViewController.h"
-#import "MapSampleAppDelegate.h"
+#import "MapTestbedAppDelegate.h"
 #import "MyMapView.h"
 
 @implementation FlipsideViewController
@@ -73,8 +73,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-	NSLog(@"viewDidAppear");
-	RMMapContents *contents = [(MapSampleAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
+	RMMapContents *contents = [(MapTestbedAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
 	CLLocationCoordinate2D mapCenter = [contents mapCenter];
 	[centerLat setText:[NSString stringWithFormat:@"%f", mapCenter.latitude]];
 	[centerLon setText:[NSString stringWithFormat:@"%f", mapCenter.longitude]];
@@ -94,6 +93,22 @@
     self.rmscale = nil;
     self.truescale = nil;
     [super dealloc];
+}
+
+- (IBAction)useOpenStreetMap {    
+	NSLog(@"useOpenStreetMap");
+}
+
+- (IBAction)useCloudMadeMap {    
+	NSLog(@"useCloudMadeMap");
+}
+
+- (IBAction)useCloudMadeLowResMap {    
+	NSLog(@"useCloudMadeLowResMap");
+}
+
+- (IBAction)useMicrosoftVirtualEarthMap {
+	NSLog(@"useMicrosoftVirtualEarthMap");
 }
 
 

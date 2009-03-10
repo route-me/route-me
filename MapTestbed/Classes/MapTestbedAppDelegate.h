@@ -1,5 +1,5 @@
 //
-//  MapSampleAppDelegate.h
+//  MapTestbedAppDelegate.h
 //  MapTestbed
 //
 //  Created by Hal Mueller on 3/9/09.
@@ -33,7 +33,7 @@
 
 @class RootViewController;
 
-@interface MapSampleAppDelegate : NSObject <UIApplicationDelegate> {
+@interface MapTestbedAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     RootViewController *rootViewController;
 	RMMapContents *mapContents;

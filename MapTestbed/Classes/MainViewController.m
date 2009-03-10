@@ -29,7 +29,7 @@
 //
 
 #import "MainViewController.h"
-#import "MapSampleAppDelegate.h"
+#import "MapTestbedAppDelegate.h"
 #import "MyMapView.h"
 
 @implementation MainViewController
@@ -42,12 +42,23 @@
     return self;
 }
 
+// from issue 21
+- (void) refreshMap {
+	[testMapview removeFromSuperview];
+	[testMapview release];
+	testMapview = nil;
+	
+	testMapview = [[RMMapView alloc] initWithFrame:self.view.bounds];
+	[self.view addSubview:testMapview];
+}
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[(MapSampleAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[(MyMapView *)[self view] contents]];
+	[(MapTestbedAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[(MyMapView *)[self view] contents]];
+	[NSTimer scheduledTimerWithTimeInterval:0.25 target:self
+								   selector:@selector(refreshMap) userInfo:nil repeats:YES];
 }
 
 
