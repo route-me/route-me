@@ -36,7 +36,7 @@
 
 @synthesize window;
 @synthesize rootViewController;
-
+@synthesize mapContents;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     

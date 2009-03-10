@@ -29,6 +29,7 @@
 //
 
 #import "MainViewController.h"
+#import "MapSampleAppDelegate.h"
 #import "MyMapView.h"
 
 @implementation MainViewController
@@ -42,12 +43,13 @@
 }
 
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[(MapSampleAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[(MyMapView *)[self view] contents]];
 }
-*/
+
 
 
 /*

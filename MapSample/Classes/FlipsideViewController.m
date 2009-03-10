@@ -29,7 +29,8 @@
 //
 
 #import "FlipsideViewController.h"
-
+#import "MapSampleAppDelegate.h"
+#import "MyMapView.h"
 
 @implementation FlipsideViewController
 
@@ -40,6 +41,7 @@
 @synthesize centerLon;
 @synthesize zoomLevel;
 @synthesize rmscale;
+@synthesize truescale;
 
 
 // init
@@ -52,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];      
+    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];  
 }
 
 
@@ -70,12 +72,27 @@
     // Release anything that's not essential, such as cached data
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	NSLog(@"viewDidAppear");
+	RMMapContents *contents = [(MapSampleAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
+	CLLocationCoordinate2D mapCenter = [contents mapCenter];
+	[centerLat setText:[NSString stringWithFormat:@"%f", mapCenter.latitude]];
+	[centerLon setText:[NSString stringWithFormat:@"%f", mapCenter.longitude]];
+	[zoomLevel setText:[NSString stringWithFormat:@"%.2f", [contents zoom]]];
+	float routemeMetersPerPixel = [contents scale]; // really meters/pixel
+	[rmscale setText:[NSString stringWithFormat:@"%.1f", routemeMetersPerPixel]];
+	
+	float iphoneMillimetersPerPixel = .1543;
+	float truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
+	[truescale setText:[NSString stringWithFormat:@"1:%.0f", truescaleDenominator]];
+}
 
 - (void)dealloc {
     self.centerLat = nil;
     self.centerLon = nil;
     self.zoomLevel = nil;
     self.rmscale = nil;
+    self.truescale = nil;
     [super dealloc];
 }
 

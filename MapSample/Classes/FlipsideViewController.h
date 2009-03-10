@@ -35,6 +35,7 @@
 	UILabel *centerLon;
 	UILabel *zoomLevel;
 	UILabel *rmscale;
+	UILabel *truescale;
 }
 
 #pragma mark -
@@ -44,5 +45,6 @@
 @property(nonatomic,retain) IBOutlet UILabel *centerLon;
 @property(nonatomic,retain) IBOutlet UILabel *zoomLevel;
 @property(nonatomic,retain) IBOutlet UILabel *rmscale;
+@property(nonatomic,retain) IBOutlet UILabel *truescale;
 
 @end
