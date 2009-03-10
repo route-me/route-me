@@ -246,7 +246,7 @@ static CGImageRef _markerBlue = nil;
 
 + (CGImageRef) loadPNGFromBundle: (NSString *)filename
 {
-	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
+	NSString *path = [[NSBundle bundleForClass:@"RMMarker"] pathForResource:filename ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
 	[NSMakeCollectable(image) autorelease];

@@ -48,7 +48,7 @@ static RMTileImage *_loadingTile = nil;
 		return _loadingTile;
 	
 	RMTile t = RMTileDummy();
-	NSString* file = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
+	NSString* file = [[NSBundle bundleForClass:@"RMTileProxy"] pathForResource:@"loading" ofType:@"png"];
 	_loadingTile = [[RMTileImage imageWithTile:t FromFile:file] retain];
 	return _loadingTile;
 //	return nil;

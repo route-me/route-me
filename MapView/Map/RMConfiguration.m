@@ -38,7 +38,7 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 		if (RMConfigurationSharedInstance != nil) return RMConfigurationSharedInstance;
 	
 		RMConfigurationSharedInstance = [[RMConfiguration alloc] 
-										 initWithPath: [[NSBundle mainBundle] pathForResource:@"routeme" ofType:@"plist"]];
+										 initWithPath: [[NSBundle bundleForClass:@"RMConfiguration"] pathForResource:@"routeme" ofType:@"plist"]];
 
 		return RMConfigurationSharedInstance;
 	}
