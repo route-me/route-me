@@ -24,10 +24,16 @@
 		EBDDE0E20F649CE100377FFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E10F649CE100377FFE /* QuartzCore.framework */; };
 		EBDDE0E40F649CE100377FFE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */; };
 		EBE3697E0F673B9A003DC21C /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE3697D0F673B95003DC21C /* libMapView.a */; };
-		EBE3697F0F673B9A003DC21C /* MapView.app in Resources */ = {isa = PBXBuildFile; fileRef = EBE3697B0F673B95003DC21C /* MapView.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2BB42BEE0F678951009967BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE3696D0F673B95003DC21C /* MapView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B8C974130E8A19B2007D16AD /* MapView */;
+			remoteInfo = MapView;
+		};
 		EBE3697A0F673B95003DC21C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EBE3696D0F673B95003DC21C /* MapView.xcodeproj */;
@@ -204,6 +210,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2BB42BEF0F678951009967BB /* PBXTargetDependency */,
 			);
 			name = SampleMap;
 			productName = Sample2;
@@ -265,7 +272,6 @@
 				280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
-				EBE3697F0F673B9A003DC21C /* MapView.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +293,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2BB42BEF0F678951009967BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MapView;
+			targetProxy = 2BB42BEE0F678951009967BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
