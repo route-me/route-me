@@ -1,5 +1,6 @@
 #import "FMResultSet.h"
 #import "FMDatabase.h"
+#import "unistd.h"
 
 @interface FMResultSet (Private)
 - (NSMutableDictionary *)columnNameToIndexMap;
