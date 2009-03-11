@@ -1,10 +1,10 @@
 //
 //  FlipsideViewController.m
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import "FlipsideViewController.h"
-#import "Sample2AppDelegate.h"
+#import "SampleMapAppDelegate.h"
 
 
 @implementation FlipsideViewController
@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    contents = [(Sample2AppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
+    contents = [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
 
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];      
     

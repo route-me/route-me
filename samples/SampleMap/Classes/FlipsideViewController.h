@@ -1,6 +1,6 @@
 //
 //  FlipsideViewController.h
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import <UIKit/UIKit.h>

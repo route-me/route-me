@@ -1,12 +1,12 @@
 //
 //  Sample2AppDelegate.m
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
-#import "Sample2AppDelegate.h"
+#import "SampleMapAppDelegate.h"
 #import "RootViewController.h"
 
-@implementation Sample2AppDelegate
+@implementation SampleMapAppDelegate
 
 
 @synthesize window;

@@ -1,6 +1,6 @@
 //
 //  RootViewController.m
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import "RootViewController.h"
@@ -40,7 +40,7 @@
     [aNavigationBar release];
     
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleView)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:@"Sample2"];
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:@"SampleMap"];
     navigationItem.rightBarButtonItem = buttonItem;
     [flipsideNavigationBar pushNavigationItem:navigationItem animated:NO];
     [navigationItem release];

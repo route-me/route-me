@@ -1,10 +1,10 @@
 //
 //  MainViewController.m
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import "MainViewController.h"
-#import "Sample2AppDelegate.h"
+#import "SampleMapAppDelegate.h"
 
 #import "MainView.h"
 
@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [mapView setDelegate:self];
-    [(Sample2AppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[mapView contents]];
+    [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[mapView contents]];
     contents = [mapView contents];
     [self updateInfo];
 }

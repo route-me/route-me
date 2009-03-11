@@ -1,6 +1,6 @@
 //
 //  Sample2AppDelegate.h
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import <UIKit/UIKit.h>
@@ -8,7 +8,7 @@
 
 @class RootViewController;
 
-@interface Sample2AppDelegate : NSObject <UIApplicationDelegate> {
+@interface SampleMapAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     RootViewController *rootViewController;
     RMMapContents *mapContents;

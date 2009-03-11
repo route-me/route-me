@@ -1,6 +1,6 @@
 //
 //  FlipsideView.m
-//  Sample2 : Diagnostic map
+//  SampleMap : Diagnostic map
 //
 
 #import "FlipsideView.h"
