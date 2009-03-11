@@ -131,7 +131,7 @@
 	
 	[view setNeedsDisplay];
 	
-	NSLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
+	RMLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
 	
 	return self;
 }
@@ -163,7 +163,7 @@
 	[self setBackground:nil];
 	[layer release];
 	[markerManager release];
-	NSLog(@"mapcontents dealloced");
+	RMLog(@"mapcontents dealloced");
 	[super dealloc];
 }
 
@@ -290,7 +290,7 @@
 	//[self zoomByFactor:zoomFactor near:pivot animated:NO];
 	
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
-	//NSLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
+	//RMLog(@"Zoom Factor: %lf for Zoom:%f", zoomFactor, [self zoom]);
 	
 	// pre-calculate zoom so we can tell if we want to perform it
 	float newZoom = [mercatorToTileProjection  
@@ -484,7 +484,7 @@
 		return;
 	
 	//	CGRect rect = [self screenBounds];
-	//	NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	//	RMLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 	[[renderer layer] setFrame:[self screenBounds]];
 	
 	if (background != nil)
@@ -560,7 +560,7 @@
 	[testLayer setFrame:CGRectMake(100, 100, 200, 200)];
 	[testLayer setBackgroundColor:[[UIColor brownColor] CGColor]];
 	
-	NSLog(@"added test layer");
+	RMLog(@"added test layer");
 	[overlay addSublayer:testLayer];*/
 }
 
@@ -630,13 +630,13 @@
 */
 -(void) setZoom: (float) zoom
 {
-	//NSLog(@"set zoom: %f", zoom);
+	//RMLog(@"set zoom: %f", zoom);
 	if (zoom > maxZoom)
         return;
 	
 	float scale = [mercatorToTileProjection  
 				   calculateScaleFromZoom:zoom];
-	//NSLog(@"new scale: %f, scale");
+	//RMLog(@"new scale: %f, scale");
 	[self setScale:scale];    
 	
 } 
@@ -760,7 +760,7 @@ static BOOL _performExpensiveOperations = YES;
 		}
 		myOrigin.x = myOrigin.x - (zoomRect.size.width / 2);
 		myOrigin.y = myOrigin.y - (zoomRect.size.height / 2);
-		NSLog(@"Origin is calculated at: %f, %f", [projection pointToLatLong:myOrigin].latitude, [projection pointToLatLong:myOrigin].longitude);
+		RMLog(@"Origin is calculated at: %f, %f", [projection pointToLatLong:myOrigin].latitude, [projection pointToLatLong:myOrigin].longitude);
 		/*It gets all messed up if our origin is lower than the lowest place on the map, so we check.
 		 if(myOrigin.y < -19971868.880409)
 		 {
@@ -801,14 +801,14 @@ static BOOL _performExpensiveOperations = YES;
 	southEast.x = rect.origin.x + rect.size.width;
 	southEast.y = rect.origin.y + rect.size.height;
 	
-//	NSLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
-//	NSLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
+//	RMLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
+//	RMLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
 	
 	bounds.northWest = [self pixelToLatLong:northWest];
 	bounds.southEast = [self pixelToLatLong:southEast];
 	
-//	NSLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
-//	NSLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
+//	RMLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
+//	RMLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
 	
 	return bounds;
 }
@@ -832,7 +832,7 @@ static BOOL _performExpensiveOperations = YES;
 {
 	if (tilesUpdateDelegate == _tilesUpdateDelegate) return;
 	tilesUpdateDelegate= _tilesUpdateDelegate;
-	//NSLog(@"Delegate type:%@",[(NSObject *) tilesUpdateDelegate description]);
+	//RMLog(@"Delegate type:%@",[(NSObject *) tilesUpdateDelegate description]);
 	delegateHasRegionUpdate  = [(NSObject*) tilesUpdateDelegate respondsToSelector: @selector(regionUpdate:)];
 }
 

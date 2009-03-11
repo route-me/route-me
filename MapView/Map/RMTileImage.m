@@ -81,7 +81,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 - (void)dealloc
 {
-//	NSLog(@"Removing tile image %d %d %d", tile.x, tile.y, tile.zoom);
+//	RMLog(@"Removing tile image %d %d %d", tile.x, tile.y, tile.zoom);
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -116,7 +116,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	{
 		CGContextRef context = UIGraphicsGetCurrentContext();
 
-		NSLog(@"image width = %f", CGImageGetWidth(image));
+		RMLog(@"image width = %f", CGImageGetWidth(image));
 		//		CGContextClipToRect(context, rect);
 		CGContextDrawImage(context, rect, image);
 	}*/
@@ -158,7 +158,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		[dataPending release];
 		dataPending = nil;
 		
-//		NSLog(@"loadPendingData");
+//		RMLog(@"loadPendingData");
 	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
@@ -168,7 +168,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 {
 	if ([RMMapContents performExpensiveOperations] == NO)
 	{
-//		NSLog(@"storing data for later loading");
+//		RMLog(@"storing data for later loading");
 		[data retain];
 		[dataPending release];
 		dataPending = data;
@@ -249,9 +249,9 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		
 		layer.edgeAntialiasingMask = 0;
 		
-//		NSLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
+//		RMLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
 
-	//		NSLog(@"layer made");
+	//		RMLog(@"layer made");
 	}
 	
 	if (image != nil)
@@ -259,7 +259,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.contents = (id)[image CGImage];
 		[image release];
 		image = nil;
-//		NSLog(@"layer contents set");
+//		RMLog(@"layer contents set");
 	}
 }
 
@@ -280,7 +280,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 - (void) setScreenLocation: (CGRect)newScreenLocation
 {
-//	NSLog(@"location moving from %f %f to %f %f", screenLocation.origin.x, screenLocation.origin.y, newScreenLocation.origin.x, newScreenLocation.origin.y);
+//	RMLog(@"location moving from %f %f to %f %f", screenLocation.origin.x, screenLocation.origin.y, newScreenLocation.origin.x, newScreenLocation.origin.y);
 	screenLocation = newScreenLocation;
 	
 	if (layer != nil)

@@ -5,4 +5,17 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
+
 #endif
+
+#if DEBUG
+#define RMLog(args...)    NSLog( @"%@", [NSString stringWithFormat: args])
+#define LogMethod() NSLog(@"%s logged method call: -[%@ %s] (line %d)", _cmd, self, _cmd, __LINE__)
+
+#else  
+// DEBUG not defined:
+
+#define RMLog(args...)    // do nothing.
+#define LogMethod() 
+#endif
+

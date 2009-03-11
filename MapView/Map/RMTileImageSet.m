@@ -62,7 +62,7 @@
 {
 	if (RMTileIsDummy(tile))
 	{
-		NSLog(@"attempted to remove dummy tile...??");
+		RMLog(@"attempted to remove dummy tile...??");
 		return;
 	}
 	
@@ -150,7 +150,7 @@
 
 -(void) addTile: (RMTile) tile At: (CGRect) screenLocation
 {
-	//	NSLog(@"addTile: %d %d", tile.x, tile.y);
+	//	RMLog(@"addTile: %d %d", tile.x, tile.y);
 	
 	RMTileImage *dummyTile = [RMTileImage dummyTile:tile];
 	RMTileImage *tileImage = [images member:dummyTile];
@@ -172,7 +172,7 @@
 // extended to full tile loading area
 -(CGRect) addTiles: (RMTileRect)rect ToDisplayIn:(CGRect)bounds
 {
-//	NSLog(@"addTiles: %d %d - %f %f", rect.origin.tile.x, rect.origin.tile.y, rect.size.width, rect.size.height);
+//	RMLog(@"addTiles: %d %d - %f %f", rect.origin.tile.x, rect.origin.tile.y, rect.size.width, rect.size.height);
 	
 	RMTile t;
 	t.zoom = rect.origin.tile.zoom;
@@ -267,7 +267,7 @@
 	for (RMTileImage *image in images)
 	{
 		CGRect location = [image screenLocation];
-/*		NSLog(@"Image at %f, %f %f %f",
+/*		RMLog(@"Image at %f, %f %f %f",
 			  location.origin.x,
 			  location.origin.y,
 			  location.origin.x + location.size.width,
@@ -292,7 +292,7 @@
 			biggestSeamDown = MAX(biggestSeamDown, seamDown);
 	}
 	
-	NSLog(@"Biggest seam right: %f  down: %f", biggestSeamRight, biggestSeamDown);
+	RMLog(@"Biggest seam right: %f  down: %f", biggestSeamRight, biggestSeamDown);
 }
 
 - (void)cancelLoading

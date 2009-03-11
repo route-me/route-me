@@ -67,7 +67,7 @@
 	RMXYPoint XYPivot = [self projectScreenPointToXY:aPixelPoint];
 	RMXYPoint result = RMScaleXYPointAboutPoint(aPoint, factor, XYPivot);
 	result = [projection wrapPointHorizontally:result];
-//	NSLog(@"RMScaleMercatorPointAboutPoint %f %f about %f %f to %f %f", point.x, point.y, mercatorPivot.x, mercatorPivot.y, result.x, result.y);
+//	RMLog(@"RMScaleMercatorPointAboutPoint %f %f about %f %f to %f %f", point.x, point.y, mercatorPivot.x, mercatorPivot.y, result.x, result.y);
 	return result;
 }
 
@@ -81,7 +81,7 @@
 
 -(void) moveScreenBy: (CGSize)delta
 {
-//	NSLog(@"move screen from %f %f", origin.x, origin.y);
+//	RMLog(@"move screen from %f %f", origin.x, origin.y);
 
 //	origin.x -= delta.width * scale;
 //	origin.y += delta.height * scale;
@@ -93,7 +93,7 @@
 	delta.height = -delta.height;
 	origin = [self movePoint:origin by:delta];
 	
-//	NSLog(@"to %f %f", origin.x, origin.y);
+//	RMLog(@"to %f %f", origin.x, origin.y);
 }
 
 - (void) zoomScreenByFactor: (float) factor near:(CGPoint) aPixelPoint;
@@ -112,13 +112,13 @@
 
 	origin = [projection wrapPointHorizontally:origin];
 	
-	//NSLog(@"test: %f %f", test.x, test.y);
-	//NSLog(@"correct: %f %f", origin.x, origin.y);
+	//RMLog(@"test: %f %f", test.x, test.y);
+	//RMLog(@"correct: %f %f", origin.x, origin.y);
 	
 //	CGPoint p = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(0,0)]];
-//	NSLog(@"origin at %f %f", p.x, p.y);
+//	RMLog(@"origin at %f %f", p.x, p.y);
 //	CGPoint q = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(100,100)]];
-//	NSLog(@"100 100 at %f %f", q.x, q.y);
+//	RMLog(@"100 100 at %f %f", q.x, q.y);
 
 }
 

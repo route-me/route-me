@@ -80,11 +80,11 @@
 				[caches addObject: newCache];
 				[newCache release];
 			} else {
-				NSLog(@"failed to create cache of type %@", type);
+				RMLog(@"failed to create cache of type %@", type);
 			}
 		}
 		@catch (NSException * e) {
-			NSLog(@"*** configuration error: %@", [e reason]);
+			RMLog(@"*** configuration error: %@", [e reason]);
 		}
 				
 	}
@@ -166,7 +166,7 @@
 			capacity =  value;
 			minimalPurge = MIN(1,capacity / 10);
 		} else 
-			NSLog(@"illegal value for capacity: %d", value);
+			RMLog(@"illegal value for capacity: %d", value);
 	}
 	
 	NSString* strategyStr = [cfg objectForKey:@"strategy"];
@@ -184,7 +184,7 @@
 		if (value > 0 && value<=capacity) 
 			minimalPurge = value;
 		else {
-			NSLog(@"minimalPurge must be at least one and at most the cache capacity");
+			RMLog(@"minimalPurge must be at least one and at most the cache capacity");
 		}
 	}
 	

@@ -58,7 +58,7 @@
 	if (![super init])
 		return nil;
 	
-	//	NSLog(@"%d items in DB", [[DAO sharedManager] count]);
+	//	RMLog(@"%d items in DB", [[DAO sharedManager] count]);
 	
 	self.databasePath = path;
 	dao = [[RMTileCacheDAO alloc] initWithDatabase:path];
@@ -135,12 +135,12 @@
 												  object:image];
 	
 	
-//	NSLog(@"%d items in DB", [dao count]);
+//	RMLog(@"%d items in DB", [dao count]);
 }
 
 -(RMTileImage*) cachedImage:(RMTile)tile
 {
-//	NSLog(@"Looking for cached image in DB");
+//	RMLog(@"Looking for cached image in DB");
 
 	NSData *data = nil;
 	
@@ -157,14 +157,14 @@
 	}
 	
 	RMTileImage *image = [RMTileImage imageWithTile:tile FromData:data];
-//	NSLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
+//	RMLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
 	return image;
 }
 
 -(void)didReceiveMemoryWarning
 {
 	if (self.databasePath==nil) {
-		NSLog(@"unknown db path, unable to reinitialize dao!");
+		RMLog(@"unknown db path, unable to reinitialize dao!");
 		return;
 	}
 

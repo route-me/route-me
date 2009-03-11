@@ -233,7 +233,7 @@
 			&& [touch phase] != UITouchPhaseMoved
 			&& [touch phase] != UITouchPhaseStationary)
 			continue;
-		//		NSLog(@"phase = %d", [touch phase]);
+		//		RMLog(@"phase = %d", [touch phase]);
 		
 		interestingTouches++;
 		
@@ -251,7 +251,7 @@
 		return gesture;
 	}
 	
-	//	NSLog(@"interestingTouches = %d", interestingTouches);
+	//	RMLog(@"interestingTouches = %d", interestingTouches);
 	
 	gesture.center.x /= interestingTouches;
 	gesture.center.y /= interestingTouches;
@@ -265,10 +265,10 @@
 		
 		CGPoint location = [touch locationInView: self];
 		
-		//		NSLog(@"For touch at %.0f, %.0f:", location.x, location.y);
+		//		RMLog(@"For touch at %.0f, %.0f:", location.x, location.y);
 		float dx = location.x - gesture.center.x;
 		float dy = location.y - gesture.center.y;
-		//		NSLog(@"delta = %.0f, %.0f  distance = %f", dx, dy, sqrtf((dx*dx) + (dy*dy)));
+		//		RMLog(@"delta = %.0f, %.0f  distance = %f", dx, dy, sqrtf((dx*dx) + (dy*dy)));
 		gesture.averageDistanceFromCenter += sqrtf((dx*dx) + (dy*dy));
 	}
 	
@@ -276,7 +276,7 @@
 	
 	gesture.numTouches = interestingTouches;
 	
-	//	NSLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
+	//	RMLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
 	
 	return gesture;
 }
@@ -315,7 +315,7 @@
 		[RMMapContents setPerformExpensiveOperations:NO];
 	}
 	
-	//	NSLog(@"touchesBegan %d", [[event allTouches] count]);
+	//	RMLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self getGestureDetails:[event allTouches]];
 
 	if(deceleration)
@@ -397,7 +397,7 @@
 	if (touch.tapCount == 1) 
 	{
 		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-//		NSLog(@"LAYER of type %@",[hit description]);
+//		RMLog(@"LAYER of type %@",[hit description]);
 		
 		if (hit != nil) {
 			CALayer *superlayer = [hit superlayer];
@@ -439,7 +439,7 @@
 	}
 	
 	CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
-//	NSLog(@"LAYER of type %@",[hit description]);
+//	RMLog(@"LAYER of type %@",[hit description]);
 	
 	if (hit != nil) {
 		
@@ -520,7 +520,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-	NSLog(@"MEMORY WARNING IN RMMAPView");
+	RMLog(@"MEMORY WARNING IN RMMAPView");
   CLLocationCoordinate2D coord = contents.mapCenter;
   [contents release];
   [self initValues:coord];

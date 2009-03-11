@@ -44,12 +44,12 @@
 	if (![super init])
 		return nil;
 
-	NSLog(@"Opening database at %@", path);
+	RMLog(@"Opening database at %@", path);
 	
 	db = [[FMDatabase alloc] initWithPath:path];
 	if (![db open])
 	{
-		NSLog(@"Could not connect to database - %@", [db lastErrorMessage]);
+		RMLog(@"Could not connect to database - %@", [db lastErrorMessage]);
 		return nil;
 	}
 	
@@ -77,7 +77,7 @@
 		count = [results intForColumnIndex:0];
 	else
 	{
-		NSLog(@"Unable to count columns");
+		RMLog(@"Unable to count columns");
 	}
 	
 	[results close];
@@ -91,7 +91,7 @@
 	
 	if ([db hadError])
 	{
-		NSLog(@"DB error while fetching tile data: %@", [db lastErrorMessage]);
+		RMLog(@"DB error while fetching tile data: %@", [db lastErrorMessage]);
 		return nil;
 	}
 	
@@ -109,14 +109,14 @@
 
 -(void) purgeTiles: (NSUInteger) count;
 {
-	NSLog(@"purging %u old tiles from db cache", count);
+	RMLog(@"purging %u old tiles from db cache", count);
 	
 	// does not work: "DELETE FROM ZCACHE ORDER BY zlastUsed LIMIT"
 
 	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE WHERE ztileHash IN (SELECT ztileHash FROM ZCACHE ORDER BY zlastUsed LIMIT ? )", 
 				   [NSNumber numberWithUnsignedInt: count]];
 	if (result == NO) {
-		NSLog(@"Error purging cache");
+		RMLog(@"Error purging cache");
 	}
 	
 }
@@ -127,21 +127,21 @@
 				   date, [NSNumber numberWithUnsignedInt: tileHash]];
 	
 	if (result == NO) {
-		NSLog(@"Error touching tile");
+		RMLog(@"Error touching tile");
 	}
 }
 
 -(void) addData: (NSData*) data LastUsed: (NSDate*)date ForTile: (uint64_t) tileHash
 {
 	// Fixme
-//	NSLog(@"addData\t%d", tileHash);
+//	RMLog(@"addData\t%d", tileHash);
 	BOOL result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (ztileHash, zlastUsed, zdata) VALUES (?, ?, ?)", 
 		[NSNumber numberWithUnsignedLongLong:tileHash], date, data];
 	if (result == NO)
 	{
-		NSLog(@"Error occured adding data");
+		RMLog(@"Error occured adding data");
 	}
-//	NSLog(@"done\t%d", tileHash);
+//	RMLog(@"done\t%d", tileHash);
 }
 
 @end

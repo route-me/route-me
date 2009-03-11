@@ -35,7 +35,7 @@
 	if (![super init])
 		return nil;
 
-	NSLog(@"initializing memory cache with capacity %d", _capacity);
+	RMLog(@"initializing memory cache with capacity %d", _capacity);
 	
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
@@ -70,7 +70,7 @@
 
 -(void) removeTile: (RMTile) tile
 {
-//	NSLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);
+//	RMLog(@"tile %d %d %d removed from cache", tile.x, tile.y, tile.zoom);
 	[cache removeObjectForKey:[RMTileCache tileHash: tile]];
 }
 
@@ -118,7 +118,7 @@
 	if (RMTileIsDummy(tile))
 		return;
 	
-	//	NSLog(@"cache add %@", key);
+	//	RMLog(@"cache add %@", key);
 
 	[self makeSpaceInCache];
 	

@@ -11,7 +11,7 @@ int main (int argc, const char * argv[]) {
     
     FMDatabase* db = [FMDatabase databaseWithPath:@"/tmp/tmp.db"];
     if (![db open]) {
-        NSLog(@"Could not open db.");
+        RMLog(@"Could not open db.");
         [pool release];
         return 0;
     }
@@ -22,7 +22,7 @@ int main (int argc, const char * argv[]) {
     // create a bad statement, just to test the error code.
     [db executeUpdate:@"blah blah blah"];
     if ([db hadError]) {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+        RMLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }
     
     // but of course, I don't bother checking the error codes below.
@@ -65,7 +65,7 @@ int main (int argc, const char * argv[]) {
     FMResultSet *rs = [db executeQuery:@"select rowid,* from test where a = ?", @"hi'"];
     while ([rs next]) {
         // just print out what we've got in a number of formats.
-        NSLog(@"%d %@ %@ %@ %@ %f %f",
+        RMLog(@"%d %@ %@ %@ %@ %f %f",
               [rs intForColumn:@"c"],
               [rs stringForColumn:@"b"],
               [rs stringForColumn:@"a"],
@@ -102,14 +102,14 @@ int main (int argc, const char * argv[]) {
             system("/usr/bin/open /tmp/compass_data_no_copy.icns");
         }
         else {
-            NSLog(@"Could not select image.");
+            RMLog(@"Could not select image.");
         }
         
         [rs close];
         
     }
     else {
-        NSLog(@"Can't find compass image..");
+        RMLog(@"Can't find compass image..");
     }
     
     
@@ -118,7 +118,7 @@ int main (int argc, const char * argv[]) {
     [db executeUpdate:@"insert into t1 values (?)", [NSNumber numberWithInt:5]];
     int a = [db intForQuery:@"select a from t1 where a = ?", [NSNumber numberWithInt:5]];
     if (a != 5) {
-        NSLog(@"intForQuery didn't work (a != 5)");
+        RMLog(@"intForQuery didn't work (a != 5)");
     }
     
     // test the busy rety timeout schtuff.
@@ -131,16 +131,16 @@ int main (int argc, const char * argv[]) {
     rs = [newDb executeQuery:@"select rowid,* from test where a = ?", @"hi'"];
     [rs next]; // just grab one... which will keep the db locked.
     
-    NSLog(@"Testing the busy timeout");
+    RMLog(@"Testing the busy timeout");
     
     BOOL success = [db executeUpdate:@"insert into t1 values (5)"];
     
     if (success) {
-        NSLog(@"Whoa- the database didn't stay locked!");
+        RMLog(@"Whoa- the database didn't stay locked!");
         return 7;
     }
     else {
-        NSLog(@"Hurray, our timeout worked");
+        RMLog(@"Hurray, our timeout worked");
     }
     
     [rs close];
@@ -148,11 +148,11 @@ int main (int argc, const char * argv[]) {
     
     success = [db executeUpdate:@"insert into t1 values (5)"];
     if (!success) {
-        NSLog(@"Whoa- the database shouldn't be locked!");
+        RMLog(@"Whoa- the database shouldn't be locked!");
         return 8;
     }
     else {
-        NSLog(@"Hurray, we can insert again!");
+        RMLog(@"Hurray, we can insert again!");
     }
     
     
@@ -161,7 +161,7 @@ int main (int argc, const char * argv[]) {
     [db executeUpdate:@"create table t2 (a integer, b integer)"];
     
     if (![db executeUpdate:@"insert into t2 values (?, ?)", nil, [NSNumber numberWithInt:5]]) {
-        NSLog(@"UH OH, can't insert a nil value for some reason...");
+        RMLog(@"UH OH, can't insert a nil value for some reason...");
     }
     
     
@@ -173,17 +173,17 @@ int main (int argc, const char * argv[]) {
         NSString *b = [rs stringForColumnIndex:1];
         
         if (a != nil) {
-            NSLog(@"%s:%d", __FUNCTION__, __LINE__);
-            NSLog(@"OH OH, PROBLEMO!");
+            RMLog(@"%s:%d", __FUNCTION__, __LINE__);
+            RMLog(@"OH OH, PROBLEMO!");
             return 10;
         }
         else {
-            NSLog(@"YAY, NULL VALUES");
+            RMLog(@"YAY, NULL VALUES");
         }
         
         if (![b isEqualToString:@"5"]) {
-            NSLog(@"%s:%d", __FUNCTION__, __LINE__);
-            NSLog(@"OH OH, PROBLEMO!");
+            RMLog(@"%s:%d", __FUNCTION__, __LINE__);
+            RMLog(@"OH OH, PROBLEMO!");
             return 10;
         }
     }
@@ -225,7 +225,7 @@ int main (int argc, const char * argv[]) {
         [rs2 next];
         
         if ([rs2 intForColumnIndex:0] != newVal) {
-            NSLog(@"Oh crap, our update didn't work out!");
+            RMLog(@"Oh crap, our update didn't work out!");
             return 9;
         }
         
@@ -247,16 +247,16 @@ int main (int argc, const char * argv[]) {
         NSString *b = [rs stringForColumnIndex:1];
         
         if (!b) {
-            NSLog(@"Oh crap, the nil / null inserts didn't work!");
+            RMLog(@"Oh crap, the nil / null inserts didn't work!");
             return 10;
         }
         
         if (a) {
-            NSLog(@"Oh crap, the nil / null inserts didn't work (son of error message)!");
+            RMLog(@"Oh crap, the nil / null inserts didn't work (son of error message)!");
             return 11;
         }
         else {
-            NSLog(@"HURRAH FOR NSNULL (and nil)!");
+            RMLog(@"HURRAH FOR NSNULL (and nil)!");
         }
     }
     
@@ -267,10 +267,10 @@ int main (int argc, const char * argv[]) {
         FMStatement *statement;
         
         while ((statement = [e nextObject])) {
-        	NSLog(@"%@", statement);
+        	RMLog(@"%@", statement);
         }
     }
-    NSLog(@"That was version %@ of sqlite", [FMDatabase sqliteLibVersion]);
+    RMLog(@"That was version %@ of sqlite", [FMDatabase sqliteLibVersion]);
     
     
     [db close];

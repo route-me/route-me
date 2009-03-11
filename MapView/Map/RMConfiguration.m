@@ -62,7 +62,7 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 		return self;
 	}
 	
-	NSLog(@"reading configuration from %@", path);	
+	RMLog(@"reading configuration from %@", path);	
 	plistData = [NSData dataWithContentsOfFile:path];
 
 	propList = [[NSPropertyListSerialization 
@@ -73,7 +73,7 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 
 	if(!propList)
 	{
-		NSLog(@"problem reading from %@: %@", path, error);
+		RMLog(@"problem reading from %@: %@", path, error);
 		[error release];
 	}
 

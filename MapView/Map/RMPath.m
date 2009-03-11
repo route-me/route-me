@@ -89,22 +89,22 @@
 	
 	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, CGPointMake(0,0));
 
-//	NSLog(@"old bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+//	RMLog(@"old bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
 	self.bounds = pixelBounds;
-//	NSLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+//	RMLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
 	
-//	NSLog(@"old position: %f %f", self.position.x, self.position.y);
+//	RMLog(@"old position: %f %f", self.position.x, self.position.y);
 	self.position = [[contents mercatorToScreenProjection] projectXYPoint: origin];
-//	NSLog(@"new position: %f %f", self.position.x, self.position.y);
+//	RMLog(@"new position: %f %f", self.position.x, self.position.y);
 
-//	NSLog(@"Old anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
+//	RMLog(@"Old anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
 	self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width,-pixelBounds.origin.y / pixelBounds.size.height);
-//	NSLog(@"new anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
+//	RMLog(@"new anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
 }
 
 - (void) addLineToXY: (RMXYPoint) point
 {
-//	NSLog(@"addLineToXY %f %f", point.x, point.y);
+//	RMLog(@"addLineToXY %f %f", point.x, point.y);
 	
 	NSValue* value = [NSValue value:&point withObjCType:@encode(RMXYPoint)];
 
@@ -115,7 +115,7 @@
 		origin = point;
 	
 		self.position = [[contents mercatorToScreenProjection] projectXYPoint: origin];
-//		NSLog(@"screen position set to %f %f", self.position.x, self.position.y);
+//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
 		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
 	}
 	else

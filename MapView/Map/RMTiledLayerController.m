@@ -127,16 +127,16 @@
 - (void)drawLayer:(CALayer *)theLayer
         inContext:(CGContextRef)theContext
 {
-	NSLog(@"drawLayer:inContext:");
+	RMLog(@"drawLayer:inContext:");
 	
 	//	CGRect visibleRect = [self visibleRect];
-	//	NSLog(@"visibleRect: %d %d %d %d", visibleRect.origin.x, visibleRect.origin.y, visibleRect.size.width, visibleRect.size.height);
+	//	RMLog(@"visibleRect: %d %d %d %d", visibleRect.origin.x, visibleRect.origin.y, visibleRect.size.width, visibleRect.size.height);
 	
 	CGRect rect = CGContextGetClipBoundingBox(theContext);
-	//	NSLog(@"rect: %d %d %d %d", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	//	RMLog(@"rect: %d %d %d %d", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 	
 	//CGAffineTransform transform = CGContextGetCTM(theContext);
-	//	NSLog(@"transform scale: a:%f b:%f c:%f d:%f tx:%f ty:%f", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty);
+	//	RMLog(@"transform scale: a:%f b:%f c:%f d:%f tx:%f ty:%f", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty);
 
 	NSString *path = [[NSBundle bundleForClass:@"RMTiledLayerController"] pathForResource:@"loading" ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);

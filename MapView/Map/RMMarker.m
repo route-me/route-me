@@ -115,7 +115,7 @@ static CGImageRef _markerBlue = nil;
 	RMMarkerStyle* style = [[RMMarkerStyles styles] styleNamed: styleName];
 	
 	if (style==nil) {
-		NSLog(@"problem creating marker: style '%@' not found", styleName);
+		RMLog(@"problem creating marker: style '%@' not found", styleName);
 		return [self initWithCGImage: [RMMarker markerImage: RMMarkerRedKey]];
 	}
 	return [self initWithStyle: style];
@@ -292,7 +292,7 @@ static CGImageRef _markerBlue = nil;
 {
 //	[label setAlpha:1.0f - [label alpha]];
 //	[self setTextLabel:@"hello there"];
-	//	NSLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
+	//	RMLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
 }*/
 
 @end

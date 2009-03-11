@@ -74,7 +74,7 @@
 {
 	if (theLayer == layer)
 	{
-//		NSLog(@"base layer key: %@", key);
+//		RMLog(@"base layer key: %@", key);
 		return nil;
 	}
 	
@@ -85,7 +85,7 @@
 //		return (id<CAAction>)[NSNull null];
 	else
 	{
-//		NSLog(@"key: %@", key);
+//		RMLog(@"key: %@", key);
 		
 		return nil;
 	}
@@ -93,10 +93,10 @@
 
 - (void)tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
 {
-//	NSLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+//	RMLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
 //		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
-//	NSLog(@"tileAdded");
+//	RMLog(@"tileAdded");
 	[image makeLayer];
 	
 	CALayer *sublayer = [image layer];
@@ -110,7 +110,7 @@
 {
 	RMTileImage *image = [[content imagesOnScreen] imageWithTile:tile];
 	
-//	NSLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
+//	RMLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
 //		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 	[[image layer] removeFromSuperlayer];

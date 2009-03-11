@@ -80,11 +80,11 @@
 	
 	if (z != zo)
 	{
-		NSLog(@"z changed....");
+		RMLog(@"z changed....");
 	}
 	if (retval != 0)
 	{	// This should be fixed to handle these errors...
-		NSLog(@"Error occured during pj_transform: %s", pj_strerrno(retval));
+		RMLog(@"Error occured during pj_transform: %s", pj_strerrno(retval));
 	}
 	
 	return point;

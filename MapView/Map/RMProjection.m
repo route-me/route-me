@@ -49,7 +49,7 @@ NS_INLINE RMLatLong RMPixelPointAsLatLong(RMXYPoint xypoint) {
 	internalProjection = pj_init_plus([params UTF8String]);
 	if (internalProjection == NULL)
 	{
-		NSLog(@"Unhandled error creating projection. String is %@", params);
+		RMLog(@"Unhandled error creating projection. String is %@", params);
 		[self dealloc];
 		return nil;
 	}
