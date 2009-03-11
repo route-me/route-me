@@ -15,12 +15,15 @@
 
 - (void)performTest
 {
-	NSLog(@"moving to Seattle");
-	CLLocationCoordinate2D destination;
-	destination.latitude = 47.62;
-	destination.longitude = -122.35;
+	NSLog(@"testing large zoom region");
+	CLLocationCoordinate2D northeast, southwest;
+	northeast.latitude = 60;
+	northeast.longitude = -50;
+	southwest.latitude = -50;
+	southwest.longitude = -250;
+	
+	[mapContents zoomWithLatLngBoundsNorthEast:northeast SouthWest:southwest];
 
-	[mapContents moveToLatLong:destination];
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {

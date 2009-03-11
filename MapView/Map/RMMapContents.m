@@ -729,14 +729,14 @@ static BOOL _performExpensiveOperations = YES;
 	{
 		//convert ne/sw into RMMercatorRect and call zoomWithBounds
 		float pixelBuffer = 50;
-		CLLocationCoordinate2D latLngBounds;
-		latLngBounds.longitude = ne.longitude - sw.longitude;
-		latLngBounds.latitude = ne.latitude - sw.latitude;
-		CLLocationCoordinate2D midpoint;
-		midpoint.latitude = (ne.latitude + sw.latitude) / 2;
-		midpoint.longitude = (ne.longitude + sw.longitude) / 2;
+		CLLocationCoordinate2D midpoint = {
+			.latitude = (ne.latitude + sw.latitude) / 2,
+			.longitude = (ne.longitude + sw.longitude) / 2
+		};
 		RMXYPoint myOrigin = [projection latLongToPoint:midpoint];
-		RMXYPoint myPoint = [projection latLongToPoint:latLngBounds];
+		RMXYPoint nePoint = [projection latLongToPoint:ne];
+		RMXYPoint swPoint = [projection latLongToPoint:sw];
+		RMXYPoint myPoint = {.x = nePoint.x - swPoint.x, .y = nePoint.y - swPoint.y};
 		//Create the new zoom layout
 		RMXYRect zoomRect;
 		//Default is with scale = 2.0 mercators/pixel
