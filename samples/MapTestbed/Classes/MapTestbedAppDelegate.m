@@ -13,10 +13,22 @@
 @synthesize rootViewController;
 @synthesize mapContents;
 
+- (void)performTest
+{
+	NSLog(@"moving to Seattle");
+	CLLocationCoordinate2D destination;
+	destination.latitude = 47.62;
+	destination.longitude = -122.35;
+
+	[mapContents moveToLatLong:destination];
+}
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     
     [window addSubview:[rootViewController view]];
     [window makeKeyAndVisible];
+	
+	[self performSelector:@selector(performTest) withObject:nil afterDelay:3.0]; 
 }
 
 
