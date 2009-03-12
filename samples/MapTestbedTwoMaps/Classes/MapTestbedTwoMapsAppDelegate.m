@@ -25,7 +25,7 @@
     
     [window addSubview:[rootViewController view]];
     [window makeKeyAndVisible];
-	[[NSURLCache sharedURLCache] removeAllCachedResponses];
+
 	[self performSelector:@selector(performTest) withObject:nil afterDelay:1.0]; 
 }
 
