@@ -17,5 +17,6 @@
 
 #define RMLog(args...)    // do nothing.
 #define LogMethod() 
+#define NS_BLOCK_ASSERTIONS 1
 #endif
 

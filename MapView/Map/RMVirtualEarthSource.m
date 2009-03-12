@@ -38,6 +38,9 @@
 
 -(NSString*) quadKeyForTile: (RMTile) tile
 {
+	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
+			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
+			  self, tile.zoom, self.minZoom, self.maxZoom);
 	NSMutableString *quadKey = [NSMutableString string];
 	for (int i = tile.zoom; i > 0; i--)
 	{
