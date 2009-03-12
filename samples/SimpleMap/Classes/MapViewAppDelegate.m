@@ -34,6 +34,19 @@
 @synthesize window;
 @synthesize viewController;
 
+-(id)init
+{
+	if (self = [super init]) {
+		//Notifications for tile requests.  This code allows for a class to know when a tile is requested and retrieved
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(tileRequested:) name:@"RMTileRequested" object:nil ];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(tileRetrieved:) name:@"RMTileRetrieved" object:nil ]; 
+	}
+	NSLog(@"%@ init", self);
+	return self;
+}
+
 -(void)tileRequested:(NSNotification *)notification
 {
 	NSLog(@"Tile request started.");
@@ -45,17 +58,8 @@
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
-	//Notifications for tile requests.  This code allows for a class to know when a tile is requested and retrieved
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(tileRequested:) name:@"RMTileRequested" object:nil ];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(tileRetrieved:) name:@"RMTileRetrieved" object:nil ]; 
 
-	// Make sure it doesn't strip mapview.
-	[RMMapView class];
-	
-    // Override point for customization after app launch    
+	// Override point for customization after app launch    
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
 }

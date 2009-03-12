@@ -143,6 +143,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view.
 - (void)viewDidLoad {
+	NSLog(@"%@ viewDidLoad", self);
     [super viewDidLoad];
 	tap=NO;
 	RMMarkerManager *markerManager = [mapView markerManager];
