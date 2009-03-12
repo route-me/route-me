@@ -6,6 +6,7 @@
 #import "MainViewController.h"
 #import "MapTestbedTwoMapsAppDelegate.h"
 #import "RMCloudMadeMapSource.h"
+#import "RMVirtualEarthSource.h"
 
 #import "MainView.h"
 
@@ -27,13 +28,16 @@
     [super viewDidLoad];
 	
     [upperMapView setDelegate:self];
-    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setUpperMapContents:[upperMapView contents]];
     upperMapContents = [upperMapView contents];
-
+	[upperMapContents setTileSource:[[[RMVirtualEarthSource alloc] init] autorelease]];
+    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setUpperMapContents:[upperMapView contents]];
+	[upperMapView setNeedsLayout];
+	[upperMapView setNeedsDisplay];
+	
     [lowerMapView setDelegate:self];
-    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setLowerMapContents:[lowerMapView contents]];
     lowerMapContents = [lowerMapView contents];
 	[lowerMapContents setTileSource:[[[RMCloudMadeMapSource alloc] init] autorelease]];
+    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setLowerMapContents:[lowerMapView contents]];
 	[lowerMapView setNeedsDisplay];
 }
 
