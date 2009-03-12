@@ -56,6 +56,11 @@
 	return quadKey;
 }
 
+-(float) minZoom
+{
+   return 1;
+}
+
 -(NSString*) urlForQuadKey: (NSString*) quadKey 
 {
 	NSString *mapType = @"r"; //type road
