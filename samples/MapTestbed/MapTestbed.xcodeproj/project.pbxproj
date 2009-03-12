@@ -191,9 +191,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* SampleMap */ = {
+		1D6058900D05DD3D006BFB54 /* MapTestbed */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SampleMap" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapTestbed" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -204,7 +204,7 @@
 			dependencies = (
 				2BB42BEF0F678951009967BB /* PBXTargetDependency */,
 			);
-			name = SampleMap;
+			name = MapTestbed;
 			productName = Sample2;
 			productReference = 1D6058910D05DD3D006BFB54 /* MapTestbed.app */;
 			productType = "com.apple.product-type.application";
@@ -234,7 +234,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* SampleMap */,
+				1D6058900D05DD3D006BFB54 /* MapTestbed */,
 			);
 		};
 /* End PBXProject section */
@@ -349,7 +349,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SampleMap" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapTestbed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
