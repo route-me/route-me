@@ -27,18 +27,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	CLLocationCoordinate2D center;
+	center.latitude = 47.592;
+	center.longitude = -122.333;
+	
     [upperMapView setDelegate:self];
     upperMapContents = [upperMapView contents];
 	[upperMapContents setTileSource:[[[RMVirtualEarthSource alloc] init] autorelease]];
     [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setUpperMapContents:[upperMapView contents]];
 	[upperMapView setNeedsLayout];
 	[upperMapView setNeedsDisplay];
+	[upperMapView moveToLatLong:center];
 	
     [lowerMapView setDelegate:self];
     lowerMapContents = [lowerMapView contents];
 	[lowerMapContents setTileSource:[[[RMCloudMadeMapSource alloc] init] autorelease]];
     [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setLowerMapContents:[lowerMapView contents]];
 	[lowerMapView setNeedsDisplay];
+	[lowerMapView moveToLatLong:center];
 }
 
 
