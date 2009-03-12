@@ -67,6 +67,8 @@ typedef struct {
       BOOL _delegateHasTapOnMarker;
       BOOL _delegateHasTapOnLabelForMarker;
       BOOL _delegateHasAfterMapTouch;
+      BOOL _delegateHasShouldDragMarker;
+      BOOL _delegateHasDidDragMarker;
       BOOL _delegateHasDragMarkerPosition;
       NSTimer *_decelerationTimer;
       CGSize _decelerationDelta;

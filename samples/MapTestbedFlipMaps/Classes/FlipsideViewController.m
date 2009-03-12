@@ -81,8 +81,10 @@
 #pragma mark -
 #pragma mark Delegate methods
 
-- (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position;
+- (void)mapView:(RMMapView *)map didDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event 
 {
+   CGPoint position = [[[event allTouches] anyObject] locationInView:mapView];
+   
 	RMMarkerManager *markerManager = [mapView markerManager];
 
 	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
