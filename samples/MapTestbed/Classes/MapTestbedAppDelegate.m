@@ -6,6 +6,8 @@
 #import "MapTestbedAppDelegate.h"
 #import "RootViewController.h"
 
+#import "RMPath.h"
+
 @implementation MapTestbedAppDelegate
 
 
@@ -15,14 +17,32 @@
 
 - (void)performTest
 {
-	NSLog(@"testing large zoom region");
+	NSLog(@"testing paths");
 	CLLocationCoordinate2D northeast, southwest;
-	northeast.latitude = 60;
-	northeast.longitude = -50;
-	southwest.latitude = -50;
-	southwest.longitude = -250;
-	
+	northeast.latitude = 50;
+	northeast.longitude = -80;
+	southwest.latitude = 30;
+	southwest.longitude = -130;
 	[mapContents zoomWithLatLngBoundsNorthEast:northeast SouthWest:southwest];
+	
+	CLLocationCoordinate2D center, two, three;
+	center.latitude = (southwest.latitude + northeast.latitude) / 2.0;
+	center.longitude = (southwest.longitude + northeast.longitude) / 2.0;
+	two.latitude = center.latitude + 15.;
+	two.longitude = center.longitude - 15.;
+	three.latitude = center.latitude;
+	three.longitude = center.longitude - 20.;
+	
+	RMPath *testPath;
+	testPath = [[RMPath alloc] initWithContents:mapContents];
+	[testPath setLineColor:[UIColor greenColor]];
+	[testPath setFillColor:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:0.2]];
+	[testPath addLineToLatLong:center];
+	[testPath addLineToLatLong:two];
+	[testPath addLineToLatLong:three];
+	[testPath closePath];
+	[[mapContents overlay] addSublayer:testPath];
+	[testPath release];
 
 }
 
@@ -31,7 +51,7 @@
     [window addSubview:[rootViewController view]];
     [window makeKeyAndVisible];
 	
-	[self performSelector:@selector(performTest) withObject:nil afterDelay:3.0]; 
+	[self performSelector:@selector(performTest) withObject:nil afterDelay:1.0]; 
 }
 
 
