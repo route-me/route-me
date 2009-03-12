@@ -35,7 +35,7 @@
 	if (![super init])
 		return nil;
 
-	RMLog(@"initializing memory cache with capacity %d", _capacity);
+	RMLog(@"initializing memory cache %@ with capacity %d", self, _capacity);
 	
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
