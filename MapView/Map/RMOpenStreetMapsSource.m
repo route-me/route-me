@@ -37,9 +37,9 @@
 	return [NSString stringWithFormat:@"http://tile.openstreetmap.org/%d/%d/%d.png", tile.zoom, tile.x, tile.y];
 }
 
--(NSString*) description
+-(NSString*) uniqueTilecacheKey
 {
-	return @"OpenStreetMaps";
+	return @"OpenStreetMap";
 }
 
 @end

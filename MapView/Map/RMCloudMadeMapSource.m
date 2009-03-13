@@ -31,17 +31,39 @@
 
 @implementation RMCloudMadeMapSource
 
--(NSString*) tileURL: (RMTile) tile
+#define kDefaultCloudMadeStyleNumber 7
+
+- (id) init
+{
+	return [self initWithStyleNumber:kDefaultCloudMadeStyleNumber];
+}
+
+/// designated initializer
+- (id) initWithStyleNumber:(NSUInteger)styleNumber
+{
+	NSAssert((styleNumber > 0), @"CloudMade style number must be positive");
+	if (self = [super init]) {
+		if (styleNumber > 0)
+			cloudmadeStyleNumber = styleNumber;
+		else
+			cloudmadeStyleNumber = kDefaultCloudMadeStyleNumber;
+	}
+		return self;
+}
+
+- (NSString*) tileURL: (RMTile) tile
 {
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
 			  self, tile.zoom, self.minZoom, self.maxZoom);
-	return [NSString stringWithFormat:@"http://a.tile.cloudmade.com/0199bdee456e59ce950b0156029d6934/2/%d/%d/%d/%d.png",[RMCloudMadeMapSource tileSideLength], tile.zoom, tile.x, tile.y];
+	return [NSString stringWithFormat:@"http://tile.cloudmade.com/0199bdee456e59ce950b0156029d6934/%d/%d/%d/%d/%d.png",
+			cloudmadeStyleNumber,
+			[RMCloudMadeMapSource tileSideLength], tile.zoom, tile.x, tile.y];
 }
 
--(NSString*) description
+-(NSString*) uniqueTilecacheKey
 {
-	return @"CloudMadeMaps";
+	return [NSString stringWithFormat:@"CloudMadeMaps%d", cloudmadeStyleNumber];
 }
 
 +(int)tileSideLength

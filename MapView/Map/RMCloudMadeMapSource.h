@@ -31,9 +31,13 @@
 
 @interface RMCloudMadeMapSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>
 {
-
+	NSUInteger cloudmadeStyleNumber;
 }
 
-+(int)tileSideLength;
+/// designated initializer
+- (id) initWithStyleNumber:(NSUInteger)styleNumber;
+
++ (int)tileSideLength;
+- (id)initWithStyleNumber:(NSUInteger)theCloudmadeStyleNumber;
 
 @end

@@ -92,5 +92,10 @@
 {
 }
 
+-(NSString *)uniqueTilecacheKey
+{
+	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"uniqueTilecacheKey invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
+}
+
 @end
 

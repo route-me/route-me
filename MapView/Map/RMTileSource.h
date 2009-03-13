@@ -48,4 +48,6 @@
 
 -(void) didReceiveMemoryWarning;
 
+-(NSString *)uniqueTilecacheKey;
+
 @end

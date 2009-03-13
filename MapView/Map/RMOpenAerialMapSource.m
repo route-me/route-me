@@ -37,7 +37,7 @@
 	return [NSString stringWithFormat:@"http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/%d/%d/%d.png", tile.zoom, tile.x, tile.y];
 }
 
--(NSString*) description
+-(NSString*) uniqueTilecacheKey
 {
 	return @"OpenAerialMap";
 }

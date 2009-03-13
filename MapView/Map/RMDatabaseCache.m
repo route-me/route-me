@@ -46,7 +46,7 @@
 	
 	if ([paths count] > 0) // Should only be one...
 	{
-		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source description]];
+		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
 		
 		return [[paths objectAtIndex:0] stringByAppendingPathComponent:filename];
 	}

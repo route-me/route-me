@@ -116,11 +116,6 @@
 	[[image layer] removeFromSuperlayer];
 }
 
--(NSString*) description
-{
-	return @"CoreAnimation map renderer";
-}
-
 - (void)setFrame:(CGRect)frame
 {
 	layer.frame = [content screenBounds];
