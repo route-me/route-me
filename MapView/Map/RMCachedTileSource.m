@@ -108,4 +108,8 @@
 	[cache didReceiveMemoryWarning];
 }
 
+-(NSString*) uniqueTilecacheKey
+{
+	return [tileSource uniqueTilecacheKey];
+}
 @end

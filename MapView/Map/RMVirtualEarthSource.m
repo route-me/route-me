@@ -29,6 +29,33 @@
 
 
 @implementation RMVirtualEarthSource
+- (id) init
+{
+	return [self initAsHybrid];
+}
+
+- (id) initAsAerial
+{
+	if (self = [super init]) {
+		maptypeFlag = @"a";
+	}
+	return self;
+}
+
+- (id) initAsRoad
+{
+	if (self = [super init]) {
+		maptypeFlag = @"r";
+	}
+	return self;
+}
+- (id) initAsHybrid
+{
+	if (self = [super init]) {
+		maptypeFlag = @"h";
+	}
+	return self;
+}
 
 -(NSString*) tileURL: (RMTile) tile
 {
@@ -66,16 +93,15 @@
 
 -(NSString*) urlForQuadKey: (NSString*) quadKey 
 {
-	NSString *mapType = @"r"; //type road
 	NSString *mapExtension = @".png"; //extension
 	
 	//TODO what is the ?g= hanging off the end 1 or 15?
-	return [NSString stringWithFormat:@"http://%@%d.ortho.tiles.virtualearth.net/tiles/%@%@%@?g=15", mapType, 3, mapType, quadKey, mapExtension];
+	return [NSString stringWithFormat:@"http://%@%d.ortho.tiles.virtualearth.net/tiles/%@%@%@?g=15", maptypeFlag, 3, maptypeFlag, quadKey, mapExtension];
 }
 
 -(NSString*) uniqueTilecacheKey
 {
-	return @"MicrosoftVirtualEarth";
+	return [NSString stringWithFormat:@"MicrosoftVirtualEarth%@", maptypeFlag];
 }
 
 @end

@@ -28,7 +28,12 @@
 #import "RMAbstractMercatorWebSource.h"
 
 @interface RMVirtualEarthSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
+	NSString *maptypeFlag;
 }
+
+- (id) initAsAerial;
+- (id) initAsRoad;
+- (id) initAsHybrid;
 
 -(NSString*) quadKeyForTile: (RMTile) tile;
 -(NSString*) urlForQuadKey: (NSString*) quadKey;
