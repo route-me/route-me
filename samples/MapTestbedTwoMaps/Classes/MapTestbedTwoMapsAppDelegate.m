@@ -18,6 +18,19 @@
 
 - (void)performTest
 {
+   NSLog(@"Frameworks");
+	NSArray *frameworks = [NSBundle allFrameworks];
+	for ( id oneFramework in frameworks ) {
+		NSLog ( @"%@", oneFramework );
+	}
+	NSLog(@"Bundles");
+	NSArray *bundles = [NSBundle allBundles];
+	for ( id oneBundle in bundles ) {
+		NSLog ( @"%@", oneBundle );
+	}
+	NSLog(@" [NSBundle bundleForClass:[mapContents class]] %@", [NSBundle bundleForClass:[upperMapContents class]]);
+
+
 
 }
 
