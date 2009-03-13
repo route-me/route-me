@@ -540,8 +540,16 @@
 {
 	RMLog(@"MEMORY WARNING IN RMMAPView");
   CLLocationCoordinate2D coord = contents.mapCenter;
+  float zoom = contents.zoom;
+  float minZoom = contents.minZoom;
+  float maxZoom = contents.maxZoom;
+
   [contents release];
   [self initValues:coord];
+
+  [contents setZoom:zoom];
+  [contents setMinZoom:minZoom];
+  [contents setMaxZoom:maxZoom];
 }
 
 - (void)setFrame:(CGRect)frame
