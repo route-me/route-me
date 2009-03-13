@@ -31,7 +31,7 @@
 
 @interface RMCloudMadeMapSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>
 {
-	NSUInteger cloudmadeStyleNumber;
+	NSUInteger cloudmadeStyleNumber; // see http://maps.cloudmade.com/ to sample the various CloudMade image styles
 }
 
 /// designated initializer
