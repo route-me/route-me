@@ -289,11 +289,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SampleMap_Prefix.pch;
+				GCC_PREFIX_HEADER = SimpleMap_Prefix.pch;
 				HEADER_SEARCH_PATHS = "../../MapView/**";
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = SampleMap;
+				PRODUCT_NAME = SimpleMap;
 			};
 			name = Release;
 		};
