@@ -315,7 +315,7 @@
 				HEADER_SEARCH_PATHS = "../../MapView/**";
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = MapTestbed;
+				PRODUCT_NAME = TwoMaps;
 			};
 			name = Release;
 		};

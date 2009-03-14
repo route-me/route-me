@@ -16,6 +16,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
+		NSLog(@"initWithNibName");
     }
     return self;
 }
@@ -23,6 +24,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	NSLog(@"viewDidLoad");
     [super viewDidLoad];
     [mapView setDelegate:self];
     [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[mapView contents]];
