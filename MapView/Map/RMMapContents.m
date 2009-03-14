@@ -64,6 +64,7 @@
 
 - (id) initForView: (UIView*) view
 {	
+	LogMethod();
 	CLLocationCoordinate2D here;
 	here.latitude = -33.858771;
 	here.longitude = 151.201596;
@@ -73,6 +74,7 @@
 
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong
 {
+	LogMethod();
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 		
@@ -86,6 +88,7 @@
 
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
 {
+	LogMethod();
 	if (![super init])
 		return nil;
 	
@@ -151,7 +154,8 @@
 
 -(void) dealloc
 {
-  [imagesOnScreen cancelLoading];
+	LogMethod();
+	[imagesOnScreen cancelLoading];
 	[self setRenderer:nil];
 	[imagesOnScreen release];
 	[tileLoader release];

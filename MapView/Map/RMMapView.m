@@ -54,6 +54,7 @@
 
 -(void) initValues:(CLLocationCoordinate2D)latlong
 {
+	LogMethod();
 	if(round(latlong.latitude) != 0 && round(latlong.longitude) != 0)
 	{
 		contents = [[RMMapContents alloc] initForView:self WithLocation:latlong];
@@ -79,8 +80,8 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+	LogMethod();
 	CLLocationCoordinate2D latlong = { 0, 0};
-	
 	if (self = [super initWithFrame:frame]) {
 		[self initValues:latlong];
 	}
@@ -89,6 +90,7 @@
 
 - (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong
 {
+	LogMethod();
 	if (self = [super initWithFrame:frame]) {
 		[self initValues:latlong];
 	}
@@ -97,6 +99,7 @@
 
 - (void)awakeFromNib
 {
+	LogMethod();
 	CLLocationCoordinate2D latlong = {0, 0};
 	[super awakeFromNib];
 	[self initValues:latlong];
@@ -104,6 +107,7 @@
 
 -(void) dealloc
 {
+	LogMethod();
 	[contents release];
 	[super dealloc];
 }
