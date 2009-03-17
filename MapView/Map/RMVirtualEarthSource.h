@@ -29,11 +29,22 @@
 
 @interface RMVirtualEarthSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
 	NSString *maptypeFlag;
+	NSString *accessKey;
 }
 
-- (id) initAsAerial;
-- (id) initAsRoad;
-- (id) initAsHybrid;
+// to obtain a Virtual Earth key, see this blog post:
+// http://blogs.msdn.com/virtualearth/archive/2008/04/29/tracking-virtual-earth-tile-usage.aspx
+// Microsoft Virtual Earth evangelist: Chris Pendleton, chris.pendleton@microsoft.com
+// Microsoft Virtual Earth sales: Chris Longo, chris.longo@microsoft.com
+//
+// This source code sample does not comply with VE terms of service as of March, 2009. To get
+// into compliance, you'll have to translate the SOAP call described in the above blog post
+// into Objective-C, and modify the URL template in RMVirtualEarthSource.m. If you manage to get
+// that working, please contribute your code back to the Route-Me project. When Microsoft was
+// invited to submit "blessed" sample code in March, 2009, they declined.
+- (id) initWithAerialThemeUsingAccessKey:(NSString *)developerAccessKey;
+- (id) initWithRoadThemeUsingAccessKey:(NSString *)developerAccessKey;
+- (id) initWithHybridThemeUsingAccessKey:(NSString *)developerAccessKey;
 
 -(NSString*) quadKeyForTile: (RMTile) tile;
 -(NSString*) urlForQuadKey: (NSString*) quadKey;

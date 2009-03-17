@@ -46,23 +46,17 @@
 @implementation RMMapView
 @synthesize decelerationFactor;
 @synthesize deceleration;
+@synthesize contents;
 
 - (RMMarkerManager*)markerManager
 {
-  return contents.markerManager;
+  return self.contents.markerManager;
 }
 
--(void) initValues:(CLLocationCoordinate2D)latlong
+-(void) performInitialSetup
 {
 	LogMethod();
-	if(round(latlong.latitude) != 0 && round(latlong.longitude) != 0)
-	{
-		contents = [[RMMapContents alloc] initForView:self WithLocation:latlong];
-	}else
-	{
-		contents = [[RMMapContents alloc] initForView:self];
-	}
-	
+
 	enableDragging = YES;
 	enableZoom = YES;
 	decelerationFactor = 0.88f;
@@ -81,40 +75,55 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	LogMethod();
-	CLLocationCoordinate2D latlong = { 0, 0};
 	if (self = [super initWithFrame:frame]) {
-		[self initValues:latlong];
+		[self performInitialSetup];
 	}
 	return self;
 }
 
-- (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong
+/// deprecated any time after 0.5
+- (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlon
 {
 	LogMethod();
 	if (self = [super initWithFrame:frame]) {
-		[self initValues:latlong];
+		[self performInitialSetup];
 	}
+	[self moveToLatLong:latlon];
 	return self;
 }
 
-- (void)awakeFromNib
+//=========================================================== 
+//  contents 
+//=========================================================== 
+- (RMMapContents *)contents
 {
-	LogMethod();
-	CLLocationCoordinate2D latlong = {0, 0};
-	[super awakeFromNib];
-	[self initValues:latlong];
+    if (!_contentsIsSet) {
+		self.contents = [[RMMapContents alloc] initForView:self];
+		_contentsIsSet = YES;
+	}
+	return contents; 
+}
+- (void)setContents:(RMMapContents *)theContents
+{
+    if (contents != theContents) {
+        [contents release];
+        contents = [theContents retain];
+		_contentsIsSet = YES;
+		[self performInitialSetup];
+    }
 }
 
 -(void) dealloc
 {
 	LogMethod();
-	[contents release];
+	[self.contents release];
+	contents = nil;
 	[super dealloc];
 }
 
 -(void) drawRect: (CGRect) rect
 {
-	[contents drawRect:rect];
+	[self.contents drawRect:rect];
 }
 
 -(NSString*) description
@@ -123,18 +132,13 @@
 	return [NSString stringWithFormat:@"MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
 }
 
--(RMMapContents*) contents
-{
-	return [[contents retain] autorelease];
-}
-
 // Forward invocations to RMMapContents
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
     SEL aSelector = [invocation selector];
 	
-    if ([contents respondsToSelector:aSelector])
-        [invocation invokeWithTarget:contents];
+    if ([self.contents respondsToSelector:aSelector])
+        [invocation invokeWithTarget:self.contents];
     else
         [self doesNotRecognizeSelector:aSelector];
 }
@@ -144,7 +148,7 @@
 	if ([super respondsToSelector:aSelector])
 		return [super methodSignatureForSelector:aSelector];
 	else
-		return [contents methodSignatureForSelector:aSelector];
+		return [self.contents methodSignatureForSelector:aSelector];
 }
 
 #pragma mark Delegate 
@@ -186,20 +190,20 @@
 -(void) moveToXYPoint: (RMXYPoint) aPoint
 {
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
-	[contents moveToXYPoint:aPoint];
+	[self.contents moveToXYPoint:aPoint];
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point
 {
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
-	[contents moveToLatLong:point];
+	[self.contents moveToLatLong:point];
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 
 - (void)moveBy: (CGSize) delta
 {
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
-	[contents moveBy:delta];
+	[self.contents moveBy:delta];
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
@@ -209,7 +213,7 @@
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center animated:(BOOL)animated
 {
 	if (_delegateHasBeforeMapZoomByFactor) [delegate beforeMapZoom: self byFactor: zoomFactor near: center];
-	[contents zoomByFactor:zoomFactor near:center animated:animated withCallback:(animated && _delegateHasAfterMapZoomByFactor)?self:nil];
+	[self.contents zoomByFactor:zoomFactor near:center animated:animated withCallback:(animated && _delegateHasAfterMapZoomByFactor)?self:nil];
 	if (!animated)
 		if (_delegateHasAfterMapZoomByFactor) [delegate afterMapZoom: self byFactor: zoomFactor near: center];
 }
@@ -309,7 +313,7 @@
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesBegan:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesBegan:withEvent:) withObject:touches withObject:event];
@@ -341,7 +345,7 @@
 	
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesCancelled:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesCancelled:withEvent:) withObject:touches withObject:event];
@@ -359,7 +363,7 @@
 	
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
@@ -385,7 +389,7 @@
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// Default behaviour matches built in maps.app
-			float nextZoomFactor = [[self contents] getNextNativeZoomFactor];
+			float nextZoomFactor = [self.contents getNextNativeZoomFactor];
 			if (nextZoomFactor != 0)
 				[self zoomByFactor:nextZoomFactor near:[touch locationInView:self] animated:YES];
 		}
@@ -403,7 +407,7 @@
 		
 	if (touch.tapCount == 1) 
 	{
-		CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
+		CALayer* hit = [self.contents.overlay hitTest:[touch locationInView:self]];
 //		RMLog(@"LAYER of type %@",[hit description]);
 		
 		if (hit != nil) {
@@ -428,7 +432,7 @@
 
 	if (_delegateHasAfterMapTouch) [delegate afterMapTouch: self];
 
-//		[contents recalculateImageSet];
+//		[self.contents recalculateImageSet];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -437,7 +441,7 @@
 	
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [[[self contents] overlay] hitTest:[touch locationInView:self]];
+	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesMoved:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesMoved:withEvent:) withObject:touches withObject:event];
@@ -445,7 +449,7 @@
 		}
 	}
 	
-	CALayer* hit = [contents.overlay hitTest:[touch locationInView:self]];
+	CALayer* hit = [self.contents.overlay hitTest:[touch locationInView:self]];
 //	RMLog(@"LAYER of type %@",[hit description]);
 	
 	if (hit != nil) {
@@ -523,7 +527,7 @@
 	}
 
 	// avoid calling delegate methods? design call here
-	[contents moveBy:_decelerationDelta];
+	[self.contents moveBy:_decelerationDelta];
 
 	_decelerationDelta.width *= [self decelerationFactor];
 	_decelerationDelta.height *= [self decelerationFactor];
@@ -542,18 +546,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-	RMLog(@"MEMORY WARNING IN RMMAPView");
-  CLLocationCoordinate2D coord = contents.mapCenter;
-  float zoom = contents.zoom;
-  float minZoom = contents.minZoom;
-  float maxZoom = contents.maxZoom;
-
-  [contents release];
-  [self initValues:coord];
-
-  [contents setZoom:zoom];
-  [contents setMinZoom:minZoom];
-  [contents setMaxZoom:maxZoom];
+	NSAssert(false, @"MEMORY WARNING IN RMMAPView"); // UIView does not receive these automatically? How is it being sent?
 }
 
 - (void)setFrame:(CGRect)frame

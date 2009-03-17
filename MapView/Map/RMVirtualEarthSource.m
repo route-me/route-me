@@ -31,26 +31,33 @@
 @implementation RMVirtualEarthSource
 - (id) init
 {
-	return [self initAsHybrid];
+	return [self initWithHybridThemeUsingAccessKey:@""];
 }
 
-- (id) initAsAerial
+- (id) initWithAerialThemeUsingAccessKey:(NSString *)developerAccessKey
 {
+	RMLog(@"please see comments in RMVirtualEarthSource.h");
+	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
 	if (self = [super init]) {
 		maptypeFlag = @"a";
+		accessKey = developerAccessKey;
 	}
 	return self;
 }
 
-- (id) initAsRoad
+- (id) initWithRoadThemeUsingAccessKey:(NSString *)developerAccessKey
 {
+	RMLog(@"please see comments in RMVirtualEarthSource.h");
+	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
 	if (self = [super init]) {
 		maptypeFlag = @"r";
 	}
 	return self;
 }
-- (id) initAsHybrid
+- (id) initWithHybridThemeUsingAccessKey:(NSString *)developerAccessKey
 {
+	RMLog(@"please see comments in RMVirtualEarthSource.h");
+	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
 	if (self = [super init]) {
 		maptypeFlag = @"h";
 	}

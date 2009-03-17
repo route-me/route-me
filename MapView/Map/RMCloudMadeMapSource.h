@@ -28,16 +28,14 @@
 
 #import "RMAbstractMercatorWebSource.h"
 
-
 @interface RMCloudMadeMapSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>
 {
 	NSUInteger cloudmadeStyleNumber; // see http://maps.cloudmade.com/ to sample the various CloudMade image styles
+	NSString *accessKey;
 }
 
 /// designated initializer
-- (id) initWithStyleNumber:(NSUInteger)styleNumber;
-
-+ (int)tileSideLength;
-- (id)initWithStyleNumber:(NSUInteger)theCloudmadeStyleNumber;
+- (id) initWithAccessKey:(NSString *)developerAccessKey
+			 styleNumber:(NSUInteger)styleNumber;
 
 @end

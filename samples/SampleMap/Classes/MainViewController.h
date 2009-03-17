@@ -13,6 +13,7 @@
 }
 @property (nonatomic, retain) IBOutlet RMMapView * mapView;
 @property (nonatomic, retain) IBOutlet UITextView * infoTextView;
+@property(nonatomic,retain)RMMapContents *contents;
 
 - (void)updateInfo;
 

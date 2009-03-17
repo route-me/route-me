@@ -62,6 +62,7 @@
 
 - (void)dealloc
 {
+	LogMethod();
 	[db release];
 	[super dealloc];
 }

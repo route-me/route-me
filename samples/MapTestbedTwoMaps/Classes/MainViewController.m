@@ -5,6 +5,7 @@
 
 #import "MainViewController.h"
 #import "MapTestbedTwoMapsAppDelegate.h"
+#import "RMMapContents.h"
 #import "RMCloudMadeMapSource.h"
 #import "RMVirtualEarthSource.h"
 
@@ -25,6 +26,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	LogMethod();
     [super viewDidLoad];
 	
 	CLLocationCoordinate2D center;
@@ -32,16 +34,16 @@
 	center.longitude = -122.333;
 	
     [upperMapView setDelegate:self];
-    upperMapContents = [upperMapView contents];
-	[upperMapContents setTileSource:[[[RMVirtualEarthSource alloc] init] autorelease]];
+    upperMapContents = [[RMMapContents alloc] initWithView:upperMapView
+												tilesource:[[[RMVirtualEarthSource alloc] initWithHybridThemeUsingAccessKey:@"invalidKey"] autorelease]];
     [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setUpperMapContents:[upperMapView contents]];
 	[upperMapView setNeedsLayout];
 	[upperMapView setNeedsDisplay];
 	[upperMapView moveToLatLong:center];
 	
     [lowerMapView setDelegate:self];
-    lowerMapContents = [lowerMapView contents];
-	[lowerMapContents setTileSource:[[[RMCloudMadeMapSource alloc] init] autorelease]];
+    lowerMapContents =  [[RMMapContents alloc] initWithView:lowerMapView
+												 tilesource:[[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:7] autorelease]];
     [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setLowerMapContents:[lowerMapView contents]];
 	[lowerMapView setNeedsDisplay];
 	[lowerMapView moveToLatLong:center];

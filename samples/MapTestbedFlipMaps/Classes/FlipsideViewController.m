@@ -31,6 +31,7 @@
     [self updateInfo];
     
     RMMarkerManager *markerManager = [mapView markerManager];
+	NSAssert(markerManager, @"null markerManager returned");
     RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
 	[marker setTextForegroundColor:[UIColor blueColor]];
 	[marker setTextLabel:@"Hello"];

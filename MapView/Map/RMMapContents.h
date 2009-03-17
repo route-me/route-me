@@ -43,6 +43,13 @@ enum {
 	RMMapMinWidthBound		= 2
 };
 
+#define kDefaultInitialLatitude -33.858771;
+#define kDefaultInitialLongitude 151.201596;
+
+#define kDefaultMinimumZoomLevel 0.0
+#define kDefaultMaximumZoomLevel 25.0
+#define kDefaultInitialZoomLevel 13.0
+
 @class RMMarkerManager;
 @class RMProjection;
 @class RMMercatorToScreenProjection;
@@ -123,9 +130,20 @@ enum {
 @property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 
+- (id)initWithView: (UIView*) view;
+- (id)initWithView: (UIView*) view
+		tilesource:(id<RMTileSource>)newTilesource;
+- (id)initWithView:(UIView*)view
+		tilesource:(id<RMTileSource>)tilesource
+	  centerLatLon:(CLLocationCoordinate2D)initialCenter
+		 zoomLevel:(float)initialZoomLevel
+	  maxZoomLevel:(float)maxZoomLevel
+	  minZoomLevel:(float)minZoomLevel
+   backgroundImage:(UIImage *)backgroundImage;
+
+/// these next 3 initializers subject to removal at any moment after 0.5 is released
 - (id) initForView: (UIView*) view;
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong;
-
 // Designated initialiser
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
 

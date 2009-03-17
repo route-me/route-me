@@ -26,6 +26,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #import "RMMapContents.h"
 
+#import "RMMapView.h"
+
 #import "RMFoundation.h"
 #import "RMProjection.h"
 #import "RMMercatorToScreenProjection.h"
@@ -62,22 +64,115 @@
 
 #pragma mark Initialisation
 
-- (id) initForView: (UIView*) view
+- (id)initWithView: (UIView*) view
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = -33.858771;
-	here.longitude = 151.201596;
-
-	return [self initForView:view WithLocation: here];
+	here.latitude = kDefaultInitialLatitude;
+	here.longitude = kDefaultInitialLongitude;
+	
+	return [self initWithView:view
+				   tilesource:[[RMOpenStreetMapsSource alloc] init]
+				 centerLatLon:here
+					zoomLevel:kDefaultInitialZoomLevel
+				 maxZoomLevel:kDefaultMaximumZoomLevel
+				 minZoomLevel:kDefaultMinimumZoomLevel
+			  backgroundImage:nil];
 }
 
+- (id)initWithView: (UIView*) view
+		tilesource:(id<RMTileSource>)newTilesource
+{	
+	LogMethod();
+	CLLocationCoordinate2D here;
+	here.latitude = kDefaultInitialLatitude;
+	here.longitude = kDefaultInitialLongitude;
+	
+	return [self initWithView:view
+				   tilesource:newTilesource
+				 centerLatLon:here
+					zoomLevel:kDefaultInitialZoomLevel
+				 maxZoomLevel:kDefaultMaximumZoomLevel
+				 minZoomLevel:kDefaultMinimumZoomLevel
+			  backgroundImage:nil];
+}
+
+- (id)initWithView:(UIView*)newView
+		tilesource:(id<RMTileSource>)newTilesource
+	  centerLatLon:(CLLocationCoordinate2D)initialCenter
+		 zoomLevel:(float)initialZoomLevel
+	  maxZoomLevel:(float)maxZoomLevel
+	  minZoomLevel:(float)minZoomLevel
+   backgroundImage:(UIImage *)backgroundImage
+{
+	LogMethod();
+	if (![super init])
+		return nil;
+
+	NSAssert1([newView isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", newView);
+	[(RMMapView *)newView setContents:self];
+
+	renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
+	boundingMask = RMMapMinWidthBound;
+	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
+	
+	tileSource = nil;
+	projection = nil;
+	mercatorToTileProjection = nil;
+	renderer = nil;
+	imagesOnScreen = nil;
+	tileLoader = nil;
+	
+	layer = [[newView layer] retain];
+	
+	[self setTileSource:newTilesource];
+	[self setRenderer: [[[RMCoreAnimationRenderer alloc] initWithContent:self] autorelease]];
+	
+	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
+	[imagesOnScreen setTileSource:tileSource];
+	tileLoader = [[RMTileLoader alloc] initWithContent:self];
+	[tileLoader setSuppressLoading:YES];
+	
+	minZoom = minZoomLevel;
+	maxZoom = maxZoomLevel;
+	NSAssert((minZoom < initialZoomLevel), @"initial zoom level must be greater than minimum zoom level");
+	NSAssert((maxZoom > initialZoomLevel), @"initial zoom level must be less than maximum zoom level");
+	[self setZoom:initialZoomLevel];
+	[self moveToLatLong:initialCenter];
+	
+	[tileLoader setSuppressLoading:NO];
+	
+	// TODO: Make a nice background class
+	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
+	[self setBackground:theBackground];
+	[theBackground release];
+	
+	RMLayerSet *theOverlay = [[RMLayerSet alloc] initForContents:self];
+	[self setOverlay:theOverlay];
+	[theOverlay release];
+	
+	markerManager = [[RMMarkerManager alloc] initWithContents:self];
+	
+	[newView setNeedsDisplay];
+	
+	RMLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", newView, tileSource, renderer);
+	return self;
+}
+
+
+/// deprecated at any moment after release 0.5
+- (id) initForView: (UIView*) view
+{
+	return [self initWithView:view];
+}
+
+/// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong
 {
 	LogMethod();
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
-		
+	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:latlong];
 	[_tileSource release];
 	[_renderer release];
@@ -86,13 +181,16 @@
 }
 
 
+/// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
 {
 	LogMethod();
 	if (![super init])
 		return nil;
 	
-	[self setMaxZoom:50.0];
+	NSAssert1([view isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", view);
+	
+	[self setMaxZoom:kDefaultMaximumZoomLevel];
 	
 	self.boundingMask = RMMapMinWidthBound;
 //	targetView = view;
@@ -116,7 +214,7 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
-	[self setZoom:13];
+	[self setZoom:kDefaultInitialZoomLevel];
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];

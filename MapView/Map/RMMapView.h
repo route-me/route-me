@@ -56,29 +56,32 @@ typedef struct {
 	RMGestureDetails lastGesture;
 	float decelerationFactor;
 	BOOL deceleration;
-   
-   @private
+	
+@private
    	BOOL _delegateHasBeforeMapMove;
-      BOOL _delegateHasAfterMapMove;
-      BOOL _delegateHasBeforeMapZoomByFactor;
-      BOOL _delegateHasAfterMapZoomByFactor;
-      BOOL _delegateHasDoubleTapOnMap;
-      BOOL _delegateHasSingleTapOnMap;
-      BOOL _delegateHasTapOnMarker;
-      BOOL _delegateHasTapOnLabelForMarker;
-      BOOL _delegateHasAfterMapTouch;
-      BOOL _delegateHasShouldDragMarker;
-      BOOL _delegateHasDidDragMarker;
-      BOOL _delegateHasDragMarkerPosition;
-      NSTimer *_decelerationTimer;
-      CGSize _decelerationDelta;
+	BOOL _delegateHasAfterMapMove;
+	BOOL _delegateHasBeforeMapZoomByFactor;
+	BOOL _delegateHasAfterMapZoomByFactor;
+	BOOL _delegateHasDoubleTapOnMap;
+	BOOL _delegateHasSingleTapOnMap;
+	BOOL _delegateHasTapOnMarker;
+	BOOL _delegateHasTapOnLabelForMarker;
+	BOOL _delegateHasAfterMapTouch;
+	BOOL _delegateHasShouldDragMarker;
+	BOOL _delegateHasDidDragMarker;
+	BOOL _delegateHasDragMarkerPosition;
+	
+	NSTimer *_decelerationTimer;
+	CGSize _decelerationDelta;
+	
+	BOOL _contentsIsSet; // "contents" must be set, but is initialized lazily to allow apps to override defaults in -awakeFromNib
 }
 
-// Any other functions you need to manipulate the mapyou can access through this
-// property. The contents structure holds the actual map bits.
-@property (readonly) RMMapContents *contents;
+// Any other functionality you need to manipulate the map you can access through this
+// property. The RMMapContents class holds the actual map bits.
+@property (nonatomic, retain) RMMapContents *contents;
 
-@property (retain, readonly) RMMarkerManager *markerManager;
+@property (nonatomic, retain, readonly) RMMarkerManager *markerManager;
 
 // do not retain the delegate so you can let the corresponding controller implement the
 // delegate without circular references
