@@ -10,7 +10,7 @@ static const char SCCSID[]="@(#)geod_set.c	4.8	95/09/23	GIE	REL";
 #include "emess.h"
 	void
 geod_set(int argc, char **argv) {
-	paralist *start = 0, *curr;
+	paralist *start = 0, *curr = 0;
 	double es;
 	char *name;
 	int i;

@@ -19,19 +19,19 @@ eval(projUV **w, int nu, int nv, double res, projUV *resid) {
 }
 	static Tseries * /* create power series structure */
 makeT(int nru, int nrv) {
-	Tseries *T;
+	Tseries *Ts;
 	int i;
 
-	if ((T = (Tseries *)pj_malloc(sizeof(Tseries))) &&
-		(T->cu = (struct PW_COEF *)pj_malloc(
+	if ((Ts = (Tseries *)pj_malloc(sizeof(Tseries))) &&
+		(Ts->cu = (struct PW_COEF *)pj_malloc(
 			sizeof(struct PW_COEF) * nru)) &&
-		(T->cv = (struct PW_COEF *)pj_malloc(
+		(Ts->cv = (struct PW_COEF *)pj_malloc(
 			sizeof(struct PW_COEF) * nrv))) {
 		for (i = 0; i < nru; ++i)
-			T->cu[i].c = 0;
+			Ts->cu[i].c = 0;
 		for (i = 0; i < nrv; ++i)
-			T->cv[i].c = 0;
-		return T;
+			Ts->cv[i].c = 0;
+		return Ts;
 	} else
 		return 0;
 }
@@ -39,7 +39,7 @@ makeT(int nru, int nrv) {
 mk_cheby(projUV a, projUV b, double res, projUV *resid, projUV (*func)(projUV), 
 	int nu, int nv, int power) {
 	int j, i, nru, nrv, *ncu, *ncv;
-	Tseries *T;
+	Tseries *Ts = 0;
 	projUV **w;
 	double cutres;
 
@@ -94,49 +94,49 @@ mk_cheby(projUV a, projUV b, double res, projUV *resid, projUV (*func)(projUV),
 				if (ncu[j]) nru = j + 1;	/* update row max */
 				if (ncv[j]) nrv = j + 1;
 			}
-			if (T = makeT(nru, nrv)) {
-				T->a = a;
-				T->b = b;
-				T->mu = nru - 1;
-				T->mv = nrv - 1;
-				T->power = 1;
+			if (Ts = makeT(nru, nrv)) {
+				Ts->a = a;
+				Ts->b = b;
+				Ts->mu = nru - 1;
+				Ts->mv = nrv - 1;
+				Ts->power = 1;
 				for (i = 0; i < nru; ++i) /* store coefficient rows for u */
-					if (T->cu[i].m = ncu[i])
-						if ((p = T->cu[i].c =
+					if (Ts->cu[i].m = ncu[i])
+						if ((p = Ts->cu[i].c =
 								(double *)pj_malloc(sizeof(double) * ncu[i])))
 							for (j = 0; j < ncu[i]; ++j)
 								*p++ = (w[i] + j)->u;
 						else
 							goto error;
 				for (i = 0; i < nrv; ++i) /* same for v */
-					if (T->cv[i].m = ncv[i])
-						if ((p = T->cv[i].c =
+					if (Ts->cv[i].m = ncv[i])
+						if ((p = Ts->cv[i].c =
 								(double *)pj_malloc(sizeof(double) * ncv[i])))
 							for (j = 0; j < ncv[i]; ++j)
 								*p++ = (w[i] + j)->v;
 						else
 							goto error;
 			}
-		} else if (T = makeT(nru, nrv)) {
+		} else if (Ts = makeT(nru, nrv)) {
 			/* else make returned Chebyshev coefficient structure */
-			T->mu = nru - 1; /* save row degree */
-			T->mv = nrv - 1;
-			T->a.u = a.u + b.u; /* set argument scaling */
-			T->a.v = a.v + b.v;
-			T->b.u = 1. / (b.u - a.u);
-			T->b.v = 1. / (b.v - a.v);
-			T->power = 0;
+			Ts->mu = nru - 1; /* save row degree */
+			Ts->mv = nrv - 1;
+			Ts->a.u = a.u + b.u; /* set argument scaling */
+			Ts->a.v = a.v + b.v;
+			Ts->b.u = 1. / (b.u - a.u);
+			Ts->b.v = 1. / (b.v - a.v);
+			Ts->power = 0;
 			for (i = 0; i < nru; ++i) /* store coefficient rows for u */
-				if (T->cu[i].m = ncu[i]) 
-					if ((p = T->cu[i].c =
+				if (Ts->cu[i].m = ncu[i]) 
+					if ((p = Ts->cu[i].c =
 							(double *)pj_malloc(sizeof(double) * ncu[i])))
 						for (j = 0; j < ncu[i]; ++j)
 							*p++ = (w[i] + j)->u;
 					else
 						goto error;
 			for (i = 0; i < nrv; ++i) /* same for v */
-				if (T->cv[i].m = ncv[i])
-					if ((p = T->cv[i].c =
+				if (Ts->cv[i].m = ncv[i])
+					if ((p = Ts->cv[i].c =
 							(double *)pj_malloc(sizeof(double) * ncv[i])))
 						for (j = 0; j < ncv[i]; ++j)
 							*p++ = (w[i] + j)->v;
@@ -147,18 +147,18 @@ mk_cheby(projUV a, projUV b, double res, projUV *resid, projUV (*func)(projUV),
 	}
 	goto gohome;
 error:
-	if (T) { /* pj_dalloc up possible allocations */
-		for (i = 0; i <= T->mu; ++i)
-			if (T->cu[i].c)
-				pj_dalloc(T->cu[i].c);
-		for (i = 0; i <= T->mv; ++i)
-			if (T->cv[i].c)
-				pj_dalloc(T->cv[i].c);
-		pj_dalloc(T);
+	if (Ts) { /* pj_dalloc up possible allocations */
+		for (i = 0; i <= Ts->mu; ++i)
+			if (Ts->cu[i].c)
+				pj_dalloc(Ts->cu[i].c);
+		for (i = 0; i <= Ts->mv; ++i)
+			if (Ts->cv[i].c)
+				pj_dalloc(Ts->cv[i].c);
+		pj_dalloc(Ts);
 	}
-	T = 0;
+	Ts = 0;
 gohome:
 	freev2((void **) w, nu);
 	pj_dalloc(ncu);
-	return T;
+	return Ts;
 }
