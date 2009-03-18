@@ -150,8 +150,6 @@
 {
 	renderedScale = [contents scale];
 	
-//	CGContextFillRect(theContext, self.bounds);//CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
-	
 	float scale = 1.0f / [contents scale];
 	
 	CGContextScaleCTM(theContext, scale, scale);
@@ -162,8 +160,9 @@
 	CGContextSetLineWidth(theContext, lineWidth);
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
 	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
+	
+	// according to Apple's documentation, DrawPath closes the path if it's a filled style, so a call to ClosePath isn't necessary
 	CGContextDrawPath(theContext, drawingMode);
-	CGContextClosePath(theContext);
 }
 
 - (void) closePath
