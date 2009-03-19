@@ -27,17 +27,18 @@
     [mapView setDelegate:self];
     [(MapTestbedAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[mapView contents]];
     contents = [mapView contents];
+	[mapView setDeceleration:YES];
     [self updateInfo];
 }
 
 
-/*
+
  // Override to allow orientations other than the default portrait orientation.
  - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
  // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	 return YES;
  }
-*/
+
 
 
 - (void)didReceiveMemoryWarning {
