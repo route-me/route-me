@@ -54,5 +54,21 @@
 	return 1;
 }
 
+-(NSString *)shortName
+{
+	return @"Yahoo Map";
+}
+-(NSString *)longDescription
+{
+	return @"Yahoo Map, There may be a legal way to access this, someone should investigate.";
+}
+-(NSString *)shortAttribution
+{
+	return @"© Yahoo";
+}
+-(NSString *)longAttribution
+{
+	return @"Map data © Yahoo, though the way we are acessing these tiles is against TOS.";
+
 
 @end
