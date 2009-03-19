@@ -69,6 +69,6 @@
 -(NSString *)longAttribution
 {
 	return @"Map data © Yahoo, though the way we are acessing these tiles is against TOS.";
-
+}
 
 @end
