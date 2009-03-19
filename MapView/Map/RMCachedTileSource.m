@@ -112,4 +112,22 @@
 {
 	return [tileSource uniqueTilecacheKey];
 }
+
+-(NSString *)shortName
+{
+	return [tileSource shortName];
+}
+-(NSString *)longDescription
+{
+	return [tileSource longDescription];
+}
+-(NSString *)shortAttribution
+{
+	return [tileSource shortAttribution];
+}
+-(NSString *)longAttribution
+{
+	return [tileSource longAttribution];
+}
+
 @end

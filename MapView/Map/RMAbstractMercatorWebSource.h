@@ -44,4 +44,8 @@
 -(float) minZoom;
 -(float) maxZoom;
 
+-(NSString *)shortName;
+-(NSString *)longDescription;
+-(NSString *)shortAttribution;
+-(NSString *)longAttribution;
 @end

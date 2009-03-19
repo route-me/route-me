@@ -76,4 +76,21 @@
 	return 256;
 }
 
+-(NSString *)shortName
+{
+	return [NSString stringWithFormat:@"Cloud Made %d", cloudmadeStyleNumber];
+}
+-(NSString *)longDescription
+{
+	return @"CloudMade.com provides high quality renderings of Open Street Map data";
+}
+-(NSString *)shortAttribution
+{
+	return @"© CloudMade.com";
+}
+-(NSString *)longAttribution
+{
+	return @"Map images © CloudMade.com. Original map data © OpenStreetMap, licensed under Creative Commons Share Alike By Attribution.";
+}
+
 @end

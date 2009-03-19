@@ -50,4 +50,9 @@
 
 -(NSString *)uniqueTilecacheKey;
 
+-(NSString *)shortName;
+-(NSString *)longDescription;
+-(NSString *)shortAttribution;
+-(NSString *)longAttribution;
+
 @end

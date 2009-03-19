@@ -46,4 +46,9 @@
 
 - (id<RMTileSource>) underlyingTileSource;
 
+-(NSString *)shortName;
+-(NSString *)longDescription;
+-(NSString *)shortAttribution;
+-(NSString *)longAttribution;
+
 @end

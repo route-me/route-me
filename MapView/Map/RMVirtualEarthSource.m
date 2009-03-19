@@ -41,6 +41,7 @@
 	if (self = [super init]) {
 		maptypeFlag = @"a";
 		accessKey = developerAccessKey;
+		_shortName = @"Microsoft Virtual Earth satellite";
 	}
 	return self;
 }
@@ -51,6 +52,8 @@
 	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
 	if (self = [super init]) {
 		maptypeFlag = @"r";
+		accessKey = developerAccessKey;
+		_shortName = @"Microsoft Virtual Earth roads";
 	}
 	return self;
 }
@@ -60,6 +63,8 @@
 	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
 	if (self = [super init]) {
 		maptypeFlag = @"h";
+		accessKey = developerAccessKey;
+		_shortName = @"Microsoft Virtual Earth hybrid";
 	}
 	return self;
 }
@@ -109,6 +114,23 @@
 -(NSString*) uniqueTilecacheKey
 {
 	return [NSString stringWithFormat:@"MicrosoftVirtualEarth%@", maptypeFlag];
+}
+
+-(NSString *)shortName
+{
+	return _shortName;
+}
+-(NSString *)longDescription
+{
+	return @"Microsoft Virtual Earth. All data © Microsoft or their licensees.";
+}
+-(NSString *)shortAttribution
+{
+	return @"© Microsoft Virtual Earth";
+}
+-(NSString *)longAttribution
+{
+	return @"Map data © Microsoft Virtual Earth.";
 }
 
 @end

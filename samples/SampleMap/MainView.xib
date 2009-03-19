@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="37"/>
+			<integer value="39"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -44,7 +44,7 @@
 							<object class="IBUITextView" id="922595057">
 								<reference key="NSNextResponder" ref="79822186"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{0, 342}, {320, 118}}</string>
+								<string key="NSFrame">{{0, 298}, {320, 162}}</string>
 								<reference key="NSSuperview" ref="79822186"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -254,7 +254,7 @@ ZAo</string>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">Sample2.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">SampleMap.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

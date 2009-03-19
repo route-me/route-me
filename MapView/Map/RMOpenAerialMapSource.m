@@ -42,4 +42,21 @@
 	return @"OpenAerialMap";
 }
 
+-(NSString *)shortName
+{
+	return @"Open Aerial Map";
+}
+-(NSString *)longDescription
+{
+	return @"Open Aerial Map, the free wiki world map, provides freely usable map data for all parts of the world, under the Creative Commons Attribution-Share Alike 2.0 license.";
+}
+-(NSString *)shortAttribution
+{
+	return @"© OpenAerialMap CC-BY-SA";
+}
+-(NSString *)longAttribution
+{
+	return @"Map data © OpenAerialMap, licensed under Creative Commons Share Alike By Attribution.";
+}
+
 @end

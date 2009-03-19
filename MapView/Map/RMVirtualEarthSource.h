@@ -30,6 +30,8 @@
 @interface RMVirtualEarthSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
 	NSString *maptypeFlag;
 	NSString *accessKey;
+	@private
+	NSString *_shortName;
 }
 
 // to obtain a Virtual Earth key, see this blog post:

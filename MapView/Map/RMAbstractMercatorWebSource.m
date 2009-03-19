@@ -97,5 +97,22 @@
 	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"uniqueTilecacheKey invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
 }
 
+-(NSString *)shortName
+{
+	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"shortName invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
+}
+-(NSString *)longDescription
+{
+	return [self shortName];
+}
+-(NSString *)shortAttribution
+{
+	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"shortAttribution invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
+}
+-(NSString *)longAttribution
+{
+	return [self shortAttribution];
+}
+
 @end
 

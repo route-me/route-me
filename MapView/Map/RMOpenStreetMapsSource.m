@@ -42,4 +42,22 @@
 	return @"OpenStreetMap";
 }
 
+-(NSString *)shortName
+{
+	return @"Open Street Map";
+}
+-(NSString *)longDescription
+{
+	return @"Open Street Map, the free wiki world map, provides freely usable map data for all parts of the world, under the Creative Commons Attribution-Share Alike 2.0 license.";
+}
+-(NSString *)shortAttribution
+{
+	return @"© OpenStreetMap CC-BY-SA";
+}
+-(NSString *)longAttribution
+{
+	return @"Map data © OpenStreetMap, licensed under Creative Commons Share Alike By Attribution.";
+}
+
+
 @end
