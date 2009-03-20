@@ -1,12 +1,11 @@
 {\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf430
 {\fonttbl\f0\fswiss\fcharset0 ArialMT;}
 {\colortbl;\red255\green255\blue255;}
+\vieww11000\viewh18640\viewkind0
 \deftab720
 \pard\pardeftab720\ql\qnatural
 
-\f0\fs26 \cf0 (preliminary instructions from Henri Asseily, March 18, 2009)\
-\
-Maybe I should explain what I did :)\
+\f0\fs26 \cf0 (preliminary instructions from Henri Asseily, March 19, 2009)\
 \
 My goal was to build a completely universal, drag-and-drop framework\
 for distribution. Build it in one-click, zip it, post it on the site,\
@@ -31,7 +30,8 @@ care of simulating a framework target for the iPhone.\
 \
 On to the script:\
 - it first cleans old output files\
-- then it copies the canonical framework into the build directory.\
+- it determines the version number from svn if it can\
+- then it untars the canonical framework into the build directory.\
 This will be the final resting place of the build, by default "build/\
 MapView.framework"\
 - then it calls xcodebuild to build the MapView.a static lib for every\
@@ -42,16 +42,14 @@ debug lib is named with a "_debug" postfix.\
 - and finally, it finishes "building" the framework:\
 \'a0 \'a0 \'a0 \'a0\'95 it copies the lib over into the framework directory\
 \'a0 \'a0 \'a0 \'a0\'95 it creates the correct symlinks inside the framework directory\
-\'a0 \'a0 \'a0 \'a0\'95 it updates the default Info.plist with the values that are in the\
-user-created Info.plist\
+\'a0 \'a0 \'a0 \'a0\'95 it updates the default Info.plist with the version value calculated earlier\
 \
 That's it. You now have a complete, as minimalistic as possible,\
 static framework that works in debug or release mode for simulator or\
 device, that can be simply dropped in a project and referenced with\
 #include <MapView/...h>\
 \
-Pretty straightforward stuff, except for the Info.plist thing. The\
-things to note are:\
+The things to note are:\
 \
 - this target does not care what active build you've got, it builds\
 all 4 builds irrespectively.\
@@ -61,5 +59,5 @@ XCode if you haven't built them.\
 - this target will not use your Info.plist except for the Bundle\
 Version.\
 \
-Hope this helps,\
+Enjoy.\
 }
