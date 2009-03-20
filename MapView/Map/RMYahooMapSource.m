@@ -60,15 +60,15 @@
 }
 -(NSString *)longDescription
 {
-	return @"Yahoo Map, There may be a legal way to access this, someone should investigate.";
+	return @"Yahoo Maps are severely restricted by Terms of Service for typical Route-Me applications. This sample code is for demonstration purposes only.";
 }
 -(NSString *)shortAttribution
 {
-	return @"© Yahoo";
+	return @"© Yahoo Maps";
 }
 -(NSString *)longAttribution
 {
-	return @"Map data © Yahoo, though the way we are acessing these tiles is against TOS.";
+	return @"© Map data © Yahoo, though the way we are accessing these tiles is against the Yahoo Terms of Service.";
 }
 
 @end
