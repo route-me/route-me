@@ -33,6 +33,12 @@
 // example.  If you ship code using this, yahoo might be very angry, and come
 // at you with pitchforks.  Maybe.
 
+/*! 
+ \brief RMAbstractMercatorWebSource subclass for access to Yahoo! Maps. Demo only; not for use in shipping apps.
+ 
+ Provides key-based access to tiles from Yahoo! Maps. Do not ship applications using this tile source, as 
+ Route-Me's implementation violates the Yahoo! Maps terms of service.
+ */
 @interface RMYahooMapSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>
 {
 

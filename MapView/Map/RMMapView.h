@@ -25,6 +25,61 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+/*! \mainpage Route-Me Map Framework 
+
+\section intro_sec Introduction
+
+Route-Me is an open source Objective-C framework for displaying maps on Cocoa Touch devices 
+(the iPhone, and the iPod Touch). It was written in 2008 by Joseph Gentle as the basis for a transit
+routing app. The transit app was not completed, because the government agencies involved chose not to release
+the necessary data under reasonable licensing terms. The project was released as open source under the New BSD license (http://www.opensource.org/licenses/bsd-license.php) 
+in September, 2008, and
+is hosted on Google Code (http://code.google.com/p/route-me/).
+
+ Route-Me provides a UIView subclass with a panning, zooming map. Zoom level, source of map data, map center,
+ marker overlays, and path overlays are all supported.
+\section install_sec Installation
+ 
+Because Route-Me is under rapid development as of early 2009, the best way to install Route-Me is use
+Subversion and check out a copy of the repository:
+\verbatim
+svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
+\endverbatim
+
+ There are numerous sample applications in the Subversion repository.
+ 
+ To embed Route-Me maps in your Xcode project, follow the instructions in the Embedding Guide at 
+ http://code.google.com/p/route-me/wiki/EmbeddingGuide . To create a static version of Route-Me, follow these 
+ instructions instead: http://code.google.com/p/route-me/source/browse/trunk/MapView/README-library-build.rtf
+ 
+\section maps_sec Map Data
+ 
+ Route-Me supports map data served from many different sources:
+ - the Open Street Map project's server.
+ - CloudMade, which provides commercial servers delivering Open Street Map data.
+ - Microsoft Virtual Earth.
+ - Open Aerial Map.
+ - Yahoo! Maps.
+ 
+ Each of these data sources has different license restrictions and fees. In particular, Yahoo! Maps are 
+ effectively unusable in Route-Me due to their license terms; the Yahoo! access code is provided for demonstration
+ purposes only.
+ 
+ You must contact the data vendor directly and arrange licensing if necessary, including obtaining your own
+ access key. Follow their rules.
+ 
+ If you have your own data you'd like to use with Route-Me, serving it through your own Mapnik installation
+ looks like the best bet. Mapnik is an open source web-based map delivery platform. For more information on
+ Mapnik, see http://www.mapnik.org/ .
+ 
+ \section news_sec Project News and Updates
+ For the most current information on Route-Me, see these sources:
+ - project email reflector: http://groups.google.com/group/route-me-map
+ - list of all project RSS feeds: http://code.google.com/p/route-me/feeds
+ - applications using Route-Me: http://code.google.com/p/route-me/wiki/RoutemeApplications
+ 
+ */
+
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CGGeometry.h>
 

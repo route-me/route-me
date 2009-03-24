@@ -5,7 +5,7 @@ own program, please follow the Embedding Guide, found at
 http://code.google.com/p/route-me/wiki/EmbedingGuide
 Use the "MapView" target.
 
-If you just want to produce a library framework to drop into your app, without project 
+If you just want to produce a static library framework to drop into your app, without project 
 dependencies or source-level debugging, follow the instructions in README-library-build.rtf
 and use the "MapView-framework" target.
 

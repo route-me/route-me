@@ -27,6 +27,13 @@
 
 #import "RMAbstractMercatorWebSource.h"
 
+/*! 
+ \brief RMAbstractMercatorWebSource subclass for access to Microsoft Virtual Earth.
+ 
+ Provides access to USA map tiles from Microsoft Virtual Earth. This implementation is incomplete. It
+ requires a SOAP transaction to validate an access key and obtain a session token. Contact Microsoft
+ Virtual Earth for further assistance; see contact information in RMVirtualEarthSource.m.
+ */
 @interface RMVirtualEarthSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
 	NSString *maptypeFlag;
 	NSString *accessKey;
