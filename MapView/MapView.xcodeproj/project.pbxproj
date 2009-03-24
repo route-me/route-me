@@ -147,9 +147,10 @@
 		23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFoundation.h; sourceTree = "<group>"; };
 		23A0ABA90EB923AF003A4521 /* RMLatLong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLatLong.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2B2BD41D0F79A95500B8B9A7 /* README-static-library-build.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "README-static-library-build.rtf"; sourceTree = "<group>"; };
+		2B2BD41E0F79A95500B8B9A7 /* routeme.doxygen */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routeme.doxygen; sourceTree = "<group>"; };
 		2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOpenAerialMapSource.h; sourceTree = "<group>"; };
 		2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenAerialMapSource.m; sourceTree = "<group>"; };
-		2BF0E4570F7312B10095A926 /* README-library-build.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "README-library-build.rtf"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView_Prefix.pch; sourceTree = "<group>"; };
 		3866784C0F6B9B9200C56B17 /* MapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapView.framework; path = build/MapView.framework; sourceTree = "<group>"; };
 		38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = Canonical.framework.tar; sourceTree = "<group>"; };
@@ -286,7 +287,9 @@
 				B83E67570E80F3FB001663B6 /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				2B2BD42E0F79A9A500B8B9A7 /* Static Library Build */,
 				B86F26E10E877802007A3773 /* DesktopMapView-Info.plist */,
+				32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */,
 				B8474BC00EB4019A006A0BC1 /* libsqlite3.dylib */,
 			);
 			name = CustomTemplate;
@@ -306,11 +309,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2B2BD42E0F79A9A500B8B9A7 /* Static Library Build */ = {
+			isa = PBXGroup;
+			children = (
+				2B2BD41D0F79A95500B8B9A7 /* README-static-library-build.rtf */,
+				38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */,
+			);
+			name = "Static Library Build";
+			sourceTree = "<group>";
+		};
 		2BF0E4540F73119C0095A926 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
 				B8C9740E0E8A198F007D16AD /* README.txt */,
-				2BF0E4570F7312B10095A926 /* README-library-build.rtf */,
+				2B2BD41E0F79A95500B8B9A7 /* routeme.doxygen */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -422,8 +434,6 @@
 		B83E67570E80F3FB001663B6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */,
-				32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
