@@ -130,4 +130,19 @@
 	return [tileSource longAttribution];
 }
 
+-(NSString *) tileURL: (RMTile) tile
+{
+  return [tileSource tileURL:tile];
+}
+
+-(NSString *) tileFile: (RMTile) tile
+{
+  return [tileSource tileFile:tile];
+}
+
+-(NSString *) tilePath
+{
+  return [tileSource tilePath];
+}
+
 @end
