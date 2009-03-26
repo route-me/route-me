@@ -40,6 +40,9 @@
 @protocol RMTileSource <NSObject>
 
 -(RMTileImage *) tileImage: (RMTile) tile;
+-(NSString *) tileURL: (RMTile) tile;
+-(NSString *) tileFile: (RMTile) tile;
+-(NSString *) tilePath;
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection;
 -(RMProjection*) projection;
 
