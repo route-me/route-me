@@ -13,5 +13,13 @@ duplicate bugs. If you make changes to MapTestbed to exercise a new
 Route-me features, please check in your revised version under a new
 name.
 
+ProgrammaticMap demonstrates creating a map without using a Nib.
 
+MapTestbedTwoMaps shows two different map sources (Microsoft Virtual
+Earth's hybrid view, and CloudMade's Tourist theme) in the same app.
 
+MapTestbedFlipMaps shows two different kinds of marker tap/drag
+response behavior, using two different RMMarker delegate classes.
+
+SimpleMap is the old map example from Route-Me release 0.2, with
+draggable markers and the Open Street Map source.
