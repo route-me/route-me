@@ -544,9 +544,10 @@
 	}
 }
 
+// Must be called by higher didReceiveMemoryWarning
 - (void)didReceiveMemoryWarning
 {
-	NSAssert(false, @"MEMORY WARNING IN RMMAPView"); // UIView does not receive these automatically? How is it being sent?
+        [contents didReceiveMemoryWarning];
 }
 
 - (void)setFrame:(CGRect)frame
