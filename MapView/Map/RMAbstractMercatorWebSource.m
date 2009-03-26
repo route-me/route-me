@@ -71,10 +71,31 @@
 	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"tileURL invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];
 }
 
+-(NSString*) tileFile: (RMTile) tile
+{
+	return nil;
+}
+
+-(NSString*) tilePath
+{
+	return nil;
+}
+
 -(RMTileImage *) tileImage: (RMTile)tile
 {
+	RMTileImage *image;
+	
 	tile = [tileProjection normaliseTile:tile];
-	RMTileImage* image = [RMTileImage imageWithTile: tile FromURL:[self tileURL:tile]];
+
+	NSString *file = [self tileFile:tile];
+
+	if(file && [[NSFileManager defaultManager] fileExistsAtPath:file])
+	{
+		image = [RMTileImage imageWithTile:tile FromFile:file];
+	} else {
+       		image = [RMTileImage imageWithTile:tile FromURL:[self tileURL:tile]];     
+	}
+	
 	return image;
 }
 
