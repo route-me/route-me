@@ -35,16 +35,7 @@
 	if (![super initWithTile:_tile])
 		return nil;
 	
-	// From the example in the documentation... :-/
-/*    CFURLRef url = CFURLCreateWithFileSystemPath (NULL, (CFStringRef)file, kCFURLPOSIXPathStyle, false);
-    CGDataProviderRef provider = CGDataProviderCreateWithURL (url);
-    CFRelease (url);
-    image = CGImageCreateWithPNGDataProvider (provider, NULL, true, kCGRenderingIntentDefault);
-*/	
 	image = [[UIImage alloc] initWithContentsOfFile:file];
-//	[image retain];
-//	[self setImageToData:data];
-	
 	return self;
 }
 
