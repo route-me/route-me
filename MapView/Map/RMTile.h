@@ -54,8 +54,12 @@ char RMTilesEqual(RMTile one, RMTile two);
 
 char RMTileIsDummy(RMTile tile);
 RMTile RMTileDummy();
+
 // Return a hash of the tile
 uint64_t RMTileHash(RMTile tile);
+
+// Returns a unique key of the tile
+uint64_t RMTileKey(RMTile tile);
 
 // Round the rectangle to whole numbers of tiles
 RMTileRect RMTileRectRound(RMTileRect rect);

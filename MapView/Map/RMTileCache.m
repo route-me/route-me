@@ -104,7 +104,7 @@
 
 +(NSNumber*) tileHash: (RMTile)tile
 {
-	return [NSNumber numberWithUnsignedLongLong: RMTileHash(tile)];
+	return [NSNumber numberWithUnsignedLongLong: RMTileKey(tile)];
 }
 
 // Returns the cached image if it exists. nil otherwise.

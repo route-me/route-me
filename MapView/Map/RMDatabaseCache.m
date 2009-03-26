@@ -127,7 +127,7 @@
 			}
 		}
 	
-		[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileHash([image tile])];
+		[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileKey([image tile])];
 	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
@@ -146,12 +146,12 @@
 	
 	@synchronized (self) {
 	
-		data = [dao dataForTile:RMTileHash(tile)];
+		data = [dao dataForTile:RMTileKey(tile)];
 		if (data == nil)
 			return nil;
 	
 		if (capacity != 0 && purgeStrategy == RMCachePurgeStrategyLRU) {
-			[dao touchTile: RMTileHash(tile) withDate: [NSDate date]];
+			[dao touchTile: RMTileKey(tile) withDate: [NSDate date]];
 		}
 		
 	}

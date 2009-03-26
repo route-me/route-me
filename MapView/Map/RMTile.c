@@ -31,13 +31,26 @@
 
 uint64_t RMTileHash(RMTile tile)
 {
+	uint64_t accumulator = 0;
+	
+	for (int i = 0; i < tile.zoom; i++) {
+		accumulator |= ((uint64_t)tile.x & (1LL<<i)) << i;
+		accumulator |= ((uint64_t)tile.y & (1LL<<i)) << (i+1);
+	}
+	accumulator |= 1LL<<(tile.zoom * 2);
+	
+	return accumulator;
+}
+
+uint64_t RMTileKey(RMTile tile)
+{
         uint64_t zoom = (uint64_t) tile.zoom & 0xFFLL; // 8bits, 256 levels
         uint64_t x = (uint64_t) tile.x & 0xFFFFFFFLL;  // 28 bits
         uint64_t y = (uint64_t) tile.y & 0xFFFFFFFLL;  // 28 bits
 
-	uint64_t hash = (zoom << 56) | (x << 28) | (y << 0);
+	uint64_t key = (zoom << 56) | (x << 28) | (y << 0);
 
-	return hash;
+	return key;
 }
 
 RMTile RMTileDummy()
