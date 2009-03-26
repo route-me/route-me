@@ -74,6 +74,7 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
  
  \section news_sec Project News and Updates
  For the most current information on Route-Me, see these sources:
+ - wiki: http://code.google.com/p/route-me/w/list
  - project email reflector: http://groups.google.com/group/route-me-map
  - list of all project RSS feeds: http://code.google.com/p/route-me/feeds
  - applications using Route-Me: http://code.google.com/p/route-me/wiki/RoutemeApplications
@@ -88,9 +89,9 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
 #import "RMMapViewDelegate.h"
 #import "RMMapContents.h"
 
-// iPhone-specific mapview stuff.
-// Handles event handling, whatnot.
-
+/*! \struct RMGestureDetails
+ iPhone-specific mapview stuff. Handles event handling, whatnot.
+ */
 typedef struct {
 	CGPoint center;
 	float averageDistanceFromCenter;
@@ -99,9 +100,11 @@ typedef struct {
 
 @class RMMapContents;
 
-// This class is a wrapper around RMMapContents for the iphone.
-// It implements event handling; but thats about it. All the interesting map
-// logic is done by RMMapContents.
+/*! 
+ \brief Wrapper around RMMapContents for the iPhone.
+ It implements event handling; but that's about it. All the interesting map
+ logic is done by RMMapContents.
+ */
 @interface RMMapView : UIView <RMMapContentsFacade, RMMapContentsAnimationCallback>
 {
 	RMMapContents *contents;

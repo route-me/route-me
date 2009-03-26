@@ -28,7 +28,7 @@
 #import "RMAbstractMercatorWebSource.h"
 
 /*! 
- \brief RMAbstractMercatorWebSource subclass for access to Microsoft Virtual Earth.
+ \brief Subclass of RMAbstractMercatorWebSource for access to Microsoft Virtual Earth.
  
  Provides access to USA map tiles from Microsoft Virtual Earth. This implementation is incomplete. It
  requires a SOAP transaction to validate an access key and obtain a session token. Contact Microsoft

@@ -28,7 +28,7 @@
 #import "RMAbstractMercatorWebSource.h"
 
 /*! 
- \brief RMAbstractMercatorWebSource subclass for access to the Open Street Map project's development server.
+ \brief Subclass of RMAbstractMercatorWebSource for access to the Open Street Map project's development server.
  
  Provides key-based access to tiles from the Open Street Map project. 
  */

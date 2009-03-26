@@ -32,6 +32,9 @@
 //#include <Quartz/Quartz.h>
 #include <stdint.h>
 
+/*! \struct RMTile
+ Uniquely specifies coordinates and zoom level for a particular tile in some tile source.
+ */
 typedef struct{
 	uint32_t x, y;
 	short zoom;
