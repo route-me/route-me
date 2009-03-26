@@ -296,6 +296,7 @@
 	[imagesOnScreen moveBy:delta];
 	[tileLoader moveBy:delta];
 	[overlay moveBy:delta];
+	[overlay correctPositionOfAllSublayers];
 	[renderer setNeedsDisplay];
 }
 
@@ -554,7 +555,7 @@
 	if (tileSource == newTileSource)
 		return;
 
-	newTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
+       newTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
 	
 	[tileSource release];
 	tileSource = [newTileSource retain];
@@ -749,6 +750,7 @@
 				   calculateScaleFromZoom:zoom];
 	//RMLog(@"new scale: %f, scale");
 	[self setScale:scale];    
+	[overlay correctPositionOfAllSublayers];
 	
 } 
 
@@ -808,6 +810,11 @@ static BOOL _performExpensiveOperations = YES;
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale
 {	
 	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong] withScale:aScale];
+}
+
+- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withScale:(float)aScale
+{
+        return [mercatorToTileProjection project:[projection latLongToPoint:latlong] atZoom:aScale];
 }
 
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel

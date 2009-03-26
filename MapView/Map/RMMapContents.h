@@ -181,6 +181,7 @@ enum {
 
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
+- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
 
