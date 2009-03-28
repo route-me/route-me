@@ -193,6 +193,9 @@ enum {
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 
+/// the denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000
+- (double)trueScaleDenominator;
+
 @end
 
 @protocol RMMapContentsFacade

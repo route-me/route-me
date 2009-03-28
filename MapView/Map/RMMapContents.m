@@ -827,6 +827,12 @@ static BOOL _performExpensiveOperations = YES;
 	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel withScale:aScale]];
 }
 
+- (double)trueScaleDenominator {
+	double routemeMetersPerPixel = [self scale]; // really meters/pixel
+	double iphoneMillimetersPerPixel = .1543;
+	double truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
+	return truescaleDenominator;
+}
 
 #pragma mark Zoom With Bounds
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)sw

@@ -86,11 +86,11 @@
 }
 -(NSString *)shortAttribution
 {
-	return @"© CloudMade.com";
+	return @"© 2009 CloudMade.com";
 }
 -(NSString *)longAttribution
 {
-	return @"Map images © CloudMade.com. Original map data © OpenStreetMap, licensed under Creative Commons Share Alike By Attribution.";
+	return @"Map © CloudMade.com. Map data CCBYSA 2009 OpenStreetMap.org contributors.";
 }
 
 @end
