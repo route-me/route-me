@@ -31,13 +31,13 @@
 @class RMProjection;
 
 @interface RMFractalTileProjection : NSObject<RMMercatorToTileProjection> {
-	// Maximum zoom for which our tile server stores images
+	/// Maximum zoom for which our tile server stores images
 	int maxZoom;
 	
-	// Mercator bounds of the earth 
+	/// Mercator bounds of the earth 
 	RMXYRect bounds;
 	
-	// Normally 256. This class assumes tiles are square.
+	/// Normally 256. This class assumes tiles are square.
 	int tileSideLength;
 	
 	// The deal is, we have a scale which stores how many mercator gradiants per pixel

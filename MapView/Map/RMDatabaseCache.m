@@ -163,6 +163,7 @@
 
 -(void)didReceiveMemoryWarning
 {
+	LogMethod();
 	if (self.databasePath==nil) {
 		RMLog(@"unknown db path, unable to reinitialize dao!");
 		return;

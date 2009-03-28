@@ -679,7 +679,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n#  Append the proper input/output directories and docset info to the config file.\n#  This works even though values are assigned higher up in the file. Easier than sed.\n\ncp $SOURCE_ROOT/routeme.doxygen $TEMP_DIR/doxygen.config\n\necho \"INPUT = $SOURCE_ROOT\" >> $TEMP_DIR/doxygen.config\necho \"OUTPUT_DIRECTORY = $SYMROOT/RouteMeDoxygen\" >> $TEMP_DIR/doxygen.config\n#echo \"GENERATE_DOCSET        = YES\" >> $TEMP_DIR/doxygen.config\n#echo \"DOCSET_BUNDLE_ID       = com.mycompany.DoxygenExample\" >> $TEMP_DIR/doxygen.config\n\n#  Run doxygen on the updated config file.\n\n$DOXYGEN_PATH $TEMP_DIR/doxygen.config\n\nexit 0\n";
+			shellScript = "# shell script goes here\n#  Append the proper input/output directories and docset info to the config file.\n#  This works even though values are assigned higher up in the file. Easier than sed.\n\ncp $SOURCE_ROOT/routeme.doxygen $TEMP_DIR/doxygen.config\n\necho \"INPUT = $SOURCE_ROOT\" >> $TEMP_DIR/doxygen.config\necho \"OUTPUT_DIRECTORY = $SYMROOT/RouteMeDoxygen\" >> $TEMP_DIR/doxygen.config\n#echo \"GENERATE_DOCSET        = YES\" >> $TEMP_DIR/doxygen.config\n#echo \"DOCSET_BUNDLE_ID       = com.mycompany.DoxygenExample\" >> $TEMP_DIR/doxygen.config\n\n#  Run doxygen on the updated config file.\n\n$DOXYGEN_PATH $TEMP_DIR/doxygen.config\n\nopen $SYMROOT/RouteMeDoxygen/html/index.html\n\nexit 0\n";
 		};
 		386676E00F6B73DA00C56B17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

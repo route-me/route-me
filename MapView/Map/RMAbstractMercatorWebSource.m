@@ -111,6 +111,7 @@
 
 -(void) didReceiveMemoryWarning
 {
+	LogMethod();
 }
 
 -(NSString *)uniqueTilecacheKey

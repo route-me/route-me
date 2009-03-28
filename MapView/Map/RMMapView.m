@@ -547,7 +547,8 @@
 // Must be called by higher didReceiveMemoryWarning
 - (void)didReceiveMemoryWarning
 {
-        [contents didReceiveMemoryWarning];
+	LogMethod();
+	[contents didReceiveMemoryWarning];
 }
 
 - (void)setFrame:(CGRect)frame

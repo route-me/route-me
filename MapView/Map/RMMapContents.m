@@ -271,6 +271,7 @@
 
 - (void) didReceiveMemoryWarning
 {
+	LogMethod();
 	[tileSource didReceiveMemoryWarning];
 }
 

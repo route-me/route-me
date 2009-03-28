@@ -73,14 +73,14 @@ enum {
 {
 	// TODO: Also support NSView.
 	
-	// This is the underlying UIView's layer.
+	/// This is the underlying UIView's layer.
 	CALayer *layer;
 	
 	RMMarkerManager *markerManager;
 	RMMapLayer *background;
 	RMLayerSet *overlay;
 	
-	// Latlong is calculated dynamically from mercatorBounds.
+	/// Latlong is calculated dynamically from mercatorBounds.
 	RMProjection *projection;
 	
 	id<RMMercatorToTileProjection> mercatorToTileProjection;

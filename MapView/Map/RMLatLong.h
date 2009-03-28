@@ -32,6 +32,10 @@
 #if TARGET_OS_IPHONE
 #import <CoreLocation/CoreLocation.h>
 
+/*! \struct RMLatLongBounds
+ Specifies a region by northwest and southeast corners.
+ Note: northWest and southEast will change to northeast and southwest (note spelling and corner changes) after 0.5 to keep right-handed coordinate system
+ */
 typedef struct {
 	CLLocationCoordinate2D northWest;
 	CLLocationCoordinate2D southEast;

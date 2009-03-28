@@ -41,7 +41,7 @@
 - (id) initWithSource: (id<RMTileSource>) source;
 - (void) didReceiveMemoryWarning;
 
-// Bleah ugly name.
+/// Bleah ugly name.
 + (RMCachedTileSource*) cachedTileSourceWithSource: (id<RMTileSource>) source;
 
 - (id<RMTileSource>) underlyingTileSource;

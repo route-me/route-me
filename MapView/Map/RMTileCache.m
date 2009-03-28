@@ -133,6 +133,7 @@
 
 -(void)didReceiveMemoryWarning
 {
+	LogMethod();
 	for (id<RMTileCache> cache in caches)
 	{
 		[cache didReceiveMemoryWarning];
