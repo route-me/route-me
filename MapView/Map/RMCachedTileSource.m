@@ -105,6 +105,7 @@
 
 - (void) didReceiveMemoryWarning
 {
+	LogMethod();		
 	[cache didReceiveMemoryWarning];
 }
 

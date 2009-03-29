@@ -42,6 +42,4 @@
 -(void) purgeTiles: (NSUInteger) count;
 -(void) purgeAllTiles;
 
-//-(NSArray*) getLocalTimetableInformationAt: (int)stopId;
-
 @end

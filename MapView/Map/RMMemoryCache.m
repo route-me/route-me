@@ -66,6 +66,7 @@
 
 -(void) didReceiveMemoryWarning
 {
+	LogMethod();		
 	[cache removeAllObjects];
 }
 

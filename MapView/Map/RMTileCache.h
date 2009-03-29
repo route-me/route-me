@@ -39,13 +39,14 @@ typedef enum {
 
 @protocol RMTileCache<NSObject>
 
-// Returns the cached image if it exists. nil otherwise.
+/// Returns the cached image if it exists. nil otherwise.
 -(RMTileImage*) cachedImage:(RMTile)tile;
 -(void)didReceiveMemoryWarning;
 
 @optional
 
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image;
+/// removes all tiles from the memory and disk subcaches
 -(void)purgeAllTiles;
 
 @end
@@ -60,13 +61,12 @@ typedef enum {
 
 +(NSNumber*) tileHash: (RMTile)tile;
 
-// Add tile to cache
+/// Add tile to cache
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image;
 
-// Add another cache to the chain
+/// Add another cache to the chain
 -(void)addCache: (id<RMTileCache>)cache;
 
 -(void)didReceiveMemoryWarning;
-
 
 @end
