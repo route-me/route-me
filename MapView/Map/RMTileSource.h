@@ -58,4 +58,6 @@
 -(NSString *)shortAttribution;
 -(NSString *)longAttribution;
 
+-(void)purgeAllTiles;
+
 @end

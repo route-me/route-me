@@ -111,7 +111,6 @@
 
 -(void) didReceiveMemoryWarning
 {
-	LogMethod();
 }
 
 -(NSString *)uniqueTilecacheKey
@@ -136,5 +135,8 @@
 	return [self shortAttribution];
 }
 
+-(void) purgeAllTiles
+{
+}
 @end
 

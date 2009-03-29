@@ -122,6 +122,14 @@
 	
 }
 
+-(void) purgeAllTiles 
+{
+	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE"];
+	if (result == NO) {
+		RMLog(@"Error purging all cache");
+	}	
+}
+
 -(void) touchTile: (uint64_t) tileHash withDate: (NSDate*) date
 {
 	BOOL result = [db executeUpdate: @"UPDATE ZCACHE SET zlastUsed = ? WHERE ztileHash = ? ", 

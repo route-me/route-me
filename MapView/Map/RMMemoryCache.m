@@ -66,7 +66,6 @@
 
 -(void) didReceiveMemoryWarning
 {
-	LogMethod();
 	[cache removeAllObjects];
 }
 
@@ -126,6 +125,11 @@
 	
 	NSNumber *key = [RMTileCache tileHash: tile];
 	[cache setObject:image forKey:key];
+}
+
+-(void) purgeAllTiles 
+{
+	[cache removeAllObjects];
 }
 
 @end

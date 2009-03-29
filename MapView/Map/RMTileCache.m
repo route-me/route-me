@@ -133,13 +133,19 @@
 
 -(void)didReceiveMemoryWarning
 {
-	LogMethod();
 	for (id<RMTileCache> cache in caches)
 	{
 		[cache didReceiveMemoryWarning];
 	}
 }
 
+-(void) purgeAllTiles
+{
+	for (id<RMTileCache> cache in caches)
+	{
+		[cache purgeAllTiles];
+	}
+}
 @end
 
 @implementation RMTileCache ( Configuration )

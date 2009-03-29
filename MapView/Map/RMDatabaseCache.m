@@ -163,7 +163,6 @@
 
 -(void)didReceiveMemoryWarning
 {
-	LogMethod();
 	if (self.databasePath==nil) {
 		RMLog(@"unknown db path, unable to reinitialize dao!");
 		return;
@@ -174,6 +173,11 @@
 		dao = [[RMTileCacheDAO alloc] initWithDatabase:self.databasePath];
 	}
 
+}
+
+-(void) purgeAllTiles 
+{
+	[dao purgeAllTiles];
 }
 
 @end

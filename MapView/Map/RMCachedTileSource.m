@@ -105,7 +105,6 @@
 
 - (void) didReceiveMemoryWarning
 {
-	LogMethod();
 	[cache didReceiveMemoryWarning];
 }
 
@@ -144,6 +143,11 @@
 -(NSString *) tilePath
 {
   return [tileSource tilePath];
+}
+
+-(void) purgeAllTiles
+{
+	[cache purgeAllTiles];
 }
 
 @end
