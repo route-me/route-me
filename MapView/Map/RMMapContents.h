@@ -69,6 +69,7 @@ enum {
 @end
 
 
+/// The cartographic and data components of a map. There is exactly one RMMapContents instance for each RMMapView instance.
 @interface RMMapContents : NSObject
 {
 	// TODO: Also support NSView.
@@ -107,6 +108,13 @@ enum {
 @property (readwrite) RMXYRect XYBounds;
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
+/*! \brief "scale" as of version 0.4/0.5 actually doesn't mean cartographic scale; it means meters per pixel.
+ 
+ "Scale" is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
+ "Scale" of 1 means 1 pixel == 1 meter.
+ "Scale" of 10 means 1 pixel == 10 meters.
+ \deprecated will be renamed appropriately and a new -scale method introduced, using cartographic scale (e.g. 1:24000).
+ */
 @property (readwrite) float scale;
 @property (readwrite) float zoom;
 

@@ -31,8 +31,7 @@
 
 @protocol RMTileSource;
 
-////////////////////////////// NOT COMPLETE. DO NOT USE
-
+/// ////////////////////////// NOT COMPLETE. DO NOT USE
 @interface RMTiledLayerController : NSObject
 {
 	CATiledLayer *layer;

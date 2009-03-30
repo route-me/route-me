@@ -53,11 +53,14 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 	RMTile tile;
 	CGRect screenLocation;
 	
+	/// \deprecated appears to be cruft
 	int loadingPriorityCount;
 	
-	// Used by cache
+	/// Used by cache
 	NSDate *lastUsedTime;
 	
+	/// \bug placing the "layer" on the RMTileImage implicitly assumes that a particular RMTileImage will be used in only 
+	/// one UIView. Might see some interesting crashes if you have two RMMapViews using the same tile source.
 	// Only used when appropriate
 	CALayer *layer;
 }

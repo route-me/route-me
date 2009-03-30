@@ -28,6 +28,7 @@
 #import <Foundation/Foundation.h>
 #import "RMTileImage.h"
 
+/// a tile image loaded from a URL
 @interface RMWebTileImage : RMTileImage {
 	/// Before image is completely loaded a proxy image can be used.
 	/// This will typically be a boilerplate image or a zoomed in or zoomed out version of another image.

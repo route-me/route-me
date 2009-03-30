@@ -161,6 +161,7 @@
 	return image;
 }
 
+/// FIXME: shouldn't reinitialize database in a low-memory warning
 -(void)didReceiveMemoryWarning
 {
 	LogMethod();		

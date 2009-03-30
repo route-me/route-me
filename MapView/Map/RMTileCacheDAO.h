@@ -29,6 +29,7 @@
 
 @class FMDatabase;
 
+/// the interface between RMDatabaseCache and FMDB
 @interface RMTileCacheDAO : NSObject {
 	FMDatabase* db;	
 }

@@ -28,6 +28,7 @@
 #import <Foundation/Foundation.h>
 #import "RMTileImage.h"
 
+/// a tile image loaded from a local file
 @interface RMFileTileImage : RMTileImage {
 
 }

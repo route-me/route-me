@@ -31,7 +31,7 @@
 
 @class RMTileCache;
 
-// Simple wrapper around a tilesource which checks the image cache first.
+/// Simple wrapper around a tilesource which checks the image cache first.
 @interface RMCachedTileSource : NSObject<RMTileSource>
 {
 	id <RMTileSource> tileSource;

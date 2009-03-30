@@ -89,7 +89,8 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
 #import "RMMapViewDelegate.h"
 #import "RMMapContents.h"
 
-/*! \struct RMGestureDetails
+/*! 
+ \struct RMGestureDetails
  iPhone-specific mapview stuff. Handles event handling, whatnot.
  */
 typedef struct {
@@ -103,7 +104,7 @@ typedef struct {
 /*! 
  \brief Wrapper around RMMapContents for the iPhone.
  It implements event handling; but that's about it. All the interesting map
- logic is done by RMMapContents.
+ logic is done by RMMapContents. There is exactly one RMMapView instance for each RMMapContents instance.
  */
 @interface RMMapView : UIView <RMMapContentsFacade, RMMapContentsAnimationCallback>
 {

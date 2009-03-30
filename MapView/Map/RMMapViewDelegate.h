@@ -30,6 +30,7 @@
 @class RMMapView;
 @class RMMarker;
 
+/// Use this for notifications of map panning, zooming, and taps on the RMMapView.
 @protocol RMMapViewDelegate 
 
 @optional
@@ -48,7 +49,7 @@
 - (BOOL) mapView:(RMMapView *)map shouldDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event;
 - (void) mapView:(RMMapView *)map didDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event;
 
-// The following call is depreciated, please use didDragMarker instead.  This call will no longer exist after the .5 Milestone
+/// \brief \deprecated This call is deprecated, please use didDragMarker instead.  This call will no longer exist after the .5 Milestone
 - (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position;
 
 

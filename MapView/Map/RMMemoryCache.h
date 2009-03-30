@@ -36,5 +36,7 @@
 }
 
 -(id)initWithCapacity: (NSUInteger) _capacity;
+/// Remove the least-recently used image from cache, if cache is at or over capacity. Removes only 1 image.
+-(void)makeSpaceInCache;
 
 @end

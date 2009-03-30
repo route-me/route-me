@@ -62,6 +62,11 @@ typedef enum {
 +(NSNumber*) tileHash: (RMTile)tile;
 
 /// Add tile to cache
+/*! 
+ \bug Calls -makeSpaceInCache for every tile/image addition. -makeSpaceInCache does a linear scan of its contents at each call.
+
+ \bug Since RMTileImage has an RMTile ivar, this API should be simplified to just -addImage:.
+ */
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image;
 
 /// Add another cache to the chain
