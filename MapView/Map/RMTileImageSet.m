@@ -60,6 +60,7 @@
 
 -(void) removeTile: (RMTile) tile
 {
+	NSAssert(!RMTileIsDummy(tile), @"attempted to remove dummy tile");
 	if (RMTileIsDummy(tile))
 	{
 		RMLog(@"attempted to remove dummy tile...??");

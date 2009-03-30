@@ -97,8 +97,8 @@ enum {
 	RMMapRenderer *renderer;
 	NSUInteger		boundingMask;
 	
-	// These should probably not be here. Instead equivalent functions
-	// should just fetch them when needed from the tileosurce.
+	/// \bug These should probably not be here. Instead equivalent functions
+	/// should just fetch them when needed from the tileosurce.
 	float minZoom, maxZoom;
 
 	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
@@ -113,7 +113,7 @@ enum {
  "Scale" is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
  "Scale" of 1 means 1 pixel == 1 meter.
  "Scale" of 10 means 1 pixel == 10 meters.
- \deprecated will be renamed appropriately and a new -scale method introduced, using cartographic scale (e.g. 1:24000).
+ \deprecated will be renamed metersPerPixel/setMetersPerPixel 
  */
 @property (readwrite) float scale;
 @property (readwrite) float zoom;
@@ -135,6 +135,7 @@ enum {
 @property (retain, readwrite) RMMapLayer *background;
 @property (retain, readwrite) RMLayerSet *overlay;
 @property (retain, readonly)  RMMarkerManager *markerManager;
+/// \bug probably shouldn't be retaining this delegate
 @property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 
@@ -202,6 +203,7 @@ enum {
 - (void) tilesUpdatedRegion:(CGRect)region;
 
 /// the denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000
+/// \deprecated will be renamed scaleDenominator after 0.5
 - (double)trueScaleDenominator;
 
 @end

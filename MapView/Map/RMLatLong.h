@@ -29,12 +29,13 @@
 #define _RMLATLONG_H_
 
 #import <TargetConditionals.h>
-#if TARGET_OS_IPHONE
 #import <CoreLocation/CoreLocation.h>
 
 /*! \struct RMLatLongBounds
- Specifies a region by northwest and southeast corners.
- Note: northWest and southEast will change to northeast and southwest (note spelling and corner changes) after 0.5 to keep right-handed coordinate system
+ 
+ \brief Specifies a rectangle by northwest and southeast corners, given as CLLocationCoordinate2D.
+
+ \deprecated Note: northWest and southEast will change to northeast and southwest (note spelling and corner changes) after 0.5 to keep right-handed coordinate system
  */
 typedef struct {
 	CLLocationCoordinate2D northWest;
@@ -70,8 +71,6 @@ typedef struct {
 	CLLocationDegrees longitude;
 } CLLocationCoordinate2D;
 
-
-#endif
 
 typedef CLLocationCoordinate2D RMLatLong;
 
