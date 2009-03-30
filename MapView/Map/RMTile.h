@@ -31,7 +31,8 @@
 #include <CoreGraphics/CGGeometry.h>
 //#include <Quartz/Quartz.h>
 #include <stdint.h>
-
+/*! \file RMTile.h
+ */
 /*! \struct RMTile
  \brief Uniquely specifies coordinates and zoom level for a particular tile in some tile source.
  
@@ -63,7 +64,7 @@ char RMTilesEqual(RMTile one, RMTile two);
 char RMTileIsDummy(RMTile tile);
 RMTile RMTileDummy();
 
-/// Return a hash of the tile
+/// Return a hash of the tile, used to override the NSObject hash method for RMTile.
 uint64_t RMTileHash(RMTile tile);
 
 /// Returns a unique key of the tile for use in the SQLite cache
