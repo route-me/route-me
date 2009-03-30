@@ -21,4 +21,6 @@
 @property(nonatomic,retain) IBOutlet UITextField *minZoom;
 @property(nonatomic,retain) IBOutlet UITextField *maxZoom;
 
+- (IBAction)clearSharedNSURLCache;
+- (IBAction)clearMapContentsCachedImages;
 @end

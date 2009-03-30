@@ -43,9 +43,9 @@
 
     [centerLatitude setText:[NSString stringWithFormat:@"%f", mapCenter.latitude]];
     [centerLongitude setText:[NSString stringWithFormat:@"%f", mapCenter.longitude]];
-    [zoomLevel setText:[NSString stringWithFormat:@"%f", contents.zoom]];
-    [maxZoom setText:[NSString stringWithFormat:@"%f", contents.maxZoom]];
-    [minZoom setText:[NSString stringWithFormat:@"%f", contents.minZoom]];
+    [zoomLevel setText:[NSString stringWithFormat:@"%.1f", contents.zoom]];
+    [maxZoom setText:[NSString stringWithFormat:@"%.1f", contents.maxZoom]];
+    [minZoom setText:[NSString stringWithFormat:@"%.1f", contents.minZoom]];
 
 }
 
@@ -67,6 +67,16 @@
     self.minZoom = nil;
     self.maxZoom = nil;    
     [super dealloc];
+}
+
+- (IBAction)clearSharedNSURLCache
+{
+	[[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
+- (IBAction)clearMapContentsCachedImages
+{
+	[contents removeAllCachedImages];
 }
 
 
