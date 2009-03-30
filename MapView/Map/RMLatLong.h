@@ -34,7 +34,7 @@
 
 /*! \struct RMLatLongBounds
  
- \brief Specifies a rectangle by northwest and southeast corners.
+ \brief Specifies a rectangle by northwest and southeast corners, given as CLLocationCoordinate2D.
 
  \deprecated Note: northWest and southEast will change to northeast and southwest (note spelling and corner changes) after 0.5 to keep right-handed coordinate system
  */

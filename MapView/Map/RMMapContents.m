@@ -154,21 +154,28 @@
 	markerManager = [[RMMarkerManager alloc] initWithContents:self];
 	
 	[newView setNeedsDisplay];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(handleMemoryWarningNotification:) 
+												 name:UIApplicationDidReceiveMemoryWarningNotification 
+											   object:nil];
+
 	
 	RMLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", newView, tileSource, renderer);
 	return self;
 }
 
 
-/// deprecated at any moment after release 0.5
+	/// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view
 {
+	WarnDeprecated();
 	return [self initWithView:view];
 }
 
 /// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong
 {
+	WarnDeprecated();
 	LogMethod();
 	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
@@ -184,6 +191,7 @@
 /// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
 {
+	WarnDeprecated();
 	LogMethod();
 	if (![super init])
 		return nil;
@@ -231,6 +239,10 @@
 	markerManager = [[RMMarkerManager alloc] initWithContents:self];
 	
 	[view setNeedsDisplay];
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(handleMemoryWarningNotification:) 
+												 name:UIApplicationDidReceiveMemoryWarningNotification 
+											   object:nil];
 	
 	RMLog(@"Map contents initialised. view: %@ tileSource %@ renderer %@", view, tileSource, renderer);
 	
@@ -253,6 +265,7 @@
 -(void) dealloc
 {
 	LogMethod();
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[imagesOnScreen cancelLoading];
 	[self setRenderer:nil];
 	[imagesOnScreen release];
@@ -267,6 +280,11 @@
 	[markerManager release];
 	RMLog(@"mapcontents dealloced");
 	[super dealloc];
+}
+
+- (void)handleMemoryWarningNotification:(NSNotification *)notification
+{
+	[self didReceiveMemoryWarning];
 }
 
 - (void) didReceiveMemoryWarning

@@ -107,6 +107,7 @@
 {
 	LogMethod();		
 	[cache didReceiveMemoryWarning];
+	[tileSource didReceiveMemoryWarning];
 }
 
 -(NSString*) uniqueTilecacheKey

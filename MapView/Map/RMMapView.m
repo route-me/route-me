@@ -461,8 +461,9 @@
                [delegate mapView:self didDragMarker:(RMMarker*)hit withEvent:event];
                return;
             } else if (_delegateHasDragMarkerPosition){
-               //This else portion only exists to maintain compatability with old versions.  SHOULD be removed after .5 tarball
-               [delegate dragMarkerPosition:(RMMarker*)hit onMap:self position:[[[event allTouches] anyObject]locationInView:self]];
+				//This else portion only exists to maintain compatability with old versions.  SHOULD be removed after .5 tarball
+				RMLog(@"WARNING: dragMarkerPosition:onMap:position: has been deprecated. Switch to didDragMarker:");
+				[delegate dragMarkerPosition:(RMMarker*)hit onMap:self position:[[[event allTouches] anyObject]locationInView:self]];
                return;
             }
          }
@@ -471,6 +472,7 @@
                      		
 		if ([hit isKindOfClass: [RMMarker class]]) {
 			if (_delegateHasDragMarkerPosition) {
+				RMLog(@"WARNING: dragMarkerPosition:onMap:position: has been deprecated. Switch to didDragMarker:");
 				[delegate dragMarkerPosition:(RMMarker*)hit onMap:self position:[[[event allTouches] anyObject]locationInView:self]];
 				return;
 			}

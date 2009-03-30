@@ -142,6 +142,7 @@ enum {
 - (id)initWithView: (UIView*) view;
 - (id)initWithView: (UIView*) view
 		tilesource:(id<RMTileSource>)newTilesource;
+/// designated initializer
 - (id)initWithView:(UIView*)view
 		tilesource:(id<RMTileSource>)tilesource
 	  centerLatLon:(CLLocationCoordinate2D)initialCenter
@@ -150,15 +151,17 @@ enum {
 	  minZoomLevel:(float)minZoomLevel
    backgroundImage:(UIImage *)backgroundImage;
 
-/// these next 3 initializers subject to removal at any moment after 0.5 is released
+/// \deprecated subject to removal at any moment after 0.5 is released
 - (id) initForView: (UIView*) view;
+/// \deprecated subject to removal at any moment after 0.5 is released
 - (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong;
-// Designated initialiser
+/// \deprecated subject to removal at any moment after 0.5 is released
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
 
 - (void)setFrame:(CGRect)frame;
 
-- (void) didReceiveMemoryWarning;
+- (void)handleMemoryWarningNotification:(NSNotification *)notification;
+- (void)didReceiveMemoryWarning;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
 - (void)moveToXYPoint: (RMXYPoint)aPoint;

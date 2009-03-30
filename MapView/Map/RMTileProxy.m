@@ -32,6 +32,7 @@
 
 +(RMTileImage*) bestProxyFor: (RMTile) t
 {
+	WarnDeprecated();
 	return nil;
 }
 
