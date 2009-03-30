@@ -129,7 +129,7 @@
 	[cache setObject:image forKey:key];
 }
 
--(void) purgeAllTiles 
+-(void) removeAllCachedImages 
 {
 	[cache removeAllObjects];
 }

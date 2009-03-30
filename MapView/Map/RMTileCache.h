@@ -46,8 +46,8 @@ typedef enum {
 @optional
 
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image;
-/// removes all tiles from the memory and disk subcaches
--(void)purgeAllTiles;
+/// removes all tile images from the memory and disk subcaches
+-(void)removeAllCachedImages;
 
 @end
 

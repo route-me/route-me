@@ -147,9 +147,9 @@
   return [tileSource tilePath];
 }
 
--(void) purgeAllTiles
+-(void) removeAllCachedImages
 {
-	[cache purgeAllTiles];
+	[cache removeAllCachedImages];
 }
 
 @end

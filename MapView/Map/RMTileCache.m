@@ -140,11 +140,11 @@
 	}
 }
 
--(void) purgeAllTiles
+-(void) removeAllCachedImages
 {
 	for (id<RMTileCache> cache in caches)
 	{
-		[cache purgeAllTiles];
+		[cache removeAllCachedImages];
 	}
 }
 @end

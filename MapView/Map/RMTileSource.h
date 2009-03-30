@@ -58,6 +58,9 @@
 -(NSString *)shortAttribution;
 -(NSString *)longAttribution;
 
--(void)purgeAllTiles;
+/*! \brief clear all images from the in-memory and on-disk image caches
+ \bug This method belongs on RMCachedTileSource, not on RMTileSource, because an RMTileSource doesn't have a cache.
+ */
+-(void)removeAllCachedImages;
 
 @end

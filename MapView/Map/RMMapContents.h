@@ -205,9 +205,19 @@ enum {
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 
-/// the denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000
+/// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 /// \deprecated will be renamed scaleDenominator after 0.5
 - (double)trueScaleDenominator;
+
+/*! \brief Clear all images from the #tileSource's caching system.
+ 
+ All of the existing RMTileSource implementations load tile images via NSURLRequest. It's possible that some images will remain in your
+ application's shared URL cache. If you need to clear this out too, use this call:
+ \code
+ [[NSURLCache sharedURLCache] removeAllCachedResponses];
+ \endcode
+ */
+-(void)removeAllCachedImages;
 
 @end
 

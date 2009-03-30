@@ -567,6 +567,12 @@
 	[renderer drawRect:aRect];
 }
 
+-(void)removeAllCachedImages
+{
+	[tileSource removeAllCachedImages];
+}
+
+
 #pragma mark Properties
 
 - (void) setTileSource: (id<RMTileSource>)newTileSource

@@ -177,9 +177,9 @@
 
 }
 
--(void) purgeAllTiles 
+-(void) removeAllCachedImages 
 {
-	[dao purgeAllTiles];
+	[dao removeAllCachedImages];
 }
 
 @end

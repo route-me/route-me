@@ -122,7 +122,7 @@
 	
 }
 
--(void) purgeAllTiles 
+-(void) removeAllCachedImages 
 {
 	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE"];
 	if (result == NO) {

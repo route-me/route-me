@@ -136,7 +136,7 @@
 	return [self shortAttribution];
 }
 
--(void) purgeAllTiles
+-(void) removeAllCachedImages
 {
 }
 @end
