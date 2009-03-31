@@ -35,11 +35,13 @@
 
 + (RMMarkerStyle*) markerStyleWithIcon: (UIImage*) image
 {
+	WarnDeprecated();
 	return [[[RMMarkerStyle alloc] initWithIcon: image] autorelease];
 }
 
 - (RMMarkerStyle*) initWithIcon: (UIImage*) _image
 {
+	WarnDeprecated();
 	self = [super init];
 	if (self==nil) return nil;
 	

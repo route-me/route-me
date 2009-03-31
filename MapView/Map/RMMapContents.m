@@ -278,7 +278,6 @@
 	[self setBackground:nil];
 	[layer release];
 	[markerManager release];
-	RMLog(@"mapcontents dealloced");
 	[super dealloc];
 }
 

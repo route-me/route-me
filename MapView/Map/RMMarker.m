@@ -47,6 +47,7 @@ static CGImageRef _markerBlue = nil;
 
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName
 {
+	WarnDeprecated();
 	return [[[RMMarker alloc] initWithNamedStyle: styleName] autorelease];
 }
 
@@ -92,6 +93,7 @@ static CGImageRef _markerBlue = nil;
 
 - (void) replaceKey: (NSString*) key
 {
+	WarnDeprecated();
 	[self replaceImage:[RMMarker markerImage:key] anchorPoint: CGPointMake(0.5, 1.0)];
 }
 
@@ -102,16 +104,19 @@ static CGImageRef _markerBlue = nil;
 
 - (id) initWithKey: (NSString*) key
 {
+	WarnDeprecated();
 	return [self initWithCGImage:[RMMarker markerImage:key]];
 }
 
 - (id) initWithStyle: (RMMarkerStyle*) style
 {
+	WarnDeprecated();
 	return [self initWithCGImage: [style.markerIcon CGImage] anchorPoint: style.anchorPoint]; 
 }
 
 - (id) initWithNamedStyle: (NSString*) styleName
 {
+	WarnDeprecated();
 	RMMarkerStyle* style = [[RMMarkerStyles styles] styleNamed: styleName];
 	
 	if (style==nil) {
@@ -246,9 +251,11 @@ static CGImageRef _markerBlue = nil;
 
 + (CGImageRef) loadPNGFromBundle: (NSString *)filename
 {
+	WarnDeprecated();
 	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
+	/// FIXME: there is no GC on iPhone! NSMakeCollectable???
 	[NSMakeCollectable(image) autorelease];
 	CGDataProviderRelease(dataProvider);
 	
@@ -257,6 +264,7 @@ static CGImageRef _markerBlue = nil;
 
 + (CGImageRef) markerImage: (NSString *) key
 {
+	WarnDeprecated();
 	if (RMMarkerBlueKey == key
 		|| [RMMarkerBlueKey isEqualToString:key])
 	{
@@ -279,11 +287,13 @@ static CGImageRef _markerBlue = nil;
 
 - (void) hide 
 {
+	WarnDeprecated();
 	[self setHidden:YES];
 }
 
 - (void) unhide
 {
+	WarnDeprecated();
 	[self setHidden:NO];
 }
 

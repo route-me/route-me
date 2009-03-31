@@ -28,6 +28,10 @@
 #import <UIKit/UIKit.h>
 
 
+/*! \brief One marker style, managed by RMMarkerStyles.
+ 
+ \deprecated This entire class subject to removal soon. The iPhone bundle architecture does not allow a correct, robust implementation in a framework.
+ */
 @interface RMMarkerStyle : NSObject {
 	
 	UIImage* markerIcon;

@@ -81,9 +81,10 @@
 	return self;
 }
 
-/// deprecated any time after 0.5
+/// \deprecated Deprecated any time after 0.5.
 - (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlon
 {
+	WarnDeprecated();
 	LogMethod();
 	if (self = [super initWithFrame:frame]) {
 		[self performInitialSetup];
@@ -116,8 +117,7 @@
 -(void) dealloc
 {
 	LogMethod();
-	[self.contents release];
-	contents = nil;
+	self.contents = nil;
 	[super dealloc];
 }
 

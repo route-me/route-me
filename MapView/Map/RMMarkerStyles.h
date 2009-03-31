@@ -28,6 +28,10 @@
 #import <UIKit/UIKit.h>
 
 
+/*! \brief Manages named marker styles.
+ 
+ \deprecated This entire class subject to removal soon. The iPhone bundle architecture does not allow a correct, robust implementation in a framework.
+ */
 @interface RMMarkerStyles : NSObject {
 
 	NSMutableDictionary* styles;

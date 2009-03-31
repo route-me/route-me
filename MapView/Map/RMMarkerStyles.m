@@ -38,6 +38,7 @@ static RMMarkerStyles *sharedMarkerStyles = nil;
 
 + (RMMarkerStyles*)styles
 {
+	WarnDeprecated();
     @synchronized(self) {
         if (sharedMarkerStyles == nil) {
             [[self alloc] init]; // assignment not done here
@@ -48,6 +49,7 @@ static RMMarkerStyles *sharedMarkerStyles = nil;
 
 - (RMMarkerStyles*) init 
 {
+	WarnDeprecated();
 	self = [super init];
 	if (self==nil) return nil;
 	
@@ -104,11 +106,13 @@ static RMMarkerStyles *sharedMarkerStyles = nil;
 
 - (void) addStyle: (RMMarkerStyle*) style withName: (NSString*) name
 {
+	WarnDeprecated();
 	[styles setObject:style	forKey:name];
 }
 
 - (RMMarkerStyle*) styleNamed: (NSString*) name
 {
+	WarnDeprecated();
 	return [styles objectForKey:name];
 }
 

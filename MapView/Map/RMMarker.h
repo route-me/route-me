@@ -50,15 +50,21 @@ extern NSString * const RMMarkerRedKey;
 @property(nonatomic,retain) UIColor *textForegroundColor;
 @property(nonatomic,retain) UIColor *textBackgroundColor;
 
+/// \deprecated Deprecated at any moment after 0.5.
 + (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
+/// \deprecated Deprecated at any moment after 0.5.
 + (CGImageRef) markerImage: (NSString *) key;
+/// \deprecated Deprecated at any moment after 0.5.
 + (CGImageRef) loadPNGFromBundle: (NSString *)filename;
 
 - (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
 - (id) initWithCGImage: (CGImageRef) image;
+/// \deprecated Deprecated at any moment after 0.5.
 - (id) initWithKey: (NSString*) key;
 - (id) initWithUIImage: (UIImage*) image;
+/// \deprecated Deprecated at any moment after 0.5.
 - (id) initWithStyle: (RMMarkerStyle*) style;
+/// \deprecated Deprecated at any moment after 0.5.
 - (id) initWithNamedStyle: (NSString*) styleName;
 
 - (void) setLabel: (UIView*)aView;
@@ -72,14 +78,18 @@ extern NSString * const RMMarkerRedKey;
 - (void) removeLabel;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
+/// \deprecated Deprecated at any moment after 0.5.
 - (void) replaceKey: (NSString*) key;
 
+/// \deprecated Deprecated at any moment after 0.4.
 - (void) hide;
+/// \deprecated Deprecated at any moment after 0.4.
 - (void) unhide;
 
 - (void) dealloc;
 
 // Call this with either RMMarkerBlue or RMMarkerRed for the key.
+/// \deprecated Deprecated at any moment after 0.5.
 + (CGImageRef) markerImage: (NSString *) key;
 
 @end

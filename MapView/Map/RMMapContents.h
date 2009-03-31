@@ -69,7 +69,17 @@ enum {
 @end
 
 
-/// The cartographic and data components of a map. There is exactly one RMMapContents instance for each RMMapView instance.
+/*! \brief The cartographic and data components of a map. Do not retain.
+ 
+ There is exactly one RMMapContents instance for each RMMapView instance.
+ 
+ \warning Do not retain an RMMapContents instance. Instead, ask the RMMapView for its contents 
+ when you need it. It is an error for an RMMapContents instance to exist without a view, and 
+ if you retain the RMMapContents, it can't go away when the RMMapView is released.
+ 
+ At some point, it's likely that RMMapContents and RMMapView will be merged into one class.
+ 
+ */
 @interface RMMapContents : NSObject
 {
 	// TODO: Also support NSView.
