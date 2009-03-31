@@ -13,8 +13,6 @@
 
 @synthesize window;
 @synthesize rootViewController;
-@synthesize upperMapContents;
-@synthesize lowerMapContents;
 
 - (void)performTest
 {
@@ -31,8 +29,6 @@
 
 
 - (void)dealloc {
-    self.upperMapContents = nil;
-	self.lowerMapContents = nil;
 	[rootViewController release];
     [window release];
     [super dealloc];

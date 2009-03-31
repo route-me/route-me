@@ -34,19 +34,19 @@
 	center.longitude = -122.333;
 	
     [upperMapView setDelegate:self];
-    upperMapContents = [[RMMapContents alloc] initWithView:upperMapView
+    RMMapContents *upperMapContents = [[RMMapContents alloc] initWithView:upperMapView
 												tilesource:[[[RMVirtualEarthSource alloc] initWithHybridThemeUsingAccessKey:@"invalidKey"] autorelease]];
-    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setUpperMapContents:[upperMapView contents]];
 	[upperMapView setNeedsLayout];
 	[upperMapView setNeedsDisplay];
 	[upperMapView moveToLatLong:center];
 	
     [lowerMapView setDelegate:self];
-    lowerMapContents =  [[RMMapContents alloc] initWithView:lowerMapView
+    RMMapContents *lowerMapContents =  [[RMMapContents alloc] initWithView:lowerMapView
 												 tilesource:[[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:7] autorelease]];
-    [(MapTestbedTwoMapsAppDelegate *)[[UIApplication sharedApplication] delegate] setLowerMapContents:[lowerMapView contents]];
 	[lowerMapView setNeedsDisplay];
 	[lowerMapView moveToLatLong:center];
+
+	NSLog(@"%@ %@", upperMapContents, lowerMapContents);
 }
 
 

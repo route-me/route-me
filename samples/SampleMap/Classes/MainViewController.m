@@ -14,7 +14,6 @@
 
 @synthesize mapView;
 @synthesize infoTextView;
-@synthesize contents;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -32,8 +31,6 @@
     
 	RMMapContents *myContents = [[[RMMapContents alloc] initWithView:mapView 
 														  tilesource:myTilesource] autorelease];
-	self.contents = myContents;
-	self.mapView.contents = myContents;
 	[(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:myContents];
     [self updateInfo];
 }
@@ -49,6 +46,7 @@
 
 
 - (void)didReceiveMemoryWarning {
+	RMLog(@"didReceiveMemoryWarning %@", self);
     [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
@@ -58,19 +56,19 @@
 }
 
 - (void)dealloc {
+	LogMethod();
     self.infoTextView = nil; 
     self.mapView = nil; 
-	self.contents = nil;
+	[(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:nil];
     [super dealloc];
 }
 
 - (void)updateInfo {
+	RMMapContents *contents = self.mapView.contents;
     CLLocationCoordinate2D mapCenter = [contents mapCenter];
     
-    float routemeMetersPerPixel = [contents scale]; // really meters/pixel
-    float iphoneMillimetersPerPixel = .1543;
-	float truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
-    
+	double truescaleDenominator = [contents trueScaleDenominator];
+    double routemeMetersPerPixel = [contents scale]; /// FIXME: "scale"/meters per pixel issue
     [infoTextView setText:[NSString stringWithFormat:@"Latitude : %f\nLongitude : %f\nZoom level : %.2f\nMeter per pixel : %.1f\nTrue scale : 1:%.0f\n%@\n%@", 
                            mapCenter.latitude, 
                            mapCenter.longitude, 

@@ -13,7 +13,6 @@
 
 @synthesize window;
 @synthesize rootViewController;
-@synthesize mapContents;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -24,8 +23,8 @@
 
 
 - (void)dealloc {
-    self.mapContents = nil;
-    [rootViewController release];
+    self.rootViewController = nil;
+	self.window = nil;
     [window release];
     [super dealloc];
 }

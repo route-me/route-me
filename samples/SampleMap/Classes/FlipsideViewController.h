@@ -12,7 +12,6 @@
 	IBOutlet UITextField *zoomLevel;
 	IBOutlet UITextField *minZoom;
 	IBOutlet UITextField *maxZoom;
-    RMMapContents *contents;    
 }
 
 @property(nonatomic,retain) IBOutlet UITextField *centerLatitude;
@@ -20,6 +19,8 @@
 @property(nonatomic,retain) IBOutlet UITextField *zoomLevel;
 @property(nonatomic,retain) IBOutlet UITextField *minZoom;
 @property(nonatomic,retain) IBOutlet UITextField *maxZoom;
+
+- (RMMapContents *)contents;
 
 - (IBAction)clearSharedNSURLCache;
 - (IBAction)clearMapContentsCachedImages;

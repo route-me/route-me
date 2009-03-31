@@ -5,6 +5,7 @@
 
 #import "MapTestbedAppDelegate.h"
 #import "RootViewController.h"
+#import "MainViewController.h"
 
 #import "RMPath.h"
 
@@ -13,8 +14,11 @@
 
 @synthesize window;
 @synthesize rootViewController;
-@synthesize mapContents;
 
+-(RMMapContents *)mapContents
+{
+	return self.rootViewController.mainViewController.mapView.contents;
+}
 -(void)performTestPart2
 {
 	// a bug exists that offsets the path when we execute this moveToLatLong
@@ -22,7 +26,7 @@
 	pt.latitude = 48.86600492029781f;
 	pt.longitude = 2.3194026947021484f;
 	
-	[mapContents moveToLatLong: pt];
+	[self.mapContents moveToLatLong: pt];
 }
 
 
@@ -35,13 +39,14 @@
 	southwest.latitude = 48.860406466081656f;
 	southwest.longitude = 2.2885894775390625;
 	
-	[mapContents zoomWithLatLngBoundsNorthEast:northeast SouthWest:southwest];
+	[self.mapContents zoomWithLatLngBoundsNorthEast:northeast SouthWest:southwest];
 }	
 
 
 - (void)performTest
 {
 	NSLog(@"testing paths");
+	RMMapContents *mapContents = [self mapContents];
 	
 	// if we zoom with bounds after the paths are created, nothing is displayed on the map
 	CLLocationCoordinate2D northeast, southwest;
@@ -114,7 +119,6 @@
 
 
 - (void)dealloc {
-    self.mapContents = nil;
     [rootViewController release];
     [window release];
     [super dealloc];

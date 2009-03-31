@@ -181,14 +181,9 @@
     return YES;
 }
 
-
 - (void)didReceiveMemoryWarning {
-	// due to a bug, RMMapView should never be released, as it causes the application to crash
-    //[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-
-	[mapView.contents didReceiveMemoryWarning];
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 }
-
 
 - (void)dealloc {
 	[mapView release];

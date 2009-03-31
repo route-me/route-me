@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    contents = [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
 
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];      
     
@@ -34,18 +33,20 @@
 
 
 - (void)didReceiveMemoryWarning {
+	RMLog(@"didReceiveMemoryWarning %@", self);
     [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    CLLocationCoordinate2D mapCenter = [contents mapCenter];
+	
+    CLLocationCoordinate2D mapCenter = [self.contents mapCenter];
 
     [centerLatitude setText:[NSString stringWithFormat:@"%f", mapCenter.latitude]];
     [centerLongitude setText:[NSString stringWithFormat:@"%f", mapCenter.longitude]];
-    [zoomLevel setText:[NSString stringWithFormat:@"%.1f", contents.zoom]];
-    [maxZoom setText:[NSString stringWithFormat:@"%.1f", contents.maxZoom]];
-    [minZoom setText:[NSString stringWithFormat:@"%.1f", contents.minZoom]];
+    [zoomLevel setText:[NSString stringWithFormat:@"%.1f", self.contents.zoom]];
+    [maxZoom setText:[NSString stringWithFormat:@"%.1f", self.contents.maxZoom]];
+    [minZoom setText:[NSString stringWithFormat:@"%.1f", self.contents.minZoom]];
 
 }
 
@@ -54,10 +55,10 @@
     
     newMapCenter.latitude = [[centerLatitude text] doubleValue];
     newMapCenter.longitude = [[centerLongitude text] doubleValue];
-    [contents moveToLatLong:newMapCenter];
-    [contents setZoom:[[zoomLevel text] floatValue]];
-    [contents setMaxZoom:[[maxZoom text] floatValue]];
-    [contents setMinZoom:[[minZoom text] floatValue]];
+    [self.contents moveToLatLong:newMapCenter];
+    [self.contents setZoom:[[zoomLevel text] floatValue]];
+    [self.contents setMaxZoom:[[maxZoom text] floatValue]];
+    [self.contents setMinZoom:[[minZoom text] floatValue]];
 }
 
 - (void)dealloc {
@@ -69,6 +70,11 @@
     [super dealloc];
 }
 
+- (RMMapContents *)contents
+{
+	return [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
+}
+
 - (IBAction)clearSharedNSURLCache
 {
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
@@ -76,7 +82,7 @@
 
 - (IBAction)clearMapContentsCachedImages
 {
-	[contents removeAllCachedImages];
+	[self.contents removeAllCachedImages];
 }
 
 

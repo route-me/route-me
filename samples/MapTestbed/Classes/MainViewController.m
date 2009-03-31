@@ -25,8 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [mapView setDelegate:self];
-    [(MapTestbedAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:[mapView contents]];
-    contents = [mapView contents];
 	[mapView setDeceleration:YES];
     [self updateInfo];
 }
@@ -57,11 +55,11 @@
 }
 
 - (void)updateInfo {
+	RMMapContents *contents = self.mapView.contents;
     CLLocationCoordinate2D mapCenter = [contents mapCenter];
     
     float routemeMetersPerPixel = [contents scale]; // really meters/pixel
-    float iphoneMillimetersPerPixel = .1543;
-	float truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
+	double truescaleDenominator =  [contents trueScaleDenominator];
     
     [infoTextView setText:[NSString stringWithFormat:@"Latitude : %f\nLongitude : %f\nZoom level : %.2f\nMeter per pixel : %.1f\nTrue scale : 1:%.0f", 
                            mapCenter.latitude, 
