@@ -11,12 +11,11 @@
 @interface SampleMapAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     RootViewController *rootViewController;
-    RMMapContents *mapContents;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet RootViewController *rootViewController;
-@property(nonatomic,retain) RMMapContents *mapContents;
+@property (nonatomic, readonly) RMMapContents *mapContents;
 
 @end
 

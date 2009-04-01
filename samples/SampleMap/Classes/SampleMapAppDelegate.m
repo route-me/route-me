@@ -5,13 +5,13 @@
 
 #import "SampleMapAppDelegate.h"
 #import "RootViewController.h"
+#import "MainViewController.h"
 
 @implementation SampleMapAppDelegate
 
 
 @synthesize window;
 @synthesize rootViewController;
-@synthesize mapContents;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     
@@ -19,9 +19,12 @@
     [window makeKeyAndVisible];
 }
 
+-(RMMapContents *)mapContents
+{
+	return self.rootViewController.mainViewController.mapView.contents;
+}
 
 - (void)dealloc {
-    self.mapContents = nil;
     [rootViewController release];
     [window release];
     [super dealloc];

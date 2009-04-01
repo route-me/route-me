@@ -29,9 +29,9 @@
     [mapView setDelegate:self];
 	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
     
-	RMMapContents *myContents = [[[RMMapContents alloc] initWithView:mapView 
-														  tilesource:myTilesource] autorelease];
-	[(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:myContents];
+	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
+	[[[RMMapContents alloc] initWithView:mapView 
+							  tilesource:myTilesource] autorelease];
     [self updateInfo];
 }
 
@@ -59,7 +59,6 @@
 	LogMethod();
     self.infoTextView = nil; 
     self.mapView = nil; 
-	[(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] setMapContents:nil];
     [super dealloc];
 }
 
