@@ -1,0 +1,20 @@
+//
+// Prefix header for all source files of the 'SampleApp' target in the 'SampleApp' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+
+#if DEBUG
+
+#define RMLog(args...)    NSLog( @"%@", [NSString stringWithFormat: args])
+#define LogMethod() NSLog(@"%s logged method call: -[%@ %s] (line %d)", _cmd, self, _cmd, __LINE__)
+
+#else  
+
+#define RMLog(args...)    // do nothing.
+#define LogMethod() 
+#endif
+
+#endif

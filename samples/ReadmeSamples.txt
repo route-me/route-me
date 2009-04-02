@@ -23,3 +23,5 @@ response behavior, using two different RMMarker delegate classes.
 
 SimpleMap is the old map example from Route-Me release 0.2, with
 draggable markers and the Open Street Map source.
+
+MarkerMurder creates 900 markers on a grid.
