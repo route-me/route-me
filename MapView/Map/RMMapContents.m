@@ -112,7 +112,6 @@
 	NSAssert1([newView isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", newView);
 	[(RMMapView *)newView setContents:self];
 
-	renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	boundingMask = RMMapMinWidthBound;
 	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
 	

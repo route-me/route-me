@@ -25,6 +25,24 @@
     return self;
 }
 
+- (void)addMarkers
+{
+	CLLocationCoordinate2D center;
+	center.latitude = 47.592;
+	center.longitude = -122.333;
+
+	int i, j;
+	double startLongitude = center.longitude;
+	for (i = 0; i < 30; i++) {
+		center.latitude -= .01;
+		center.longitude = startLongitude;
+		for (j = 0; j < 30; j++) {
+			center.longitude += .01;
+			[self.mapView.contents.markerManager addDefaultMarkerAt:center];
+		}
+	}
+	
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -40,19 +58,8 @@
 	center.latitude = 47.592;
 	center.longitude = -122.333;
 	[mapView moveToLatLong:center];
-	
-	int i, j;
-	double startLongitude = center.longitude;
-	for (i = 0; i < 30; i++) {
-		center.latitude -= .01;
-		center.longitude = startLongitude;
-		for (j = 0; j < 30; j++) {
-			center.longitude += .01;
-			[self.mapView.contents.markerManager addDefaultMarkerAt:center];
-		}
-	}
-
 	[self updateInfo];
+	[self performSelector:@selector(addMarkers) withObject:nil afterDelay:10.0];
 }
 
 

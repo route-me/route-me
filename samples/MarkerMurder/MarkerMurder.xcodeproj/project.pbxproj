@@ -21,6 +21,7 @@
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		2B12B8680F84ADA5003AE2BF /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B12B8670F84ADA5003AE2BF /* marker-red.png */; };
+		2B70CB7A0F856A46002BAF97 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B70CB790F856A46002BAF97 /* loading.png */; };
 		EBDDE0E00F649CE100377FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */; };
 		EBDDE0E20F649CE100377FFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E10F649CE100377FFE /* QuartzCore.framework */; };
 		EBDDE0E40F649CE100377FFE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */; };
@@ -66,6 +67,7 @@
 		289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlipsideViewController.m; path = Classes/FlipsideViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2B12B8670F84ADA5003AE2BF /* marker-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red.png"; sourceTree = "<group>"; };
+		2B70CB790F856A46002BAF97 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MarkerMurder_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerMurder_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				2B12B8670F84ADA5003AE2BF /* marker-red.png */,
+				2B70CB790F856A46002BAF97 /* loading.png */,
 				280E754A0DD40C5E005A515E /* FlipsideView.xib */,
 				280E754B0DD40C5E005A515E /* MainView.xib */,
 				280E754C0DD40C5E005A515E /* MainWindow.xib */,
@@ -261,6 +264,7 @@
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				2B12B8680F84ADA5003AE2BF /* marker-red.png in Resources */,
+				2B70CB7A0F856A46002BAF97 /* loading.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

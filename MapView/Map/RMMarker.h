@@ -59,12 +59,12 @@ extern NSString * const RMMarkerRedKey;
 
 - (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
 - (id) initWithCGImage: (CGImageRef) image;
-/// \deprecated Deprecated at any moment after 0.5.
+/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithKey: (NSString*) key;
 - (id) initWithUIImage: (UIImage*) image;
-/// \deprecated Deprecated at any moment after 0.5.
+/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithStyle: (RMMarkerStyle*) style;
-/// \deprecated Deprecated at any moment after 0.5.
+/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithNamedStyle: (NSString*) styleName;
 
 - (void) setLabel: (UIView*)aView;
