@@ -32,13 +32,20 @@
 @class RMMapRenderer;
 @class RMMapContents;
 
+/*! Appears to be some sort of interface between RMMapContents and markers.
+ 
+ \bug lots of arbitrary-appearing \@synchronized blocks. Old mailing list traffic 
+ claims they're needed, but no one seems to know why. If the #set needs to be guarded,
+ should be done by \@synchronized(self) and not \@synchronized(set). Maybe the guarding
+ is needed because of Core Animation interactions.
+ */
 @interface RMLayerSet : RMMapLayer
 {
-	// This is the set of all sublayers, including those offscreen.
-	// It is ordered back to front.
+	/// This is the set of all sublayers, including those offscreen.
+	/// It is ordered back to front.
 	NSMutableArray *set;
 	
-	// We need this reference so we can access the projections...
+	/// We need this reference so we can access the projections...
 	RMMapContents *mapContents;
 }
 

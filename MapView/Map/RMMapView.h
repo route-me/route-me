@@ -107,6 +107,8 @@ typedef struct {
  It implements event handling; but that's about it. All the interesting map
  logic is done by RMMapContents. There is exactly one RMMapView instance for each RMMapContents instance.
  
+ A -forwardInvocation method exists for RMMap, and forwards all unhandled messages to the RMMapContents instance.
+ 
  \bug No accessors for enableDragging, enableZoom, deceleration, decelerationFactor. Changing enableDragging does not change multitouchEnabled for the view.
  */
 @interface RMMapView : UIView <RMMapContentsFacade, RMMapContentsAnimationCallback>

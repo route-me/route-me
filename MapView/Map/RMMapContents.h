@@ -148,6 +148,9 @@ enum {
 /// \bug probably shouldn't be retaining this delegate
 @property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
+/// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
+/// \deprecated will be renamed scaleDenominator after 0.5
+@property (readonly)double trueScaleDenominator;
 
 - (id)initWithView: (UIView*) view;
 - (id)initWithView: (UIView*) view
@@ -215,9 +218,6 @@ enum {
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 
-/// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
-/// \deprecated will be renamed scaleDenominator after 0.5
-- (double)trueScaleDenominator;
 
 /*! \brief Clear all images from the #tileSource's caching system.
  
@@ -231,6 +231,7 @@ enum {
 
 @end
 
+/// Appears to be the methods actually implemented by RMMapContents, but generally invoked on RMMapView, and forwarded to the contents object.
 @protocol RMMapContentsFacade
 
 @optional

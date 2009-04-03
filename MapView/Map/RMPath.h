@@ -38,20 +38,19 @@
 {
 	NSMutableArray *points;
 
-	// This is the first point.
+	/// This is the first point.
 	RMXYPoint origin;
 	
-	// The color of the line and polygon's fill.
+	/// The color of the line and polygon's fill.
 	UIColor *lineColor;
 	UIColor *fillColor;
 	
 	CGMutablePathRef path;
 
-	// Width of the line.
+	/// Width of the line. Units unknown.
 	float lineWidth;
 	
-	// Drawing mode of the path. Choices are:
-	/* 
+	/*! Drawing mode of the path. Choices are:
 	 kCGPathFill,
 	 kCGPathEOFill,
 	 kCGPathStroke,

@@ -132,7 +132,7 @@
 	return [NSString stringWithFormat:@"MapView at %.0f,%.0f-%.0f,%.0f", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
 }
 
-// Forward invocations to RMMapContents
+/// Forward invocations to RMMapContents
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
     SEL aSelector = [invocation selector];
