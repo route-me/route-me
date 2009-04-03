@@ -34,12 +34,15 @@
 extern NSString * const RMMarkerBlueKey;
 extern NSString * const RMMarkerRedKey;
 
+/// one marker drawn on the map. Note that RMMarker ultimately descends from CALayer, and has an image contents.
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
+	/// (guess) the anchorPoint of the image is plotted here
 	RMXYPoint location;	
 
-	NSObject* data; // provided for storage of arbitrary user data
+	/// provided for storage of arbitrary user data
+	NSObject* data; 
 	
-	// A label which comes up when you tap the marker
+	/// A label which comes up when you tap the marker
 	UIView *labelView;
 	UIColor *textForegroundColor;
 	UIColor *textBackgroundColor;
@@ -69,8 +72,11 @@ extern NSString * const RMMarkerRedKey;
 
 - (void) setLabel: (UIView*)aView;
 - (void) setTextLabel: (NSString*)text;
+/// \deprecated name change or deletion pending after 0.0
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
+/// \deprecated name change or deletion pending after 0.0
 - (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
+/// \deprecated name change or deletion pending after 0.0
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
 - (void) toggleLabel;
 - (void) showLabel;

@@ -82,23 +82,26 @@ enum {
  */
 @interface RMMapContents : NSObject
 {
-	// TODO: Also support NSView.
-	
 	/// This is the underlying UIView's layer.
 	CALayer *layer;
 	
 	RMMarkerManager *markerManager;
+	/// subview for the image displayed while tiles are loading. Set its contents by providing your own "loading.png".
 	RMMapLayer *background;
+	/// subview for markers and paths
 	RMLayerSet *overlay;
 	
+	/// (guess) the projection object to convert from latitude/longitude to meters.
 	/// Latlong is calculated dynamically from mercatorBounds.
 	RMProjection *projection;
 	
 	id<RMMercatorToTileProjection> mercatorToTileProjection;
 //	RMTileRect tileBounds;
 	
+	/// (guess) converts from projected meters to screen pixel coordinates
 	RMMercatorToScreenProjection *mercatorToScreenProjection;
 	
+	/// controls what images are used. Can be changed while the view is visible, but see http://code.google.com/p/route-me/issues/detail?id=12
 	id<RMTileSource> tileSource;
 	
 	RMTileImageSet *imagesOnScreen;
@@ -107,9 +110,10 @@ enum {
 	RMMapRenderer *renderer;
 	NSUInteger		boundingMask;
 	
-	/// \bug These should probably not be here. Instead equivalent functions
-	/// should just fetch them when needed from the tileosurce.
-	float minZoom, maxZoom;
+	/// minimum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter.
+	float minZoom;
+	/// maximum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter.
+	float maxZoom;
 
 	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 }

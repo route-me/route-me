@@ -60,6 +60,8 @@
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 - (void)removeSublayer:(CALayer *)layer;
 - (void)removeSublayers:(NSArray *)layers;
+/// (guess) recompute the screen coordinates for the sublayers (map markers, paths) 
+/// \deprecated name will change after 0.5
 - (void) correctPositionOfAllSublayers;
 - (BOOL) hasSubLayer:(CALayer *)layer;
 
