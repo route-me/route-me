@@ -194,7 +194,9 @@ enum {
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot; 
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
+/// \deprecated removed after 0.5
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
+/// \deprecated renamed after 0.5
 - (float)getNextNativeZoomFactor;
 
 - (void) drawRect: (CGRect) rect;

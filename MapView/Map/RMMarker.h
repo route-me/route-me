@@ -36,7 +36,7 @@ extern NSString * const RMMarkerRedKey;
 
 /// one marker drawn on the map. Note that RMMarker ultimately descends from CALayer, and has an image contents.
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
-	/// (guess) the anchorPoint of the image is plotted here
+	/// expressed in projected meters. The anchorPoint of the image is plotted here.
 	RMXYPoint location;	
 
 	/// provided for storage of arbitrary user data
