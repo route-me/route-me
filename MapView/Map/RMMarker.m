@@ -64,11 +64,13 @@ static CGImageRef _markerBlue = nil;
 
 - (id) initWithCGImage: (CGImageRef) image
 {
+	WarnDeprecated();
 	return [self initWithCGImage: image anchorPoint: CGPointMake(0.5, 1.0)];
 }
 
 - (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) _anchorPoint
 {
+	WarnDeprecated();
 	if (![self init])
 		return nil;
 	
@@ -84,6 +86,7 @@ static CGImageRef _markerBlue = nil;
 
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint
 {
+	WarnDeprecated();
 	self.contents = (id)image;
 	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
 	self.anchorPoint = _anchorPoint;
@@ -99,7 +102,24 @@ static CGImageRef _markerBlue = nil;
 
 - (id) initWithUIImage: (UIImage*) image
 {
-	return [self initWithCGImage: [image CGImage]];
+	if (![self init])
+		return nil;
+	
+	self.contents = (id)[image CGImage];
+	self.bounds = CGRectMake(0,0,image.size.width,image.size.height);
+	
+	self.masksToBounds = NO;
+	self.labelView = nil;
+	
+	return self;
+}
+
+- (void) replaceUIImage: (UIImage*) image
+{
+	self.contents = (id)[image CGImage];
+	self.bounds = CGRectMake(0,0,image.size.width,image.size.height);
+	
+	self.masksToBounds = NO;
 }
 
 - (id) initWithKey: (NSString*) key

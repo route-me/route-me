@@ -60,11 +60,14 @@ extern NSString * const RMMarkerRedKey;
 /// \deprecated Deprecated at any moment after 0.5.
 + (CGImageRef) loadPNGFromBundle: (NSString *)filename;
 
+- (id) initWithUIImage: (UIImage*) image;
+
+/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
+/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithCGImage: (CGImageRef) image;
 /// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithKey: (NSString*) key;
-- (id) initWithUIImage: (UIImage*) image;
 /// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
 - (id) initWithStyle: (RMMarkerStyle*) style;
 /// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
@@ -83,8 +86,11 @@ extern NSString * const RMMarkerRedKey;
 - (void) hideLabel;
 - (void) removeLabel;
 
+- (void) replaceUIImage:(UIImage*)image;
+
+/// \deprecated Deprecated at any moment after 0.5.  Use replaceUIImage
 - (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
-/// \deprecated Deprecated at any moment after 0.5.
+/// \deprecated Deprecated at any moment after 0.5.  Use replaceUIImage
 - (void) replaceKey: (NSString*) key;
 
 /// \deprecated Deprecated at any moment after 0.4.
