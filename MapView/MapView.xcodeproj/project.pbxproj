@@ -122,6 +122,8 @@
 		B8F3FC650EA2E792004D8F85 /* RMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F3FC630EA2E792004D8F85 /* RMMarker.m */; };
 		B8FA92190E9315EC003A9FE6 /* RMLayerSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B8FA92170E9315EC003A9FE6 /* RMLayerSet.h */; };
 		B8FA921A0E9315EC003A9FE6 /* RMLayerSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA92180E9315EC003A9FE6 /* RMLayerSet.m */; };
+		F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */; };
+		F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +254,8 @@
 		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
 		C7A9675D0E84134B0031BA75 /* RMVirtualEarthSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMVirtualEarthSource.m; sourceTree = "<group>"; };
+		F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGeoHash.h; sourceTree = "<group>"; };
+		F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGeoHash.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +550,8 @@
 		B8C974B30E8A23C5007D16AD /* Coordinate Systems */ = {
 			isa = PBXGroup;
 			children = (
+				F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */,
+				F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */,
 				23A0ABA90EB923AF003A4521 /* RMLatLong.h */,
 				23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */,
 				23A0AAE80EB90A99003A4521 /* RMFoundation.c */,
@@ -608,6 +614,7 @@
 				B8CEB1C50ED5A3480014C431 /* RMPath.h in Headers */,
 				2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */,
 				96FE8E360F72D01B00A11CF0 /* RMYahooMapSource.h in Headers */,
+				F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +747,7 @@
 				B8CEB1C60ED5A3480014C431 /* RMPath.m in Sources */,
 				2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */,
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,
+				F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
