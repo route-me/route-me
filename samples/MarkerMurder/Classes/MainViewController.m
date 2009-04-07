@@ -34,13 +34,13 @@
 	CLLocationCoordinate2D markerPosition;
 #define kNumberRows 1
 #define kNumberColumns 5
-#define kSpacing 4.0
+#define kSpacing 2.0
 
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
-	markerPosition.latitude = center.latitude - (kNumberRows/2.0 * kSpacing);
+	markerPosition.latitude = center.latitude - ((kNumberRows - 1)/2.0 * kSpacing);
 	int i, j;
 	for (i = 0; i < kNumberRows; i++) {
-		markerPosition.longitude = center.longitude - (kNumberColumns/2.0 * kSpacing);
+		markerPosition.longitude = center.longitude - ((kNumberColumns - 1)/2.0 * kSpacing);
 		for (j = 0; j < kNumberColumns; j++) {
 			markerPosition.longitude += kSpacing;
 			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
