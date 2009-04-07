@@ -127,7 +127,10 @@
 	scale *= factor;
 }
 
-/// \bug returns wrong values if +/- 180 degree longitude is on screen
+/*! \bug returns wrong values if +/- 180 degree longitude is on screen
+ 
+ This bug is certainly one (the?) cause of Issue 103 and Issue 20, and probably also Issue 43 and Issue 54.
+ */
 - (CGPoint) projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale
 {
 	// TODO: This should return the closest, even if thats on the other side of the world...
