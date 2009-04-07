@@ -41,6 +41,7 @@
 		23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */ = {isa = PBXBuildFile; fileRef = 23A0AAE80EB90A99003A4521 /* RMFoundation.c */; };
 		23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */; };
 		23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0ABA90EB923AF003A4521 /* RMLatLong.h */; };
+		2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
 		2BEC60170F8AC6B8008FB858 /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF306C30F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.m */; };
@@ -78,7 +79,6 @@
 		2BEC604A0F8AC739008FB858 /* RMTile.c in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D70E80E73F001663B6 /* RMTile.c */; };
 		2BEC604B0F8AC73A008FB858 /* RMTileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D10E80E73F001663B6 /* RMTileCache.m */; };
 		2BEC604C0F8AC73C008FB858 /* RMTileCacheDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B970EB40094006A0BC1 /* RMTileCacheDAO.m */; };
-		2BEC604D0F8AC73D008FB858 /* RMTiledLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C50E80E73F001663B6 /* RMTiledLayerController.m */; };
 		2BEC604E0F8AC73D008FB858 /* RMTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64D90E80E73F001663B6 /* RMTileImage.m */; };
 		2BEC604F0F8AC73E008FB858 /* RMTileImageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64E10E80E73F001663B6 /* RMTileImageSet.m */; };
 		2BEC60500F8AC73F008FB858 /* RMTileLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B83E64C70E80E73F001663B6 /* RMTileLoader.m */; };
@@ -183,7 +183,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B83E654A0E80E7A8001663B6 /* Proj4.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Proj4 */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = Proj4;
 		};
 		38D8184F0F6F67B90034598B /* PBXContainerItemProxy */ = {
@@ -219,11 +219,12 @@
 		23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFoundation.h; sourceTree = "<group>"; };
 		23A0ABA90EB923AF003A4521 /* RMLatLong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLatLong.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2B246AA00F8AD9D400A7D55D /* RouteMeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMeTests.h; sourceTree = "<group>"; };
+		2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMeTests.m; sourceTree = "<group>"; };
 		2B2BD41D0F79A95500B8B9A7 /* README-static-library-build.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "README-static-library-build.rtf"; sourceTree = "<group>"; };
 		2B2BD41E0F79A95500B8B9A7 /* routeme.doxygen */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routeme.doxygen; sourceTree = "<group>"; };
 		2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOpenAerialMapSource.h; sourceTree = "<group>"; };
 		2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenAerialMapSource.m; sourceTree = "<group>"; };
-		2BEC61AB0F8AD20E008FB858 /* UnitTests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTests_Prefix.pch; sourceTree = "<group>"; };
 		2BF306C20F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMIPhoneUnitTestDelegate.h; sourceTree = "<group>"; };
 		2BF306C30F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestDelegate.m; sourceTree = "<group>"; };
 		2BF306C40F8ABCA4007014EE /* GTMIPhoneUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestMain.m; sourceTree = "<group>"; };
@@ -382,8 +383,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2BEC61AB0F8AD20E008FB858 /* UnitTests_Prefix.pch */,
 				2BF0E4540F73119C0095A926 /* Documentation */,
+				2B246B230F8AE20300A7D55D /* Testing */,
 				B8C9740D0E8A196E007D16AD /* Map */,
 				B83E67570E80F3FB001663B6 /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -407,6 +408,15 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B246B230F8AE20300A7D55D /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				2B246AA00F8AD9D400A7D55D /* RouteMeTests.h */,
+				2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */,
+			);
+			name = Testing;
 			sourceTree = "<group>";
 		};
 		2B2BD42E0F79A9A500B8B9A7 /* Static Library Build */ = {
@@ -889,7 +899,6 @@
 				2BEC604A0F8AC739008FB858 /* RMTile.c in Sources */,
 				2BEC604B0F8AC73A008FB858 /* RMTileCache.m in Sources */,
 				2BEC604C0F8AC73C008FB858 /* RMTileCacheDAO.m in Sources */,
-				2BEC604D0F8AC73D008FB858 /* RMTiledLayerController.m in Sources */,
 				2BEC604E0F8AC73D008FB858 /* RMTileImage.m in Sources */,
 				2BEC604F0F8AC73E008FB858 /* RMTileImageSet.m in Sources */,
 				2BEC60500F8AC73F008FB858 /* RMTileLoader.m in Sources */,
@@ -898,6 +907,7 @@
 				2BEC60530F8AC742008FB858 /* RMVirtualEarthSource.m in Sources */,
 				2BEC60540F8AC744008FB858 /* RMWebTileImage.m in Sources */,
 				2BEC60550F8AC745008FB858 /* RMYahooMapSource.m in Sources */,
+				2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,7 +1000,7 @@
 		2BF307920F8AC5C0007014EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				COPY_PHASE_STRIP = NO;
@@ -1010,14 +1020,14 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "RM Unit Tests";
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
 		2BF307930F8AC5C0007014EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				COPY_PHASE_STRIP = YES;
