@@ -8,6 +8,7 @@
 
 #import "GTMSenTestCase.h"
 
+/// Unit tests go here. See http://developer.apple.com/tools/unittest.html for guidance.
 @interface RouteMeTests : SenTestCase {
 }
 

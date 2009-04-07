@@ -842,7 +842,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = $SOURCE_ROOT/RunIPhoneUnitTest.sh;
+			shellScript = "#$SOURCE_ROOT/RunIPhoneUnitTest.sh";
 		};
 		386676E00F6B73DA00C56B17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

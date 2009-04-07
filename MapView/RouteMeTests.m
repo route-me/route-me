@@ -33,8 +33,12 @@
 	STAssertNotNil((myTilesource = [[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999]),
 				   @"tilesource creation failed");
 	STAssertNoThrow([myTilesource release], @"tilesource release failed");
-	STAssertNil((myTilesource = [[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d693" styleNumber:999]),
-				   @"bogus CloudMade key does not trigger error");
+	STAssertNil((myTilesource = [[RMCloudMadeMapSource alloc] initWithAccessKey:nil styleNumber:999]),
+				@"empty CloudMade key does not trigger error");
+	STAssertNoThrow([myTilesource release], @"tilesource release failed");
+	STAssertThrows((myTilesource = [[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d693" styleNumber:999]),
+				@"bogus CloudMade key does not trigger error");
+	STAssertNoThrow([myTilesource release], @"tilesource release failed");
 }
 
 - (void)testGeohashing 
