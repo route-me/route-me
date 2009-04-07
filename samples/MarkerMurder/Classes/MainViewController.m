@@ -9,9 +9,13 @@
 #import "MainView.h"
 
 #import "RMOpenAerialMapSource.h"
+#import "RMOpenStreetMapsSource.h"
 #import "RMMapContents.h"
 #import "RMMapView.h"
 #import "RMMarkerManager.h"
+#import "RMMarker.h"
+#import "RMMercatorToScreenProjection.h"
+#import "RMProjection.h"
 
 @implementation MainViewController
 
@@ -27,19 +31,27 @@
 
 - (void)addMarkers
 {
-	CLLocationCoordinate2D center;
-	center.latitude = 47.592;
-	center.longitude = -122.333;
+	CLLocationCoordinate2D markerPosition;
+#define kNumberRows 1
+#define kNumberColumns 5
+#define kSpacing 4.0
 
+	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
+	markerPosition.latitude = center.latitude - (kNumberRows/2.0 * kSpacing);
 	int i, j;
-	double startLongitude = center.longitude;
-	for (i = 0; i < 30; i++) {
-		center.latitude -= .01;
-		center.longitude = startLongitude;
-		for (j = 0; j < 30; j++) {
-			center.longitude += .01;
-			[self.mapView.contents.markerManager addDefaultMarkerAt:center];
+	for (i = 0; i < kNumberRows; i++) {
+		markerPosition.longitude = center.longitude - (kNumberColumns/2.0 * kSpacing);
+		for (j = 0; j < kNumberColumns; j++) {
+			markerPosition.longitude += kSpacing;
+			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
+			RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
+#ifdef DEBUG
+			[newMarker setLatlon:markerPosition];
+#endif
+			[self.mapView.contents.markerManager addMarker:newMarker
+			 AtLatLong:markerPosition];
 		}
+		markerPosition.latitude += kSpacing;
 	}
 	
 }
@@ -48,18 +60,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [mapView setDelegate:self];
-	id myTilesource = [[[RMOpenAerialMapSource alloc] init] autorelease];
+	id myTilesource = [[[RMOpenStreetMapsSource alloc] init] autorelease];
     
 	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
 	[[[RMMapContents alloc] initWithView:mapView 
 							  tilesource:myTilesource] autorelease];
 
-	CLLocationCoordinate2D center;
-	center.latitude = 47.592;
-	center.longitude = -122.333;
+	center.latitude = 66.44;
+	center.longitude = -178.0;
+
 	[mapView moveToLatLong:center];
+	[mapView.contents setZoom:6.0];
 	[self updateInfo];
-	[self performSelector:@selector(addMarkers) withObject:nil afterDelay:10.0];
+	[self performSelector:@selector(addMarkers) withObject:nil afterDelay:1.0];
 }
 
 
@@ -101,15 +114,36 @@
 						   ]];
 }
 
+#ifdef DEBUG
+- (void)testMarkerPositions
+{
+	LogMethod();
+	RMMarkerManager *mangler = [[[self mapView] contents] markerManager];
+								
+	for (RMMarker *theMarker in [mangler getMarkers]) {
+		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
+		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
+			  theMarker.latlon.latitude, theMarker.latlon.longitude,
+			  screenPosition.y, screenPosition.x);
+	}
+}
+#endif
+
 #pragma mark -
 #pragma mark Delegate methods
 
 - (void) afterMapMove: (RMMapView*) map {
+#ifdef DEBUG
+	[self testMarkerPositions];
+#endif
     [self updateInfo];
 }
 
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center {
-    [self updateInfo];
+#ifdef DEBUG
+	[self testMarkerPositions];
+#endif
+	[self updateInfo];
 }
 
 
