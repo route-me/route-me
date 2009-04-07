@@ -163,18 +163,12 @@
 	coolPlace.latitude = -33.9464;
 	coolPlace.longitude = 151.2381;
 	
-//	[markerManager addDefaultMarkerAt:coolPlace];
-	
 	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
 	[marker setTextForegroundColor:[UIColor blueColor]];
 	[marker setTextLabel:@"Hello"];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
 	NSLog(@"Center: Lat: %lf Lon: %lf", mapView.contents.mapCenter.latitude, mapView.contents.mapCenter.longitude);
-	
-	// What did this do?
-	//	[mapView setZoomBounds:0.0 maxZoom:17.0];
-   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
