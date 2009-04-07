@@ -34,6 +34,8 @@
 @class RMMapContents;
 @class RMMapView;
 
+/*! \brief buggy, incomplete, untested; overlays paths/polygons on map
+ */
 @interface RMPath : RMMapLayer
 {
 	NSMutableArray *points;
@@ -41,16 +43,17 @@
 	/// This is the first point.
 	RMXYPoint origin;
 	
-	/// The color of the line and polygon's fill.
+	/// The color of the line, or the outline if a polygon
 	UIColor *lineColor;
+	/// The color of polygon's fill.
 	UIColor *fillColor;
 	
 	CGMutablePathRef path;
 
-	/// Width of the line. Units unknown.
+	/// Width of the line, units unknown; pixels maybe?
 	float lineWidth;
 	
-	/*! Drawing mode of the path. Choices are:
+	/*! Drawing mode of the path; Choices are
 	 kCGPathFill,
 	 kCGPathEOFill,
 	 kCGPathStroke,
@@ -68,7 +71,6 @@
 - (id) initForMap: (RMMapView*)map;
 
 @property CGPathDrawingMode drawingMode;
-// This is the position on the map of the first point.
 
 @property float lineWidth;
 @property (nonatomic, assign) RMXYPoint origin;
@@ -79,8 +81,9 @@
 - (void) addLineToScreenPoint: (CGPoint) point;
 - (void) addLineToLatLong: (RMLatLong) point;
 
-// This closes the path, connecting the last point to the first.
-// After this point, no further points can be added to the path.
+/// This closes the path, connecting the last point to the first.
+/// After this action, no further points can be added to the path.
+/// There is no requirement that a path be closed.
 - (void) closePath;
 
 //- (void) setPoints: (NSArray*) arr;

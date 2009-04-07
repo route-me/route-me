@@ -28,6 +28,9 @@
 #import <UIKit/UIKit.h>
 #import "RMMapLayer.h"
 #import "RMFoundation.h"
+#ifdef DEBUG
+#import <CoreLocation/CoreLocation.h>
+#endif
 
 @class RMMarkerStyle;
 
@@ -38,7 +41,10 @@ extern NSString * const RMMarkerRedKey;
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
 	/// expressed in projected meters. The anchorPoint of the image is plotted here.
 	RMXYPoint location;	
-
+#ifdef DEBUG
+	// to see if projection really works correctly
+	CLLocationCoordinate2D latlon;
+#endif
 	/// provided for storage of arbitrary user data
 	NSObject* data; 
 	
@@ -48,6 +54,10 @@ extern NSString * const RMMarkerRedKey;
 	UIColor *textBackgroundColor;
 }
 @property (assign, nonatomic) RMXYPoint location;
+#ifdef DEBUG
+@property (assign, nonatomic) CLLocationCoordinate2D latlon;
+#endif
+
 @property (nonatomic, retain) NSObject* data;
 @property (nonatomic, retain) UIView* labelView;
 @property(nonatomic,retain) UIColor *textForegroundColor;

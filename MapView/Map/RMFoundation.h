@@ -26,15 +26,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 /*! \struct RMXYPoint 
- \brief coordinates in projected meters */
+ \brief coordinates, in projected meters, paralleling CGPoint */
 typedef struct {
 	double x, y;
 } RMXYPoint;
 
+/*! \struct RMXYSize 
+ \brief width/height struct, in projected meters, paralleling CGSize */
 typedef struct {
 	double width, height;
 } RMXYSize;
 
+/*! \struct RMXYRect 
+ \brief location and size, in projected meters, paralleling CGRect */
 typedef struct {
 	RMXYPoint origin;
 	RMXYSize size;

@@ -127,6 +127,7 @@
 	scale *= factor;
 }
 
+/// \bug returns wrong values if +/- 180 degree longitude is on screen
 - (CGPoint) projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale
 {
 	// TODO: This should return the closest, even if thats on the other side of the world...
@@ -138,6 +139,7 @@
 	return aPixelPoint;
 }
 
+/// \bug returns wrong values if +/- 180 degree longitude is on screen
 - (CGPoint) projectXYPoint: (RMXYPoint)aPoint
 {
 	// TODO: This should return the closest, even if thats on the other side of the world.
@@ -145,6 +147,7 @@
 }
 
 
+/// \warning probably returns wrong values if +/- 180 degree longitude is on screen
 - (CGRect) projectXYRect: (RMXYRect) aRect
 {
 	// TODO: This should return the closest, even if thats on the other side of the world.

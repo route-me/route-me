@@ -40,6 +40,9 @@ static CGImageRef _markerBlue = nil;
 @implementation RMMarker
 
 @synthesize location;
+#ifdef DEBUG
+@synthesize latlon;
+#endif
 @synthesize data;
 @synthesize labelView;
 @synthesize textForegroundColor;
@@ -168,18 +171,22 @@ static CGImageRef _markerBlue = nil;
 
 - (void) setTextLabel: (NSString*)text
 {
+/// \bug font name and size are hardcoded
 	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
 	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
 }
 
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
 {
+	WarnDeprecated();
+/// \bug font name and size are hardcoded
 	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
 }
 
 - (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
-        CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
+	WarnDeprecated();
+	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
 	[self setTextForegroundColor:textColor];
 	[self setTextBackgroundColor:backgroundColor];
 	[self setTextLabel:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
@@ -187,6 +194,7 @@ static CGImageRef _markerBlue = nil;
 
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
+	WarnDeprecated();
 	CGSize textSize = [text sizeWithFont:font];
 	CGRect frame = CGRectMake(position.x,
 							  position.y,
@@ -275,7 +283,7 @@ static CGImageRef _markerBlue = nil;
 	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
-	/// FIXME: there is no GC on iPhone! NSMakeCollectable???
+	/// \bug FIXME: there is no GC on iPhone! NSMakeCollectable???
 	[NSMakeCollectable(image) autorelease];
 	CGDataProviderRelease(dataProvider);
 	

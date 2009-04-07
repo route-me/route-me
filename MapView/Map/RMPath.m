@@ -36,6 +36,7 @@
 
 @synthesize origin;
 
+/// \bug default values for lineWidth, lineColor, fillColor are hardcoded
 - (id) initWithContents: (RMMapContents*)aContents
 {
 	if (![super init])

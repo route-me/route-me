@@ -59,12 +59,14 @@
 	[[contents overlay] addSublayer:marker];
 }
 
+/// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
 	[marker setLocation:[[contents projection]latLongToPoint:point]];
 	[self addMarker: marker];
 }
 
+/// \bug should return the marker
 - (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
 {
 	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerRedKey];
@@ -72,18 +74,22 @@
 	[marker release];
 }
 
-// FIXME: (not really): see http://code.google.com/p/route-me/issues/detail?id=75
-// (halmueller): I am skeptical about interactions of this code with paths
+/// \bug see http://code.google.com/p/route-me/issues/detail?id=75
+/// (halmueller): I am skeptical about interactions of this code with paths
 - (void) removeMarkers
 {
 	[[contents overlay] setSublayers:[NSArray arrayWithObjects:nil]]; 
 }
 
+/// \bug this will hide path overlays too?
+/// \deprecated syntactic sugar. Might have a place on RMMapView, but not on RMMarkerManager.
 - (void) hideAllMarkers 
 {
 	[[contents overlay] setHidden:YES];
 }
 
+/// \bug this will hide path overlays too?
+/// \deprecated syntactic sugar. Might have a place on RMMapView, but not on RMMarkerManager.
 - (void) unhideAllMarkers
 {
 	[[contents overlay] setHidden:NO];
@@ -93,6 +99,7 @@
 #pragma mark 
 #pragma mark Marker information
 
+/// \deprecated violates Objective-C naming rules
 - (NSArray *)getMarkers
 {
 	return [[contents overlay] sublayers];
@@ -108,16 +115,19 @@
 	[[contents overlay] removeSublayers:markers];
 }
 
+/// \deprecated violates Objective-C naming rules
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
 {
 	return [[contents mercatorToScreenProjection] projectXYPoint:[marker location]];
 }
 
+/// \deprecated violates Objective-C naming rules, confusing name
 - (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
 {
 	return [contents pixelToLatLong:[self getMarkerScreenCoordinate:marker]];
 }
 
+/// \deprecated violates Objective-C naming rules
 - (NSArray *) getMarkersForScreenBounds
 {
 	NSMutableArray *markersInScreenBounds = [NSMutableArray array];
@@ -137,6 +147,7 @@
 	return [self isMarker:marker withinBounds:[[contents mercatorToScreenProjection] screenBounds]];
 }
 
+/// \deprecated violates Objective-C naming rules
 - (BOOL) isMarker:(RMMarker*)marker withinBounds:(CGRect)rect
 {
 	if (![self managingMarker:marker]) {
@@ -155,6 +166,7 @@
 	return NO;
 }
 
+/// \deprecated violates Objective-C naming rules
 - (BOOL) managingMarker:(RMMarker*)marker
 {
 	if (marker != nil && [[self getMarkers] indexOfObject:marker] != NSNotFound) {

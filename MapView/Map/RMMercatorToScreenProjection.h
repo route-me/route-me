@@ -32,44 +32,49 @@
 
 @class RMProjection;
 
-// This is a stateful projection. As the screen moves around, so too do projections change.
-
+/// This is a stateful projection. As the screen moves around, so too do projections change.
 @interface RMMercatorToScreenProjection : NSObject
 {
-	// What the screen is currently looking at.
+	/// What the screen is currently looking at.
 	RMXYPoint origin;
 
-	// The mercator -or-whatever- projection that the map is in.
-	// This projection move linearly with the screen.
+	/// The mercator -or-whatever- projection that the map is in.
+	/// This projection move linearly with the screen.
 	RMProjection *projection;
 	
-	// Bounds of the screen in pixels
+	/// Bounds of the screen in pixels
 	CGRect screenBounds;
 
-	// Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
-	// Scale of 1 means 1 pixel == 1 meter.
-	// Scale of 10 means 1 pixel == 10 meters.
+	/// \brief meters per pixel
+	/// \note The current usage of the term "scale" in RouteMe conflicts with standard cartographic usage, and will be changed after 0.5
+	///
+	/// Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
+	/// Scale of 1 means 1 pixel == 1 meter.
+	/// Scale of 10 means 1 pixel == 10 meters.
 	float scale;
 }
 
 - (id) initFromProjection: (RMProjection*) projection ToScreenBounds: (CGRect)aScreenBounds;
 
-// Deltas in screen coordinates.
+/// Deltas in screen coordinates.
 - (RMXYPoint)movePoint: (RMXYPoint)aPoint by:(CGSize) delta;
+/// Deltas in screen coordinates.
 - (RMXYRect)moveRect: (RMXYRect)aRect by:(CGSize) delta;
 
-// pivot given in screen coordinates.
+/// pivot given in screen coordinates.
 - (RMXYPoint)zoomPoint: (RMXYPoint)aPoint byFactor: (float)factor near:(CGPoint) pivot;
+/// pivot given in screen coordinates.
 - (RMXYRect)zoomRect: (RMXYRect)aRect byFactor: (float)factor near:(CGPoint) pivot;
 
-// Move the screen.
+/// Move the screen.
 - (void) moveScreenBy: (CGSize) delta;
 - (void) zoomScreenByFactor: (float) factor near:(CGPoint) aPoint;
 
-// Project -> screen coordinates.
-
+/// Project -> screen coordinates.
 - (CGPoint)projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale;
+/// Project -> screen coordinates.
 - (CGPoint) projectXYPoint: (RMXYPoint) aPoint;
+/// Project -> screen coordinates.
 - (CGRect) projectXYRect: (RMXYRect) aRect;
 
 - (RMXYPoint) projectScreenPointToXY: (CGPoint) aPoint;

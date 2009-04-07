@@ -31,6 +31,7 @@
 #import "RMFoundation.h"
 #import "RMLatLong.h"
 
+/// encapsulates a map projection definition.
 @interface RMProjection : NSObject
 {
 	// This is actually a projPJ, but I don't want to need
@@ -46,10 +47,10 @@
 @property (readonly) RMXYRect bounds;
 @property (readwrite) BOOL projectionWrapsHorizontally;
 
-// Assuming the earth is round, this will wrap a point around the bounds. 
+/// Assuming the earth is round, this will wrap a point around the bounds. 
 - (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint;
 
-// This method wraps the x and clamps the y.
+/// This method wraps the x and clamps the y.
 - (RMXYPoint) constrainPointToBounds: (RMXYPoint) aPoint;
 
 + (RMProjection *) googleProjection;
@@ -58,7 +59,11 @@
 
 - (id) initWithString: (NSString*)params InBounds: (RMXYRect) projBounds;
 
+/// inverse project meters, return latitude/longitude
+/// \deprecated rename pending after 0.5
 - (RMLatLong)pointToLatLong:(RMXYPoint)aPoint;
+/// forward project latitude/longitude, return meters
+/// \deprecated rename pending after 0.5
 - (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;
 
 @end
