@@ -23,7 +23,6 @@
 
 - (void)testObjectCreation 
 {
-	RMMapView *mapView;
 	
 	STAssertNotNil((mapView = [[RMMapView alloc] init]), @"mapView alloc/init failed");
 	STAssertNoThrow([mapView release], @"mapView release failed");

@@ -7,9 +7,12 @@
 //
 
 #import "GTMSenTestCase.h"
+@class RMMapView;
 
-/// Unit tests go here. See http://developer.apple.com/tools/unittest.html for guidance.
+/// Unit tests go here. See http://developer.apple.com/tools/unittest.html 
+///and http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting for guidance.
 @interface RouteMeTests : SenTestCase {
+	RMMapView *mapView;
 }
 
 @end

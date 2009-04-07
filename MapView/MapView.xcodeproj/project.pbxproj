@@ -44,6 +44,10 @@
 		2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
+		2B9B484E0F8B0DDB009BA472 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B48490F8B0DDB009BA472 /* GTMCALayer+UnitTesting.m */; };
+		2B9B484F0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B484B0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.m */; };
+		2B9B48500F8B0DDB009BA472 /* GTMUIKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B484D0F8B0DDB009BA472 /* GTMUIKit+UnitTesting.m */; };
+		2B9B48550F8B0DF7009BA472 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B48540F8B0DF7009BA472 /* GTMSystemVersion.m */; };
 		2BEC60170F8AC6B8008FB858 /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF306C30F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.m */; };
 		2BEC60180F8AC6B9008FB858 /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF306C40F8ABCA4007014EE /* GTMIPhoneUnitTestMain.m */; };
 		2BEC60190F8AC6BA008FB858 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF306C60F8ABCA4007014EE /* GTMSenTestCase.m */; };
@@ -225,6 +229,15 @@
 		2B2BD41E0F79A95500B8B9A7 /* routeme.doxygen */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routeme.doxygen; sourceTree = "<group>"; };
 		2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOpenAerialMapSource.h; sourceTree = "<group>"; };
 		2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenAerialMapSource.m; sourceTree = "<group>"; };
+		2B9B48480F8B0DDB009BA472 /* GTMCALayer+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMCALayer+UnitTesting.h"; sourceTree = "<group>"; };
+		2B9B48490F8B0DDB009BA472 /* GTMCALayer+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMCALayer+UnitTesting.m"; sourceTree = "<group>"; };
+		2B9B484A0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSObject+UnitTesting.h"; sourceTree = "<group>"; };
+		2B9B484B0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSObject+UnitTesting.m"; sourceTree = "<group>"; };
+		2B9B484C0F8B0DDB009BA472 /* GTMUIKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIKit+UnitTesting.h"; sourceTree = "<group>"; };
+		2B9B484D0F8B0DDB009BA472 /* GTMUIKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIKit+UnitTesting.m"; sourceTree = "<group>"; };
+		2B9B48530F8B0DF7009BA472 /* GTMSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMSystemVersion.h; sourceTree = "<group>"; };
+		2B9B48540F8B0DF7009BA472 /* GTMSystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMSystemVersion.m; sourceTree = "<group>"; };
+		2B9B48590F8B0E47009BA472 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
 		2BF306C20F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMIPhoneUnitTestDelegate.h; sourceTree = "<group>"; };
 		2BF306C30F8ABCA4007014EE /* GTMIPhoneUnitTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestDelegate.m; sourceTree = "<group>"; };
 		2BF306C40F8ABCA4007014EE /* GTMIPhoneUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestMain.m; sourceTree = "<group>"; };
@@ -413,6 +426,7 @@
 		2B246B230F8AE20300A7D55D /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */,
 				2B246AA00F8AD9D400A7D55D /* RouteMeTests.h */,
 				2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */,
 			);
@@ -447,9 +461,17 @@
 				2BF306C40F8ABCA4007014EE /* GTMIPhoneUnitTestMain.m */,
 				2BF306C50F8ABCA4007014EE /* GTMSenTestCase.h */,
 				2BF306C60F8ABCA4007014EE /* GTMSenTestCase.m */,
+				2B9B48530F8B0DF7009BA472 /* GTMSystemVersion.h */,
+				2B9B48540F8B0DF7009BA472 /* GTMSystemVersion.m */,
+				2B9B48480F8B0DDB009BA472 /* GTMCALayer+UnitTesting.h */,
+				2B9B48490F8B0DDB009BA472 /* GTMCALayer+UnitTesting.m */,
+				2B9B484A0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.h */,
+				2B9B484B0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.m */,
+				2B9B484C0F8B0DDB009BA472 /* GTMUIKit+UnitTesting.h */,
+				2B9B484D0F8B0DDB009BA472 /* GTMUIKit+UnitTesting.m */,
+				2B9B48590F8B0E47009BA472 /* GTMGarbageCollection.h */,
 			);
 			name = "Google Toolbox for Mac (unit testing)";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		38D8184C0F6F67B90034598B /* Products */ = {
@@ -643,7 +665,6 @@
 				B83E64B80E80E73F001663B6 /* Renderers */,
 				B86F26A80E8742ED007A3773 /* Markers and other layers */,
 				1266929E0EB75BEA00E002D5 /* Configuration */,
-				2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */,
 				B8474C610EB53A01006A0BC1 /* Resources */,
 			);
 			path = Map;
@@ -734,9 +755,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2BF3078E0F8AC5C0007014EE /* RM Unit Tests */ = {
+		2BF3078E0F8AC5C0007014EE /* Unit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2BF307940F8AC5C1007014EE /* Build configuration list for PBXNativeTarget "RM Unit Tests" */;
+			buildConfigurationList = 2BF307940F8AC5C1007014EE /* Build configuration list for PBXNativeTarget "Unit Tests" */;
 			buildPhases = (
 				2BF3078B0F8AC5C0007014EE /* Resources */,
 				2BF3078C0F8AC5C0007014EE /* Sources */,
@@ -748,7 +769,7 @@
 			dependencies = (
 				2BEC606D0F8AC7B3008FB858 /* PBXTargetDependency */,
 			);
-			name = "RM Unit Tests";
+			name = "Unit Tests";
 			productName = "RM Unit Tests";
 			productReference = 2BF3078F0F8AC5C0007014EE /* RM Unit Tests.app */;
 			productType = "com.apple.product-type.application";
@@ -792,7 +813,7 @@
 				B8C974130E8A19B2007D16AD /* MapView */,
 				386676D40F6B73AC00C56B17 /* MapView-framework */,
 				2B2BD43A0F79AA1B00B8B9A7 /* Doxygen-Documentation */,
-				2BF3078E0F8AC5C0007014EE /* RM Unit Tests */,
+				2BF3078E0F8AC5C0007014EE /* Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -908,6 +929,10 @@
 				2BEC60540F8AC744008FB858 /* RMWebTileImage.m in Sources */,
 				2BEC60550F8AC745008FB858 /* RMYahooMapSource.m in Sources */,
 				2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */,
+				2B9B484E0F8B0DDB009BA472 /* GTMCALayer+UnitTesting.m in Sources */,
+				2B9B484F0F8B0DDB009BA472 /* GTMNSObject+UnitTesting.m in Sources */,
+				2B9B48500F8B0DDB009BA472 /* GTMUIKit+UnitTesting.m in Sources */,
+				2B9B48550F8B0DF7009BA472 /* GTMSystemVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,7 +1190,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		2BF307940F8AC5C1007014EE /* Build configuration list for PBXNativeTarget "RM Unit Tests" */ = {
+		2BF307940F8AC5C1007014EE /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2BF307920F8AC5C0007014EE /* Debug */,
