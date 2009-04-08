@@ -14,6 +14,7 @@
 #import "RMMapView.h"
 #import "RMMarkerManager.h"
 #import "RMMarker.h"
+#import "RMTestableMarker.h"
 #import "RMMercatorToScreenProjection.h"
 #import "RMProjection.h"
 
@@ -36,7 +37,8 @@
 #define kNumberColumns 9
 #define kSpacing 2.0
 
-	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
+	UIImage *redMarkerImage = [UIImage imageNamed:@"marker-red.png"];
+	UIImage *blueMarkerImage = [UIImage imageNamed:@"marker-blue.png"];
 	markerPosition.latitude = center.latitude - ((kNumberRows - 1)/2.0 * kSpacing);
 	int i, j;
 	for (i = 0; i < kNumberRows; i++) {
@@ -44,9 +46,14 @@
 		for (j = 0; j < kNumberColumns; j++) {
 			markerPosition.longitude += kSpacing;
 			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
-			RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
+			RMTestableMarker *newMarker;
+			if ((markerPosition.longitude < -180) ||
+				(markerPosition.longitude > 0))
+				newMarker = [[RMTestableMarker alloc] initWithUIImage:redMarkerImage];
+			else
+				newMarker = [[RMTestableMarker alloc] initWithUIImage:blueMarkerImage];
 #ifdef DEBUG
-			[newMarker setLatlon:markerPosition];
+			[newMarker setCoordinate:markerPosition];
 #endif
 			[self.mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
@@ -120,10 +127,10 @@
 	LogMethod();
 	RMMarkerManager *mangler = [[[self mapView] contents] markerManager];
 								
-	for (RMMarker *theMarker in [mangler getMarkers]) {
+	for (RMTestableMarker *theMarker in [mangler getMarkers]) {
 		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
 		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
-			  theMarker.latlon.latitude, theMarker.latlon.longitude,
+			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
 			  screenPosition.y, screenPosition.x);
 	}
 }
