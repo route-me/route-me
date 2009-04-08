@@ -65,6 +65,7 @@
 	[super dealloc];
 }
 
+/// \bug this is a no-op
 -(void)mapImageLoaded: (NSNotification*)notification
 {
 }

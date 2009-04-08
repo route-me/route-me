@@ -546,7 +546,7 @@
 	}
 }
 
-// Must be called by higher didReceiveMemoryWarning
+/// Must be called by higher didReceiveMemoryWarning
 - (void)didReceiveMemoryWarning
 {
 	LogMethod();

@@ -50,7 +50,7 @@
 /// Assuming the earth is round, this will wrap a point around the bounds. 
 - (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint;
 
-/// This method wraps the x and clamps the y.
+/// This method wraps the x and clamps the y. HM note: what does that mean??
 - (RMXYPoint) constrainPointToBounds: (RMXYPoint) aPoint;
 
 + (RMProjection *) googleProjection;

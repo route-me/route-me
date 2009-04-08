@@ -219,7 +219,9 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
+/// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getScreenCoordinateBounds;
+/// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
 
 - (void) tilesUpdatedRegion:(CGRect)region;
@@ -264,7 +266,9 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
 
+/// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getScreenCoordinateBounds;
+/// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
 
 - (void) tilesUpdatedRegion:(CGRect)region;

@@ -164,7 +164,7 @@
 }
 
 
-	/// deprecated at any moment after release 0.5
+/// deprecated at any moment after release 0.5	
 - (id) initForView: (UIView*) view
 {
 	WarnDeprecated();
@@ -317,6 +317,7 @@
 	[renderer setNeedsDisplay];
 }
 
+/// \bug doesn't really adjust anything, just makes a computation. CLANG flags some dead assignments (write-only variables)
 - (float)adjustZoomForBoundingMask:(float)zoomFactor
 {
 	if ( boundingMask ==  RMMapNoMinBound )
@@ -369,8 +370,8 @@
 	return zoomFactor;
 }
 
-// This currently is not called because it does not handle the case when the map is continous or not continous.  At a certain scale
-// you can continuously move to the west or east until you get to a certain scale level that simply shows the entire world.
+/// This currently is not called because it does not handle the case when the map is continous or not continous.  At a certain scale
+/// you can continuously move to the west or east until you get to a certain scale level that simply shows the entire world.
 - (void)adjustMapPlacementWithScale:(float)aScale
 {
 	CGSize		adjustmentDelta = {0.0, 0.0};

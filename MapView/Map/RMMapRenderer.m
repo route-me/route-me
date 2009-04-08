@@ -50,24 +50,29 @@
 	[super dealloc];
 }
 
+/// \bug no-op
 - (void) setNeedsDisplay
 {
 	
 }
 
+/// \bug calls a no-op
 -(void)mapImageLoaded: (NSNotification*)notification
 {
 	[self setNeedsDisplay];
 }
 
+/// \bug no-op
 - (void)drawRect:(CGRect)rect
 { }
 
+/// \bug no-op
 - (void)setFrame:(CGRect)frame
 {
 }
 
 
+/// \bug no-op
 - (CALayer*) layer
 {
 	return nil;

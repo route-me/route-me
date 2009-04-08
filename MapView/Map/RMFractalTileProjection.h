@@ -40,12 +40,12 @@
 	/// Normally 256. This class assumes tiles are square.
 	int tileSideLength;
 	
-	// The deal is, we have a scale which stores how many mercator gradiants per pixel
-	// in the image.
-	// If you run the maths, scale = bounds.width/(2^zoom * tileSideLength)
-	// or if you want, z = log(bounds.width/tileSideLength) - log(s)
-	// So here we'll cache the first term for efficiency.
-	// I'm using width arbitrarily - I'm not sure what the effect of using the other term is when they're not the same.
+	/// The deal is, we have a scale which stores how many mercator gradiants per pixel
+	/// in the image.
+	/// If you run the maths, scale = bounds.width/(2^zoom * tileSideLength)
+	/// or if you want, z = log(bounds.width/tileSideLength) - log(s)
+	/// So here we'll cache the first term for efficiency.
+	/// I'm using width arbitrarily - I'm not sure what the effect of using the other term is when they're not the same.
 	double scaleFactor;
 }
 

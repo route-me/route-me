@@ -55,7 +55,7 @@ extern NSString * const RMTileRequested;
 	BOOL suppressLoading;
 }
 
-// Designated initialiser
+/// Designated initialiser
 - (id)initWithContent: (RMMapContents *)contents;
 
 - (void)updateLoadedImages;
