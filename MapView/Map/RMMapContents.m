@@ -141,7 +141,7 @@
 	
 	[tileLoader setSuppressLoading:NO];
 	
-	// TODO: Make a nice background class
+	/// \bug TODO: Make a nice background class
 	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
 	[self setBackground:theBackground];
 	[theBackground release];
@@ -226,7 +226,7 @@
 	
 	[tileLoader setSuppressLoading:NO];
 	
-	// TODO: Make a nice background class
+	/// \bug TODO: Make a nice background class
 	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
 	[self setBackground:theBackground];
 	[theBackground release];
@@ -589,7 +589,7 @@
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
 
-	// TODO: Fix the min / max zoom.
+	/// \bug TODO: Fix the min / max zoom.
 //	[self setMinZoom:[newTileSource minZoom]];
 //	[self setMaxZoom:[newTileSource maxZoom]];
 	

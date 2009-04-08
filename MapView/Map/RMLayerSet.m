@@ -130,7 +130,7 @@
 	[self correctScreenPosition:layer];
 	[set insertObject:layer atIndex:index];
 
-	// TODO: Fix this.
+	/// \bug TODO: Fix this.
 	[super addSublayer:layer];	
 }
 }
@@ -143,7 +143,7 @@
 
 - (void)moveToXYPoint: (RMXYPoint)aPoint
 {
-	// TODO: Test this. Does it work?
+	/// \bug TODO: Test this. Does it work?
 	[self correctPositionOfAllSublayers];
 }
 

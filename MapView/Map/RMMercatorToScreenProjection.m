@@ -133,7 +133,7 @@
  */
 - (CGPoint) projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale
 {
-	// TODO: This should return the closest, even if thats on the other side of the world...
+	/// \bug TODO: This should return the closest, even if thats on the other side of the world...
 	CGPoint	aPixelPoint;
 	
 	aPixelPoint.x = (aPoint.x - origin.x) / aScale;
@@ -145,7 +145,7 @@
 /// \bug returns wrong values if +/- 180 degree longitude is on screen
 - (CGPoint) projectXYPoint: (RMXYPoint)aPoint
 {
-	// TODO: This should return the closest, even if thats on the other side of the world.
+	/// \bug TODO: This should return the closest, even if thats on the other side of the world.
 	return [self projectXYPoint:aPoint withScale:scale];
 }
 
@@ -153,7 +153,7 @@
 /// \warning probably returns wrong values if +/- 180 degree longitude is on screen
 - (CGRect) projectXYRect: (RMXYRect) aRect
 {
-	// TODO: This should return the closest, even if thats on the other side of the world.
+	/// \bug TODO: This should return the closest, even if thats on the other side of the world.
 	CGRect aPixelRect;
 	aPixelRect.origin = [self projectXYPoint: aRect.origin];
 	aPixelRect.size.width = aRect.size.width / scale;

@@ -10,16 +10,33 @@
 #import "RMMapView.h"
 #import "RMCloudMadeMapSource.h"
 #import "RMGeoHash.h"
+#import "RMMarker.h"
+#import "RMMarkerManager.h"
 
 @implementation RouteMeTests
 
-//- (void)setUp {
-//    [super setUp]
-//}
-//
-//-(void)tearDown {
-//    [super tearDown];
-//}
+- (void)setUp {
+    [super setUp];
+
+	CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+	contentView = [[UIView alloc] initWithFrame:appRect];
+	contentView.backgroundColor = [UIColor greenColor];
+	
+	NSLog(@"%@", [UIScreen mainScreen]);
+	initialCenter.latitude = 66.44;
+	initialCenter.longitude = -178.0;
+	
+	mapView = [[RMMapView alloc] initWithFrame:CGRectMake(10,20,200,300)
+								  WithLocation:initialCenter];
+	NSLog(@"contentView %@ mapView %@", contentView, mapView);
+	[contentView addSubview:mapView];
+	[NSThread sleepForTimeInterval:3.0];
+}
+
+-(void)tearDown {
+    [mapView release]; mapView = nil;
+	[super tearDown];
+}
 
 - (void)testObjectCreation 
 {
@@ -55,4 +72,50 @@
 											  
 }
 
+- (void)testProgrammaticViewCreation
+{
+	STAssertNotNil(mapView, @"mapview creation failed");
+	STAssertNotNil([mapView contents], @"mapView contents should not be nil");
+	NSLog(@"%@", [mapView contents]);
+	
+}
+
+- (void)testMarkerCreation
+{
+	CLLocationCoordinate2D markerPosition;
+#define kNumberRows 1
+#define kNumberColumns 5
+#define kSpacing 2.0
+	
+	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
+	STAssertNotNil(markerImage, @"marker image did not load");
+	markerPosition.latitude = initialCenter.latitude - ((kNumberRows - 1)/2.0 * kSpacing);
+	int i, j;
+	for (i = 0; i < kNumberRows; i++) {
+		markerPosition.longitude = initialCenter.longitude - ((kNumberColumns - 1)/2.0 * kSpacing);
+		for (j = 0; j < kNumberColumns; j++) {
+			markerPosition.longitude += kSpacing;
+			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
+			RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
+#ifdef DEBUG
+			[newMarker setLatlon:markerPosition];
+#endif
+			[mapView.contents.markerManager addMarker:newMarker
+			 AtLatLong:markerPosition];
+		}
+		markerPosition.latitude += kSpacing;
+	}
+
+#ifdef DEBUG
+	RMMarkerManager *mangler = [[mapView contents] markerManager];
+	
+	for (RMMarker *theMarker in [mangler getMarkers]) {
+		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
+		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
+			  theMarker.latlon.latitude, theMarker.latlon.longitude,
+			  screenPosition.y, screenPosition.x);
+	}
+#endif
+	
+}
 @end
