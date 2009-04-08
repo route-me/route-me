@@ -127,33 +127,36 @@
 	scale *= factor;
 }
 
-/*! \bug returns wrong values if +/- 180 degree longitude is on screen
- 
- This bug is certainly one (the?) cause of Issue 103 and Issue 20, and probably also Issue 43 and Issue 54.
- */
 - (CGPoint) projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale
 {
-	/// \bug TODO: This should return the closest, even if thats on the other side of the world...
 	CGPoint	aPixelPoint;
+   CGFloat originX = origin.x;
+   CGFloat boundsWidth = [projection bounds].size.width;
+   CGFloat pointX = aPoint.x - boundsWidth/2;
+   CGFloat left = sqrt((pointX - (originX - boundsWidth))*(pointX - (originX - boundsWidth)));
+   CGFloat middle = sqrt((pointX - originX)*(pointX - originX));
+   CGFloat right = sqrt((pointX - (originX + boundsWidth))*(pointX - (originX + boundsWidth)));
+   
+   if(middle <= left && middle <= right){
+      aPixelPoint.x = (aPoint.x - originX) / aScale;
+   } else if(left <= middle && left <= right){
+      aPixelPoint.x = (aPoint.x - (originX-boundsWidth)) / aScale;
+   } else{ //right
+      aPixelPoint.x = (aPoint.x - (originX+boundsWidth)) / aScale;
+   }
 	
-	aPixelPoint.x = (aPoint.x - origin.x) / aScale;
 	aPixelPoint.y = screenBounds.size.height - (aPoint.y - origin.y) / aScale;
-	
-	return aPixelPoint;
+   return aPixelPoint;
 }
 
-/// \bug returns wrong values if +/- 180 degree longitude is on screen
 - (CGPoint) projectXYPoint: (RMXYPoint)aPoint
 {
-	/// \bug TODO: This should return the closest, even if thats on the other side of the world.
+
 	return [self projectXYPoint:aPoint withScale:scale];
 }
 
-
-/// \warning probably returns wrong values if +/- 180 degree longitude is on screen
 - (CGRect) projectXYRect: (RMXYRect) aRect
 {
-	/// \bug TODO: This should return the closest, even if thats on the other side of the world.
 	CGRect aPixelRect;
 	aPixelRect.origin = [self projectXYPoint: aRect.origin];
 	aPixelRect.size.width = aRect.size.width / scale;
