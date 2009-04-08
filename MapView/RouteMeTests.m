@@ -11,6 +11,7 @@
 #import "RMCloudMadeMapSource.h"
 #import "RMGeoHash.h"
 #import "RMMarker.h"
+#import "RMTestableMarker.h"
 #import "RMMarkerManager.h"
 
 @implementation RouteMeTests
@@ -22,13 +23,11 @@
 	contentView = [[UIView alloc] initWithFrame:appRect];
 	contentView.backgroundColor = [UIColor greenColor];
 	
-	NSLog(@"%@", [UIScreen mainScreen]);
 	initialCenter.latitude = 66.44;
 	initialCenter.longitude = -178.0;
 	
 	mapView = [[RMMapView alloc] initWithFrame:CGRectMake(10,20,200,300)
 								  WithLocation:initialCenter];
-	NSLog(@"contentView %@ mapView %@", contentView, mapView);
 	[contentView addSubview:mapView];
 }
 
@@ -75,12 +74,13 @@
 {
 	STAssertNotNil(mapView, @"mapview creation failed");
 	STAssertNotNil([mapView contents], @"mapView contents should not be nil");
-	NSLog(@"%@", [mapView contents]);
-	
 }
 
 - (void)testMarkerCreation
 {
+	// create markers from -183 to -169 longitude 
+	initialCenter.longitude = -178.0;
+
 	CLLocationCoordinate2D markerPosition;
 	NSUInteger nRows = 1;
 	NSUInteger nColumns = 8;
@@ -94,37 +94,38 @@
 		markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
 		for (j = 0; j < nColumns; j++) {
 			markerPosition.longitude += columnSpacing;
-			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
-			RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
+			RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
 			STAssertNotNil(newMarker, @"testMarkerCreation marker creation failed");
-#ifdef DEBUG
-			[newMarker setLatlon:markerPosition];
-#endif
+			[newMarker setCoordinate:markerPosition];
 			[mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
 		}
 		markerPosition.latitude += columnSpacing;
 	}
 	
+	
 #ifdef DEBUG
 	RMMarkerManager *mangler = [[mapView contents] markerManager];
-	
-	for (RMMarker *theMarker in [mangler getMarkers]) {
+	for (RMTestableMarker *theMarker in [mangler getMarkers]) {
 		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
-		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
-			  theMarker.latlon.latitude, theMarker.latlon.longitude,
+		RMLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
+			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
 			  screenPosition.y, screenPosition.x);
 	}
 #endif
 }
 
-- (void)testMarkerCoordinates
+- (void)testMarkerCoordinatesFarEast
 {
+	[mapView.contents setZoom:3.0];
+
+	// create markers from +177 to +191 longitude 
+	initialCenter.longitude = +176.0;
 	CLLocationCoordinate2D markerPosition;
 	
 	NSUInteger nColumns = 8;
 	double columnSpacing = 2.0;
-
+	
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
 	markerPosition.latitude = initialCenter.latitude;
 	markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
@@ -132,32 +133,86 @@
 	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
 	for (j = 0; j < nColumns; j++) {
 		markerPosition.longitude += columnSpacing;
-		NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
-		RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
+		RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
 		[testMarkers addObject:newMarker];
-#ifdef DEBUG
-		[newMarker setLatlon:markerPosition];
-#endif
+		[newMarker setCoordinate:markerPosition];
 		[mapView.contents.markerManager addMarker:newMarker
 		 AtLatLong:markerPosition];
 	}
 	STAssertGreaterThan(columnSpacing, 0.0, @"this test requires positive columnSpacing");
-#ifdef DEBUG
+
 	RMMarkerManager *mangler = [[mapView contents] markerManager];
 	
 	[[mapView contents] moveBy:CGSizeMake(-5.0, 0.0)];
+#ifdef DEBUG
+	RMLatLongBounds screenLimitsDegrees = [[mapView contents] getScreenCoordinateBounds];
+	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.northWest.longitude, screenLimitsDegrees.southEast.longitude);
+	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southEast.latitude, screenLimitsDegrees.northWest.latitude);
+#endif
+	
 	for (j = 1; j < nColumns; j++) {
-		RMMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
-		RMMarker *rightMarker = [testMarkers objectAtIndex:j];
+		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
+		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
 		CGPoint leftScreenPosition = [mangler getMarkerScreenCoordinate:leftMarker];
 		CGPoint rightScreenPosition = [mangler getMarkerScreenCoordinate:rightMarker];
 		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
-						 @"screen position calculation failed: left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
-						 leftMarker.latlon.longitude, leftMarker.latlon.latitude,
-						 rightMarker.latlon.longitude, rightMarker.latlon.latitude,
+						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
+						 j-1, j,
+// write these out as longitude/latitude instead of standard latitude/longitude to make comparisons easier
+						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
+						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
 	}
+	
+}
+
+- (void)testMarkerCoordinatesFarWest
+{
+	[mapView.contents setZoom:3.0];
+
+	// create markers from -177 to -169 longitude
+	initialCenter.longitude = -178.0;
+	CLLocationCoordinate2D markerPosition;
+	
+	NSUInteger nColumns = 8;
+	double columnSpacing = 2.0;
+	
+	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
+	markerPosition.latitude = initialCenter.latitude;
+	markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
+	int j;
+	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
+	for (j = 0; j < nColumns; j++) {
+		markerPosition.longitude += columnSpacing;
+		RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
+		[testMarkers addObject:newMarker];
+		[newMarker setCoordinate:markerPosition];
+		[mapView.contents.markerManager addMarker:newMarker
+		 AtLatLong:markerPosition];
+	}
+	STAssertGreaterThan(columnSpacing, 0.0, @"this test requires positive columnSpacing");
+
+	RMMarkerManager *mangler = [[mapView contents] markerManager];
+	
+	[[mapView contents] moveBy:CGSizeMake(-5.0, 0.0)];
+#ifdef DEBUG
+	RMLatLongBounds screenLimitsDegrees = [[mapView contents] getScreenCoordinateBounds];
+	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.northWest.longitude, screenLimitsDegrees.southEast.longitude);
+	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southEast.latitude, screenLimitsDegrees.northWest.latitude);
 #endif
+	
+	for (j = 1; j < nColumns; j++) {
+		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
+		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
+		CGPoint leftScreenPosition = [mangler getMarkerScreenCoordinate:leftMarker];
+		CGPoint rightScreenPosition = [mangler getMarkerScreenCoordinate:rightMarker];
+		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
+						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
+						 j-1, j,
+						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
+						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
+						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
+	}
 	
 }
 @end

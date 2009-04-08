@@ -40,9 +40,6 @@ static CGImageRef _markerBlue = nil;
 @implementation RMMarker
 
 @synthesize location;
-#ifdef DEBUG
-@synthesize latlon;
-#endif
 @synthesize data;
 @synthesize labelView;
 @synthesize textForegroundColor;

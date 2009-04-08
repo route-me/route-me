@@ -39,12 +39,8 @@ extern NSString * const RMMarkerRedKey;
 
 /// one marker drawn on the map. Note that RMMarker ultimately descends from CALayer, and has an image contents.
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
-	/// expressed in projected meters. The anchorPoint of the image is plotted here.
+	/// expressed in projected meters. The anchorPoint of the image is plotted here. \deprecated "location" (meters) is confusingly vague, doesn't convey units. 
 	RMXYPoint location;	
-#ifdef DEBUG
-	// to see if projection really works correctly
-	CLLocationCoordinate2D latlon;
-#endif
 	/// provided for storage of arbitrary user data
 	NSObject* data; 
 	
@@ -54,9 +50,6 @@ extern NSString * const RMMarkerRedKey;
 	UIColor *textBackgroundColor;
 }
 @property (assign, nonatomic) RMXYPoint location;
-#ifdef DEBUG
-@property (assign, nonatomic) CLLocationCoordinate2D latlon;
-#endif
 
 @property (nonatomic, retain) NSObject* data;
 @property (nonatomic, retain) UIView* labelView;
