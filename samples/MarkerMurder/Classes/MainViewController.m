@@ -33,7 +33,7 @@
 {
 	CLLocationCoordinate2D markerPosition;
 #define kNumberRows 1
-#define kNumberColumns 5
+#define kNumberColumns 9
 #define kSpacing 2.0
 
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
@@ -53,7 +53,6 @@
 		}
 		markerPosition.latitude += kSpacing;
 	}
-	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -67,10 +66,11 @@
 							  tilesource:myTilesource] autorelease];
 
 	center.latitude = 66.44;
-	center.longitude = -178.0;
+	center.longitude = -179.0;
 
 	[mapView moveToLatLong:center];
 	[mapView.contents setZoom:6.0];
+	[[mapView contents] moveBy:CGSizeMake(-5.0, 0.0)];
 	[self updateInfo];
 	[self performSelector:@selector(addMarkers) withObject:nil afterDelay:1.0];
 }
