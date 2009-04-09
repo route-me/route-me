@@ -51,6 +51,8 @@
 		2B5BDCDF0F8C17A500848078 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD50F8C17A500848078 /* GTMSenTestCase.m */; };
 		2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD70F8C17A500848078 /* GTMSystemVersion.m */; };
 		2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD90F8C17A500848078 /* GTMUIKit+UnitTesting.m */; };
+		2B8C8A250F8EB855002E8CF3 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */; };
+		2B8C8A260F8EB855002E8CF3 /* RouteMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */; };
 		2BEC602C0F8AC6FC008FB858 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B8E0EB40094006A0BC1 /* FMDatabase.m */; };
 		2BEC602D0F8AC6FE008FB858 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B900EB40094006A0BC1 /* FMDatabaseAdditions.m */; };
 		2BEC602F0F8AC700008FB858 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B930EB40094006A0BC1 /* FMResultSet.m */; };
@@ -243,6 +245,10 @@
 		2B5BDCD80F8C17A500848078 /* GTMUIKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMUIKit+UnitTesting.h"; path = "GTM/GTMUIKit+UnitTesting.h"; sourceTree = "<group>"; };
 		2B5BDCD90F8C17A500848078 /* GTMUIKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMUIKit+UnitTesting.m"; path = "GTM/GTMUIKit+UnitTesting.m"; sourceTree = "<group>"; };
 		2B5BDCDA0F8C17A500848078 /* RunIPhoneUnitTest.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = RunIPhoneUnitTest.sh; path = GTM/RunIPhoneUnitTest.sh; sourceTree = "<group>"; };
+		2B8C8A210F8EB855002E8CF3 /* RMTestableMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMTestableMarker.h; path = UnitTesting/RMTestableMarker.h; sourceTree = "<group>"; };
+		2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMTestableMarker.m; path = UnitTesting/RMTestableMarker.m; sourceTree = "<group>"; };
+		2B8C8A230F8EB855002E8CF3 /* RouteMeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RouteMeTests.h; path = UnitTesting/RouteMeTests.h; sourceTree = "<group>"; };
+		2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RouteMeTests.m; path = UnitTesting/RouteMeTests.m; sourceTree = "<group>"; };
 		2BF3078F0F8AC5C0007014EE /* RM Unit Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RM Unit Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF307910F8AC5C0007014EE /* RM Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RM Unit Tests-Info.plist"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView_Prefix.pch; sourceTree = "<group>"; };
@@ -424,6 +430,10 @@
 		2B246B230F8AE20300A7D55D /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				2B8C8A210F8EB855002E8CF3 /* RMTestableMarker.h */,
+				2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */,
+				2B8C8A230F8EB855002E8CF3 /* RouteMeTests.h */,
+				2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */,
 				2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */,
 			);
 			name = Testing;
@@ -929,6 +939,8 @@
 				2B5BDCDF0F8C17A500848078 /* GTMSenTestCase.m in Sources */,
 				2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */,
 				2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */,
+				2B8C8A250F8EB855002E8CF3 /* RMTestableMarker.m in Sources */,
+				2B8C8A260F8EB855002E8CF3 /* RouteMeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
