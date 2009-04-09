@@ -89,7 +89,7 @@
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
 	STAssertNotNil(markerImage, @"testMarkerCreation marker image did not load");
 	markerPosition.latitude = initialCenter.latitude - ((nRows - 1)/2.0 * columnSpacing);
-	int i, j;
+	NSUInteger i, j;
 	for (i = 0; i < nRows; i++) {
 		markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
 		for (j = 0; j < nColumns; j++) {
@@ -129,7 +129,7 @@
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
 	markerPosition.latitude = initialCenter.latitude;
 	markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
-	int j;
+	NSUInteger j;
 	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
 	for (j = 0; j < nColumns; j++) {
 		markerPosition.longitude += columnSpacing;
@@ -180,7 +180,7 @@
 	UIImage *markerImage = [UIImage imageNamed:@"marker-red.png"];
 	markerPosition.latitude = initialCenter.latitude;
 	markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
-	int j;
+	NSUInteger j;
 	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
 	for (j = 0; j < nColumns; j++) {
 		markerPosition.longitude += columnSpacing;
