@@ -41,12 +41,9 @@
 		23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */ = {isa = PBXBuildFile; fileRef = 23A0AAE80EB90A99003A4521 /* RMFoundation.c */; };
 		23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */; };
 		23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0ABA90EB923AF003A4521 /* RMLatLong.h */; };
-		2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
 		2B580E2C0F8D201200D495B2 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6F0EB53A41006A0BC1 /* marker-red.png */; };
-		2B580E820F8D26F200D495B2 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B580E810F8D26F200D495B2 /* RMTestableMarker.m */; };
-		2B580F160F8D2E9C00D495B2 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B580E810F8D26F200D495B2 /* RMTestableMarker.m */; };
 		2B5BDCDB0F8C17A500848078 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCCC0F8C17A500848078 /* GTMCALayer+UnitTesting.m */; };
 		2B5BDCDC0F8C17A500848078 /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD00F8C17A500848078 /* GTMIPhoneUnitTestDelegate.m */; };
 		2B5BDCDD0F8C17A500848078 /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD10F8C17A500848078 /* GTMIPhoneUnitTestMain.m */; };
@@ -226,14 +223,10 @@
 		23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFoundation.h; sourceTree = "<group>"; };
 		23A0ABA90EB923AF003A4521 /* RMLatLong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLatLong.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2B246AA00F8AD9D400A7D55D /* RouteMeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMeTests.h; sourceTree = "<group>"; };
-		2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMeTests.m; sourceTree = "<group>"; };
 		2B2BD41D0F79A95500B8B9A7 /* README-static-library-build.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "README-static-library-build.rtf"; sourceTree = "<group>"; };
 		2B2BD41E0F79A95500B8B9A7 /* routeme.doxygen */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routeme.doxygen; sourceTree = "<group>"; };
 		2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOpenAerialMapSource.h; sourceTree = "<group>"; };
 		2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenAerialMapSource.m; sourceTree = "<group>"; };
-		2B580E800F8D26F200D495B2 /* RMTestableMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTestableMarker.h; sourceTree = "<group>"; };
-		2B580E810F8D26F200D495B2 /* RMTestableMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTestableMarker.m; sourceTree = "<group>"; };
 		2B5BDCCB0F8C17A500848078 /* GTMCALayer+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMCALayer+UnitTesting.h"; path = "GTM/GTMCALayer+UnitTesting.h"; sourceTree = "<group>"; };
 		2B5BDCCC0F8C17A500848078 /* GTMCALayer+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMCALayer+UnitTesting.m"; path = "GTM/GTMCALayer+UnitTesting.m"; sourceTree = "<group>"; };
 		2B5BDCCD0F8C17A500848078 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = GTM/GTMDefines.h; sourceTree = "<group>"; };
@@ -432,10 +425,6 @@
 			isa = PBXGroup;
 			children = (
 				2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */,
-				2B580E800F8D26F200D495B2 /* RMTestableMarker.h */,
-				2B580E810F8D26F200D495B2 /* RMTestableMarker.m */,
-				2B246AA00F8AD9D400A7D55D /* RouteMeTests.h */,
-				2B246AA10F8AD9D400A7D55D /* RouteMeTests.m */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -933,7 +922,6 @@
 				2BEC60530F8AC742008FB858 /* RMVirtualEarthSource.m in Sources */,
 				2BEC60540F8AC744008FB858 /* RMWebTileImage.m in Sources */,
 				2BEC60550F8AC745008FB858 /* RMYahooMapSource.m in Sources */,
-				2B246AA20F8AD9D400A7D55D /* RouteMeTests.m in Sources */,
 				2B5BDCDB0F8C17A500848078 /* GTMCALayer+UnitTesting.m in Sources */,
 				2B5BDCDC0F8C17A500848078 /* GTMIPhoneUnitTestDelegate.m in Sources */,
 				2B5BDCDD0F8C17A500848078 /* GTMIPhoneUnitTestMain.m in Sources */,
@@ -941,7 +929,6 @@
 				2B5BDCDF0F8C17A500848078 /* GTMSenTestCase.m in Sources */,
 				2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */,
 				2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */,
-				2B580E820F8D26F200D495B2 /* RMTestableMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,7 +976,6 @@
 				2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */,
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,
 				F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */,
-				2B580F160F8D2E9C00D495B2 /* RMTestableMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,6 +1031,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_SIGN_COMPARE = YES;
 				HEADER_SEARCH_PATHS = ../Proj4;
 				INFOPLIST_FILE = "RM Unit Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -1073,6 +1064,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "NS_BLOCK_ASSERTIONS=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_SIGN_COMPARE = YES;
 				HEADER_SEARCH_PATHS = ../Proj4;
 				INFOPLIST_FILE = "RM Unit Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";

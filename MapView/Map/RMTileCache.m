@@ -188,7 +188,7 @@
 	
 	NSNumber* minimalPurgeNumber = [cfg objectForKey:@"minimalPurge"];
 	if (minimalPurgeNumber != nil && capacity != 0) {
-		NSInteger value = [minimalPurgeNumber intValue];
+		NSUInteger value = [minimalPurgeNumber unsignedIntValue];
 		if (value > 0 && value<=capacity) 
 			minimalPurge = value;
 		else {

@@ -34,7 +34,7 @@
 
 @synthesize maxZoom, tileSideLength, bounds;
 
--(id) initFromProjection:(RMProjection*)projection tileSideLength:(int)aTileSideLength maxZoom: (int) aMaxZoom
+-(id) initFromProjection:(RMProjection*)projection tileSideLength:(NSUInteger)aTileSideLength maxZoom: (NSUInteger) aMaxZoom
 {
 	if (![super init])
 		return nil;
@@ -132,6 +132,7 @@
 
 - (RMTileRect) projectRect: (RMXYRect)aRect atZoom:(float)zoom
 {
+	/// \bug assignment of float to int, WTF?
 	int normalised_zoom = [self normaliseZoom:zoom];
 	float limit = [self limitFromNormalisedZoom:normalised_zoom];
 

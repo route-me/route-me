@@ -40,7 +40,7 @@
 	if (![super init])
 		return nil;
 	
-	int sideLength = [[self class] tileSideLength];
+	NSUInteger sideLength = [[self class] tileSideLength];
 	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:sideLength maxZoom:18];
 	
 	return self;

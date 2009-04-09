@@ -113,8 +113,8 @@
 {
 	NSArray * imagelist = [images allObjects];
 	for (RMTileImage * img in imagelist) {
-    NSInteger count = [images countForObject:img];
-		for (int i = 0; i < count; i++)
+    NSUInteger count = [images countForObject:img];
+		for (NSUInteger i = 0; i < count; i++)
 			[self removeTile: img.tile];
 	}
 }

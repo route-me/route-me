@@ -57,9 +57,9 @@
 @property(readonly, nonatomic) RMXYRect bounds;
 
 /// Maximum zoom for which we have tile images
-@property(readonly, nonatomic) int maxZoom;
+@property(readonly, nonatomic) NSUInteger maxZoom;
 
 /// Tile side length in pixels
-@property(readonly, nonatomic) int tileSideLength;
+@property(readonly, nonatomic) NSUInteger tileSideLength;
 
 @end

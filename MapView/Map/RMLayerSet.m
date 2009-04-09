@@ -108,7 +108,7 @@
 {
 @synchronized(set) {
 	[self correctScreenPosition:layer];
-	int index = [set indexOfObject:siblingLayer];
+	NSUInteger index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index + 1];
 	[super insertSublayer:layer above:siblingLayer];
 }
@@ -118,7 +118,7 @@
 {
 @synchronized(set) {
 	[self correctScreenPosition:layer];
-	int index = [set indexOfObject:siblingLayer];
+	NSUInteger index = [set indexOfObject:siblingLayer];
 	[set insertObject:layer atIndex:index];
 	[super insertSublayer:layer below:siblingLayer];
 }

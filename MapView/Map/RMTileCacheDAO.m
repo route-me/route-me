@@ -72,7 +72,7 @@
 {
 	FMResultSet *results = [db executeQuery:@"SELECT COUNT(ztileHash) FROM ZCACHE"];
 	
-	int count = 0;
+	NSUInteger count = 0;
 	
 	if ([results next])
 		count = [results intForColumnIndex:0];
