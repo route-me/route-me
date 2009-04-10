@@ -82,6 +82,7 @@
 {
 	float scale = [[contents mercatorToScreenProjection] scale];
 	// The bounds are actually in mercators...
+	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
 	boundsInMercators.origin.x -= lineWidth;
 	boundsInMercators.origin.y -= lineWidth;

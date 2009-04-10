@@ -31,15 +31,16 @@
 #import "RMFoundation.h"
 #import "RMLatLong.h"
 
-/// encapsulates a map projection definition.
+/// Objective-C wrapper for PROJ4 map projection definitions.
 @interface RMProjection : NSObject
 {
-	// This is actually a projPJ, but I don't want to need
-	// to include proj_api here.
+	/// This is actually a PROJ4 projPJ, but it is typed as void* so the proj_api doesn't have to be included
 	void*		internalProjection;
 	
+	/// the size of the earth, in projected units (meters, most often)
 	RMXYRect	bounds;
 	
+	/// hardcoded to YES in #initWithString:InBounds:
 	BOOL		projectionWrapsHorizontally;
 }
 
@@ -47,16 +48,17 @@
 @property (readonly) RMXYRect bounds;
 @property (readwrite) BOOL projectionWrapsHorizontally;
 
-/// Assuming the earth is round, this will wrap a point around the bounds. 
+/// If #projectionWrapsHorizontally, returns #aPoint with easting adjusted modulo Earth's diameter to be within projection's bounds. if !#projectionWrapsHorizontally, returns #aPoint unchanged.
 - (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint;
 
-/// This method wraps the x and clamps the y. HM note: what does that mean??
+/// applies #wrapPointHorizontally to aPoint, and then clamps northing (Y coordinate) to projection's bounds
 - (RMXYPoint) constrainPointToBounds: (RMXYPoint) aPoint;
 
 + (RMProjection *) googleProjection;
 + (RMProjection *) EPSGLatLong;
 + (RMProjection *) OSGB;
 
+/// anybody know what the InBounds: parameter means?
 - (id) initWithString: (NSString*)params InBounds: (RMXYRect) projBounds;
 
 /// inverse project meters, return latitude/longitude

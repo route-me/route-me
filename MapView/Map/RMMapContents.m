@@ -296,7 +296,7 @@
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong
 {
-	RMXYPoint aPoint = [projection latLongToPoint:latlong];
+	RMXYPoint aPoint = [[self projection] latLongToPoint:latlong];
 	[self moveToXYPoint: aPoint];
 }
 - (void)moveToXYPoint: (RMXYPoint)aPoint
@@ -574,6 +574,7 @@
 
 #pragma mark Properties
 
+/// \bug changing the tile source should force screen to reload images, but it doesn't
 - (void) setTileSource: (id<RMTileSource>)newTileSource
 {
 	if (tileSource == newTileSource)

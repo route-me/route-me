@@ -226,7 +226,6 @@ enum {
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 
-
 /*! \brief Clear all images from the #tileSource's caching system.
  
  All of the existing RMTileSource implementations load tile images via NSURLRequest. It's possible that some images will remain in your

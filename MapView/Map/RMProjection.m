@@ -83,7 +83,7 @@ NS_INLINE RMLatLong RMPixelPointAsLatLong(RMXYPoint xypoint) {
 
 - (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint
 {
-	if (projectionWrapsHorizontally == NO
+	if (!projectionWrapsHorizontally
 		|| bounds.size.width == 0.0f || bounds.size.height == 0.0f)
 		return aPoint;
 	
