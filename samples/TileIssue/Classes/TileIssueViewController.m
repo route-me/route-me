@@ -33,15 +33,25 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    CLLocationCoordinate2D latlong;
-	
-	latlong.latitude = -29.210278;
-	latlong.longitude =-59.680000;
-	
-	[mapView moveToLatLong:latlong];
+- (void)viewDidLoad 
+{
+    [NSThread detachNewThreadSelector: @selector(geocodeThread:) toTarget:self withObject:nil];
 }
 
+- (void)geocodeThread:(id)someLocation
+{
+
+		NSAutoreleasePool *pool = [ [ NSAutoreleasePool alloc ] init ];
+	
+		CLLocationCoordinate2D latlong;
+	
+		latlong.latitude = -29.210278;
+		latlong.longitude =-59.680000;
+		[mapView moveToLatLong:latlong];
+		
+		[pool release];
+
+}
 
 /*
 // Override to allow orientations other than the default portrait orientation.
