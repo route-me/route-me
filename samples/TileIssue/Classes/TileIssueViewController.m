@@ -47,10 +47,18 @@
 	
 		latlong.latitude = -29.210278;
 		latlong.longitude =-59.680000;
-		[mapView moveToLatLong:latlong];
-		
+		NSValue *vlocation= [NSValue value:&latlong withObjCType:@encode(CLLocationCoordinate2D)];
+		[self performSelectorOnMainThread:@selector(moveToLatLon:)  withObject:vlocation waitUntilDone:NO];
+
 		[pool release];
 
+}
+
+-(void)moveToLatLon:(NSValue *)vlocation
+{
+	CLLocationCoordinate2D location;  
+	[vlocation getValue:&location]; 
+	[mapView moveToLatLong:location];
 }
 
 /*
