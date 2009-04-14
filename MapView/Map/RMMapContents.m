@@ -746,38 +746,31 @@
 
 -(void) setScale: (float) scale
 {
-	[mercatorToScreenProjection setScale:scale];
-	[overlay correctPositionOfAllSublayers];
-	[tileLoader updateLoadedImages];
-	[renderer setNeedsDisplay];
+        float zoomFactor = scale / self.scale;
+        CGPoint pivot = CGPointMake(0,0);
+
+        [mercatorToScreenProjection setScale:scale];
+        [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+        [tileLoader zoomByFactor:zoomFactor near:pivot];
+        [overlay zoomByFactor:zoomFactor near:pivot];
+        [overlay correctPositionOfAllSublayers];
+        [renderer setNeedsDisplay];
 }
 
 -(float) zoom
 {
-	return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
+        return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
 }
 
-/*-(void) setZoom: (float) zoom
-{
-	//limit the zoom to maxZoom and minZoom as specified by projection - why do we also store maxZoom?
-	float normalisedZoom = [mercatorToTileProjection normaliseZoom:zoom];		
-	float scale = [mercatorToTileProjection calculateScaleFromZoom:normalisedZoom];
-	[self setScale:scale];	
-}
-*/
 -(void) setZoom: (float) zoom
 {
-	//RMLog(@"set zoom: %f", zoom);
-	if (zoom > maxZoom)
-        return;
-	
-	float scale = [mercatorToTileProjection  
-				   calculateScaleFromZoom:zoom];
-	//RMLog(@"new scale: %f, scale");
-	[self setScale:scale];    
-	[overlay correctPositionOfAllSublayers];
-	
-} 
+        zoom = (zoom > maxZoom) ? maxZoom : zoom;
+        zoom = (zoom < minZoom) ? minZoom : zoom;
+
+        float scale = [mercatorToTileProjection calculateScaleFromZoom:zoom];
+
+        [self setScale:scale];
+}
 
 -(RMTileImageSet*) imagesOnScreen
 {
