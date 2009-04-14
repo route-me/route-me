@@ -166,20 +166,22 @@ static CGImageRef _markerBlue = nil;
 }
 
 
+/// \deprecated name change for KVC compliance pending, likely to something like changeLabelUsingText:
+///	\bug font name and size are hardcoded
 - (void) setTextLabel: (NSString*)text
 {
-/// \bug font name and size are hardcoded
 	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
 	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
 }
 
+/// \deprecated deletion pending
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
 {
 	WarnDeprecated();
-/// \bug font name and size are hardcoded
 	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
 }
 
+/// \deprecated name change for KVC compliance pending, likely to something like changeLabelUsingText:font:foregroundColor:backgroundColor:
 - (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
 	WarnDeprecated();
@@ -189,6 +191,7 @@ static CGImageRef _markerBlue = nil;
 	[self setTextLabel:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
 }
 
+/// \deprecated deletion pending
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
 	WarnDeprecated();
