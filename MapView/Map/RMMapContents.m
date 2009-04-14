@@ -406,6 +406,7 @@
 	[self setMaxZoom: aMaxZoom];
 }
 
+/// \bug this is a no-op, not a clamp, if new zoom would be outside of minzoom/maxzoom range
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
 	//[self zoomByFactor:zoomFactor near:pivot animated:NO];
@@ -762,6 +763,7 @@
         return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
 }
 
+/// if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
 -(void) setZoom: (float) zoom
 {
         zoom = (zoom > maxZoom) ? maxZoom : zoom;
