@@ -50,7 +50,7 @@
 		NSValue *vlocation= [NSValue value:&latlong withObjCType:@encode(CLLocationCoordinate2D)];
 		[self performSelectorOnMainThread:@selector(moveToLatLon:)  withObject:vlocation waitUntilDone:NO];
 
-		[pool release];
+		[pool drain];
 
 }
 
