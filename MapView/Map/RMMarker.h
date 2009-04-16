@@ -77,13 +77,21 @@ extern NSString * const RMMarkerRedKey;
 - (id) initWithNamedStyle: (NSString*) styleName;
 
 - (void) setLabel: (UIView*)aView;
+
+- (void) changeLabelUsingText: (NSString*)text;
+- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position;
+- (void) changeLabelUsingText: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
+- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
+
 - (void) setTextLabel: (NSString*)text;
-/// \deprecated name change or deletion pending after 0.0
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
-/// \deprecated name change or deletion pending after 0.0
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
-/// \deprecated name change or deletion pending after 0.0
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
+/// \deprecated after 0.5.  Use changeLabelUsingText
+
 - (void) toggleLabel;
 - (void) showLabel;
 - (void) hideLabel;

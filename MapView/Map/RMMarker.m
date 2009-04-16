@@ -165,36 +165,55 @@ static CGImageRef _markerBlue = nil;
 	}
 }
 
-
-/// \deprecated name change for KVC compliance pending, likely to something like changeLabelUsingText:
-///	\bug font name and size are hardcoded
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text
 {
-	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
-	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+	WarnDeprecated();
+	[self changeLabelUsingText:text];
 }
 
-/// \deprecated deletion pending
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
 {
 	WarnDeprecated();
-	[self setTextLabel:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+	[self changeLabelUsingText:text toPosition:position];
 }
 
-/// \deprecated name change for KVC compliance pending, likely to something like changeLabelUsingText:font:foregroundColor:backgroundColor:
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
 	WarnDeprecated();
-	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
-	[self setTextForegroundColor:textColor];
-	[self setTextBackgroundColor:backgroundColor];
-	[self setTextLabel:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
+	[self changeLabelUsingText:text withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
 }
 
-/// \deprecated deletion pending
+/// \deprecated after 0.5.  Use changeLabelUsingText
 - (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
 {
 	WarnDeprecated();
+	[self changeLabelUsingText:text toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
+}
+
+- (void) changeLabelUsingText: (NSString*)text
+{
+	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
+	[self changeLabelUsingText:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+}
+
+- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position
+{
+	[self changeLabelUsingText:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+}
+
+- (void) changeLabelUsingText: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+{
+	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
+	[self setTextForegroundColor:textColor];
+	[self setTextBackgroundColor:backgroundColor];
+	[self changeLabelUsingText:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
+}
+
+- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+{
 	CGSize textSize = [text sizeWithFont:font];
 	CGRect frame = CGRectMake(position.x,
 							  position.y,
@@ -329,7 +348,7 @@ static CGImageRef _markerBlue = nil;
 /*- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //	[label setAlpha:1.0f - [label alpha]];
-//	[self setTextLabel:@"hello there"];
+//	[self changeLabelUsingText:@"hello there"];
 	//	RMLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
 }*/
 
