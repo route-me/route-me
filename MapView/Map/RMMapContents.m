@@ -134,8 +134,8 @@
 	
 	minZoom = minZoomLevel;
 	maxZoom = maxZoomLevel;
-	NSAssert((minZoom < initialZoomLevel), @"initial zoom level must be greater than minimum zoom level");
-	NSAssert((maxZoom > initialZoomLevel), @"initial zoom level must be less than maximum zoom level");
+	NSAssert((minZoom <= initialZoomLevel), @"initial zoom level must be greater than minimum zoom level");
+	NSAssert((maxZoom >= initialZoomLevel), @"initial zoom level must be less than maximum zoom level");
 	[self setZoom:initialZoomLevel];
 	[self moveToLatLong:initialCenter];
 	
