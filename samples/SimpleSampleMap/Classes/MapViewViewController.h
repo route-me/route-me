@@ -36,8 +36,7 @@
 @interface MapViewViewController : UIViewController 
 			<RMMapViewDelegate, CLLocationManagerDelegate> 
 {
-	IBOutlet RMMapView		*mapViewPortrait;
-	IBOutlet RMMapView		*mapViewLandscape;
+	IBOutlet RMMapView		*mapViewLocal;
 	IBOutlet RMMapView		*mapView;
 	BOOL					tap;
 	NSInteger				tapCount;
@@ -45,8 +44,7 @@
 	CLLocationCoordinate2D	currentLocation;
 }
 
-@property (nonatomic, retain) IBOutlet RMMapView	*mapViewPortrait;
-@property (nonatomic, retain)IBOutlet RMMapView		*mapViewLandscape;
+@property (nonatomic, retain)IBOutlet RMMapView		*mapViewLocal;
 @property (nonatomic, retain)IBOutlet RMMapView		*mapView;
 @property (nonatomic, retain) CLLocationManager		*locationManager;
 
