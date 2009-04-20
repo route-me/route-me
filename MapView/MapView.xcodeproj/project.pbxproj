@@ -41,6 +41,7 @@
 		23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */ = {isa = PBXBuildFile; fileRef = 23A0AAE80EB90A99003A4521 /* RMFoundation.c */; };
 		23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */; };
 		23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0ABA90EB923AF003A4521 /* RMLatLong.h */; };
+		2B293A820F9D2A2F00941A53 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
 		2B580E2C0F8D201200D495B2 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6F0EB53A41006A0BC1 /* marker-red.png */; };
@@ -988,6 +989,7 @@
 				2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */,
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,
 				F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */,
+				2B293A820F9D2A2F00941A53 /* RMTestableMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
