@@ -2,7 +2,7 @@
 //  RMYahooMapSouce.h
 //  MapView
 //
-// Copyright (c) 2008, Yahoo
+// Copyright (c) 2008-2009, Yahoo
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without

@@ -1,7 +1,7 @@
 //
 //  RMMercatorToScreenProjection.h
 //
-// Copyright (c) 2008, Route-Me Contributors
+// Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@
 	CGRect screenBounds;
 
 	/// \brief meters per pixel
-	/// \note The current usage of the term "scale" in RouteMe conflicts with standard cartographic usage, and will be changed after 0.5
+	/// \note The current usage of the term "scale" in Route-Me conflicts with standard cartographic usage, and will be changed after 0.5
 	///
 	/// Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
 	/// Scale of 1 means 1 pixel == 1 meter.

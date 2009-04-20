@@ -2,7 +2,7 @@
 //  RMCloudMadeMapSource.h
 //  MapView
 //
-// Copyright (c) 2008, Cloudmade
+// Copyright (c) 2008-2009, Cloudmade
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without

@@ -1,7 +1,7 @@
 //
 //  RMMapView.h
 //
-// Copyright (c) 2008, Route-Me Contributors
+// Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,11 @@ is hosted on Google Code (http://code.google.com/p/route-me/).
 
  Route-Me provides a UIView subclass with a panning, zooming map. Zoom level, source of map data, map center,
  marker overlays, and path overlays are all supported.
+ \section license_sec License
+ Route-Me is licensed under the New BSD license.
+ 
+ In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2009 Route-Me Contributors". 
+ 
 \section install_sec Installation
  
 Because Route-Me is under rapid development as of early 2009, the best way to install Route-Me is use
@@ -48,8 +53,9 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
 
  There are numerous sample applications in the Subversion repository.
  
- To embed Route-Me maps in your Xcode project, follow the instructions in the Embedding Guide at 
- http://code.google.com/p/route-me/wiki/EmbeddingGuide . To create a static version of Route-Me, follow these 
+ To embed Route-Me maps in your Xcode project, follow the example given in samples/SampleMap or samples/ProgrammaticMap. The instructions in 
+ the Embedding Guide at 
+ http://code.google.com/p/route-me/wiki/EmbeddingGuide are out of date as of April 20, 2009. To create a static version of Route-Me, follow these 
  instructions instead: http://code.google.com/p/route-me/source/browse/trunk/MapView/README-library-build.rtf
  
 \section maps_sec Map Data
