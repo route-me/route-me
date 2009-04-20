@@ -284,6 +284,7 @@
 				GCC_PREFIX_HEADER = SimpleSampleMap_Prefix.pch;
 				HEADER_SEARCH_PATHS = "../../MapView/**";
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SimpleSampleMap;
 			};
 			name = Debug;
@@ -297,6 +298,7 @@
 				GCC_PREFIX_HEADER = SimpleSampleMap_Prefix.pch;
 				HEADER_SEARCH_PATHS = "../../MapView/**";
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SimpleSampleMap;
 			};
 			name = Release;

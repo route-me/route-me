@@ -34,7 +34,6 @@
 
 @implementation MapViewViewController
 
-@synthesize mapViewLocal;
 @synthesize mapView;
 @synthesize locationManager;
 @synthesize currentLocation;
@@ -166,11 +165,6 @@ shouldDragMarker:(RMMarker *)marker
 {
     [super viewDidLoad];
 
-	
-	mapViewLocal	= [[RMMapView alloc]initWithFrame:CGRectMake(0.0, 
-														  0.0, 
-														  320.0, 
-														  460.0)]; 
 	locationManager	= [[CLLocationManager alloc] init];
 	locationManager.delegate		= self;
 	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -228,7 +222,6 @@ shouldDragMarker:(RMMarker *)marker
 
 - (void)dealloc 
 {
-	[mapViewLocal release];
 	[mapView release];
 	[locationManager stopUpdatingLocation];
 	[locationManager release];
