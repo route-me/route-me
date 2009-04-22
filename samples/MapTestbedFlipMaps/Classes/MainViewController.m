@@ -68,8 +68,8 @@
 	RMMapContents *contents = self.mapView.contents;
     CLLocationCoordinate2D mapCenter = [contents mapCenter];
     
-    float routemeMetersPerPixel = [contents scale]; // really meters/pixel
-	double truescaleDenominator =  [contents trueScaleDenominator];
+    float routemeMetersPerPixel = [contents metersPerPixel]; // really meters/pixel
+	double truescaleDenominator =  [contents scaleDenominator];
     
     [infoTextView setText:[NSString stringWithFormat:@"Latitude : %f\nLongitude : %f\nZoom level : %.2f\nMeter per pixel : %.1f\nTrue scale : 1:%.0f", 
                            mapCenter.latitude, 

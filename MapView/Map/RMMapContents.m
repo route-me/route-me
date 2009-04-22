@@ -323,25 +323,25 @@
 	if ( boundingMask ==  RMMapNoMinBound )
 		return zoomFactor;
 	
-	double newScale = self.scale / zoomFactor;
+	double newMPP = self.metersPerPixel / zoomFactor;
 	
 	RMProjectedRect mercatorBounds = [[tileSource projection] planetBounds];
 	
 	// Check for MinWidthBound
 	if ( boundingMask & RMMapMinWidthBound )
 	{
-		double newMapContentsWidth = mercatorBounds.size.width / newScale;
+		double newMapContentsWidth = mercatorBounds.size.width / newMPP;
 		double screenBoundsWidth = [self screenBounds].size.width;
 		double mapContentWidth;
 		
 		if ( newMapContentsWidth < screenBoundsWidth )
 		{
 			// Calculate new zoom facter so that it does not shrink the map any further. 
-			mapContentWidth = mercatorBounds.size.width / self.scale;
+			mapContentWidth = mercatorBounds.size.width / self.metersPerPixel;
 			zoomFactor = screenBoundsWidth / mapContentWidth;
 			
-			newScale = self.scale / zoomFactor;
-			newMapContentsWidth = mercatorBounds.size.width / newScale;
+			newMPP = self.metersPerPixel / zoomFactor;
+			newMapContentsWidth = mercatorBounds.size.width / newMPP;
 		}
 		
 	}
@@ -349,23 +349,23 @@
 	// Check for MinHeightBound	
 	if ( boundingMask & RMMapMinHeightBound )
 	{
-		double newMapContentsHeight = mercatorBounds.size.height / newScale;
+		double newMapContentsHeight = mercatorBounds.size.height / newMPP;
 		double screenBoundsHeight = [self screenBounds].size.height;
 		double mapContentHeight;
 		
 		if ( newMapContentsHeight < screenBoundsHeight )
 		{
 			// Calculate new zoom facter so that it does not shrink the map any further. 
-			mapContentHeight = mercatorBounds.size.height / self.scale;
+			mapContentHeight = mercatorBounds.size.height / self.metersPerPixel;
 			zoomFactor = screenBoundsHeight / mapContentHeight;
 			
-			newScale = self.scale / zoomFactor;
-			newMapContentsHeight = mercatorBounds.size.height / newScale;
+			newMPP = self.metersPerPixel / zoomFactor;
+			newMapContentsHeight = mercatorBounds.size.height / newMPP;
 		}
 		
 	}
 	
-	//[self adjustMapPlacementWithScale:newScale];
+	//[self adjustMapPlacementWithScale:newMPP];
 	
 	return zoomFactor;
 }
@@ -378,10 +378,10 @@
 	RMLatLong	rightEdgeLatLong = {0, 180};
 	RMLatLong	leftEdgeLatLong = {0,- 180};
 	
-	CGPoint		rightEdge = [self latLongToPixel:rightEdgeLatLong withScale:aScale];
-	CGPoint		leftEdge = [self latLongToPixel:leftEdgeLatLong withScale:aScale];
-	//CGPoint		topEdge = [self latLongToPixel:myLatLong withScale:aScale];
-	//CGPoint		bottomEdge = [self latLongToPixel:myLatLong withScale:aScale];
+	CGPoint		rightEdge = [self latLongToPixel:rightEdgeLatLong withMetersPerPixel:aScale];
+	CGPoint		leftEdge = [self latLongToPixel:leftEdgeLatLong withMetersPerPixel:aScale];
+	//CGPoint		topEdge = [self latLongToPixel:myLatLong withMetersPerPixel:aScale];
+	//CGPoint		bottomEdge = [self latLongToPixel:myLatLong withMetersPerPixel:aScale];
 	
 	CGRect		containerBounds = [self screenBounds];
 
@@ -416,7 +416,7 @@
 	
 	// pre-calculate zoom so we can tell if we want to perform it
 	float newZoom = [mercatorToTileProjection  
-					 calculateZoomFromScale:self.scale/zoomFactor];
+					 calculateZoomFromScale:self.metersPerPixel/zoomFactor];
 	
 	if ((newZoom > minZoom) && (newZoom < maxZoom))
 	{
@@ -740,17 +740,17 @@
 		return CGRectMake(0, 0, 0, 0);
 }
 
--(float) scale
+-(float) metersPerPixel
 {
-	return [mercatorToScreenProjection scale];
+	return [mercatorToScreenProjection metersPerPixel];
 }
 
--(void) setScale: (float) scale
+-(void) setMetersPerPixel: (float) newMPP
 {
-        float zoomFactor = scale / self.scale;
+        float zoomFactor = newMPP / self.metersPerPixel;
         CGPoint pivot = CGPointMake(0,0);
 
-        [mercatorToScreenProjection setScale:scale];
+        [mercatorToScreenProjection setMetersPerPixel:newMPP];
         [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
         [tileLoader zoomByFactor:zoomFactor near:pivot];
         [overlay zoomByFactor:zoomFactor near:pivot];
@@ -760,7 +760,7 @@
 
 -(float) zoom
 {
-        return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection scale]];
+        return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection metersPerPixel]];
 }
 
 /// if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
@@ -771,7 +771,7 @@
 
         float scale = [mercatorToTileProjection calculateScaleFromZoom:zoom];
 
-        [self setScale:scale];
+        [self setMetersPerPixel:scale];
 }
 
 -(RMTileImageSet*) imagesOnScreen
@@ -827,12 +827,12 @@ static BOOL _performExpensiveOperations = YES;
 	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong]];
 }
 
-- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale
 {	
-	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong] withScale:aScale];
+	return [mercatorToScreenProjection projectXYPoint:[projection latLongToPoint:latlong] withMetersPerPixel:aScale];
 }
 
-- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withScale:(float)aScale
+- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale
 {
         return [mercatorToTileProjection project:[projection latLongToPoint:latlong] atZoom:aScale];
 }
@@ -842,13 +842,14 @@ static BOOL _performExpensiveOperations = YES;
 	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel]];
 }
 
-- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withMetersPerPixel:(float)aScale
 {
-	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel withScale:aScale]];
+	return [projection pointToLatLong:[mercatorToScreenProjection projectScreenPointToXY:aPixel withMetersPerPixel:aScale]];
 }
 
-- (double)trueScaleDenominator {
-	double routemeMetersPerPixel = [self scale]; // really meters/pixel
+- (double)scaleDenominator {
+	double routemeMetersPerPixel = [self metersPerPixel];
+	/// \bug magic number
 	double iphoneMillimetersPerPixel = .1543;
 	double truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
 	return truescaleDenominator;

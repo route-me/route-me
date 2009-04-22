@@ -161,7 +161,7 @@
 
 -(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
 {
-	return [self projectRect:[screen projectedBounds] atScale:[screen scale]];
+	return [self projectRect:[screen projectedBounds] atScale:[screen metersPerPixel]];
 }
 
 -(float) calculateZoomFromScale: (float) scale

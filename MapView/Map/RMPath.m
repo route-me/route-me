@@ -80,7 +80,7 @@
 
 - (void) recalculateGeometry
 {
-	float scale = [[contents mercatorToScreenProjection] scale];
+	float scale = [[contents mercatorToScreenProjection] metersPerPixel];
 	// The bounds are actually in mercators...
 	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
@@ -150,9 +150,9 @@
 
 - (void)drawInContext:(CGContextRef)theContext
 {
-	renderedScale = [contents scale];
+	renderedScale = [contents metersPerPixel];
 	
-	float scale = 1.0f / [contents scale];
+	float scale = 1.0f / [contents metersPerPixel];
 	
 	CGContextScaleCTM(theContext, scale, scale);
 	
@@ -225,9 +225,9 @@
 {
 	[super zoomByFactor:zoomFactor near:pivot];
 	
-	float newScale = [contents scale];
-	if (newScale / renderedScale >= 2.0f
-		|| newScale / renderedScale <= 0.4f)
+	float newMPP = [contents metersPerPixel];
+	if (newMPP / renderedScale >= 2.0f
+		|| newMPP / renderedScale <= 0.5f)
 	{
 		[self setNeedsDisplay];
 	}

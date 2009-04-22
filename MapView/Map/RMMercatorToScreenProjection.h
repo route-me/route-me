@@ -46,12 +46,7 @@
 	CGRect screenBounds;
 
 	/// \brief meters per pixel
-	/// \note The current usage of the term "scale" in Route-Me conflicts with standard cartographic usage, and will be changed after 0.5
-	///
-	/// Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
-	/// Scale of 1 means 1 pixel == 1 meter.
-	/// Scale of 10 means 1 pixel == 10 meters.
-	float scale;
+	float metersPerPixel;
 }
 
 - (id) initFromProjection: (RMProjection*) projection ToScreenBounds: (CGRect)aScreenBounds;
@@ -71,7 +66,7 @@
 - (void) zoomScreenByFactor: (float) factor near:(CGPoint) aPoint;
 
 /// Project -> screen coordinates.
-- (CGPoint)projectXYPoint:(RMProjectedPoint)aPoint withScale:(float)aScale;
+- (CGPoint)projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale;
 /// Project -> screen coordinates.
 - (CGPoint) projectXYPoint: (RMProjectedPoint) aPoint;
 /// Project -> screen coordinates.
@@ -80,7 +75,7 @@
 - (RMProjectedPoint) projectScreenPointToXY: (CGPoint) aPoint;
 - (RMProjectedRect) projectScreenRectToXY: (CGRect) aRect;
 - (RMProjectedSize)projectScreenSizeToXY: (CGSize) aSize;
-- (RMProjectedPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale;
+- (RMProjectedPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withMetersPerPixel:(float)aScale;
 
 - (RMProjectedRect) projectedBounds;
 - (void) setProjectedBounds: (RMProjectedRect) bounds;
@@ -89,7 +84,7 @@
 - (void) setScreenBounds:(CGRect)rect;
 - (CGRect) screenBounds;
 
-@property (assign, readwrite) float scale;
+@property (assign, readwrite) float metersPerPixel;
 
 
 @end

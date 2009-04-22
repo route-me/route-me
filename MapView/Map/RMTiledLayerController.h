@@ -41,20 +41,14 @@
 	// Size in pixels
 //	CGSize viewSize;
 	
-	/*! \brief "scale" as of version 0.4/0.5 actually doesn't mean cartographic scale; it means meters per pixel.
-	 
-	 Scale is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
-	 Scale of 1 means 1 pixel == 1 meter.
-	 Scale of 10 means 1 pixel == 10 meters.
-	 */
-	float scale;
+	float metersPerPixel;
 	
 	id tileSource;
 }
 
 -(id) initWithTileSource: (id <RMTileSource>) tileSource;
 
--(void) setScale: (float) scale;
+-(void) setMetersPerPixelsPerPixel: (float) scale;
 
 -(void) centerProjectedPoint: (RMProjectedPoint) aPoint animate: (BOOL) animate;
 -(void) centerLatLong: (CLLocationCoordinate2D) point animate: (BOOL) animate;
@@ -70,7 +64,7 @@
 
 -(MercatorRect) bounds;
 */
-@property (assign, readwrite, nonatomic) float scale;
+@property (assign, readwrite, nonatomic) float metersPerPixel;
 @property (readonly, nonatomic) CATiledLayer *layer;
 
 @end

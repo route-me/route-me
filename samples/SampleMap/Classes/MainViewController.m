@@ -66,9 +66,9 @@
 	RMMapContents *contents = self.mapView.contents;
     CLLocationCoordinate2D mapCenter = [contents mapCenter];
     
-	double truescaleDenominator = [contents trueScaleDenominator];
-    double routemeMetersPerPixel = [contents scale]; /// FIXME: "scale"/meters per pixel issue
-    [infoTextView setText:[NSString stringWithFormat:@"Latitude : %f\nLongitude : %f\nZoom level : %.2f\nMeter per pixel : %.1f\nTrue scale : 1:%.0f\n%@\n%@", 
+	double truescaleDenominator = [contents scaleDenominator];
+    double routemeMetersPerPixel = [contents metersPerPixel]; 
+    [infoTextView setText:[NSString stringWithFormat:@"Latitude : %f\nLongitude : %f\nZoom: %.2f Meter per pixel : %.1f\nTrue scale : 1:%.0f\n%@\n%@", 
                            mapCenter.latitude, 
                            mapCenter.longitude, 
                            contents.zoom, 

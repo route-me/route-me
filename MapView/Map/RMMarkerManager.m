@@ -99,7 +99,6 @@
 #pragma mark 
 #pragma mark Marker information
 
-/// \deprecated violates Objective-C naming rules
 - (NSArray *)markers
 {
 	return [[contents overlay] sublayers];

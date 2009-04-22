@@ -36,7 +36,7 @@
 		return nil;
 	screenBounds = aScreenBounds;
 	projection = [aProjection retain];
-	scale = 1;
+	metersPerPixel = 1;
 	return self;
 }
 
@@ -102,13 +102,13 @@
 	//RMMercatorPoint test = [self zoomPoint:origin ByFactor:1.0f / factor Near:pivot];
 
 	// First we move the origin to the pivot...
-	origin.easting += aPixelPoint.x * scale;
-	origin.northing += (screenBounds.size.height - aPixelPoint.y) * scale;
+	origin.easting += aPixelPoint.x * metersPerPixel;
+	origin.northing += (screenBounds.size.height - aPixelPoint.y) * metersPerPixel;
 	// Then scale by 1/factor
-	scale /= factor;
+	metersPerPixel /= factor;
 	// Then translate back
-	origin.easting -= aPixelPoint.x * scale;
-	origin.northing -= (screenBounds.size.height - aPixelPoint.y) * scale;
+	origin.easting -= aPixelPoint.x * metersPerPixel;
+	origin.northing -= (screenBounds.size.height - aPixelPoint.y) * metersPerPixel;
 
 	origin = [projection wrapPointHorizontally:origin];
 	
@@ -124,10 +124,10 @@
 
 - (void)zoomBy: (float) factor
 {
-	scale *= factor;
+	metersPerPixel *= factor;
 }
 
-- (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withScale:(float)aScale
+- (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale
 {
 	CGPoint	aPixelPoint;
    CGFloat originX = origin.easting;
@@ -152,19 +152,19 @@
 - (CGPoint) projectXYPoint: (RMProjectedPoint)aPoint
 {
 
-	return [self projectXYPoint:aPoint withScale:scale];
+	return [self projectXYPoint:aPoint withMetersPerPixel:metersPerPixel];
 }
 
 - (CGRect) projectXYRect: (RMProjectedRect) aRect
 {
 	CGRect aPixelRect;
 	aPixelRect.origin = [self projectXYPoint: aRect.origin];
-	aPixelRect.size.width = aRect.size.width / scale;
-	aPixelRect.size.height = aRect.size.height / scale;
+	aPixelRect.size.width = aRect.size.width / metersPerPixel;
+	aPixelRect.size.height = aRect.size.height / metersPerPixel;
 	return aPixelRect;
 }
 
-- (RMProjectedPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale
+- (RMProjectedPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withMetersPerPixel:(float)aScale
 {
 	RMProjectedPoint aPoint;
 	aPoint.easting = origin.easting + aPixelPoint.x * aScale;
@@ -179,23 +179,23 @@
 {
 	// I will assume the point is within the screenbounds rectangle.
 	
-	return [projection wrapPointHorizontally:[self projectScreenPointToXY:aPixelPoint withScale:scale]];
+	return [projection wrapPointHorizontally:[self projectScreenPointToXY:aPixelPoint withMetersPerPixel:metersPerPixel]];
 }
 
 - (RMProjectedRect) projectScreenRectToXY: (CGRect) aPixelRect
 {
 	RMProjectedRect aRect;
 	aRect.origin = [self projectScreenPointToXY: aPixelRect.origin];
-	aRect.size.width = aPixelRect.size.width * scale;
-	aRect.size.height = aPixelRect.size.height * scale;
+	aRect.size.width = aPixelRect.size.width * metersPerPixel;
+	aRect.size.height = aPixelRect.size.height * metersPerPixel;
 	return aRect;
 }
 
 - (RMProjectedSize)projectScreenSizeToXY: (CGSize) aPixelSize
 {
 	RMProjectedSize aSize;
-	aSize.width = aPixelSize.width * scale;
-	aSize.height = -aPixelSize.height * scale;
+	aSize.width = aPixelSize.width * metersPerPixel;
+	aSize.height = -aPixelSize.height * metersPerPixel;
 	return aSize;
 }
 
@@ -203,8 +203,8 @@
 {
 	RMProjectedRect aRect;
 	aRect.origin = origin;
-	aRect.size.width = screenBounds.size.width * scale;
-	aRect.size.height = screenBounds.size.height * scale;
+	aRect.size.width = screenBounds.size.width * metersPerPixel;
+	aRect.size.height = screenBounds.size.height * metersPerPixel;
 	return aRect;
 }
 
@@ -214,15 +214,15 @@
 	float scaleY = aRect.size.height / screenBounds.size.height;
 	
 	// I will pick a scale in between those two.
-	scale = (scaleX + scaleY) / 2;
+	metersPerPixel = (scaleX + scaleY) / 2;
 	origin = [projection wrapPointHorizontally:aRect.origin];
 }
 
 - (RMProjectedPoint) projectedCenter
 {
 	RMProjectedPoint aPoint;
-	aPoint.easting = origin.easting + screenBounds.size.width * scale / 2;
-	aPoint.northing = origin.northing + screenBounds.size.height * scale / 2;
+	aPoint.easting = origin.easting + screenBounds.size.width * metersPerPixel / 2;
+	aPoint.northing = origin.northing + screenBounds.size.height * metersPerPixel / 2;
 	aPoint = [projection wrapPointHorizontally:aPoint];
 	return aPoint;
 }
@@ -230,8 +230,8 @@
 - (void) setProjectedCenter: (RMProjectedPoint) aPoint
 {
 	origin = [projection wrapPointHorizontally:aPoint];
-	origin.easting -= screenBounds.size.width * scale / 2;
-	origin.northing -= screenBounds.size.height * scale / 2;
+	origin.easting -= screenBounds.size.width * metersPerPixel / 2;
+	origin.northing -= screenBounds.size.height * metersPerPixel / 2;
 }
 
 - (void) setScreenBounds:(CGRect)rect;
@@ -244,18 +244,18 @@
 	return screenBounds;
 }
 
--(float) scale
+-(float) metersPerPixel
 {
-	return scale;
+	return metersPerPixel;
 }
 
--(void) setScale: (float) newScale
+-(void) setMetersPerPixel: (float) newMPP
 {
 	// We need to adjust the origin - since the origin
 	// is in the corner, it will change when we change the scale.
 	
 	RMProjectedPoint center = [self projectedCenter];
-	scale = newScale;
+	metersPerPixel = newMPP;
 	[self setProjectedCenter:center];
 }
 

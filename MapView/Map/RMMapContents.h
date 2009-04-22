@@ -122,14 +122,7 @@ enum {
 @property (readwrite) RMProjectedRect projectedBounds;
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
-/*! \brief "scale" as of version 0.4/0.5 actually doesn't mean cartographic scale; it means meters per pixel.
- 
- "Scale" is how many meters in 1 pixel. Larger scale means bigger things are smaller on the screen.
- "Scale" of 1 means 1 pixel == 1 meter.
- "Scale" of 10 means 1 pixel == 10 meters.
- \deprecated will be renamed metersPerPixel/setMetersPerPixel 
- */
-@property (readwrite) float scale;
+@property (readwrite) float metersPerPixel;
 @property (readwrite) float zoom;
 
 @property (readwrite) float minZoom, maxZoom;
@@ -153,8 +146,7 @@ enum {
 @property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 /// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
-/// \deprecated will be renamed scaleDenominator after 0.5
-@property (readonly)double trueScaleDenominator;
+@property (readonly)double scaleDenominator;
 
 - (id)initWithView: (UIView*) view;
 - (id)initWithView: (UIView*) view
@@ -210,10 +202,10 @@ enum {
 + (void) setPerformExpensiveOperations: (BOOL)p;
 
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
-- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
-- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale;
+- (RMTilePoint)latLongToTilePoint:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
-- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withMetersPerPixel:(float)aScale;
 
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
@@ -257,9 +249,9 @@ enum {
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
-- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withScale:(float)aScale;
+- (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale;
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel;
-- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
+- (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withMetersPerPixel:(float)aScale;
 
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
