@@ -40,6 +40,6 @@
 #import "RMFoundation.h"
 @protocol RMMovingMapLayer
 
-@property (assign, nonatomic) RMXYPoint location;
+@property (assign, nonatomic) RMProjectedPoint projectedLocation;
 
 @end

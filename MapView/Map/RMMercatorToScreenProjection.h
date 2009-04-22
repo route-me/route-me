@@ -36,7 +36,7 @@
 @interface RMMercatorToScreenProjection : NSObject
 {
 	/// What the screen is currently looking at.
-	RMXYPoint origin;
+	RMProjectedPoint origin;
 
 	/// The mercator -or-whatever- projection that the map is in.
 	/// This projection move linearly with the screen.
@@ -57,35 +57,35 @@
 - (id) initFromProjection: (RMProjection*) projection ToScreenBounds: (CGRect)aScreenBounds;
 
 /// Deltas in screen coordinates.
-- (RMXYPoint)movePoint: (RMXYPoint)aPoint by:(CGSize) delta;
+- (RMProjectedPoint)movePoint: (RMProjectedPoint)aPoint by:(CGSize) delta;
 /// Deltas in screen coordinates.
-- (RMXYRect)moveRect: (RMXYRect)aRect by:(CGSize) delta;
+- (RMProjectedRect)moveRect: (RMProjectedRect)aRect by:(CGSize) delta;
 
 /// pivot given in screen coordinates.
-- (RMXYPoint)zoomPoint: (RMXYPoint)aPoint byFactor: (float)factor near:(CGPoint) pivot;
+- (RMProjectedPoint)zoomPoint: (RMProjectedPoint)aPoint byFactor: (float)factor near:(CGPoint) pivot;
 /// pivot given in screen coordinates.
-- (RMXYRect)zoomRect: (RMXYRect)aRect byFactor: (float)factor near:(CGPoint) pivot;
+- (RMProjectedRect)zoomRect: (RMProjectedRect)aRect byFactor: (float)factor near:(CGPoint) pivot;
 
 /// Move the screen.
 - (void) moveScreenBy: (CGSize) delta;
 - (void) zoomScreenByFactor: (float) factor near:(CGPoint) aPoint;
 
 /// Project -> screen coordinates.
-- (CGPoint)projectXYPoint:(RMXYPoint)aPoint withScale:(float)aScale;
+- (CGPoint)projectXYPoint:(RMProjectedPoint)aPoint withScale:(float)aScale;
 /// Project -> screen coordinates.
-- (CGPoint) projectXYPoint: (RMXYPoint) aPoint;
+- (CGPoint) projectXYPoint: (RMProjectedPoint) aPoint;
 /// Project -> screen coordinates.
-- (CGRect) projectXYRect: (RMXYRect) aRect;
+- (CGRect) projectXYRect: (RMProjectedRect) aRect;
 
-- (RMXYPoint) projectScreenPointToXY: (CGPoint) aPoint;
-- (RMXYRect) projectScreenRectToXY: (CGRect) aRect;
-- (RMXYSize)projectScreenSizeToXY: (CGSize) aSize;
-- (RMXYPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale;
+- (RMProjectedPoint) projectScreenPointToXY: (CGPoint) aPoint;
+- (RMProjectedRect) projectScreenRectToXY: (CGRect) aRect;
+- (RMProjectedSize)projectScreenSizeToXY: (CGSize) aSize;
+- (RMProjectedPoint)projectScreenPointToXY: (CGPoint) aPixelPoint withScale:(float)aScale;
 
-- (RMXYRect) XYBounds;
-- (void) setXYBounds: (RMXYRect) bounds;
-- (RMXYPoint) XYCenter;
-- (void) setXYCenter: (RMXYPoint) aPoint;
+- (RMProjectedRect) projectedBounds;
+- (void) setProjectedBounds: (RMProjectedRect) bounds;
+- (RMProjectedPoint) projectedCenter;
+- (void) setProjectedCenter: (RMProjectedPoint) aPoint;
 - (void) setScreenBounds:(CGRect)rect;
 - (CGRect) screenBounds;
 

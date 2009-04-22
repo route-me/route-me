@@ -34,8 +34,8 @@
 	/// Maximum zoom for which our tile server stores images
 	NSUInteger maxZoom;
 	
-	/// Mercator bounds of the earth 
-	RMXYRect bounds;
+	/// projected bounds of the planet, in meters
+	RMProjectedRect planetBounds;
 	
 	/// Normally 256. This class assumes tiles are square.
 	NSUInteger tileSideLength;

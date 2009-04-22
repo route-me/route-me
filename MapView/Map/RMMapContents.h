@@ -119,7 +119,7 @@ enum {
 }
 
 @property (readwrite) CLLocationCoordinate2D mapCenter;
-@property (readwrite) RMXYRect XYBounds;
+@property (readwrite) RMProjectedRect projectedBounds;
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
 /*! \brief "scale" as of version 0.4/0.5 actually doesn't mean cartographic scale; it means meters per pixel.
@@ -181,7 +181,7 @@ enum {
 - (void)didReceiveMemoryWarning;
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
-- (void)moveToXYPoint: (RMXYPoint)aPoint;
+- (void)moveToProjectedPoint: (RMProjectedPoint)aPoint;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
@@ -217,7 +217,7 @@ enum {
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
 
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
-- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
+- (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
 
 /// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getScreenCoordinateBounds;
@@ -243,7 +243,7 @@ enum {
 
 @optional
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong;
-- (void)moveToXYPoint: (RMXYPoint)aPoint;
+- (void)moveToProjectedPoint: (RMProjectedPoint)aPoint;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
@@ -263,7 +263,7 @@ enum {
 - (CLLocationCoordinate2D)pixelToLatLong:(CGPoint)aPixel withScale:(float)aScale;
 
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
-- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds;
+- (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
 
 /// \deprecated name change pending after 0.5
 - (RMLatLongBounds) getScreenCoordinateBounds;

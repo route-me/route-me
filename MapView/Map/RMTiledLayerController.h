@@ -56,7 +56,7 @@
 
 -(void) setScale: (float) scale;
 
--(void) centerXYPoint: (RMXYPoint) aPoint animate: (BOOL) animate;
+-(void) centerProjectedPoint: (RMProjectedPoint) aPoint animate: (BOOL) animate;
 -(void) centerLatLong: (CLLocationCoordinate2D) point animate: (BOOL) animate;
 -(void) dragBy: (CGSize) delta;
 -(void) zoomByFactor: (float) zoomFactor near:(CGPoint) center;

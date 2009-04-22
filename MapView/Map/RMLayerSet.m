@@ -57,7 +57,7 @@
 	{
 		// Kinda ugly.
 		CALayer<RMMovingMapLayer>* layer_with_proto = (CALayer<RMMovingMapLayer>*)layer;
-		RMXYPoint location = [layer_with_proto location];
+		RMProjectedPoint location = [layer_with_proto projectedLocation];
 		layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectXYPoint:location];
 	}
 }
@@ -141,7 +141,7 @@
 - (void)removeSublayer:(RMMapLayer*) layer;
  */
 
-- (void)moveToXYPoint: (RMXYPoint)aPoint
+- (void)moveToProjectedPoint: (RMProjectedPoint)aPoint
 {
 	/// \bug TODO: Test this. Does it work?
 	[self correctPositionOfAllSublayers];

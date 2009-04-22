@@ -55,7 +55,7 @@
 //- (void)insertSublayer:(RMMapLayer*) layer above:(RMMapLayer*)sibling;
 //- (void)removeSublayer:(RMMapLayer*) layer;
 
-- (void)moveToXYPoint: (RMXYPoint)aPoint;
+- (void)moveToProjectedPoint: (RMProjectedPoint)aPoint;
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 - (void)removeSublayer:(CALayer *)layer;

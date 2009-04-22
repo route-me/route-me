@@ -82,7 +82,7 @@
 	return scale;
 }
 
--(void) centerXYPoint: (RMXYPoint) aPoint animate: (BOOL) animate
+-(void) centerProjectedPoint: (RMProjectedPoint) aPoint animate: (BOOL) animate
 {
 	if (animate == NO)
 	{

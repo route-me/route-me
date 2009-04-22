@@ -41,7 +41,7 @@
 	NSMutableArray *points;
 
 	/// This is the first point.
-	RMXYPoint origin;
+	RMProjectedPoint origin;
 	
 	/// The color of the line, or the outline if a polygon
 	UIColor *lineColor;
@@ -73,11 +73,11 @@
 @property CGPathDrawingMode drawingMode;
 
 @property float lineWidth;
-@property (nonatomic, assign) RMXYPoint origin;
+@property (nonatomic, assign) RMProjectedPoint origin;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
 
-- (void) addLineToXY: (RMXYPoint) point;
+- (void) addLineToXY: (RMProjectedPoint) point;
 - (void) addLineToScreenPoint: (CGPoint) point;
 - (void) addLineToLatLong: (RMLatLong) point;
 

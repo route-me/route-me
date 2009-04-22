@@ -62,7 +62,7 @@
 /// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
-	[marker setLocation:[[contents projection]latLongToPoint:point]];
+	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
 	[self addMarker: marker];
 }
 
@@ -118,7 +118,7 @@
 /// \deprecated violates Objective-C naming rules
 - (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
 {
-	return [[contents mercatorToScreenProjection] projectXYPoint:[marker location]];
+	return [[contents mercatorToScreenProjection] projectXYPoint:[marker projectedLocation]];
 }
 
 /// \deprecated violates Objective-C naming rules, confusing name
@@ -177,13 +177,13 @@
 
 - (void) moveMarker:(RMMarker *)marker AtLatLon:(RMLatLong)point
 {
-	[marker setLocation:[[contents projection]latLongToPoint:point]];
+	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
 	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]]];
 }
 
 - (void) moveMarker:(RMMarker *)marker AtXY:(CGPoint)point
 {
-	[marker setLocation:[[contents mercatorToScreenProjection] projectScreenPointToXY:point]];
+	[marker setProjectedLocation:[[contents mercatorToScreenProjection] projectScreenPointToXY:point]];
 	[marker setPosition:point];
 }
 

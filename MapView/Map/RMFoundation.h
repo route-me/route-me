@@ -25,30 +25,30 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-/*! \struct RMXYPoint 
+/*! \struct RMProjectedPoint 
  \brief coordinates, in projected meters, paralleling CGPoint */
 typedef struct {
-	double x, y;
-} RMXYPoint;
+	double easting, northing;
+} RMProjectedPoint;
 
-/*! \struct RMXYSize 
+/*! \struct RMProjectedSize 
  \brief width/height struct, in projected meters, paralleling CGSize */
 typedef struct {
 	double width, height;
-} RMXYSize;
+} RMProjectedSize;
 
-/*! \struct RMXYRect 
+/*! \struct RMProjectedRect 
  \brief location and size, in projected meters, paralleling CGRect */
 typedef struct {
-	RMXYPoint origin;
-	RMXYSize size;
-} RMXYRect;
+	RMProjectedPoint origin;
+	RMProjectedSize size;
+} RMProjectedRect;
 
-RMXYPoint RMScaleXYPointAboutPoint(RMXYPoint point, float factor, RMXYPoint pivot);
-RMXYRect  RMScaleXYRectAboutPoint (RMXYRect rect,   float factor, RMXYPoint pivot);
-RMXYPoint RMTranslateXYPointBy    (RMXYPoint point, RMXYSize delta);
-RMXYRect  RMTranslateXYRectBy     (RMXYRect rect,   RMXYSize delta);
+RMProjectedPoint RMScaleProjectedPointAboutPoint (RMProjectedPoint point, float factor, RMProjectedPoint pivot);
+RMProjectedRect  RMScaleProjectedRectAboutPoint(RMProjectedRect rect,   float factor, RMProjectedPoint pivot);
+RMProjectedPoint RMTranslateProjectedPointBy (RMProjectedPoint point, RMProjectedSize delta);
+RMProjectedRect  RMTranslateProjectedRectBy (RMProjectedRect rect,   RMProjectedSize delta);
 
-RMXYPoint  RMXYMakePoint (double x, double y);
-RMXYRect  RMXYMakeRect (double x, double y, double width, double height);
+RMProjectedPoint  RMMakeProjectedPoint (double easting, double northing);
+RMProjectedRect  RMMakeProjectedRect (double easting, double northing, double width, double height);
 

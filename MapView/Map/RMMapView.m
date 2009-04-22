@@ -187,10 +187,10 @@
 
 #pragma mark Movement
 
--(void) moveToXYPoint: (RMXYPoint) aPoint
+-(void) moveToProjectedPoint: (RMProjectedPoint) aPoint
 {
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
-	[self.contents moveToXYPoint:aPoint];
+	[self.contents moveToProjectedPoint:aPoint];
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 -(void) moveToLatLong: (CLLocationCoordinate2D) point

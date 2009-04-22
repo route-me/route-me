@@ -38,34 +38,34 @@
 	void*		internalProjection;
 	
 	/// the size of the earth, in projected units (meters, most often)
-	RMXYRect	bounds;
+	RMProjectedRect	planetBounds;
 	
 	/// hardcoded to YES in #initWithString:InBounds:
 	BOOL		projectionWrapsHorizontally;
 }
 
 @property (readonly) void* internalProjection;
-@property (readonly) RMXYRect bounds;
+@property (readonly) RMProjectedRect planetBounds;
 @property (readwrite) BOOL projectionWrapsHorizontally;
 
 /// If #projectionWrapsHorizontally, returns #aPoint with easting adjusted modulo Earth's diameter to be within projection's bounds. if !#projectionWrapsHorizontally, returns #aPoint unchanged.
-- (RMXYPoint) wrapPointHorizontally: (RMXYPoint) aPoint;
+- (RMProjectedPoint) wrapPointHorizontally: (RMProjectedPoint) aPoint;
 
 /// applies #wrapPointHorizontally to aPoint, and then clamps northing (Y coordinate) to projection's bounds
-- (RMXYPoint) constrainPointToBounds: (RMXYPoint) aPoint;
+- (RMProjectedPoint) constrainPointToBounds: (RMProjectedPoint) aPoint;
 
 + (RMProjection *) googleProjection;
 + (RMProjection *) EPSGLatLong;
 + (RMProjection *) OSGB;
 
 /// anybody know what the InBounds: parameter means?
-- (id) initWithString: (NSString*)params InBounds: (RMXYRect) projBounds;
+- (id) initWithString: (NSString*)params InBounds: (RMProjectedRect) projBounds;
 
 /// inverse project meters, return latitude/longitude
 /// \deprecated rename pending after 0.5
-- (RMLatLong)pointToLatLong:(RMXYPoint)aPoint;
+- (RMLatLong)pointToLatLong:(RMProjectedPoint)aPoint;
 /// forward project latitude/longitude, return meters
 /// \deprecated rename pending after 0.5
-- (RMXYPoint)latLongToPoint:(RMLatLong)aLatLong;
+- (RMProjectedPoint)latLongToPoint:(RMLatLong)aLatLong;
 
 @end

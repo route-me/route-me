@@ -104,11 +104,11 @@
 //	RMLog(@"new anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
 }
 
-- (void) addLineToXY: (RMXYPoint) point
+- (void) addLineToXY: (RMProjectedPoint) point
 {
-//	RMLog(@"addLineToXY %f %f", point.x, point.y);
+//	RMLog(@"addLineToXY %f %f", point.easting, point.northing);
 	
-	NSValue* value = [NSValue value:&point withObjCType:@encode(RMXYPoint)];
+	NSValue* value = [NSValue value:&point withObjCType:@encode(RMProjectedPoint)];
 
 	if (points == nil)
 	{
@@ -124,10 +124,10 @@
 	{
 		[points addObject:value];
 		
-		point.x = point.x - origin.x;
-		point.y = point.y - origin.y;
+		point.easting = point.easting - origin.easting;
+		point.northing = point.northing - origin.northing;
 		
-		CGPathAddLineToPoint(path, NULL, point.x, -point.y);
+		CGPathAddLineToPoint(path, NULL, point.easting, -point.northing);
 	
 		[self recalculateGeometry];
 	}
@@ -136,14 +136,14 @@
 
 - (void) addLineToScreenPoint: (CGPoint) point
 {
-	RMXYPoint mercator = [[contents mercatorToScreenProjection] projectScreenPointToXY: point];
+	RMProjectedPoint mercator = [[contents mercatorToScreenProjection] projectScreenPointToXY: point];
 	
 	[self addLineToXY: mercator];
 }
 
 - (void) addLineToLatLong: (RMLatLong) point
 {
-	RMXYPoint mercator = [[contents projection] latLongToPoint:point];
+	RMProjectedPoint mercator = [[contents projection] latLongToPoint:point];
 	
 	[self addLineToXY:mercator];
 }

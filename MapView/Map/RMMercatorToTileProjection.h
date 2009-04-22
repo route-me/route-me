@@ -36,11 +36,11 @@
 /// At time of writing, read RMFractalTileProjection to see the implementation of this.
 @protocol RMMercatorToTileProjection<NSObject>
 
--(RMTilePoint) project: (RMXYPoint)aPoint atZoom:(float)zoom;
--(RMTileRect) projectRect: (RMXYRect)aRect atZoom:(float)zoom;
+-(RMTilePoint) project: (RMProjectedPoint)aPoint atZoom:(float)zoom;
+-(RMTileRect) projectRect: (RMProjectedRect)aRect atZoom:(float)zoom;
 
--(RMTilePoint) project: (RMXYPoint)aPoint atScale:(float)scale;
--(RMTileRect) projectRect: (RMXYRect)aRect atScale:(float)scale;
+-(RMTilePoint) project: (RMProjectedPoint)aPoint atScale:(float)scale;
+-(RMTileRect) projectRect: (RMProjectedRect)aRect atScale:(float)scale;
 
 /// This is a helper for projectRect above. Much simpler for the caller.
 -(RMTileRect) project: (RMMercatorToScreenProjection*)screen;
@@ -53,10 +53,10 @@
 -(float) calculateNormalisedZoomFromScale: (float) scale;
 -(float) calculateScaleFromZoom: (float) zoom;
 
-/// XY bounds of the earth.
-@property(readonly, nonatomic) RMXYRect bounds;
+/// bounds of the earth, in projected units (meters).
+@property(readonly, nonatomic) RMProjectedRect planetBounds;
 
-/// Maximum zoom for which we have tile images
+/// Maximum zoom for which we have tile images \bug why no minZoom?
 @property(readonly, nonatomic) NSUInteger maxZoom;
 
 /// Tile side length in pixels

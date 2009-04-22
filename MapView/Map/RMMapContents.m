@@ -296,12 +296,12 @@
 
 - (void)moveToLatLong: (CLLocationCoordinate2D)latlong
 {
-	RMXYPoint aPoint = [[self projection] latLongToPoint:latlong];
-	[self moveToXYPoint: aPoint];
+	RMProjectedPoint aPoint = [[self projection] latLongToPoint:latlong];
+	[self moveToProjectedPoint: aPoint];
 }
-- (void)moveToXYPoint: (RMXYPoint)aPoint
+- (void)moveToProjectedPoint: (RMProjectedPoint)aPoint
 {
-	[mercatorToScreenProjection setXYCenter:aPoint];
+	[mercatorToScreenProjection setProjectedCenter:aPoint];
 	[overlay correctPositionOfAllSublayers];
 	[tileLoader reload];
 	[renderer setNeedsDisplay];
@@ -325,7 +325,7 @@
 	
 	double newScale = self.scale / zoomFactor;
 	
-	RMXYRect mercatorBounds = [[tileSource projection] bounds];
+	RMProjectedRect mercatorBounds = [[tileSource projection] planetBounds];
 	
 	// Check for MinWidthBound
 	if ( boundingMask & RMMapMinWidthBound )
@@ -709,7 +709,7 @@
 
 - (CLLocationCoordinate2D) mapCenter
 {
-	RMXYPoint aPoint = [mercatorToScreenProjection XYCenter];
+	RMProjectedPoint aPoint = [mercatorToScreenProjection projectedCenter];
 	return [projection pointToLatLong:aPoint];
 }
 
@@ -718,13 +718,13 @@
 	[self moveToLatLong:center];
 }
 
--(RMXYRect) XYBounds
+-(RMProjectedRect) projectedBounds
 {
-	return [mercatorToScreenProjection XYBounds];
+	return [mercatorToScreenProjection projectedBounds];
 }
--(void) setXYBounds: (RMXYRect) boundsRect
+-(void) setProjectedBounds: (RMProjectedRect) boundsRect
 {
-	[mercatorToScreenProjection setXYBounds:boundsRect];
+	[mercatorToScreenProjection setProjectedBounds:boundsRect];
 }
 
 -(RMTileRect) tileBounds
@@ -859,13 +859,13 @@ static BOOL _performExpensiveOperations = YES;
 {
 	if(ne.latitude == sw.latitude && ne.longitude == sw.longitude)//There are no bounds, probably only one marker.
 	{
-		RMXYRect zoomRect;
-		RMXYPoint myOrigin = [projection latLongToPoint:sw];
+		RMProjectedRect zoomRect;
+		RMProjectedPoint myOrigin = [projection latLongToPoint:sw];
 		//Default is with scale = 2.0 mercators/pixel
 		zoomRect.size.width = [self screenBounds].size.width * 2.0;
 		zoomRect.size.height = [self screenBounds].size.height * 2.0;
-		myOrigin.x = myOrigin.x - (zoomRect.size.width / 2);
-		myOrigin.y = myOrigin.y - (zoomRect.size.height / 2);
+		myOrigin.easting = myOrigin.easting - (zoomRect.size.width / 2);
+		myOrigin.northing = myOrigin.northing - (zoomRect.size.height / 2);
 		zoomRect.origin = myOrigin;
 		[self zoomWithRMMercatorRectBounds:zoomRect];
 	}
@@ -877,47 +877,47 @@ static BOOL _performExpensiveOperations = YES;
 			.latitude = (ne.latitude + sw.latitude) / 2,
 			.longitude = (ne.longitude + sw.longitude) / 2
 		};
-		RMXYPoint myOrigin = [projection latLongToPoint:midpoint];
-		RMXYPoint nePoint = [projection latLongToPoint:ne];
-		RMXYPoint swPoint = [projection latLongToPoint:sw];
-		RMXYPoint myPoint = {.x = nePoint.x - swPoint.x, .y = nePoint.y - swPoint.y};
+		RMProjectedPoint myOrigin = [projection latLongToPoint:midpoint];
+		RMProjectedPoint nePoint = [projection latLongToPoint:ne];
+		RMProjectedPoint swPoint = [projection latLongToPoint:sw];
+		RMProjectedPoint myPoint = {.easting = nePoint.easting - swPoint.easting, .northing = nePoint.northing - swPoint.northing};
 		//Create the new zoom layout
-		RMXYRect zoomRect;
+		RMProjectedRect zoomRect;
 		//Default is with scale = 2.0 mercators/pixel
 		zoomRect.size.width = [self screenBounds].size.width * 2.0;
 		zoomRect.size.height = [self screenBounds].size.height * 2.0;
-		if((myPoint.x / ([self screenBounds].size.width)) < (myPoint.y / ([self screenBounds].size.height)))
+		if((myPoint.easting / ([self screenBounds].size.width)) < (myPoint.northing / ([self screenBounds].size.height)))
 		{
-			if((myPoint.y / ([self screenBounds].size.height - pixelBuffer)) > 1)
+			if((myPoint.northing / ([self screenBounds].size.height - pixelBuffer)) > 1)
 			{
-				zoomRect.size.width = [self screenBounds].size.width * (myPoint.y / ([self screenBounds].size.height - pixelBuffer));
-				zoomRect.size.height = [self screenBounds].size.height * (myPoint.y / ([self screenBounds].size.height - pixelBuffer));
+				zoomRect.size.width = [self screenBounds].size.width * (myPoint.northing / ([self screenBounds].size.height - pixelBuffer));
+				zoomRect.size.height = [self screenBounds].size.height * (myPoint.northing / ([self screenBounds].size.height - pixelBuffer));
 			}
 		}
 		else
 		{
-			if((myPoint.x / ([self screenBounds].size.width - pixelBuffer)) > 1)
+			if((myPoint.easting / ([self screenBounds].size.width - pixelBuffer)) > 1)
 			{
-				zoomRect.size.width = [self screenBounds].size.width * (myPoint.x / ([self screenBounds].size.width - pixelBuffer));
-				zoomRect.size.height = [self screenBounds].size.height * (myPoint.x / ([self screenBounds].size.width - pixelBuffer));
+				zoomRect.size.width = [self screenBounds].size.width * (myPoint.easting / ([self screenBounds].size.width - pixelBuffer));
+				zoomRect.size.height = [self screenBounds].size.height * (myPoint.easting / ([self screenBounds].size.width - pixelBuffer));
 			}
 		}
-		myOrigin.x = myOrigin.x - (zoomRect.size.width / 2);
-		myOrigin.y = myOrigin.y - (zoomRect.size.height / 2);
+		myOrigin.easting = myOrigin.easting - (zoomRect.size.width / 2);
+		myOrigin.northing = myOrigin.northing - (zoomRect.size.height / 2);
 		RMLog(@"Origin is calculated at: %f, %f", [projection pointToLatLong:myOrigin].latitude, [projection pointToLatLong:myOrigin].longitude);
 		/*It gets all messed up if our origin is lower than the lowest place on the map, so we check.
-		 if(myOrigin.y < -19971868.880409)
+		 if(myOrigin.northing < -19971868.880409)
 		 {
-		 myOrigin.y = -19971868.880409;
+		 myOrigin.northing = -19971868.880409;
 		 }*/
 		zoomRect.origin = myOrigin;
 		[self zoomWithRMMercatorRectBounds:zoomRect];
 	}
 }
 
-- (void)zoomWithRMMercatorRectBounds:(RMXYRect)bounds
+- (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds
 {
-	[self setXYBounds:bounds];
+	[self setProjectedBounds:bounds];
 	[overlay correctPositionOfAllSublayers];
 	[tileLoader clearLoadedBounds];
 	[tileLoader updateLoadedImages];
