@@ -54,7 +54,7 @@
 - (void)testMarkers
 {
 	RMMarkerManager *markerManager = [mapView markerManager];
-	NSArray *markers = [markerManager getMarkers];
+	NSArray *markers = [markerManager markers];
 	
 	NSLog(@"Nb markers %d", [markers count]);
 	
@@ -64,11 +64,11 @@
 	while (aMarker = (RMMarker *)[markerEnumerator nextObject])
 		
 	{
-		RMXYPoint point = [aMarker location];
-		NSLog(@"Marker mercator location: X:%lf, Y:%lf", point.x, point.y);
-		CGPoint screenPoint = [markerManager getMarkerScreenCoordinate: aMarker];
+		RMProjectedPoint point = [aMarker projectedLocation];
+		NSLog(@"Marker projected location: east:%lf, north:%lf", point.easting, point.northing);
+		CGPoint screenPoint = [markerManager screenCoordinatesForMarker: aMarker];
 		NSLog(@"Marker screen location: X:%lf, Y:%lf", screenPoint.x, screenPoint.y);
-		CLLocationCoordinate2D coordinates =  [markerManager getMarkerCoordinate2D: aMarker];
+		CLLocationCoordinate2D coordinates =  [markerManager latitudeLongitudeForMarker: aMarker];
 		NSLog(@"Marker Lat/Lon location: Lat:%lf, Lon:%lf", coordinates.latitude, coordinates.longitude);
 		
 		[markerManager removeMarker:aMarker];
@@ -80,11 +80,8 @@
 	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	
-
-	
-//	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	[marker release];
-	markers  = [markerManager getMarkersForScreenBounds];
+	markers  = [markerManager markersWithinScreenBounds];
 	
 	NSLog(@"Nb Markers in Screen: %d", [markers count]);
 	
@@ -110,7 +107,7 @@
    
 	RMMarkerManager *markerManager = [mapView markerManager];
 
-	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
+	NSLog(@"New location: east:%lf north:%lf", [marker projectedLocation].easting, [marker projectedLocation].northing);
 	CGRect rect = [marker bounds];
 	
 	[markerManager moveMarker:marker AtXY:CGPointMake(position.x,position.y +rect.size.height/3)];

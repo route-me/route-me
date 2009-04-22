@@ -86,7 +86,7 @@
    
 	RMMarkerManager *markerManager = [mapView markerManager];
 
-	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
+	NSLog(@"New location: X:%lf Y:%lf", [marker projectedLocation].easting, [marker projectedLocation].northing);
 	CGRect rect = [marker bounds];
 	
 	[markerManager moveMarker:marker AtXY:CGPointMake(position.x,position.y +rect.size.height/3)];

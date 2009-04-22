@@ -25,21 +25,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 092AB7560F8D6EEA0059C0D2 /* MapView.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = B8C974590E8A19B2007D16AD /* libMapView.a */;
+			remoteGlobalIDString = B8C974590E8A19B2007D16AD;
 			remoteInfo = MapView;
 		};
 		092AB75F0F8D6EEA0059C0D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 092AB7560F8D6EEA0059C0D2 /* MapView.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 2BF3078F0F8AC5C0007014EE /* RM Unit Tests.app */;
+			remoteGlobalIDString = 2BF3078F0F8AC5C0007014EE;
 			remoteInfo = "Unit Tests";
 		};
 		092AB7620F8D6F010059C0D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 092AB7560F8D6EEA0059C0D2 /* MapView.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B8C974130E8A19B2007D16AD /* MapView */;
+			remoteGlobalIDString = B8C974130E8A19B2007D16AD;
 			remoteInfo = MapView;
 		};
 /* End PBXContainerItemProxy section */

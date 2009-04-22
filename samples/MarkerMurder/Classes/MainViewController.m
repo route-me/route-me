@@ -9,7 +9,7 @@
 #import "MainView.h"
 
 #import "RMOpenAerialMapSource.h"
-#import "RMOpenStreetMapsSource.h"
+#import "RMOpenStreetMapSource.h"
 #import "RMMapContents.h"
 #import "RMMapView.h"
 #import "RMMarkerManager.h"
@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [mapView setDelegate:self];
-	id myTilesource = [[[RMOpenStreetMapsSource alloc] init] autorelease];
+	id myTilesource = [[[RMOpenStreetMapSource alloc] init] autorelease];
     
 	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
 	[[[RMMapContents alloc] initWithView:mapView 
@@ -127,8 +127,8 @@
 	LogMethod();
 	RMMarkerManager *mangler = [[[self mapView] contents] markerManager];
 								
-	for (RMTestableMarker *theMarker in [mangler getMarkers]) {
-		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
+	for (RMTestableMarker *theMarker in [mangler markers]) {
+		CGPoint screenPosition = [mangler screenCoordinatesForMarker:theMarker];
 		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
 			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
 			  screenPosition.y, screenPosition.x);

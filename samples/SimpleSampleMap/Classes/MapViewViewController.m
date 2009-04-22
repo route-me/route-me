@@ -52,7 +52,7 @@
 - (void)testMarkers
 {
 	RMMarkerManager *markerManager	= [mapView markerManager];
-	NSArray			*markers		= [markerManager getMarkers];
+	NSArray			*markers		= [markerManager markers];
 	
 	NSLog(@"Nb markers %d", [markers count]);
 	
@@ -80,7 +80,7 @@
 	
 	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	[marker release];
-	markers  = [markerManager getMarkersForScreenBounds];
+	markers  = [markerManager markersWithinScreenBounds];
 	
 	NSLog(@"Nb Markers in Screen: %d", [markers count]);
 	
@@ -110,7 +110,7 @@ shouldDragMarker:(RMMarker *)marker
    
 	RMMarkerManager *markerManager = [mapView markerManager];
 
-	NSLog(@"New location: X:%lf Y:%lf", [marker location].x, [marker location].y);
+	NSLog(@"New location: east:%lf north:%lf", [marker projectedLocation].easting, [marker projectedLocation].northing);
 	CGRect rect = [marker bounds];
 	
 	[markerManager moveMarker:marker 
@@ -242,11 +242,11 @@ shouldDragMarker:(RMMarker *)marker
 	
 	currentLocation = newLocation.coordinate;
 	RMMarkerManager *markerManager = [mapView markerManager];
-	NSArray *markers = [markerManager getMarkers];
+	NSArray *markers = [markerManager markers];
 	for (NSInteger i = 0; i < [markers count]; ++i)
 	{
 		RMMarker *marker = [markers objectAtIndex: i];
-		CLLocationCoordinate2D location = [markerManager getMarkerCoordinate2D: marker];
+		CLLocationCoordinate2D location = [markerManager latitudeLongitudeForMarker:marker];
 		if (location.latitude == oldLocation.coordinate.latitude &&
 			location.longitude == oldLocation.coordinate.longitude)
 		{

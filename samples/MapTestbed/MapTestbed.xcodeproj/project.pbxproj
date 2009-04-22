@@ -27,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2B080D320F9FC12C00E947D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE3696D0F673B95003DC21C /* MapView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2BF3078F0F8AC5C0007014EE /* RM Unit Tests.app */;
+			remoteInfo = "Unit Tests";
+		};
 		2BB42BEE0F678951009967BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EBE3696D0F673B95003DC21C /* MapView.xcodeproj */;
@@ -184,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				EBE3697D0F673B95003DC21C /* libMapView.a */,
+				2B080D330F9FC12C00E947D5 /* RM Unit Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,6 +248,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		2B080D330F9FC12C00E947D5 /* RM Unit Tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "RM Unit Tests.app";
+			remoteRef = 2B080D320F9FC12C00E947D5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		EBE3697D0F673B95003DC21C /* libMapView.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
