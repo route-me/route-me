@@ -32,16 +32,18 @@
 #if TARGET_OS_IPHONE
 #import <CoreLocation/CoreLocation.h>
 
-/*! \struct RMLatLongBounds
+/*! \struct RMSphericalTrapezium
  
- \brief Specifies a spherical trapezium by northwest and southeast corners, each given as CLLocationCoordinate2D.
+ \brief Specifies a spherical trapezium by northwest and southeast corners, each given as CLLocationCoordinate2D, similar to specifying the corners of a box.
+ 
+ A spherical trapezium is the surface of a sphere or ellipsoid bounded by two meridians and two parallels. Note that in almost all cases, the lengths of the northern and southern sides of the box are different.
 
  \deprecated Note: northWest and southEast will change to northeast and southwest (note spelling and corner changes) after 0.5 to keep right-handed coordinate system
  */
 typedef struct {
-	CLLocationCoordinate2D northWest;
-	CLLocationCoordinate2D southEast;
-} RMLatLongBounds;
+	CLLocationCoordinate2D northeast;
+	CLLocationCoordinate2D southwest;
+} RMSphericalTrapezium;
 
 #else
 

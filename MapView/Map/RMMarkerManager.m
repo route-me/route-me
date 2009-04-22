@@ -100,7 +100,7 @@
 #pragma mark Marker information
 
 /// \deprecated violates Objective-C naming rules
-- (NSArray *)getMarkers
+- (NSArray *)markers
 {
 	return [[contents overlay] sublayers];
 }
@@ -115,25 +115,22 @@
 	[[contents overlay] removeSublayers:markers];
 }
 
-/// \deprecated violates Objective-C naming rules
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker
+- (CGPoint) screenCoordinatesForMarker: (RMMarker *)marker
 {
 	return [[contents mercatorToScreenProjection] projectXYPoint:[marker projectedLocation]];
 }
 
-/// \deprecated violates Objective-C naming rules, confusing name
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker
+- (CLLocationCoordinate2D) latitudeLongitudeForMarker: (RMMarker *) marker
 {
-	return [contents pixelToLatLong:[self getMarkerScreenCoordinate:marker]];
+	return [contents pixelToLatLong:[self screenCoordinatesForMarker:marker]];
 }
 
-/// \deprecated violates Objective-C naming rules
-- (NSArray *) getMarkersForScreenBounds
+- (NSArray *) markersWithinScreenBounds
 {
 	NSMutableArray *markersInScreenBounds = [NSMutableArray array];
 	CGRect rect = [[contents mercatorToScreenProjection] screenBounds];
 	
-	for (RMMarker *marker in [self getMarkers]) {
+	for (RMMarker *marker in [self markers]) {
 		if ([self isMarker:marker withinBounds:rect]) {
 			[markersInScreenBounds addObject:marker];
 		}
@@ -154,7 +151,7 @@
 		return NO;
 	}
 	
-	CGPoint markerCoord = [self getMarkerScreenCoordinate:marker];
+	CGPoint markerCoord = [self screenCoordinatesForMarker:marker];
 	
 	if (   markerCoord.x > rect.origin.x
 		&& markerCoord.x < rect.origin.x + rect.size.width
@@ -169,7 +166,7 @@
 /// \deprecated violates Objective-C naming rules
 - (BOOL) managingMarker:(RMMarker*)marker
 {
-	if (marker != nil && [[self getMarkers] indexOfObject:marker] != NSNotFound) {
+	if (marker != nil && [[self markers] indexOfObject:marker] != NSNotFound) {
 		return YES;
 	}
 	return NO;

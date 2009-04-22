@@ -47,15 +47,15 @@
 - (void) hideAllMarkers;
 - (void) unhideAllMarkers;
 
-- (NSArray *)getMarkers;
+- (NSArray *)markers;
 - (void) removeMarker:(RMMarker *)marker;
 - (void) removeMarkers:(NSArray *)markers;
 /// \deprecated to be renamed screenCoordinates after 0.5
-- (CGPoint) getMarkerScreenCoordinate: (RMMarker *)marker;
+- (CGPoint) screenCoordinatesForMarker: (RMMarker *)marker;
 /// \deprecated to be renamed after 0.5
-- (CLLocationCoordinate2D) getMarkerCoordinate2D: (RMMarker *) marker;
+- (CLLocationCoordinate2D) latitudeLongitudeForMarker: (RMMarker *) marker;
 /// \deprecated to be renamed markersForScreenBounds after 0.5
-- (NSArray *) getMarkersForScreenBounds;
+- (NSArray *) markersWithinScreenBounds;
 - (BOOL) isMarkerWithinScreenBounds:(RMMarker*)marker;
 - (BOOL) isMarker:(RMMarker*)marker withinBounds:(CGRect)rect;
 - (BOOL) managingMarker:(RMMarker*)marker;

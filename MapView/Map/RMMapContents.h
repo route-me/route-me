@@ -196,8 +196,7 @@ enum {
 - (void)adjustMapPlacementWithScale:(float)aScale;
 /// \deprecated removed after 0.5
 - (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
-/// \deprecated renamed after 0.5
-- (float)getNextNativeZoomFactor;
+- (float)nextNativeZoomFactor;
 
 - (void) drawRect: (CGRect) rect;
 
@@ -219,10 +218,10 @@ enum {
 - (void)zoomWithLatLngBoundsNorthEast:(CLLocationCoordinate2D)ne SouthWest:(CLLocationCoordinate2D)se;
 - (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
 
-/// \deprecated name change pending after 0.5
-- (RMLatLongBounds) getScreenCoordinateBounds;
-/// \deprecated name change pending after 0.5
-- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
+/// returns the smallest bounding box containing the entire screen
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxForScreen;
+/// returns the smallest bounding box containing a rectangular region of the screen
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxFor:(CGRect) rect;
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 
@@ -266,9 +265,9 @@ enum {
 - (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds;
 
 /// \deprecated name change pending after 0.5
-- (RMLatLongBounds) getScreenCoordinateBounds;
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxForScreen;
 /// \deprecated name change pending after 0.5
-- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect;
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxFor:(CGRect) rect;
 
 - (void) tilesUpdatedRegion:(CGRect)region;
 

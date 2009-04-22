@@ -230,7 +230,7 @@
 
 #pragma mark Event handling
 
-- (RMGestureDetails) getGestureDetails: (NSSet*) touches
+- (RMGestureDetails) gestureDetails: (NSSet*) touches
 {
 	RMGestureDetails gesture;
 	gesture.center.x = gesture.center.y = 0;
@@ -327,7 +327,7 @@
 	}
 	
 	//	RMLog(@"touchesBegan %d", [[event allTouches] count]);
-	lastGesture = [self getGestureDetails:[event allTouches]];
+	lastGesture = [self gestureDetails:[event allTouches]];
 
 	if(deceleration)
 	{
@@ -373,7 +373,7 @@
 	NSInteger lastTouches = lastGesture.numTouches;
 	
 	// Calculate the gesture.
-	lastGesture = [self getGestureDetails:[event allTouches]];
+	lastGesture = [self gestureDetails:[event allTouches]];
 
 	// If there are no more fingers on the screen, resume any slow operations.
 	if (lastGesture.numTouches == 0)
@@ -389,7 +389,7 @@
 			[delegate doubleTapOnMap: self At: lastGesture.center];
 		} else {
 			// Default behaviour matches built in maps.app
-			float nextZoomFactor = [self.contents getNextNativeZoomFactor];
+			float nextZoomFactor = [self.contents nextNativeZoomFactor];
 			if (nextZoomFactor != 0)
 				[self zoomByFactor:nextZoomFactor near:[touch locationInView:self] animated:YES];
 		}
@@ -479,7 +479,7 @@
 		}
 	}
 	
-	RMGestureDetails newGesture = [self getGestureDetails:[event allTouches]];
+	RMGestureDetails newGesture = [self gestureDetails:[event allTouches]];
 	
 	if (enableDragging && newGesture.numTouches == lastGesture.numTouches)
 	{

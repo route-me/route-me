@@ -32,7 +32,7 @@
  
  Provides key-based access to tiles from the Open Street Map project. 
  */
-@interface RMOpenStreetMapsSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>{
+@interface RMOpenStreetMapSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>{
 }
 
 @end

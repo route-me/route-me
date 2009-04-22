@@ -48,10 +48,10 @@
 @property (readonly) RMProjectedRect planetBounds;
 @property (readwrite) BOOL projectionWrapsHorizontally;
 
-/// If #projectionWrapsHorizontally, returns #aPoint with easting adjusted modulo Earth's diameter to be within projection's bounds. if !#projectionWrapsHorizontally, returns #aPoint unchanged.
+/// If #projectionWrapsHorizontally, returns #aPoint with its easting adjusted modulo Earth's diameter to be within projection's planetBounds. if !#projectionWrapsHorizontally, returns #aPoint unchanged.
 - (RMProjectedPoint) wrapPointHorizontally: (RMProjectedPoint) aPoint;
 
-/// applies #wrapPointHorizontally to aPoint, and then clamps northing (Y coordinate) to projection's bounds
+/// applies #wrapPointHorizontally to aPoint, and then clamps northing (Y coordinate) to projection's planetBounds
 - (RMProjectedPoint) constrainPointToBounds: (RMProjectedPoint) aPoint;
 
 + (RMProjection *) googleProjection;

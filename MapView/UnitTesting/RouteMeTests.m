@@ -106,8 +106,8 @@
 	
 #ifdef DEBUG
 	RMMarkerManager *mangler = [[mapView contents] markerManager];
-	for (RMTestableMarker *theMarker in [mangler getMarkers]) {
-		CGPoint screenPosition = [mangler getMarkerScreenCoordinate:theMarker];
+	for (RMTestableMarker *theMarker in [mangler markers]) {
+		CGPoint screenPosition = [mangler screenCoordinatesForMarker:theMarker];
 		RMLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
 			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
 			  screenPosition.y, screenPosition.x);
@@ -145,16 +145,16 @@
 	
 	[[mapView contents] moveBy:CGSizeMake(-5.0, 0.0)];
 #ifdef DEBUG
-	RMLatLongBounds screenLimitsDegrees = [[mapView contents] getScreenCoordinateBounds];
-	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.northWest.longitude, screenLimitsDegrees.southEast.longitude);
-	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southEast.latitude, screenLimitsDegrees.northWest.latitude);
+	RMSphericalTrapezium screenLimitsDegrees = [[mapView contents] latitudeLongitudeBoundingBoxForScreen];
+	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.southwest.longitude, screenLimitsDegrees.northeast.longitude);
+	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southwest.latitude, screenLimitsDegrees.northeast.latitude);
 #endif
 	
 	for (j = 1; j < nColumns; j++) {
 		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
 		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
-		CGPoint leftScreenPosition = [mangler getMarkerScreenCoordinate:leftMarker];
-		CGPoint rightScreenPosition = [mangler getMarkerScreenCoordinate:rightMarker];
+		CGPoint leftScreenPosition = [mangler screenCoordinatesForMarker:leftMarker];
+		CGPoint rightScreenPosition = [mangler screenCoordinatesForMarker:rightMarker];
 		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
 						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
 						 j-1, j,
@@ -162,6 +162,14 @@
 						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
 						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
+		CLLocationCoordinate2D computedLatitudeLongitude = 
+		[mangler latitudeLongitudeForMarker:leftMarker];
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, .00001,
+								   @"round-trip computation of longitude failed %f %f",
+								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, .00001,
+								   @"round-trip computation of latitude failed %f %f",
+								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
 	}
 	
 }
@@ -196,22 +204,30 @@
 	
 	[[mapView contents] moveBy:CGSizeMake(-5.0, 0.0)];
 #ifdef DEBUG
-	RMLatLongBounds screenLimitsDegrees = [[mapView contents] getScreenCoordinateBounds];
-	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.northWest.longitude, screenLimitsDegrees.southEast.longitude);
-	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southEast.latitude, screenLimitsDegrees.northWest.latitude);
+	RMSphericalTrapezium screenLimitsDegrees = [[mapView contents] latitudeLongitudeBoundingBoxForScreen];
+	RMLog(@"screen limits west: %4.1f east %4.1f", screenLimitsDegrees.southwest.longitude, screenLimitsDegrees.northeast.longitude);
+	RMLog(@"screen limits south: %4.1f north %4.1f", screenLimitsDegrees.southwest.latitude, screenLimitsDegrees.northeast.latitude);
 #endif
 	
 	for (j = 1; j < nColumns; j++) {
 		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
 		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
-		CGPoint leftScreenPosition = [mangler getMarkerScreenCoordinate:leftMarker];
-		CGPoint rightScreenPosition = [mangler getMarkerScreenCoordinate:rightMarker];
+		CGPoint leftScreenPosition = [mangler screenCoordinatesForMarker:leftMarker];
+		CGPoint rightScreenPosition = [mangler screenCoordinatesForMarker:rightMarker];
 		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
 						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
 						 j-1, j,
 						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
 						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
+		CLLocationCoordinate2D computedLatitudeLongitude = 
+		[mangler latitudeLongitudeForMarker:leftMarker];
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, .00001,
+								   @"round-trip computation of longitude failed %f %f",
+								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, .00001,
+								   @"round-trip computation of latitude failed %f %f",
+								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
 	}
 	
 }

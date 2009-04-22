@@ -37,7 +37,7 @@
 #import "RMTileLoader.h"
 #import "RMTileImageSet.h"
 
-#import "RMOpenStreetMapsSource.h"
+#import "RMOpenStreetMapSource.h"
 #import "RMCoreAnimationRenderer.h"
 #import "RMCachedTileSource.h"
 
@@ -72,7 +72,7 @@
 	here.longitude = kDefaultInitialLongitude;
 	
 	return [self initWithView:view
-				   tilesource:[[RMOpenStreetMapsSource alloc] init]
+				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
 					zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
@@ -176,7 +176,7 @@
 {
 	WarnDeprecated();
 	LogMethod();
-	id<RMTileSource> _tileSource = [[RMOpenStreetMapsSource alloc] init];
+	id<RMTileSource> _tileSource = [[RMOpenStreetMapSource alloc] init];
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:latlong];
@@ -525,7 +525,7 @@
 	[self zoomInToNextNativeZoomAt:pivot animated:NO];
 }
 
-- (float)getNextNativeZoomFactor
+- (float)nextNativeZoomFactor
 {
 	float newZoom = roundf([self zoom] + 1);
 	return newZoom >= [self maxZoom] ? 0 : exp2f(newZoom - [self zoom]);
@@ -929,39 +929,58 @@ static BOOL _performExpensiveOperations = YES;
 
 // Move overlays stuff here - at the moment overlay stuff is above...
 
-- (RMLatLongBounds) getScreenCoordinateBounds
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxForScreen
 {
 	CGRect rect = [mercatorToScreenProjection screenBounds];
 	
-	return [self getCoordinateBounds:rect];
+	return [self latitudeLongitudeBoundingBoxFor:rect];
 }
 
-- (RMLatLongBounds) getCoordinateBounds:(CGRect) rect
+- (RMSphericalTrapezium) latitudeLongitudeBoundingBoxFor:(CGRect) rect
 {	
-	RMLatLongBounds bounds;
-	CGPoint northWest = rect.origin;
+	RMSphericalTrapezium boundingBox;
+	CGPoint northwestScreen = rect.origin;
 	
-	CGPoint southEast;
-	southEast.x = rect.origin.x + rect.size.width;
-	southEast.y = rect.origin.y + rect.size.height;
+	CGPoint southeastScreen;
+	southeastScreen.x = rect.origin.x + rect.size.width;
+	southeastScreen.y = rect.origin.y + rect.size.height;
 	
-//	RMLog(@"NortWest x:%lf y:%lf", northWest.x, northWest.y);
-//	RMLog(@"SouthEast x:%lf y:%lf", southEast.x, southEast.y);
+	CGPoint northeastScreen, southwestScreen;
+	northeastScreen.x = southeastScreen.x;
+	northeastScreen.y = northwestScreen.y;
+	southwestScreen.x = northwestScreen.x;
+	southwestScreen.y = southeastScreen.y;
 	
-	bounds.northWest = [self pixelToLatLong:northWest];
-	bounds.southEast = [self pixelToLatLong:southEast];
+	CLLocationCoordinate2D northeastLL, northwestLL, southeastLL, southwestLL;
+	northeastLL = [self pixelToLatLong:northeastScreen];
+	northwestLL = [self pixelToLatLong:northwestScreen];
+	southeastLL = [self pixelToLatLong:southeastScreen];
+	southwestLL = [self pixelToLatLong:southwestScreen];
 	
-//	RMLog(@"NortWest Lat:%lf Lon:%lf", bounds.northWest.latitude, bounds.northWest.longitude);
-//	RMLog(@"SouthEast Lat:%lf Lon:%lf", bounds.southEast.latitude, bounds.southEast.longitude);
+	boundingBox.northeast.latitude = fmax(northeastLL.latitude, northwestLL.latitude);
+	boundingBox.southwest.latitude = fmin(southeastLL.latitude, southwestLL.latitude);
 	
-	return bounds;
+	// westerly computations:
+	// -179, -178 -> -179 (min)
+	// -179, 179  -> 179 (max)
+	if (fabs(northwestLL.longitude - southwestLL.longitude) <= 180.)
+		boundingBox.southwest.longitude = fmin(northwestLL.longitude, southwestLL.longitude);
+	else
+		boundingBox.southwest.longitude = fmax(northwestLL.longitude, southwestLL.longitude);
+	
+	if (fabs(northeastLL.longitude - southeastLL.longitude) <= 180.)
+		boundingBox.northeast.longitude = fmax(northeastLL.longitude, southeastLL.longitude);
+	else
+		boundingBox.northeast.longitude = fmin(northeastLL.longitude, southeastLL.longitude);
+
+	return boundingBox;
 }
 
 - (void) tilesUpdatedRegion:(CGRect)region
 {
 	if(delegateHasRegionUpdate)
 	{
-		RMLatLongBounds locationBounds  = [self getCoordinateBounds:region];
+		RMSphericalTrapezium locationBounds  = [self latitudeLongitudeBoundingBoxFor:region];
 		[tilesUpdateDelegate regionUpdate:locationBounds];
 	}
 }
