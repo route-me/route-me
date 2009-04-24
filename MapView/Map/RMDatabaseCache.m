@@ -46,6 +46,7 @@
 	
 	if ([paths count] > 0) // Should only be one...
 	{
+		/// \bug magic string literals
 		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
 		
 		return [[paths objectAtIndex:0] stringByAppendingPathComponent:filename];
@@ -116,6 +117,7 @@
 -(void) addImageData: (NSNotification *)notification
 {
 	NSData *data = [[notification userInfo] objectForKey:@"data"];
+	/// \bug magic string literals
 	RMTileImage *image = (RMTileImage*)[notification object];
 	
 	@synchronized (self) {

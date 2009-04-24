@@ -33,6 +33,7 @@
 #import "RMPixel.h"
 #import <QuartzCore/QuartzCore.h>
 
+/// \bug magic string literals should be moved to central location
 NSString * const RMMapImageLoadedNotification = @"MapImageLoaded";
 NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCancelled";
 

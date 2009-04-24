@@ -444,12 +444,14 @@
 		float targetZoom = zoomDelta + [self zoom];
 		
 		// goal is to complete the animation in animTime seconds
+/// \bug magic numbers
 		static const float stepTime = 0.03f;
 		static const float animTime = 0.1f;
 		float nSteps = animTime / stepTime;
 		float zoomIncr = zoomDelta / nSteps;
 		
 		CFDictionaryRef pivotDictionary = CGPointCreateDictionaryRepresentation(pivot);
+		/// \bug magic string literals
 		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 								  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
 								  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
@@ -491,6 +493,7 @@
 	}
 }
 
+/// \bug magic strings embedded in code
 - (void)animatedZoomStep:(NSTimer *)timer
 {
 	float zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] floatValue];

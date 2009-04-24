@@ -46,6 +46,7 @@
 	
 	if (planetBounds.size.width == 0.0f || planetBounds.size.height == 0.0f)
 	{
+		/// \bug magic string literals
 		@throw [NSException exceptionWithName:@"RMUnknownBoundsException"
 									   reason:@"RMFractalTileProjection was initialised with a projection with unknown bounds"
 									 userInfo:nil];

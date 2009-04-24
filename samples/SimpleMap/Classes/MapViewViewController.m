@@ -75,8 +75,8 @@
 	}
 	
 	// Put the marker back
-	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
-	[marker setTextLabel:@"Hello"];
+	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]];
+	[marker changeLabelUsingText:@"Hello"];
 	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	
@@ -123,18 +123,17 @@
 {
 	NSLog(@"MARKER TAPPED!");
 	RMMarkerManager *markerManager = [mapView markerManager];
-	[marker removeLabel];
 	if(!tap)
 	{
-		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-		[marker setTextLabel:@"World"];
+		[marker replaceUIImage:[UIImage imageNamed:@"marker-red.png"]];
+		[marker changeLabelUsingText:@"World"];
 		tap=YES;
 		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y + 20.0)];
 		[mapView setDeceleration:YES];
 	}else
 	{
-		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   anchorPoint:CGPointMake(0.5,1.0)];
-		[marker setTextLabel:@"Hello"];
+		[marker replaceUIImage:[UIImage imageNamed:@"marker-blue.png"]];
+		[marker changeLabelUsingText:@"Hello"];
 		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y - 20.0)];
 		tap=NO;
 		[mapView setDeceleration:NO];
@@ -145,7 +144,7 @@
 - (void) tapOnLabelForMarker:(RMMarker*) marker onMap:(RMMapView*) map
 {
 	NSLog(@"Label <0x%x, RC:%U> tapped for marker <0x%x, RC:%U>",  marker.labelView, [marker.labelView retainCount], marker, [marker retainCount]);
-	[marker setTextLabel:[NSString stringWithFormat:@"Tapped! (%U)", ++tapCount]];
+	[marker changeLabelUsingText:[NSString stringWithFormat:@"Tapped! (%U)", ++tapCount]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view.
@@ -160,9 +159,9 @@
 	coolPlace.latitude = -33.9464;
 	coolPlace.longitude = 151.2381;
 	
-	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
+	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]];
 	[marker setTextForegroundColor:[UIColor blueColor]];
-	[marker setTextLabel:@"Hello"];
+	[marker changeLabelUsingText:@"Hello"];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
 	NSLog(@"Center: Lat: %lf Lon: %lf", mapView.contents.mapCenter.latitude, mapView.contents.mapCenter.longitude);

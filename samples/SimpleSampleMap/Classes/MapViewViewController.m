@@ -69,16 +69,13 @@
 	}
 	
 	// Put the marker back
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource: @"marker-blue" 
-														  ofType: @"png"];
 	RMMarker *marker = 
-			[[RMMarker alloc] initWithUIImage: [UIImage imageWithContentsOfFile: imagePath]];
-	[marker setTextLabel:@"Hello"];
+	[[RMMarker alloc] initWithUIImage: [UIImage imageNamed:@"marker-blue.png"]];
+	[marker changeLabelUsingText:@"Hello"];
 	
 	[markerManager addMarker:marker 
 				   AtLatLong:[[mapView contents] mapCenter]];
 	
-	[markerManager addDefaultMarkerAt:[[mapView contents] mapCenter]];
 	[marker release];
 	markers  = [markerManager markersWithinScreenBounds];
 	
@@ -129,12 +126,11 @@ shouldDragMarker:(RMMarker *)marker
 {
 	NSLog(@"MARKER TAPPED!");
 	RMMarkerManager *markerManager = [mapView markerManager];
-	[marker removeLabel];
 	if (!tap)
 	{
-		[marker replaceImage:[[UIImage imageNamed:@"marker-red.png"] CGImage]  
+		[marker replaceUIImage:[UIImage imageNamed:@"marker-red.png"]
 				 anchorPoint:CGPointMake(0.5, 1.0)];
-		[marker setTextLabel:@"World"];
+		[marker changeLabelUsingText:@"World"];
 		tap=YES;
 		[markerManager moveMarker:marker 
 							 AtXY:CGPointMake([marker position].x,[marker position].y + 20.0)];
@@ -142,9 +138,9 @@ shouldDragMarker:(RMMarker *)marker
 	}
 	else
 	{
-		[marker replaceImage:[[UIImage imageNamed:@"marker-blue.png"] CGImage]   
-				 anchorPoint:CGPointMake(0.5, 1.0)];
-		[marker setTextLabel:@"Hello"];
+		[marker replaceUIImage:[UIImage imageNamed:@"marker-blue.png"]
+				   anchorPoint:CGPointMake(0.5, 1.0)];
+		[marker changeLabelUsingText:@"Hello"];
 		[markerManager moveMarker:marker 
 							 AtXY:CGPointMake([marker position].x, [marker position].y - 20.0)];
 		tap = NO;
@@ -157,7 +153,7 @@ shouldDragMarker:(RMMarker *)marker
 					   onMap:(RMMapView*) map
 {
 	NSLog(@"Label <0x%x, RC:%U> tapped for marker <0x%x, RC:%U>",  marker.labelView, [marker.labelView retainCount], marker, [marker retainCount]);
-	[marker setTextLabel:[NSString stringWithFormat:@"Tapped! (%U)", ++tapCount]];
+	[marker changeLabelUsingText:[NSString stringWithFormat:@"Tapped! (%U)", ++tapCount]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view.
@@ -195,11 +191,9 @@ shouldDragMarker:(RMMarker *)marker
 	[mapView moveToLatLong:currentLocation]; 
 	[self.view addSubview:mapView]; 
 
-	[markerManager addDefaultMarkerAt:currentLocation];
-	
-	RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
+	RMMarker *marker = [[RMMarker alloc] initWithUIImage: [UIImage imageNamed:@"marker-blue.png"]];
 	[marker setTextForegroundColor:[UIColor blueColor]];
-	[marker setTextLabel:@"Hello"];
+	[marker changeLabelUsingText:@"Hello"];
 	[markerManager addMarker:marker 
 				   AtLatLong:currentLocation];
 	[marker release];

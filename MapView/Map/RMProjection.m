@@ -156,7 +156,7 @@ static RMProjection* _osgb = nil;
 	}
 	else
 	{
-/// \bug magic numbers embedded in code
+/// \bug magic numbers embedded in code, this one's probably ok
 		RMProjectedRect theBounds = RMMakeProjectedRect(-20037508.34, -20037508.34, 20037508.34 * 2, 20037508.34 * 2);
 		
 		_google = [[RMProjection alloc] initWithString:@"+title= Google Mercator EPSG:900913\
@@ -176,6 +176,7 @@ static RMProjection* _osgb = nil;
 	{
 		RMProjectedRect theBounds = RMMakeProjectedRect(-180, -90, 360, 180);
 		
+		/// \bug magic numbers embedded in code, this one's probably ok
 		_latlong = [[RMProjection alloc] initWithString:@"+proj=latlong +ellps=WGS84" InBounds: theBounds];
 		return _latlong;
 	}
@@ -190,6 +191,7 @@ static RMProjection* _osgb = nil;
 	else
 	{// OSGB36 and tmerc
 		/// \bug TODO: This should use the new initWithString:InBounds: method... but I don't know what the bounds are!
+		/// \bug magic numbers embedded in code, this one's probably ok
 		_osgb = [[RMProjection alloc] initWithString:@"+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.999601 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs"];
 		_osgb.projectionWrapsHorizontally = NO;
 		return _osgb;

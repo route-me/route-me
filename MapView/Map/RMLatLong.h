@@ -76,6 +76,7 @@ typedef struct {
 
 typedef CLLocationCoordinate2D RMLatLong;
 
+/// \bug magic numbers
 static const double kRMMinLatitude = -90.0f;
 static const double kRMMaxLatitude = 90.0f;
 static const double kRMMinLongitude = -180.0f;

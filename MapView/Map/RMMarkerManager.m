@@ -66,14 +66,6 @@
 	[self addMarker: marker];
 }
 
-/// \bug should return the marker
-- (void) addDefaultMarkerAt: (CLLocationCoordinate2D)point
-{
-	RMMarker *marker = [[RMMarker alloc] initWithKey:RMMarkerRedKey];
-	[self addMarker:marker AtLatLong:point];
-	[marker release];
-}
-
 /// \bug see http://code.google.com/p/route-me/issues/detail?id=75
 /// (halmueller): I am skeptical about interactions of this code with paths
 - (void) removeMarkers

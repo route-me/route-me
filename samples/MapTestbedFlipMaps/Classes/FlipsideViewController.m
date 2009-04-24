@@ -30,9 +30,9 @@
     
     RMMarkerManager *markerManager = [mapView markerManager];
 	NSAssert(markerManager, @"null markerManager returned");
-    RMMarker *marker = [[RMMarker alloc]initWithKey:RMMarkerBlueKey];
+    RMMarker *marker = [[RMMarker alloc] initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]];
 	[marker setTextForegroundColor:[UIColor blueColor]];
-	[marker setTextLabel:@"Hello"];
+	[marker changeLabelUsingText:@"Hello"];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
 }

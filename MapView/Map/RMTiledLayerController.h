@@ -48,7 +48,7 @@
 
 -(id) initWithTileSource: (id <RMTileSource>) tileSource;
 
--(void) setMetersPerPixelsPerPixel: (float) scale;
+-(void) setMetersPerPixel: (float) scale;
 
 -(void) centerProjectedPoint: (RMProjectedPoint) aPoint animate: (BOOL) animate;
 -(void) centerLatLong: (CLLocationCoordinate2D) point animate: (BOOL) animate;

@@ -36,6 +36,7 @@
 
 #import "RMTileCache.h"
 
+/// \bug magic string literals should be moved to central location
 NSString* const RMMapImageRemovedFromScreenNotification = @"RMMapImageRemovedFromScreen";
 NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen";
 

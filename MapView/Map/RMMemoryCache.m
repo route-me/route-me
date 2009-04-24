@@ -51,6 +51,7 @@
 	return self;
 }
 
+/// \bug magic number
 -(id)init
 {
 	return [self initWithCapacity:32];

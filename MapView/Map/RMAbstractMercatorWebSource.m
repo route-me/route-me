@@ -66,6 +66,7 @@
 	return 18;
 }
 
+/// \bug magic string literals
 -(NSString*) tileURL: (RMTile) tile
 {
 	@throw [NSException exceptionWithName:@"RMAbstractMethodInvocation" reason:@"tileURL invoked on AbstractMercatorWebSource. Override this method when instantiating abstract class." userInfo:nil];

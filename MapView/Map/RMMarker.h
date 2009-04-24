@@ -34,10 +34,8 @@
 
 @class RMMarkerStyle;
 
-extern NSString * const RMMarkerBlueKey;
-extern NSString * const RMMarkerRedKey;
-
 /// one marker drawn on the map. Note that RMMarker ultimately descends from CALayer, and has an image contents.
+/// RMMarker inherits "position" and "anchorPoint" from CALayer.
 @interface RMMarker : RMMapLayer <RMMovingMapLayer> {
 	/// expressed in projected meters. The anchorPoint of the image is plotted here. 
 	RMProjectedPoint projectedLocation;	
@@ -56,63 +54,30 @@ extern NSString * const RMMarkerRedKey;
 @property(nonatomic,retain) UIColor *textForegroundColor;
 @property(nonatomic,retain) UIColor *textBackgroundColor;
 
-/// \deprecated Deprecated at any moment after 0.5.
-+ (RMMarker*) markerWithNamedStyle: (NSString*) styleName;
-/// \deprecated Deprecated at any moment after 0.5.
-+ (CGImageRef) markerImage: (NSString *) key;
-/// \deprecated Deprecated at any moment after 0.5.
-+ (CGImageRef) loadPNGFromBundle: (NSString *)filename;
-
+/// returns RMMarker initialized with #image, and the default anchor point (0.5, 0.5)
 - (id) initWithUIImage: (UIImage*) image;
+/// \brief returns RMMarker initialized with provided image and anchorPoint. 
+/// #anchorPoint x and y range from 0 to 1, normalized to the width and height of image, 
+/// referenced to upper left corner, y increasing top to bottom. To put the image's upper right corner on the marker's 
+/// #projectedLocation, use an anchor point of (1.0, 0.0);
+- (id) initWithUIImage: (UIImage*) image anchorPoint: (CGPoint) anchorPoint;
 
-/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
-- (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) anchorPoint;
-/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
-- (id) initWithCGImage: (CGImageRef) image;
-/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
-- (id) initWithKey: (NSString*) key;
-/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
-- (id) initWithStyle: (RMMarkerStyle*) style;
-/// \deprecated Deprecated at any moment after 0.5. Use initWithUIImage:.
-- (id) initWithNamedStyle: (NSString*) styleName;
-
+/// note this takes a UIView, not a UILabel, so it should (untested assumption) be possible to use other UIView descendants (UIControl, UIWebView, etc)
 - (void) setLabel: (UIView*)aView;
 
 - (void) changeLabelUsingText: (NSString*)text;
-- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position;
-- (void) changeLabelUsingText: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
-- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
-
-- (void) setTextLabel: (NSString*)text;
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position;
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor;
-/// \deprecated after 0.5.  Use changeLabelUsingText
+- (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position;
+- (void) changeLabelUsingText: (NSString*)text font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
+- (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
 
 - (void) toggleLabel;
 - (void) showLabel;
 - (void) hideLabel;
-- (void) removeLabel;
 
 - (void) replaceUIImage:(UIImage*)image;
+- (void) replaceUIImage:(UIImage*)image anchorPoint:(CGPoint)anchorPoint;
 
-/// \deprecated Deprecated at any moment after 0.5.  Use replaceUIImage
-- (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint;
-/// \deprecated Deprecated at any moment after 0.5.  Use replaceUIImage
-- (void) replaceKey: (NSString*) key;
-
-/// \deprecated Deprecated at any moment after 0.4.
-- (void) hide;
-/// \deprecated Deprecated at any moment after 0.4.
-- (void) unhide;
 
 - (void) dealloc;
-
-// Call this with either RMMarkerBlue or RMMarkerRed for the key.
-/// \deprecated Deprecated at any moment after 0.5.
-+ (CGImageRef) markerImage: (NSString *) key;
 
 @end

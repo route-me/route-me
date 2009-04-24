@@ -49,11 +49,12 @@
 			RMTestableMarker *newMarker;
 			if ((markerPosition.longitude < -180) ||
 				(markerPosition.longitude > 0))
-				newMarker = [[RMTestableMarker alloc] initWithUIImage:redMarkerImage];
+				newMarker = [[RMTestableMarker alloc] initWithUIImage:redMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
 			else
-				newMarker = [[RMTestableMarker alloc] initWithUIImage:blueMarkerImage];
+				newMarker = [[RMTestableMarker alloc] initWithUIImage:blueMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
 #ifdef DEBUG
 			[newMarker setCoordinate:markerPosition];
+			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]];
 #endif
 			[self.mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];

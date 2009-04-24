@@ -26,16 +26,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMMarker.h"
-#import "RMMarkerStyle.h"
-#import "RMMarkerStyles.h"
 
 #import "RMPixel.h"
-
-NSString* const RMMarkerBlueKey = @"RMMarkerBlueKey";
-NSString* const RMMarkerRedKey = @"RMMarkerRedKey";
-
-static CGImageRef _markerRed = nil;
-static CGImageRef _markerBlue = nil;
 
 @implementation RMMarker
 
@@ -45,11 +37,8 @@ static CGImageRef _markerBlue = nil;
 @synthesize textForegroundColor;
 @synthesize textBackgroundColor;
 
-+ (RMMarker*) markerWithNamedStyle: (NSString*) styleName
-{
-	WarnDeprecated();
-	return [[[RMMarker alloc] initWithNamedStyle: styleName] autorelease];
-}
+/// \bug magic number
+#define defaultMarkerAnchorPoint CGPointMake(0.5, 1.0)
 
 // init
 - (id)init
@@ -62,51 +51,19 @@ static CGImageRef _markerBlue = nil;
     return self;
 }
 
-- (id) initWithCGImage: (CGImageRef) image
-{
-	WarnDeprecated();
-	return [self initWithCGImage: image anchorPoint: CGPointMake(0.5, 1.0)];
-}
-
-- (id) initWithCGImage: (CGImageRef) image anchorPoint: (CGPoint) _anchorPoint
-{
-	WarnDeprecated();
-	if (![self init])
-		return nil;
-	
-	self.contents = (id)image;
-	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
-	self.anchorPoint = _anchorPoint;
-	
-	self.masksToBounds = NO;
-	self.labelView = nil;
-	
-	return self;
-}
-
-- (void) replaceImage:(CGImageRef)image anchorPoint:(CGPoint)_anchorPoint
-{
-	WarnDeprecated();
-	self.contents = (id)image;
-	self.bounds = CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image));
-	self.anchorPoint = _anchorPoint;
-	
-	self.masksToBounds = NO;
-}
-
-- (void) replaceKey: (NSString*) key
-{
-	WarnDeprecated();
-	[self replaceImage:[RMMarker markerImage:key] anchorPoint: CGPointMake(0.5, 1.0)];
-}
-
 - (id) initWithUIImage: (UIImage*) image
+{
+	return [self initWithUIImage:image anchorPoint: defaultMarkerAnchorPoint];
+}
+
+- (id) initWithUIImage: (UIImage*) image anchorPoint: (CGPoint) _anchorPoint
 {
 	if (![self init])
 		return nil;
 	
 	self.contents = (id)[image CGImage];
 	self.bounds = CGRectMake(0,0,image.size.width,image.size.height);
+	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
 	self.labelView = nil;
@@ -116,34 +73,17 @@ static CGImageRef _markerBlue = nil;
 
 - (void) replaceUIImage: (UIImage*) image
 {
+	[self replaceUIImage:image anchorPoint:defaultMarkerAnchorPoint];
+}
+
+- (void) replaceUIImage: (UIImage*) image
+			anchorPoint: (CGPoint) _anchorPoint
+{
 	self.contents = (id)[image CGImage];
 	self.bounds = CGRectMake(0,0,image.size.width,image.size.height);
+	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-}
-
-- (id) initWithKey: (NSString*) key
-{
-	WarnDeprecated();
-	return [self initWithCGImage:[RMMarker markerImage:key]];
-}
-
-- (id) initWithStyle: (RMMarkerStyle*) style
-{
-	WarnDeprecated();
-	return [self initWithCGImage: [style.markerIcon CGImage] anchorPoint: style.anchorPoint]; 
-}
-
-- (id) initWithNamedStyle: (NSString*) styleName
-{
-	WarnDeprecated();
-	RMMarkerStyle* style = [[RMMarkerStyles styles] styleNamed: styleName];
-	
-	if (style==nil) {
-		RMLog(@"problem creating marker: style '%@' not found", styleName);
-		return [self initWithCGImage: [RMMarker markerImage: RMMarkerRedKey]];
-	}
-	return [self initWithStyle: style];
 }
 
 - (void) setLabel: (UIView*)aView
@@ -165,54 +105,27 @@ static CGImageRef _markerBlue = nil;
 	}
 }
 
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text
-{
-	WarnDeprecated();
-	[self changeLabelUsingText:text];
-}
-
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position
-{
-	WarnDeprecated();
-	[self changeLabelUsingText:text toPosition:position];
-}
-
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
-{
-	WarnDeprecated();
-	[self changeLabelUsingText:text withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
-}
-
-/// \deprecated after 0.5.  Use changeLabelUsingText
-- (void) setTextLabel: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
-{
-	WarnDeprecated();
-	[self changeLabelUsingText:text toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
-}
-
 - (void) changeLabelUsingText: (NSString*)text
 {
 	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
-	[self changeLabelUsingText:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+/// \bug hardcoded font name
+	[self changeLabelUsingText:text position:position font:[UIFont systemFontOfSize:15] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
 }
 
-- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position
+- (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position
 {
-	[self changeLabelUsingText:text toPosition:position withFont:[UIFont systemFontOfSize:15] withTextColor:[self textForegroundColor] withBackgroundColor:[self textBackgroundColor]];
+	[self changeLabelUsingText:text position:position font:[UIFont systemFontOfSize:15] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
 }
 
-- (void) changeLabelUsingText: (NSString*)text withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+- (void) changeLabelUsingText: (NSString*)text font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor
 {
 	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:font].width / 2, 4);
 	[self setTextForegroundColor:textColor];
 	[self setTextBackgroundColor:backgroundColor];
-	[self changeLabelUsingText:text  toPosition:position withFont:font withTextColor:textColor withBackgroundColor:backgroundColor];
+	[self changeLabelUsingText:text  position:position font:font foregroundColor:textColor backgroundColor:backgroundColor];
 }
 
-- (void) changeLabelUsingText: (NSString*)text toPosition:(CGPoint)position withFont:(UIFont*)font withTextColor:(UIColor*)textColor withBackgroundColor:(UIColor*)backgroundColor
+- (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor
 {
 	CGSize textSize = [text sizeWithFont:font];
 	CGRect frame = CGRectMake(position.x,
@@ -235,16 +148,6 @@ static CGImageRef _markerBlue = nil;
 	[aLabel release];
 }
 
-- (void) removeLabel
-{
-	if (self.labelView != nil)
-	{
-		[[self.labelView layer] removeFromSuperlayer];
-		self.labelView = nil;
-	}
-
-}
-		
 - (void) toggleLabel
 {
 	if (self.labelView == nil) {
@@ -288,68 +191,6 @@ static CGImageRef _markerBlue = nil;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, center);
-	
-/*	CGRect currentRect = CGRectMake(self.position.x, self.position.y, self.bounds.size.width, self.bounds.size.height);
-	CGRect newRect = RMScaleCGRectAboutPoint(currentRect, zoomFactor, center);
-	self.position = newRect.origin;
-	self.bounds = CGRectMake(0, 0, newRect.size.width, newRect.size.height);
-*/
-}
-
-+ (CGImageRef) loadPNGFromBundle: (NSString *)filename
-{
-	WarnDeprecated();
-	NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"png"];
-	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
-	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);
-	/// \bug FIXME: there is no GC on iPhone! NSMakeCollectable???
-	[NSMakeCollectable(image) autorelease];
-	CGDataProviderRelease(dataProvider);
-	
-	return image;
-}
-
-+ (CGImageRef) markerImage: (NSString *) key
-{
-	WarnDeprecated();
-	if (RMMarkerBlueKey == key
-		|| [RMMarkerBlueKey isEqualToString:key])
-	{
-		if (_markerBlue == nil)
-			_markerBlue = [self loadPNGFromBundle:@"marker-blue"];
-		
-		return _markerBlue;
 	}
-	else if (RMMarkerRedKey == key
-		|| [RMMarkerRedKey isEqualToString: key])
-	{
-		if (_markerRed == nil)
-			_markerRed = [self loadPNGFromBundle:@"marker-red"];
-		
-		return _markerRed;
-	}
-	
-	return nil;
-}
-
-- (void) hide 
-{
-	WarnDeprecated();
-	[self setHidden:YES];
-}
-
-- (void) unhide
-{
-	WarnDeprecated();
-	[self setHidden:NO];
-}
-
-
-/*- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//	[label setAlpha:1.0f - [label alpha]];
-//	[self changeLabelUsingText:@"hello there"];
-	//	RMLog(@"marker at %f %f m %f %f touchesEnded", self.position.x, self.position.y, location.x, location.y);
-}*/
 
 @end

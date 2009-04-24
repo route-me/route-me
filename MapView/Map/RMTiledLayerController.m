@@ -138,6 +138,7 @@
 	//CGAffineTransform transform = CGContextGetCTM(theContext);
 	//	RMLog(@"transform scale: a:%f b:%f c:%f d:%f tx:%f ty:%f", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty);
 
+	/// \bug magic string literals
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
 	CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path UTF8String]);
 	CGImageRef image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, FALSE, kCGRenderingIntentDefault);

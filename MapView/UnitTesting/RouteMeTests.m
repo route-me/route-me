@@ -15,6 +15,8 @@
 #import "RMMarkerManager.h"
 
 @implementation RouteMeTests
+#define kAccuracyThresholdForGeographicCoordinates .000001
+#define kAccuracyThresholdForPixelCoordinates .0001
 
 - (void)setUp {
     [super setUp];
@@ -164,10 +166,10 @@
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
 		CLLocationCoordinate2D computedLatitudeLongitude = 
 		[mangler latitudeLongitudeForMarker:leftMarker];
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, .00001,
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of longitude failed %f %f",
 								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, .00001,
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of latitude failed %f %f",
 								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
 	}
@@ -222,10 +224,10 @@
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
 		CLLocationCoordinate2D computedLatitudeLongitude = 
 		[mangler latitudeLongitudeForMarker:leftMarker];
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, .00001,
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of longitude failed %f %f",
 								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, .00001,
+		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of latitude failed %f %f",
 								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
 	}
@@ -246,9 +248,9 @@
 	coord.longitude -= .125;
 	CGPoint point3 = [mapView latLongToPixel:coord];
 	
-	STAssertEqualsWithAccuracy(point1.y, point2.y, .0001,
+	STAssertEqualsWithAccuracy(point1.y, point2.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
-	STAssertEqualsWithAccuracy(point2.y, point3.y, .0001,
+	STAssertEqualsWithAccuracy(point2.y, point3.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
 	STAssertLessThan(point3.x, point2.x,
 					 @"X pixel coordinates should be increasing left to right");
@@ -270,9 +272,9 @@
 	coord.longitude += .125;
 	CGPoint point3 = [mapView latLongToPixel:coord];
 	
-	STAssertEqualsWithAccuracy(point1.y, point2.y, .0001,
+	STAssertEqualsWithAccuracy(point1.y, point2.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
-	STAssertEqualsWithAccuracy(point2.y, point3.y, .0001,
+	STAssertEqualsWithAccuracy(point2.y, point3.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
 	STAssertLessThan(point1.x, point2.x,
 					 @"X pixel coordinates should be increasing left to right");
@@ -294,9 +296,9 @@
 	coord.longitude -= .125;
 	CGPoint point3 = [mapView latLongToPixel:coord];
 	
-	STAssertEqualsWithAccuracy(point1.y, point2.y, .0001,
+	STAssertEqualsWithAccuracy(point1.y, point2.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
-	STAssertEqualsWithAccuracy(point2.y, point3.y, .0001,
+	STAssertEqualsWithAccuracy(point2.y, point3.y, kAccuracyThresholdForPixelCoordinates,
 							   @"Y pixel values should be equal");
 	STAssertLessThan(point3.x, point2.x,
 					 @"X pixel coordinates should be increasing left to right");

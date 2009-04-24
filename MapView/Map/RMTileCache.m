@@ -57,6 +57,7 @@
 	if (cacheCfg==nil)
 	{
 		cacheCfg = [NSArray arrayWithObjects:
+					/// \bug magic string literals
 			[NSDictionary dictionaryWithObject: @"memory-cache" forKey: @"type"],
 			[NSDictionary dictionaryWithObject: @"db-cache"     forKey: @"type"],
 			nil
@@ -70,6 +71,7 @@
 		@try {
 			NSString* type = [cfg valueForKey:@"type"];
 			
+			/// \bug magic string literals
 			if ([@"memory-cache" isEqualToString: type]) 
 				newCache = [self newMemoryCacheWithConfig: cfg];
 
@@ -151,6 +153,7 @@
 
 @implementation RMTileCache ( Configuration )
 
+/// \bug magic numbers and strings
 - (id<RMTileCache>) newMemoryCacheWithConfig: (NSDictionary*) cfg
 {
 	NSNumber* capacity = [cfg objectForKey:@"capacity"];
@@ -158,10 +161,12 @@
 	return [[RMMemoryCache alloc] initWithCapacity: [capacity intValue]];	
 }
 
+/// \bug magic numbers and strings
 - (id<RMTileCache>) newDatabaseCacheWithConfig: (NSDictionary*) cfg tileSource: (id<RMTileSource>) theTileSource
 {
 	BOOL useCacheDir = NO;
-	RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;				
+	RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;
+	/// \bug magic numbers
 	NSUInteger capacity = 1000;
 	NSUInteger minimalPurge = capacity / 10;
 	
@@ -183,6 +188,7 @@
 		if ([strategyStr caseInsensitiveCompare:@"LRU"] == NSOrderedSame) strategy = RMCachePurgeStrategyLRU;
 	}
 	
+	/// \bug magic string literals
 	NSNumber* useCacheDirNumber = [cfg objectForKey:@"useCachesDirectory"];
 	if (useCacheDirNumber!=nil) useCacheDir =  [useCacheDirNumber boolValue];
 	

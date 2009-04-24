@@ -37,6 +37,7 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 	@synchronized (RMConfigurationSharedInstance) {
 		if (RMConfigurationSharedInstance != nil) return RMConfigurationSharedInstance;
 	
+		/// \bug magic string literals
 		RMConfigurationSharedInstance = [[RMConfiguration alloc] 
 										 initWithPath: [[NSBundle mainBundle] pathForResource:@"routeme" ofType:@"plist"]];
 
@@ -91,6 +92,7 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 - (NSDictionary*) cacheConfiguration
 {
 	if (propList==nil) return nil;
+	/// \bug magic string literals
 	return [propList objectForKey: @"caches"];
 }
 
