@@ -49,10 +49,6 @@
 - (BOOL) mapView:(RMMapView *)map shouldDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event;
 - (void) mapView:(RMMapView *)map didDragMarker:(RMMarker *)marker withEvent:(UIEvent *)event;
 
-/// \brief \deprecated This call is deprecated, please use didDragMarker instead.  This call will no longer exist after the .5 Milestone
-- (void) dragMarkerPosition: (RMMarker*) marker onMap: (RMMapView*)map position:(CGPoint)position;
-
-
 - (void) afterMapTouch: (RMMapView*) map;
 
 @end

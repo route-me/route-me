@@ -54,6 +54,9 @@
 @property(nonatomic,retain) UIColor *textForegroundColor;
 @property(nonatomic,retain) UIColor *textBackgroundColor;
 
+/// the font used for labels when another font is not explicitly requested; currently [UIFont systemFontOfSize:15]
++ (UIFont *)defaultFont;
+
 /// returns RMMarker initialized with #image, and the default anchor point (0.5, 0.5)
 - (id) initWithUIImage: (UIImage*) image;
 /// \brief returns RMMarker initialized with provided image and anchorPoint. 
@@ -65,9 +68,13 @@
 /// note this takes a UIView, not a UILabel, so it should (untested assumption) be possible to use other UIView descendants (UIControl, UIWebView, etc)
 - (void) setLabel: (UIView*)aView;
 
+/// changes the labelView to a UILabel with supplied #text and default marker font, using existing text foreground/background color.
 - (void) changeLabelUsingText: (NSString*)text;
+/// changes the labelView to a UILabel with supplied #text and default marker font, positioning the text some weird way i don't understand yet. Uses existing text color/background color.
 - (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position;
+/// changes the labelView to a UILabel with supplied #text and default marker font, changing this marker's text foreground/background colors for this and future text strings.
 - (void) changeLabelUsingText: (NSString*)text font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
+/// changes the labelView to a UILabel with supplied #text and default marker font, changing this marker's text foreground/background colors for this and future text strings; modifies position as in #changeLabelUsingText:position.
 - (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
 
 - (void) toggleLabel;

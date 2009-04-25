@@ -38,7 +38,12 @@
 @synthesize textBackgroundColor;
 
 /// \bug magic number
-#define defaultMarkerAnchorPoint CGPointMake(0.5, 1.0)
+#define defaultMarkerAnchorPoint CGPointMake(0.5, 0.5)
+
++ (UIFont *)defaultFont
+{
+	return [UIFont systemFontOfSize:15];
+}
 
 // init
 - (id)init
@@ -107,14 +112,14 @@
 
 - (void) changeLabelUsingText: (NSString*)text
 {
-	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[UIFont systemFontOfSize:15]].width / 2, 4);
+	CGPoint position = CGPointMake([self bounds].size.width / 2 - [text sizeWithFont:[RMMarker defaultFont]].width / 2, 4);
 /// \bug hardcoded font name
-	[self changeLabelUsingText:text position:position font:[UIFont systemFontOfSize:15] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
+	[self changeLabelUsingText:text position:position font:[RMMarker defaultFont] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
 }
 
 - (void) changeLabelUsingText: (NSString*)text position:(CGPoint)position
 {
-	[self changeLabelUsingText:text position:position font:[UIFont systemFontOfSize:15] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
+	[self changeLabelUsingText:text position:position font:[RMMarker defaultFont] foregroundColor:[self textForegroundColor] backgroundColor:[self textBackgroundColor]];
 }
 
 - (void) changeLabelUsingText: (NSString*)text font:(UIFont*)font foregroundColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor
