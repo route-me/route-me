@@ -54,10 +54,11 @@
 				newMarker = [[RMTestableMarker alloc] initWithUIImage:blueMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
 #ifdef DEBUG
 			[newMarker setCoordinate:markerPosition];
-			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]];
 #endif
 			[self.mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
+			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]
+								   position:CGPointMake(2.0*j, 0.0)];
 		}
 		markerPosition.latitude += kSpacing;
 	}

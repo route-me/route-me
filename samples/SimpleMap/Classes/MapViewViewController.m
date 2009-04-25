@@ -75,7 +75,8 @@
 	}
 	
 	// Put the marker back
-	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]];
+	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
+											anchorPoint:CGPointMake(0.5, 1.0)];
 	[marker changeLabelUsingText:@"Hello"];
 	
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
@@ -132,7 +133,8 @@
 		[mapView setDeceleration:YES];
 	}else
 	{
-		[marker replaceUIImage:[UIImage imageNamed:@"marker-blue.png"]];
+			[marker replaceUIImage:[UIImage imageNamed:@"marker-blue.png"]
+					   anchorPoint:CGPointMake(0.5, 1.0)];
 		[marker changeLabelUsingText:@"Hello"];
 		[markerManager moveMarker:marker AtXY:CGPointMake([marker position].x,[marker position].y - 20.0)];
 		tap=NO;
@@ -159,7 +161,8 @@
 	coolPlace.latitude = -33.9464;
 	coolPlace.longitude = 151.2381;
 	
-	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]];
+	RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
+											anchorPoint:CGPointMake(0.5, 1.0)];
 	[marker setTextForegroundColor:[UIColor blueColor]];
 	[marker changeLabelUsingText:@"Hello"];
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
