@@ -21,6 +21,7 @@
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		2B12B8680F84ADA5003AE2BF /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B12B8670F84ADA5003AE2BF /* marker-red.png */; };
+		2B2BADDB0FA3B48A00EE37AA /* marker-X.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2BADDA0FA3B48A00EE37AA /* marker-X.png */; };
 		2B580E4A0F8D236100D495B2 /* marker-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B580E490F8D236100D495B2 /* marker-blue.png */; };
 		2B70CB7A0F856A46002BAF97 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B70CB790F856A46002BAF97 /* loading.png */; };
 		EBDDE0E00F649CE100377FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */; };
@@ -75,6 +76,7 @@
 		289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlipsideViewController.m; path = Classes/FlipsideViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2B12B8670F84ADA5003AE2BF /* marker-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-red.png"; sourceTree = "<group>"; };
+		2B2BADDA0FA3B48A00EE37AA /* marker-X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-X.png"; sourceTree = "<group>"; };
 		2B580E490F8D236100D495B2 /* marker-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-blue.png"; sourceTree = "<group>"; };
 		2B70CB790F856A46002BAF97 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MarkerMurder_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerMurder_Prefix.pch; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2B2BADDA0FA3B48A00EE37AA /* marker-X.png */,
 				2B12B8670F84ADA5003AE2BF /* marker-red.png */,
 				2B580E490F8D236100D495B2 /* marker-blue.png */,
 				2B70CB790F856A46002BAF97 /* loading.png */,
@@ -284,6 +287,7 @@
 				2B12B8680F84ADA5003AE2BF /* marker-red.png in Resources */,
 				2B70CB7A0F856A46002BAF97 /* loading.png in Resources */,
 				2B580E4A0F8D236100D495B2 /* marker-blue.png in Resources */,
+				2B2BADDB0FA3B48A00EE37AA /* marker-X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

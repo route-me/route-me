@@ -39,6 +39,8 @@
 
 	UIImage *redMarkerImage = [UIImage imageNamed:@"marker-red.png"];
 	UIImage *blueMarkerImage = [UIImage imageNamed:@"marker-blue.png"];
+	UIImage *xMarkerImage = [UIImage imageNamed:@"marker-X.png"];
+	NSLog(@"%@", xMarkerImage);
 	markerPosition.latitude = center.latitude - ((kNumberRows - 1)/2.0 * kSpacing);
 	int i, j;
 	for (i = 0; i < kNumberRows; i++) {
@@ -57,8 +59,14 @@
 #endif
 			[self.mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
-			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]
-								   position:CGPointMake(2.0*j, 0.0)];
+			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]];
+			[newMarker release];
+			RMTestableMarker *xMarker = [[RMTestableMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 0.5)];
+			[self.mapView.contents.markerManager addMarker:xMarker AtLatLong:markerPosition];
+#ifdef DEBUG
+			[xMarker setCoordinate:markerPosition];
+#endif
+			[xMarker release];
 		}
 		markerPosition.latitude += kSpacing;
 	}
