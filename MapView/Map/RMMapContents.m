@@ -583,11 +583,16 @@
 {
 	if (tileSource == newTileSource)
 		return;
-
-       newTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
+	
+	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
+	if (self.minZoom < newCachedTileSource.minZoom)
+		self.minZoom = newCachedTileSource.minZoom;
+	if (self.maxZoom > newCachedTileSource.maxZoom)
+		self.maxZoom = newCachedTileSource.maxZoom;
+	[self setZoom:[self zoom]]; // setZoom clamps zoom level to min/max limits
 	
 	[tileSource release];
-	tileSource = [newTileSource retain];
+	tileSource = [newCachedTileSource retain];
 	
 	[projection release];
 	projection = [[tileSource projection] retain];
@@ -595,10 +600,6 @@
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
 
-	/// \bug TODO: Fix the min / max zoom.
-//	[self setMinZoom:[newTileSource minZoom]];
-//	[self setMaxZoom:[newTileSource maxZoom]];
-	
 	[imagesOnScreen setTileSource:tileSource];
 
 	[tileLoader reload];

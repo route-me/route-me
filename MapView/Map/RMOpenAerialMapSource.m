@@ -59,4 +59,13 @@
 	return @"Map data © OpenAerialMap, licensed under Creative Commons Share Alike By Attribution.";
 }
 
+-(float) minZoom
+{
+	return 1;
+}
+-(float) maxZoom
+{
+	return 15;
+}
+
 @end

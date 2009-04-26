@@ -89,7 +89,8 @@ NSString* const RMTileRequested = @"RMTileRequested";
 	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
 	
 	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content metersPerPixel]]);
-	
+	NSAssert(((targetZoom <= content.maxZoom) && (targetZoom >= content.minZoom)),
+			 @"target zoom is outside of RMMapContents limits");
 	if (contained == NO)
 	{
 		//		RMLog(@"reassembling because its not contained");

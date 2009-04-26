@@ -49,7 +49,7 @@ extern NSString * const RMTileRequested;
 	RMMapContents *content;
 
 	CGRect loadedBounds;
-	int loadedZoom;
+	NSUInteger loadedZoom;
 	RMTileRect loadedTiles;
 	
 	BOOL suppressLoading;
@@ -68,7 +68,7 @@ extern NSString * const RMTileRequested;
 - (void)reload;
 
 @property (readonly, nonatomic) CGRect loadedBounds;
-@property (readonly, nonatomic) int loadedZoom;
+@property (readonly, nonatomic) NSUInteger loadedZoom;
 @property (readwrite, assign) BOOL suppressLoading;
 
 //-(BOOL) containsRect: (CGRect)bounds;
