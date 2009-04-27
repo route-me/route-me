@@ -11,11 +11,10 @@
 #import "RMCloudMadeMapSource.h"
 #import "RMGeoHash.h"
 #import "RMMarker.h"
-#import "RMTestableMarker.h"
 #import "RMMarkerManager.h"
 
 @implementation RouteMeTests
-#define kAccuracyThresholdForGeographicCoordinates .000001
+#define kAccuracyThresholdForGeographicCoordinates .00001
 #define kAccuracyThresholdForPixelCoordinates .0001
 
 - (void)setUp {
@@ -96,9 +95,9 @@
 		markerPosition.longitude = initialCenter.longitude - ((nColumns - 1)/2.0 * columnSpacing);
 		for (j = 0; j < nColumns; j++) {
 			markerPosition.longitude += columnSpacing;
-			RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
+			RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
 			STAssertNotNil(newMarker, @"testMarkerCreation marker creation failed");
-			[newMarker setCoordinate:markerPosition];
+			[newMarker setData:[NSArray arrayWithObjects:[NSNumber numberWithDouble:markerPosition.longitude],[NSNumber numberWithDouble:markerPosition.latitude],nil]];
 			[mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
 		}
@@ -108,7 +107,7 @@
 	
 #ifdef DEBUG
 	RMMarkerManager *mangler = [[mapView contents] markerManager];
-	for (RMTestableMarker *theMarker in [mangler markers]) {
+	for (RMMarker *theMarker in [mangler markers]) {
 		CGPoint screenPosition = [mangler screenCoordinatesForMarker:theMarker];
 		RMLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
 			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
@@ -135,9 +134,9 @@
 	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
 	for (j = 0; j < nColumns; j++) {
 		markerPosition.longitude += columnSpacing;
-		RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
+		RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
 		[testMarkers addObject:newMarker];
-		[newMarker setCoordinate:markerPosition];
+		[newMarker setData:[NSArray arrayWithObjects:[NSNumber numberWithDouble:markerPosition.longitude],[NSNumber numberWithDouble:markerPosition.latitude],nil]];
 		[mapView.contents.markerManager addMarker:newMarker
 		 AtLatLong:markerPosition];
 	}
@@ -153,25 +152,30 @@
 #endif
 	
 	for (j = 1; j < nColumns; j++) {
-		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
-		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
+		RMMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
+		RMMarker *rightMarker = [testMarkers objectAtIndex:j];
 		CGPoint leftScreenPosition = [mangler screenCoordinatesForMarker:leftMarker];
 		CGPoint rightScreenPosition = [mangler screenCoordinatesForMarker:rightMarker];
+		RMLatLong leftMarkerCoordinate, rightMarkerCoordinate;
+		leftMarkerCoordinate.longitude = [[(NSArray *)leftMarker.data objectAtIndex:0] doubleValue];
+		leftMarkerCoordinate.latitude = [[(NSArray *)leftMarker.data objectAtIndex:1] doubleValue];
+		rightMarkerCoordinate.longitude = [[(NSArray *)rightMarker.data objectAtIndex:0] doubleValue];
+		rightMarkerCoordinate.latitude = [[(NSArray *)rightMarker.data objectAtIndex:1] doubleValue];
 		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
 						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
 						 j-1, j,
 // write these out as longitude/latitude instead of standard latitude/longitude to make comparisons easier
-						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
-						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
+						 leftMarkerCoordinate.longitude, leftMarkerCoordinate.latitude,
+						 rightMarkerCoordinate.longitude, rightMarkerCoordinate.latitude,
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
 		CLLocationCoordinate2D computedLatitudeLongitude = 
 		[mangler latitudeLongitudeForMarker:leftMarker];
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
+		STAssertEqualsWithAccuracy(leftMarkerCoordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of longitude failed %f %f",
-								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
+								   leftMarkerCoordinate.longitude, computedLatitudeLongitude.longitude);
+		STAssertEqualsWithAccuracy(leftMarkerCoordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of latitude failed %f %f",
-								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
+								   leftMarkerCoordinate.latitude, computedLatitudeLongitude.latitude);
 	}
 	
 }
@@ -194,9 +198,9 @@
 	NSMutableArray *testMarkers = [NSMutableArray arrayWithCapacity:nColumns];
 	for (j = 0; j < nColumns; j++) {
 		markerPosition.longitude += columnSpacing;
-		RMTestableMarker *newMarker = [[RMTestableMarker alloc] initWithUIImage:markerImage];
+		RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage];
 		[testMarkers addObject:newMarker];
-		[newMarker setCoordinate:markerPosition];
+		[newMarker setData:[NSArray arrayWithObjects:[NSNumber numberWithDouble:markerPosition.longitude],[NSNumber numberWithDouble:markerPosition.latitude],nil]];
 		[mapView.contents.markerManager addMarker:newMarker
 		 AtLatLong:markerPosition];
 	}
@@ -212,24 +216,29 @@
 #endif
 	
 	for (j = 1; j < nColumns; j++) {
-		RMTestableMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
-		RMTestableMarker *rightMarker = [testMarkers objectAtIndex:j];
+		RMMarker *leftMarker = [testMarkers objectAtIndex:j - 1];
+		RMMarker *rightMarker = [testMarkers objectAtIndex:j];
 		CGPoint leftScreenPosition = [mangler screenCoordinatesForMarker:leftMarker];
 		CGPoint rightScreenPosition = [mangler screenCoordinatesForMarker:rightMarker];
+		RMLatLong leftMarkerCoordinate, rightMarkerCoordinate;
+		leftMarkerCoordinate.longitude = [[(NSArray *)leftMarker.data objectAtIndex:0] doubleValue];
+		leftMarkerCoordinate.latitude = [[(NSArray *)leftMarker.data objectAtIndex:1] doubleValue];
+		rightMarkerCoordinate.longitude = [[(NSArray *)rightMarker.data objectAtIndex:0] doubleValue];
+		rightMarkerCoordinate.latitude = [[(NSArray *)rightMarker.data objectAtIndex:1] doubleValue];
 		STAssertLessThan(leftScreenPosition.x, rightScreenPosition.x, 
 						 @"screen position calculation failed (markers %d, %d): left (%f, %f) right (%f, %f) mapped to left (%f, %f) right (%f, %f)",
 						 j-1, j,
-						 leftMarker.coordinate.longitude, leftMarker.coordinate.latitude,
-						 rightMarker.coordinate.longitude, rightMarker.coordinate.latitude,
+						 leftMarkerCoordinate.longitude, leftMarkerCoordinate.latitude,
+						 rightMarkerCoordinate.longitude, rightMarkerCoordinate.latitude,
 						 leftScreenPosition.x, leftScreenPosition.y, rightScreenPosition.x, rightScreenPosition.y);
 		CLLocationCoordinate2D computedLatitudeLongitude = 
 		[mangler latitudeLongitudeForMarker:leftMarker];
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
+		STAssertEqualsWithAccuracy(leftMarkerCoordinate.longitude, computedLatitudeLongitude.longitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of longitude failed %f %f",
-								   leftMarker.coordinate.longitude, computedLatitudeLongitude.longitude);
-		STAssertEqualsWithAccuracy(leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
+								   leftMarkerCoordinate.longitude, computedLatitudeLongitude.longitude);
+		STAssertEqualsWithAccuracy(leftMarkerCoordinate.latitude, computedLatitudeLongitude.latitude, kAccuracyThresholdForGeographicCoordinates,
 								   @"round-trip computation of latitude failed %f %f",
-								   leftMarker.coordinate.latitude, computedLatitudeLongitude.latitude);
+								   leftMarkerCoordinate.latitude, computedLatitudeLongitude.latitude);
 	}
 	
 }

@@ -37,7 +37,6 @@
 		23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */ = {isa = PBXBuildFile; fileRef = 23A0AAE80EB90A99003A4521 /* RMFoundation.c */; };
 		23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */; };
 		23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0ABA90EB923AF003A4521 /* RMLatLong.h */; };
-		2B293A820F9D2A2F00941A53 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
 		2B580E2C0F8D201200D495B2 /* marker-red.png in Resources */ = {isa = PBXBuildFile; fileRef = B8474C6F0EB53A41006A0BC1 /* marker-red.png */; };
@@ -48,7 +47,6 @@
 		2B5BDCDF0F8C17A500848078 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD50F8C17A500848078 /* GTMSenTestCase.m */; };
 		2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD70F8C17A500848078 /* GTMSystemVersion.m */; };
 		2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5BDCD90F8C17A500848078 /* GTMUIKit+UnitTesting.m */; };
-		2B8C8A250F8EB855002E8CF3 /* RMTestableMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */; };
 		2B8C8A260F8EB855002E8CF3 /* RouteMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */; };
 		2BEC602C0F8AC6FC008FB858 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B8E0EB40094006A0BC1 /* FMDatabase.m */; };
 		2BEC602D0F8AC6FE008FB858 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B900EB40094006A0BC1 /* FMDatabaseAdditions.m */; };
@@ -236,8 +234,6 @@
 		2B5BDCD80F8C17A500848078 /* GTMUIKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMUIKit+UnitTesting.h"; path = "GTM/GTMUIKit+UnitTesting.h"; sourceTree = "<group>"; };
 		2B5BDCD90F8C17A500848078 /* GTMUIKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMUIKit+UnitTesting.m"; path = "GTM/GTMUIKit+UnitTesting.m"; sourceTree = "<group>"; };
 		2B5BDCDA0F8C17A500848078 /* RunIPhoneUnitTest.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = RunIPhoneUnitTest.sh; path = GTM/RunIPhoneUnitTest.sh; sourceTree = "<group>"; };
-		2B8C8A210F8EB855002E8CF3 /* RMTestableMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMTestableMarker.h; path = UnitTesting/RMTestableMarker.h; sourceTree = "<group>"; };
-		2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMTestableMarker.m; path = UnitTesting/RMTestableMarker.m; sourceTree = "<group>"; };
 		2B8C8A230F8EB855002E8CF3 /* RouteMeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RouteMeTests.h; path = UnitTesting/RouteMeTests.h; sourceTree = "<group>"; };
 		2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RouteMeTests.m; path = UnitTesting/RouteMeTests.m; sourceTree = "<group>"; };
 		2BF3078F0F8AC5C0007014EE /* RM Unit Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RM Unit Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -421,8 +417,6 @@
 		2B246B230F8AE20300A7D55D /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				2B8C8A210F8EB855002E8CF3 /* RMTestableMarker.h */,
-				2B8C8A220F8EB855002E8CF3 /* RMTestableMarker.m */,
 				2B8C8A230F8EB855002E8CF3 /* RouteMeTests.h */,
 				2B8C8A240F8EB855002E8CF3 /* RouteMeTests.m */,
 				2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */,
@@ -922,7 +916,6 @@
 				2B5BDCDF0F8C17A500848078 /* GTMSenTestCase.m in Sources */,
 				2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */,
 				2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */,
-				2B8C8A250F8EB855002E8CF3 /* RMTestableMarker.m in Sources */,
 				2B8C8A260F8EB855002E8CF3 /* RouteMeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -969,7 +962,6 @@
 				2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */,
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,
 				F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */,
-				2B293A820F9D2A2F00941A53 /* RMTestableMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
