@@ -110,9 +110,9 @@ enum {
 	RMMapRenderer *renderer;
 	NSUInteger		boundingMask;
 	
-	/// minimum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter.
+	/// minimum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter; they are clamped to tilesource limits if needed.
 	float minZoom;
-	/// maximum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter.
+	/// maximum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter; they are clamped to tilesource limits if needed.
 	float maxZoom;
 
 	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
@@ -123,9 +123,11 @@ enum {
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
 @property (readwrite) float metersPerPixel;
+/// zoom level is clamped to range (minZoom, maxZoom)
 @property (readwrite) float zoom;
 
-@property (readwrite) float minZoom, maxZoom;
+@property (readwrite) float minZoom;
+@property (readwrite) float maxZoom;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 @property (readonly)  RMTileLoader *tileLoader;
@@ -186,8 +188,6 @@ enum {
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot; 
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
-/// \deprecated removed after 0.5
-- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 - (float)nextNativeZoomFactor;
 
 - (void) drawRect: (CGRect) rect;
@@ -246,7 +246,6 @@ enum {
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot; 
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
-- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom;
 
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong;
 - (CGPoint)latLongToPixel:(CLLocationCoordinate2D)latlong withMetersPerPixel:(float)aScale;

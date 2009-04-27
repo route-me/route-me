@@ -59,5 +59,13 @@
 	return @"Map data © OpenStreetMap, licensed under Creative Commons Share Alike By Attribution.";
 }
 
+-(float) minZoom
+{
+	return 1.0f;
+}
+-(float) maxZoom
+{
+	return 16.0f;
+}
 
 @end

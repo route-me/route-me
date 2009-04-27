@@ -61,11 +61,11 @@
 
 -(float) minZoom
 {
-	return 1;
+	return 1.0f;
 }
 -(float) maxZoom
 {
-	return 15;
+	return 15.0f;
 }
 
 @end

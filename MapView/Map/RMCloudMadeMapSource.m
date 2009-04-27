@@ -93,4 +93,13 @@
 	return @"Map © CloudMade.com. Map data CCBYSA 2009 OpenStreetMap.org contributors.";
 }
 
+-(float) minZoom
+{
+	return 0.0f;
+}
+-(float) maxZoom
+{
+	return 18.0f;
+}
+
 @end

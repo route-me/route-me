@@ -132,8 +132,8 @@
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
-	minZoom = minZoomLevel;
-	maxZoom = maxZoomLevel;
+	minZoom = fmax(minZoomLevel, [newTilesource minZoom]);
+	maxZoom = fmin(maxZoomLevel, [newTilesource maxZoom]);
 	NSAssert((minZoom <= initialZoomLevel), @"initial zoom level must be greater than minimum zoom level");
 	NSAssert((maxZoom >= initialZoomLevel), @"initial zoom level must be less than maximum zoom level");
 	[self setZoom:initialZoomLevel];
@@ -400,12 +400,6 @@
 	
 }
 
-- (void)setZoomBounds:(float)aMinZoom maxZoom:(float)aMaxZoom
-{
-	[self setMinZoom: aMinZoom];
-	[self setMaxZoom: aMaxZoom];
-}
-
 /// \bug this is a no-op, not a clamp, if new zoom would be outside of minzoom/maxzoom range
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
@@ -584,6 +578,8 @@
 	if (tileSource == newTileSource)
 		return;
 	
+//	[imagesOnScreen removeAllTiles]; tried this 27 Apr 2009 but it made no difference
+	
 	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
 	if (self.minZoom < newCachedTileSource.minZoom)
 		self.minZoom = newCachedTileSource.minZoom;
@@ -760,6 +756,16 @@
         [overlay zoomByFactor:zoomFactor near:pivot];
         [overlay correctPositionOfAllSublayers];
         [renderer setNeedsDisplay];
+}
+
+-(void)setMaxZoom:(float)newMaxZoom
+{
+	maxZoom = fmin(newMaxZoom, [self.tileSource maxZoom]);
+}
+
+-(void)setMinZoom:(float)newMinZoom
+{
+	minZoom = fmax(newMinZoom, [self.tileSource minZoom]);
 }
 
 -(float) zoom
