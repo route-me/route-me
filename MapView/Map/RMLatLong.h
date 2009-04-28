@@ -74,6 +74,9 @@ typedef struct {
 
 #endif
 
+/*! \struct RMLatLong 
+ \brief latitude/longitude of a point, in WGS-84 degrees
+ */
 typedef CLLocationCoordinate2D RMLatLong;
 
 /// \bug magic numbers

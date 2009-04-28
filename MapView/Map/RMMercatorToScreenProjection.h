@@ -43,6 +43,7 @@
 	RMProjection *projection;
 	
 	/// Bounds of the screen in pixels
+	/// \bug name is "screenBounds" but is probably the view, not the whole screen?
 	CGRect screenBounds;
 
 	/// \brief meters per pixel
