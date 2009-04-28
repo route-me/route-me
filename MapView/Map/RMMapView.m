@@ -339,6 +339,7 @@
 	[self registerPausedDraggingDispatcher];
 }
 
+/// \bug touchesCancelled should clean up, not pass event to markers
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];

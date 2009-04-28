@@ -103,17 +103,6 @@
 		}
 		markerPosition.latitude += columnSpacing;
 	}
-	
-	
-#ifdef DEBUG
-	RMMarkerManager *mangler = [[mapView contents] markerManager];
-	for (RMMarker *theMarker in [mangler markers]) {
-		CGPoint screenPosition = [mangler screenCoordinatesForMarker:theMarker];
-		RMLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
-			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
-			  screenPosition.y, screenPosition.x);
-	}
-#endif
 }
 
 - (void)testMarkerCoordinatesFarEast
