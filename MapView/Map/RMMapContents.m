@@ -24,6 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
+#import "RMGlobalConstants.h"
 #import "RMMapContents.h"
 
 #import "RMMapView.h"
@@ -47,6 +48,8 @@
 #import "RMMarker.h"
 
 
+
+
 @interface RMMapContents (PrivateMethods)
 - (void)animatedZoomStep:(NSTimer *)timer;
 @end
@@ -61,6 +64,13 @@
 @synthesize minZoom;
 @synthesize maxZoom;
 @synthesize markerManager;
+
+#pragma mark --- begin constants ----
+#define kZoomAnimationStepTime 0.03f
+#define kZoomAnimationAnimationTime 0.1f
+#define kiPhoneMilimeteresPerPixel .1543
+#define kZoomRectPixelBuffer 50
+#pragma mark --- end constants ----
 
 #pragma mark Initialisation
 
@@ -375,8 +385,8 @@
 - (void)adjustMapPlacementWithScale:(float)aScale
 {
 	CGSize		adjustmentDelta = {0.0, 0.0};
-	RMLatLong	rightEdgeLatLong = {0, 180};
-	RMLatLong	leftEdgeLatLong = {0,- 180};
+	RMLatLong	rightEdgeLatLong = {0, kMaxLong};
+	RMLatLong	leftEdgeLatLong = {0,- kMaxLong};
 	
 	CGPoint		rightEdge = [self latLongToPixel:rightEdgeLatLong withMetersPerPixel:aScale];
 	CGPoint		leftEdge = [self latLongToPixel:leftEdgeLatLong withMetersPerPixel:aScale];
@@ -438,9 +448,8 @@
 		float targetZoom = zoomDelta + [self zoom];
 		
 		// goal is to complete the animation in animTime seconds
-/// \bug magic numbers
-		static const float stepTime = 0.03f;
-		static const float animTime = 0.1f;
+		static const float stepTime = kZoomAnimationStepTime;
+		static const float animTime = kZoomAnimationAnimationTime;
 		float nSteps = animTime / stepTime;
 		float zoomIncr = zoomDelta / nSteps;
 		
@@ -737,7 +746,7 @@
 	if (mercatorToScreenProjection != nil)
 		return [mercatorToScreenProjection screenBounds];
 	else
-		return CGRectMake(0, 0, 0, 0);
+		return kEmptyRect;
 }
 
 -(float) metersPerPixel
@@ -748,7 +757,7 @@
 -(void) setMetersPerPixel: (float) newMPP
 {
         float zoomFactor = newMPP / self.metersPerPixel;
-        CGPoint pivot = CGPointMake(0,0);
+        CGPoint pivot = kTheOrigin;
 
         [mercatorToScreenProjection setMetersPerPixel:newMPP];
         [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
@@ -859,8 +868,7 @@ static BOOL _performExpensiveOperations = YES;
 
 - (double)scaleDenominator {
 	double routemeMetersPerPixel = [self metersPerPixel];
-	/// \bug magic number
-	double iphoneMillimetersPerPixel = .1543;
+	double iphoneMillimetersPerPixel = kiPhoneMilimeteresPerPixel;
 	double truescaleDenominator =  routemeMetersPerPixel / (0.001 * iphoneMillimetersPerPixel) ;
 	return truescaleDenominator;
 }
@@ -883,7 +891,7 @@ static BOOL _performExpensiveOperations = YES;
 	else
 	{
 		//convert ne/sw into RMMercatorRect and call zoomWithBounds
-		float pixelBuffer = 50;
+		float pixelBuffer = kZoomRectPixelBuffer;
 		CLLocationCoordinate2D midpoint = {
 			.latitude = (ne.latitude + sw.latitude) / 2,
 			.longitude = (ne.longitude + sw.longitude) / 2
@@ -974,12 +982,12 @@ static BOOL _performExpensiveOperations = YES;
 	// westerly computations:
 	// -179, -178 -> -179 (min)
 	// -179, 179  -> 179 (max)
-	if (fabs(northwestLL.longitude - southwestLL.longitude) <= 180.)
+	if (fabs(northwestLL.longitude - southwestLL.longitude) <= kMaxLong)
 		boundingBox.southwest.longitude = fmin(northwestLL.longitude, southwestLL.longitude);
 	else
 		boundingBox.southwest.longitude = fmax(northwestLL.longitude, southwestLL.longitude);
 	
-	if (fabs(northeastLL.longitude - southeastLL.longitude) <= 180.)
+	if (fabs(northeastLL.longitude - southeastLL.longitude) <= kMaxLong)
 		boundingBox.northeast.longitude = fmax(northeastLL.longitude, southeastLL.longitude);
 	else
 		boundingBox.northeast.longitude = fmin(northeastLL.longitude, southeastLL.longitude);

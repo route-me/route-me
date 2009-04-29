@@ -33,7 +33,7 @@
 
 - (NSString*) tileURL: (RMTile) tile
 {
-   NSInteger zoom = 18 - tile.zoom;
+   NSInteger zoom = kDefaultMaxTileZoom - tile.zoom;
    NSInteger shift = tile.zoom -1;
    NSInteger x = tile.x;
    NSInteger y = pow(2,shift)-1-tile.y;

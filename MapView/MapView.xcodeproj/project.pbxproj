@@ -96,6 +96,7 @@
 		2BEC61320F8ACC24008FB858 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		2BEC61330F8ACC25008FB858 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		3849889C0F6F758100496293 /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D818500F6F67B90034598B /* libProj4.a */; };
+		96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */; };
 		96FE8E360F72D01B00A11CF0 /* RMYahooMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FE8E340F72D01B00A11CF0 /* RMYahooMapSource.h */; };
 		96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */; };
 		B8474B9A0EB40094006A0BC1 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B8D0EB40094006A0BC1 /* FMDatabase.h */; };
@@ -244,6 +245,7 @@
 		3866784C0F6B9B9200C56B17 /* MapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapView.framework; path = build/MapView.framework; sourceTree = "<group>"; };
 		38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = Canonical.framework.tar; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGlobalConstants.h; sourceTree = "<group>"; };
 		966504690F6869810036562A /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		96FE8E340F72D01B00A11CF0 /* RMYahooMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMYahooMapSource.h; sourceTree = "<group>"; };
 		96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMYahooMapSource.m; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 		B8C9740D0E8A196E007D16AD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */,
 				090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */,
 				B8C974690E8A1A50007D16AD /* RMMapView.h */,
 				B8C9746A0E8A1A50007D16AD /* RMMapView.m */,
@@ -737,6 +740,7 @@
 				2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */,
 				96FE8E360F72D01B00A11CF0 /* RMYahooMapSource.h in Headers */,
 				F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */,
+				96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

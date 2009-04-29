@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMGeoHash.h"
 
 static NSString *BASE32 = @"0123456789bcdefghjkmnpqrstuvwxyz";
@@ -49,8 +49,8 @@ static NSString *BORDERS[4][2] =
 	int bit=0, ch=0;
 	NSMutableString *geohash = [[[NSMutableString string] retain] autorelease];
 	
-	CLLocationCoordinate2D loc1 = { -90.0, -180.0 };
-	CLLocationCoordinate2D loc2 = { 90.0, 180.0 };
+	CLLocationCoordinate2D loc1 = { -kMaxLat, -kMaxLong };
+	CLLocationCoordinate2D loc2 = { kMaxLat, kMaxLong };
 	CLLocationDegrees mid;
 	
 	int hashLen = 0;
@@ -86,10 +86,10 @@ static NSString *BORDERS[4][2] =
 + (void) convert: (NSString *)geohash toMin: (CLLocationCoordinate2D *)loc1 max: (CLLocationCoordinate2D *)loc2 
 {
 	BOOL is_even = TRUE;	
-	loc1->latitude  =  -90.0;
-	loc1->longitude = -180.0;
-	loc2->latitude = 90.0;
-	loc2->longitude = 180.0;
+	loc1->latitude  =  -kMaxLat;
+	loc1->longitude = -kMaxLong;
+	loc2->latitude = kMaxLat;
+	loc2->longitude = kMaxLong;
 	NSRange	range;
 	int cd, mask;
 	int geohashLen = [geohash length];

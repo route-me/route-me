@@ -37,7 +37,6 @@
 @synthesize textForegroundColor;
 @synthesize textBackgroundColor;
 
-/// \bug magic number
 #define defaultMarkerAnchorPoint CGPointMake(0.5, 0.5)
 
 + (UIFont *)defaultFont

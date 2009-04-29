@@ -31,6 +31,7 @@
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
 #import <CoreLocation/CoreLocation.h>
+#import "RMGlobalConstants.h"
 
 /*! \struct RMSphericalTrapezium
  
@@ -80,9 +81,9 @@ typedef struct {
 typedef CLLocationCoordinate2D RMLatLong;
 
 /// \bug magic numbers
-static const double kRMMinLatitude = -90.0f;
-static const double kRMMaxLatitude = 90.0f;
-static const double kRMMinLongitude = -180.0f;
-static const double kRMMaxLongitude = 180.0f;
+static const double kRMMinLatitude = -kMaxLat;
+static const double kRMMaxLatitude = kMaxLat;
+static const double kRMMinLongitude = -kMaxLong;
+static const double kRMMaxLongitude = kMaxLong;
 
 #endif

@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"w
 #import "RMTileLoader.h"
 
 #import "RMTileImage.h"
@@ -80,7 +80,7 @@ NSString* const RMTileRequested = @"RMTileRequested";
 
 -(void) clearLoadedBounds
 {
-	loadedBounds = CGRectMake(0, 0, 0, 0);
+	loadedBounds = kEmptyRect;
 	//	loadedTiles.origin.tile = RMTileDummy();
 }
 -(BOOL) screenIsLoaded

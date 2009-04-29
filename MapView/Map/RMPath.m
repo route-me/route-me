@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMPath.h"
 #import "RMMapView.h"
 #import "RMMapContents.h"
@@ -36,6 +36,8 @@
 
 @synthesize origin;
 
+#define kDefaultLineWidth 100
+
 /// \bug default values for lineWidth, lineColor, fillColor are hardcoded
 - (id) initWithContents: (RMMapContents*)aContents
 {
@@ -46,7 +48,7 @@
 
 	path = CGPathCreateMutable();
 	
-	lineWidth = 100.0f;
+	lineWidth = kDefaultLineWidth;
 	drawingMode = kCGPathFillStroke;
 	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
@@ -89,7 +91,7 @@
 	boundsInMercators.size.width += 2*lineWidth;
 	boundsInMercators.size.height += 2*lineWidth;
 	
-	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, CGPointMake(0,0));
+	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, kTheOrigin);
 
 //	RMLog(@"old bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
 	self.bounds = pixelBounds;

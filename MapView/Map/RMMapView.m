@@ -48,6 +48,11 @@
 @synthesize deceleration;
 @synthesize contents;
 
+#pragma mark --- begin constants ----
+#define kDefaultDeceleartionFactor .88f
+#define kMinDecelerationDelta 0.01f
+#pragma mark --- end constants ----
+
 - (RMMarkerManager*)markerManager
 {
   return self.contents.markerManager;
@@ -59,7 +64,7 @@
 
 	enableDragging = YES;
 	enableZoom = YES;
-	decelerationFactor = 0.88f;
+	decelerationFactor = kDefaultDeceleartionFactor;
 	deceleration = NO;
 	
 	//	[self recalculateImageSet];
@@ -510,7 +515,7 @@
 }
 
 - (void)incrementDeceleration:(NSTimer *)timer {
-	if (ABS(_decelerationDelta.width) < 0.01f && ABS(_decelerationDelta.height) < 0.01f) {
+	if (ABS(_decelerationDelta.width) < kMinDecelerationDelta && ABS(_decelerationDelta.height) < kMinDecelerationDelta) {
 		[self stopDeceleration];
 		return;
 	}

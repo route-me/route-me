@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMCoreAnimationRenderer.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RMTile.h"
@@ -45,7 +45,7 @@
 	//       strange data.
 
 	layer = [[CAScrollLayer layer] retain];
-	layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+	layer.anchorPoint = kTheOrigin;
 	layer.masksToBounds = YES;
 	// If the frame is set incorrectly here, it will be fixed when setRenderer is called in RMMapContents
 	layer.frame = [content screenBounds];

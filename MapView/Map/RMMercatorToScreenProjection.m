@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMMercatorToScreenProjection.h"
 #include "RMProjection.h"
 
@@ -115,7 +115,7 @@
 	//RMLog(@"test: %f %f", test.x, test.y);
 	//RMLog(@"correct: %f %f", origin.easting, origin.y);
 	
-//	CGPoint p = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(0,0)]];
+//	CGPoint p = [self projectMercatorPoint:[self projectScreenPointToMercator:kTheOrigin]];
 //	RMLog(@"origin at %f %f", p.x, p.y);
 //	CGPoint q = [self projectMercatorPoint:[self projectScreenPointToMercator:CGPointMake(100,100)]];
 //	RMLog(@"100 100 at %f %f", q.x, q.y);

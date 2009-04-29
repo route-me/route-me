@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMTileImage.h"
 #import "RMWebTileImage.h"
 #import "RMTileLoader.h"
@@ -52,7 +52,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	loadingPriorityCount = 0;
 	lastUsedTime = nil;
 	dataPending = nil;
-	screenLocation = CGRectMake(0, 0, 0, 0);
+	screenLocation = kEmptyRect;
 	
 	[self touch];
 	
@@ -228,7 +228,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	{
 		layer = [[CALayer alloc] init];
 		layer.contents = nil;
-		layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+		layer.anchorPoint = kTheOrigin;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 		layer.position = screenLocation.origin;
 		

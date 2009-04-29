@@ -27,6 +27,12 @@
 
 #import "RMTileSource.h"
 
+#pragma mark --- begin constants ---
+#define kDefaultTileSize 256
+#define kDefaultMinTileZoom 0
+#define kDefaultMaxTileZoom 18
+#pragma mark --- end constants ---
+
 @protocol RMAbstractMercatorWebSource
 
 -(NSString*) tileURL: (RMTile) tile;

@@ -54,16 +54,16 @@
 
 +(int)tileSideLength
 {
-	return 256;
+	return kDefaultTileSize;
 }
 
 -(float) minZoom
 {
-	return 0;
+	return kDefaultMinTileZoom;
 }
 -(float) maxZoom
 {
-	return 18;
+	return kDefaultMaxTileZoom;
 }
 
 /// \bug magic string literals

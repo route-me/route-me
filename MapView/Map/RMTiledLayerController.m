@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "RMTiledLayerController.h"
 #import "RMFractalTileProjection.h"
 #import "RMTileSource.h"
@@ -55,7 +55,7 @@
 	
 	RMXYRect boundsRect = tileProjection.bounds;
 	layer.bounds = CGRectMake(boundsRect.origin.x, boundsRect.origin.y, boundsRect.size.width, boundsRect.size.height) ;
-	layer.position = CGPointMake(0, 0);
+	layer.position = kTheOrigin;
 
 	[self setScale:1];
 	[layer setNeedsDisplay];

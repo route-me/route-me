@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#import "RMGlobalConstants.h"
 #import "proj_api.h"
 #import "RMProjection.h"
 
@@ -174,7 +174,7 @@ static RMProjection* _osgb = nil;
 	}
 	else
 	{
-		RMProjectedRect theBounds = RMMakeProjectedRect(-180, -90, 360, 180);
+		RMProjectedRect theBounds = RMMakeProjectedRect(-kMaxLong, -kMaxLat, 360, kMaxLong);
 		
 		/// \bug magic numbers embedded in code, this one's probably ok
 		_latlong = [[RMProjection alloc] initWithString:@"+proj=latlong +ellps=WGS84" InBounds: theBounds];
