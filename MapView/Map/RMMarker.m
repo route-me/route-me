@@ -33,7 +33,7 @@
 
 @synthesize projectedLocation;
 @synthesize data;
-@synthesize labelView;
+@synthesize label;
 @synthesize textForegroundColor;
 @synthesize textBackgroundColor;
 
@@ -48,7 +48,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        labelView = nil;
+        label = nil;
         textForegroundColor = [UIColor blackColor];
         textBackgroundColor = [UIColor clearColor];
     }
@@ -70,7 +70,7 @@
 	self.anchorPoint = _anchorPoint;
 	
 	self.masksToBounds = NO;
-	self.labelView = nil;
+	self.label = nil;
 	
 	return self;
 }
@@ -90,22 +90,23 @@
 	self.masksToBounds = NO;
 }
 
-- (void) setLabel: (UIView*)aView
+- (void) setLabel:(UIView*)aView
 {
-	if (self.labelView == aView) {
+	if (label == aView) {
 		return;
 	}
 
-	if (labelView != nil)
+	if (label != nil)
 	{
-		[[self.labelView layer] removeFromSuperlayer];
-		self.labelView = nil;
+		[[label layer] removeFromSuperlayer];
+		[label release];
+		label = nil;
 	}
 	
 	if (aView != nil)
 	{
-		self.labelView = [aView retain];
-		[self addSublayer:[self.labelView layer]];
+		label = [aView retain];
+		[self addSublayer:[label layer]];
 	}
 }
 
@@ -154,11 +155,11 @@
 
 - (void) toggleLabel
 {
-	if (self.labelView == nil) {
+	if (self.label == nil) {
 		return;
 	}
 	
-	if ([self.labelView isHidden]) {
+	if ([self.label isHidden]) {
 		[self showLabel];
 	} else {
 		[self hideLabel];
@@ -167,26 +168,26 @@
 
 - (void) showLabel
 {
-	if ([self.labelView isHidden]) {
+	if ([self.label isHidden]) {
 		// Using addSublayer will animate showing the label, whereas setHidden is not animated
-		[self addSublayer:[self.labelView layer]];
-		[self.labelView setHidden:NO];
+		[self addSublayer:[self.label layer]];
+		[self.label setHidden:NO];
 	}
 }
 
 - (void) hideLabel
 {
-	if (![self.labelView isHidden]) {
+	if (![self.label isHidden]) {
 		// Using removeFromSuperlayer will animate hiding the label, whereas setHidden is not animated
-		[[self.labelView layer] removeFromSuperlayer];
-		[self.labelView setHidden:YES];
+		[[self.label layer] removeFromSuperlayer];
+		[self.label setHidden:YES];
 	}
 }
 
 - (void) dealloc 
 {
     self.data = nil;
-    self.labelView = nil;
+    self.label = nil;
     self.textForegroundColor = nil;
     self.textBackgroundColor = nil;
 	[super dealloc];

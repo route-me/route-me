@@ -42,15 +42,15 @@
 	/// provided for storage of arbitrary user data
 	NSObject* data; 
 	
-	/// A label which comes up when you tap the marker
-	UIView *labelView;
+	/// Text label, visible by default if it has content, but not required.
+	UIView *label;
 	UIColor *textForegroundColor;
 	UIColor *textBackgroundColor;
 }
 @property (assign, nonatomic) RMProjectedPoint projectedLocation;
 
 @property (nonatomic, retain) NSObject* data;
-@property (nonatomic, retain) UIView* labelView;
+@property (nonatomic, retain) UIView* label;
 @property(nonatomic,retain) UIColor *textForegroundColor;
 @property(nonatomic,retain) UIColor *textBackgroundColor;
 
@@ -64,9 +64,6 @@
 /// referenced to upper left corner, y increasing top to bottom. To put the image's upper right corner on the marker's 
 /// #projectedLocation, use an anchor point of (1.0, 0.0);
 - (id) initWithUIImage: (UIImage*) image anchorPoint: (CGPoint) anchorPoint;
-
-/// note this takes a UIView, not a UILabel, so it should (untested assumption) be possible to use other UIView descendants (UIControl, UIWebView, etc)
-- (void) setLabel: (UIView*)aView;
 
 /// changes the labelView to a UILabel with supplied #text and default marker font, using existing text foreground/background color.
 - (void) changeLabelUsingText: (NSString*)text;
