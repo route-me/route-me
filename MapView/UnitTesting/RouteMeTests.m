@@ -14,8 +14,9 @@
 #import "RMMarkerManager.h"
 
 @implementation RouteMeTests
+#define kAccuracyThreshold .0001
 #define kAccuracyThresholdForGeographicCoordinates .00001
-#define kAccuracyThresholdForPixelCoordinates .0001
+#define kAccuracyThresholdForPixelCoordinates kAccuracyThreshold
 
 - (void)setUp {
     [super setUp];
@@ -304,5 +305,39 @@
 					 @"X pixel coordinates should be increasing left to right");
 }
 
+- (void)testZoomBounds
+{
+	double contentsMaxZoom, tilesourceMaxZoom, contentsZoom;
+	contentsMaxZoom = [[mapView contents] maxZoom];
+	tilesourceMaxZoom = [[[mapView contents] tileSource] maxZoom];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertLessThanOrEqual(contentsMaxZoom, tilesourceMaxZoom, @"map's maxZoom exceeds tilesource's maxZoom");
+	STAssertLessThanOrEqual(contentsZoom, tilesourceMaxZoom, @"map's zoom exceeds tilesource's maxZoom");
+	
+	double targetZoom = tilesourceMaxZoom + 0.5;
+	[[mapView contents] setZoom:targetZoom]; // try to exceed tilesource limit
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, @"map's zoom wrong after trying to exceed tilesource's maxZoom");
+
+	targetZoom = tilesourceMaxZoom - 1.5;
+	[[mapView contents] setZoom:targetZoom];
+	CGPoint pivotPoint = CGPointMake(5., 5.);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom - 1.0, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after zoomInToNextNativeZoomAt: for maxZoom-1 %f",
+							   contentsZoom, tilesourceMaxZoom);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, 
+							   @"map's zoom [%f] wrong after zoomInToNextNativeZoomAt: for maxZoom %f (first)",
+							   contentsZoom, tilesourceMaxZoom);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after zoomInToNextNativeZoomAt: for maxZoom %f (second)",
+							   contentsZoom, tilesourceMaxZoom);
+	
+}
 
 @end
