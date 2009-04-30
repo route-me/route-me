@@ -14,7 +14,6 @@
 #import "RMMapView.h"
 #import "RMMarkerManager.h"
 #import "RMMarker.h"
-#import "RMTestableMarker.h"
 #import "RMMercatorToScreenProjection.h"
 #import "RMProjection.h"
 
@@ -48,24 +47,18 @@
 		for (j = 0; j < kNumberColumns; j++) {
 			markerPosition.longitude += kSpacing;
 			NSLog(@"%f %f", markerPosition.latitude, markerPosition.longitude);
-			RMTestableMarker *newMarker;
+			RMMarker *newMarker;
 			if ((markerPosition.longitude < -180) ||
 				(markerPosition.longitude > 0))
-				newMarker = [[RMTestableMarker alloc] initWithUIImage:redMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+				newMarker = [[RMMarker alloc] initWithUIImage:redMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
 			else
-				newMarker = [[RMTestableMarker alloc] initWithUIImage:blueMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
-#ifdef DEBUG
-			[newMarker setCoordinate:markerPosition];
-#endif
+				newMarker = [[RMMarker alloc] initWithUIImage:blueMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
 			[self.mapView.contents.markerManager addMarker:newMarker
 			 AtLatLong:markerPosition];
 			[newMarker changeLabelUsingText:[NSString stringWithFormat:@"%4.1f", markerPosition.longitude]];
 			[newMarker release];
-			RMTestableMarker *xMarker = [[RMTestableMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 0.5)];
+			RMMarker *xMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 0.5)];
 			[self.mapView.contents.markerManager addMarker:xMarker AtLatLong:markerPosition];
-#ifdef DEBUG
-			[xMarker setCoordinate:markerPosition];
-#endif
 			[xMarker release];
 		}
 		markerPosition.latitude += kSpacing;
@@ -131,35 +124,15 @@
 						   ]];
 }
 
-#ifdef DEBUG
-- (void)testMarkerPositions
-{
-	LogMethod();
-	RMMarkerManager *mangler = [[[self mapView] contents] markerManager];
-								
-	for (RMTestableMarker *theMarker in [mangler markers]) {
-		CGPoint screenPosition = [mangler screenCoordinatesForMarker:theMarker];
-		NSLog(@"%@ %3.1f %3.1f %f %f", theMarker, 
-			  theMarker.coordinate.latitude, theMarker.coordinate.longitude,
-			  screenPosition.y, screenPosition.x);
-	}
-}
-#endif
 
 #pragma mark -
 #pragma mark Delegate methods
 
 - (void) afterMapMove: (RMMapView*) map {
-#ifdef DEBUG
-	[self testMarkerPositions];
-#endif
     [self updateInfo];
 }
 
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center {
-#ifdef DEBUG
-	[self testMarkerPositions];
-#endif
 	[self updateInfo];
 }
 
