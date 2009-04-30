@@ -338,6 +338,25 @@
 							   @"map's zoom %f wrong after zoomInToNextNativeZoomAt: for maxZoom %f (second)",
 							   contentsZoom, tilesourceMaxZoom);
 	
+	
+	double contentsMinZoom = 3.0;
+	[[mapView contents] setMinZoom:contentsMinZoom];
+	targetZoom = contentsMinZoom + 0.6;	
+	[[mapView contents] setZoom:targetZoom];
+	contentsZoom = [[mapView contents] zoom];
+	NSLog(@"zoom: %f minZoom: %f", contentsZoom, [[mapView contents] minZoom]);
+	[[mapView contents] zoomOutToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, contentsMinZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after first zoomOutToNextNativeZoomAt: for minZoom %f",
+							   contentsZoom, contentsMinZoom);
+	[[mapView contents] zoomOutToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, contentsMinZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after second zoomOutToNextNativeZoomAt: for minZoom %f",
+							   contentsZoom, contentsMinZoom);
+	
+	  
 }
 
 @end
