@@ -8,6 +8,8 @@
 #import "MainViewController.h"
 
 #import "RMPath.h"
+#import "RMMarker.h"
+#import "RMMarkerManager.h"
 
 @implementation MapTestbedAppDelegate
 
@@ -47,6 +49,8 @@
 {
 	NSLog(@"testing paths");
 	RMMapContents *mapContents = [self mapContents];
+
+	UIImage *xMarkerImage = [UIImage imageNamed:@"marker-X.png"];
 	
 	// if we zoom with bounds after the paths are created, nothing is displayed on the map
 	CLLocationCoordinate2D northeast, southwest;
@@ -80,6 +84,16 @@
 	[[mapContents overlay] addSublayer:testPath];
 	[testPath release];
 
+	RMMarker *newMarker;
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:one];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:two];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:three];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:four];
+	
 	CLLocationCoordinate2D r1, r2, r3, r4;
 	r1.latitude = 48.86637615203047f;
 	r1.longitude = 2.3236513137817383f;
@@ -103,7 +117,15 @@
 	[testRegion closePath];
 	[[mapContents overlay] addSublayer:testRegion];
 	[testRegion release];
-
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:r1];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:r2];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:r3];
+	newMarker = [[RMMarker alloc] initWithUIImage:xMarkerImage anchorPoint:CGPointMake(0.5, 1.0)];
+	[mapContents.markerManager addMarker:[newMarker autorelease] AtLatLong:r4];
+	
 	[self performSelector:@selector(performTestPart2) withObject:nil afterDelay:3.0f]; 
 	[self performSelector:@selector(performTestPart3) withObject:nil afterDelay:7.0f]; 
 }
