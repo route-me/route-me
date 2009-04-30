@@ -52,7 +52,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	loadingPriorityCount = 0;
 	lastUsedTime = nil;
 	dataPending = nil;
-	screenLocation = kEmptyRect;
+	screenLocation = CGRectZero;
 	
 	[self touch];
 	
@@ -228,7 +228,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	{
 		layer = [[CALayer alloc] init];
 		layer.contents = nil;
-		layer.anchorPoint = kTheOrigin;
+		layer.anchorPoint = CGPointZero;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 		layer.position = screenLocation.origin;
 		

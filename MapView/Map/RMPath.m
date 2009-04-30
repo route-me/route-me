@@ -91,7 +91,7 @@
 	boundsInMercators.size.width += 2*lineWidth;
 	boundsInMercators.size.height += 2*lineWidth;
 	
-	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, kTheOrigin);
+	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, CGPointZero);
 
 //	RMLog(@"old bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
 	self.bounds = pixelBounds;

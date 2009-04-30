@@ -55,7 +55,7 @@
 	
 	RMXYRect boundsRect = tileProjection.bounds;
 	layer.bounds = CGRectMake(boundsRect.origin.x, boundsRect.origin.y, boundsRect.size.width, boundsRect.size.height) ;
-	layer.position = kTheOrigin;
+	layer.position = CGPointZero;
 
 	[self setScale:1];
 	[layer setNeedsDisplay];

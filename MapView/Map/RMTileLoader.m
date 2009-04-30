@@ -80,7 +80,7 @@ NSString* const RMTileRequested = @"RMTileRequested";
 
 -(void) clearLoadedBounds
 {
-	loadedBounds = kEmptyRect;
+	loadedBounds = CGRectZero;
 	//	loadedTiles.origin.tile = RMTileDummy();
 }
 -(BOOL) screenIsLoaded

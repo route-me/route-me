@@ -746,7 +746,7 @@
 	if (mercatorToScreenProjection != nil)
 		return [mercatorToScreenProjection screenBounds];
 	else
-		return kEmptyRect;
+		return CGRectZero;
 }
 
 -(float) metersPerPixel
@@ -757,7 +757,7 @@
 -(void) setMetersPerPixel: (float) newMPP
 {
         float zoomFactor = newMPP / self.metersPerPixel;
-        CGPoint pivot = kTheOrigin;
+        CGPoint pivot = CGPointZero;
 
         [mercatorToScreenProjection setMetersPerPixel:newMPP];
         [imagesOnScreen zoomByFactor:zoomFactor near:pivot];

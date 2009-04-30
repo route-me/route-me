@@ -7,7 +7,5 @@
  *
  */
 
-#define kTheOrigin CGPointMake(0,0)
-#define kEmptyRect CGRectMake(0, 0, 0, 0)
 #define kMaxLong 180 
 #define kMaxLat 90

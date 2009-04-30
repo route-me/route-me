@@ -45,7 +45,7 @@
 	//       strange data.
 
 	layer = [[CAScrollLayer layer] retain];
-	layer.anchorPoint = kTheOrigin;
+	layer.anchorPoint = CGPointZero;
 	layer.masksToBounds = YES;
 	// If the frame is set incorrectly here, it will be fixed when setRenderer is called in RMMapContents
 	layer.frame = [content screenBounds];
