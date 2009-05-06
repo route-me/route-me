@@ -34,7 +34,7 @@
 
 @implementation RMPath
 
-@synthesize origin;
+@synthesize origin, scaleLineWidth;
 
 #define kDefaultLineWidth 100
 
@@ -81,15 +81,22 @@
 }
 
 - (void) recalculateGeometry
-{
+{	
 	float scale = [[contents mercatorToScreenProjection] metersPerPixel];
+	
+	float scaledLineWidth = lineWidth;
+	if(!scaleLineWidth) {
+		renderedScale = [contents metersPerPixel];
+		scaledLineWidth *= renderedScale;
+	}
+	
 	// The bounds are actually in mercators...
 	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
-	boundsInMercators.origin.x -= lineWidth;
-	boundsInMercators.origin.y -= lineWidth;
-	boundsInMercators.size.width += 2*lineWidth;
-	boundsInMercators.size.height += 2*lineWidth;
+	boundsInMercators.origin.x -= scaledLineWidth;
+	boundsInMercators.origin.y -= scaledLineWidth;
+	boundsInMercators.size.width += 2*scaledLineWidth;
+	boundsInMercators.size.height += 2*scaledLineWidth;
 	
 	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, CGPointZero);
 
@@ -156,12 +163,18 @@
 	
 	float scale = 1.0f / [contents metersPerPixel];
 	
+	float scaledLineWidth = lineWidth;
+	if(!scaleLineWidth) {
+		scaledLineWidth *= renderedScale;
+	}
+	NSLog(@"line width = %f, content scale = %f", scaledLineWidth, renderedScale);
+	
 	CGContextScaleCTM(theContext, scale, scale);
 	
 	CGContextBeginPath(theContext);
 	CGContextAddPath(theContext, path);
 	
-	CGContextSetLineWidth(theContext, lineWidth);
+	CGContextSetLineWidth(theContext, scaledLineWidth);
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
 	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
 	
@@ -214,6 +227,7 @@
 {
     return fillColor; 
 }
+
 - (void)setFillColor:(UIColor *)aFillColor
 {
     if (fillColor != aFillColor) {
@@ -227,6 +241,7 @@
 {
 	[super zoomByFactor:zoomFactor near:pivot];
 	
+	// don't redraw if the path hasn't been scaled very much
 	float newMPP = [contents metersPerPixel];
 	if (newMPP / renderedScale >= 2.0f
 		|| newMPP / renderedScale <= 0.5f)
@@ -234,5 +249,6 @@
 		[self setNeedsDisplay];
 	}
 }
+
 
 @end

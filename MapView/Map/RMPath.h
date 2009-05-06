@@ -73,6 +73,7 @@
 @property CGPathDrawingMode drawingMode;
 
 @property float lineWidth;
+@property BOOL	scaleLineWidth;
 @property (nonatomic, assign) RMProjectedPoint origin;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
@@ -86,8 +87,5 @@
 /// There is no requirement that a path be closed.
 - (void) closePath;
 
-//- (void) setPoints: (NSArray*) arr;
-
-//- (void) moveBy: (RMXYSize) delta;
 
 @end
