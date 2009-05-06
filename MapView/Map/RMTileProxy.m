@@ -51,7 +51,7 @@ static RMTileImage *_loadingTile = nil;
 	RMTile t = RMTileDummy();
 	/// \bug magic string literals
 	NSString* file = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
-	_loadingTile = [[RMTileImage imageWithTile:t FromFile:file] retain];
+	_loadingTile = [[RMTileImage imageForTile:t fromFile:file] retain];
 	return _loadingTile;
 //	return nil;
 }

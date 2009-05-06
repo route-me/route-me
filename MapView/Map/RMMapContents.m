@@ -42,7 +42,7 @@
 #import "RMCoreAnimationRenderer.h"
 #import "RMCachedTileSource.h"
 
-#import "RMLayerSet.h"
+#import "RMLayerCollection.h"
 #import "RMMarkerManager.h"
 
 #import "RMMarker.h"
@@ -156,7 +156,7 @@
 	[self setBackground:theBackground];
 	[theBackground release];
 	
-	RMLayerSet *theOverlay = [[RMLayerSet alloc] initForContents:self];
+	RMLayerCollection *theOverlay = [[RMLayerCollection alloc] initForContents:self];
 	[self setOverlay:theOverlay];
 	[theOverlay release];
 	
@@ -241,7 +241,7 @@
 	[self setBackground:theBackground];
 	[theBackground release];
 	
-	RMLayerSet *theOverlay = [[RMLayerSet alloc] initForContents:self];
+	RMLayerCollection *theOverlay = [[RMLayerCollection alloc] initForContents:self];
 	[self setOverlay:theOverlay];
 	[theOverlay release];
 	
@@ -540,31 +540,24 @@
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated
 {
 	// Calculate rounded zoom
-	float newZoom = roundf([self zoom] + 1);
+	float newZoom = fmin(floorf([self zoom] + 1.0), [self maxZoom]);
+	//RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
 	
-	if (newZoom >= [self maxZoom])
-		return;
-	else
-	{
-		float factor = exp2f(newZoom - [self zoom]);
-		[self zoomByFactor:factor near:pivot animated:animated];
-	}
+	float factor = exp2f(newZoom - [self zoom]);
+	[self zoomByFactor:factor near:pivot animated:animated];
 }
 
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated {
-       // Calculate rounded zoom
-       float newZoom = roundf([self zoom] - 1);
-      
-       if (newZoom <= [self minZoom])
-               return;
-       else {
-               float factor = exp2f(newZoom - [self zoom]);
-               [self zoomByFactor:factor near:pivot animated:animated];
-       }
+	// Calculate rounded zoom
+	float newZoom = fmax(ceilf([self zoom] - 1.0), [self minZoom]);
+	//RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
+	
+	float factor = exp2f(newZoom - [self zoom]);
+	[self zoomByFactor:factor near:pivot animated:animated];
 }
 
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot {
-       [self zoomOutToNextNativeZoomAt: pivot animated: FALSE];
+	[self zoomOutToNextNativeZoomAt: pivot animated: FALSE];
 }
  
 
@@ -677,7 +670,7 @@
 	return [[background retain] autorelease];
 }
 
-- (void) setOverlay: (RMLayerSet*) aLayer
+- (void) setOverlay: (RMLayerCollection*) aLayer
 {
 	if (overlay == aLayer) return;
 	
@@ -711,7 +704,7 @@
 	[overlay addSublayer:testLayer];*/
 }
 
-- (RMLayerSet *)overlay
+- (RMLayerCollection *)overlay
 {
 	return [[overlay retain] autorelease];
 }

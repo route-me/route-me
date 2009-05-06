@@ -72,9 +72,9 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 //- (id) increaseLoadingPriority;
 //- (id) decreaseLoadingPriority;
 
-+ (RMTileImage*)imageWithTile: (RMTile) tile FromURL: (NSString*)url;
-+ (RMTileImage*)imageWithTile: (RMTile) tile FromFile: (NSString*)filename;
-+ (RMTileImage*)imageWithTile: (RMTile) tile FromData: (NSData*)data;
++ (RMTileImage*)imageForTile: (RMTile) tile withURL: (NSString*)url;
++ (RMTileImage*)imageForTile: (RMTile) tile fromFile: (NSString*)filename;
++ (RMTileImage*)imageForTile: (RMTile) tile withData: (NSData*)data;
 
 - (void)drawInRect:(CGRect)rect;
 - (void)draw;
@@ -86,7 +86,7 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 
 - (void)cancelLoading;
 
-- (void)setImageToData: (NSData*) data;
+- (void)updateImageUsingData: (NSData*) data;
 
 - (void)touch;
 

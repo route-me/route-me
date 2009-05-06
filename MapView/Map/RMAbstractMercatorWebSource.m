@@ -82,19 +82,19 @@
 	return nil;
 }
 
--(RMTileImage *) tileImage: (RMTile)tile
+-(RMTileImage *)tileImage:(RMTile)tile
 {
 	RMTileImage *image;
 	
 	tile = [tileProjection normaliseTile:tile];
-
+	
 	NSString *file = [self tileFile:tile];
-
+	
 	if(file && [[NSFileManager defaultManager] fileExistsAtPath:file])
 	{
-		image = [RMTileImage imageWithTile:tile FromFile:file];
+		image = [RMTileImage imageForTile:tile fromFile:file];
 	} else {
-       		image = [RMTileImage imageWithTile:tile FromURL:[self tileURL:tile]];     
+		image = [RMTileImage imageForTile:tile withURL:[self tileURL:tile]];     
 	}
 	
 	return image;
@@ -112,7 +112,7 @@
 
 -(void) didReceiveMemoryWarning
 {
-		LogMethod();		
+	LogMethod();		
 }
 
 -(NSString *)uniqueTilecacheKey

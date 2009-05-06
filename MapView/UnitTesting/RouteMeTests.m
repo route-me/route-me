@@ -314,14 +314,39 @@
 	STAssertLessThanOrEqual(contentsMaxZoom, tilesourceMaxZoom, @"map's maxZoom exceeds tilesource's maxZoom");
 	STAssertLessThanOrEqual(contentsZoom, tilesourceMaxZoom, @"map's zoom exceeds tilesource's maxZoom");
 	
-	double targetZoom = tilesourceMaxZoom + 0.5;
+	double targetZoom = tilesourceMaxZoom + 0.4;
 	[[mapView contents] setZoom:targetZoom]; // try to exceed tilesource limit
 	contentsZoom = [[mapView contents] zoom];
 	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, @"map's zoom wrong after trying to exceed tilesource's maxZoom");
-
-	targetZoom = tilesourceMaxZoom - 1.5;
+	
+	targetZoom = tilesourceMaxZoom + 0.5;
+	[[mapView contents] setZoom:targetZoom]; // try to exceed tilesource limit
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, @"map's zoom wrong after trying to exceed tilesource's maxZoom");
+	
+	targetZoom = tilesourceMaxZoom - 1.6;
 	[[mapView contents] setZoom:targetZoom];
 	CGPoint pivotPoint = CGPointMake(5., 5.);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom - 1.0, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after zoomInToNextNativeZoomAt: for maxZoom-1 %f",
+							   contentsZoom, tilesourceMaxZoom);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, 
+							   @"map's zoom [%f] wrong after zoomInToNextNativeZoomAt: for maxZoom %f (first)",
+							   contentsZoom, tilesourceMaxZoom);
+	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after zoomInToNextNativeZoomAt: for maxZoom %f (second)",
+							   contentsZoom, tilesourceMaxZoom);
+	
+	
+	targetZoom = tilesourceMaxZoom - 1.5;
+	[[mapView contents] setZoom:targetZoom];
+	pivotPoint = CGPointMake(5., 5.);
 	[[mapView contents] zoomInToNextNativeZoomAt:pivotPoint];
 	contentsZoom = [[mapView contents] zoom];
 	STAssertEqualsWithAccuracy(contentsZoom, tilesourceMaxZoom - 1.0, kAccuracyThreshold, 
@@ -356,7 +381,29 @@
 							   @"map's zoom %f wrong after second zoomOutToNextNativeZoomAt: for minZoom %f",
 							   contentsZoom, contentsMinZoom);
 	
-	  
+	contentsMinZoom = 3.0;
+	[[mapView contents] setMinZoom:contentsMinZoom];
+	targetZoom = contentsMinZoom + 1.6;	
+	[[mapView contents] setZoom:targetZoom];
+	contentsZoom = [[mapView contents] zoom];
+	NSLog(@"zoom: %f minZoom: %f", contentsZoom, [[mapView contents] minZoom]);
+	[[mapView contents] zoomOutToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, contentsMinZoom+1.0, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after first zoomOutToNextNativeZoomAt: for minZoom %f",
+							   contentsZoom, contentsMinZoom);
+	[[mapView contents] zoomOutToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, contentsMinZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after second zoomOutToNextNativeZoomAt: for minZoom %f",
+							   contentsZoom, contentsMinZoom);
+	[[mapView contents] zoomOutToNextNativeZoomAt:pivotPoint];
+	contentsZoom = [[mapView contents] zoom];
+	STAssertEqualsWithAccuracy(contentsZoom, contentsMinZoom, kAccuracyThreshold, 
+							   @"map's zoom %f wrong after second zoomOutToNextNativeZoomAt: for minZoom %f",
+							   contentsZoom, contentsMinZoom);
+	
+	
 }
 
 @end

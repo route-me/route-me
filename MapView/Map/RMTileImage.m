@@ -128,20 +128,20 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[self drawInRect:screenLocation];
 }
 
-+ (RMTileImage*)imageWithTile: (RMTile) _tile FromURL: (NSString*)url
++ (RMTileImage*)imageForTile:(RMTile) _tile withURL: (NSString*)url
 {
 	return [[[RMWebTileImage alloc] initWithTile:_tile FromURL:url] autorelease];
 }
 
-+ (RMTileImage*)imageWithTile: (RMTile) _tile FromFile: (NSString*)filename
++ (RMTileImage*)imageForTile:(RMTile) _tile fromFile: (NSString*)filename
 {
 	return [[[RMFileTileImage alloc] initWithTile: _tile FromFile:filename] autorelease];
 }
 
-+ (RMTileImage*)imageWithTile: (RMTile) tile FromData: (NSData*)data
++ (RMTileImage*)imageForTile:(RMTile) tile withData: (NSData*)data
 {
 	RMTileImage *image = [[RMTileImage alloc] initWithTile:tile];
-	[image setImageToData:data];
+	[image updateImageUsingData:data];
 	return [image autorelease];
 }
 
@@ -155,7 +155,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 {
 	if (dataPending != nil)
 	{
-		[self setImageToData:dataPending];
+		[self updateImageUsingData:dataPending];
 		[dataPending release];
 		dataPending = nil;
 		
@@ -165,7 +165,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
 }
 
-- (void)setImageToData: (NSData*) data
+- (void)updateImageUsingData: (NSData*) data
 {
 	if ([RMMapContents performExpensiveOperations] == NO)
 	{

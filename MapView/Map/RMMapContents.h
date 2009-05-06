@@ -57,7 +57,7 @@ enum {
 @class RMTileLoader;
 @class RMMapRenderer;
 @class RMMapLayer;
-@class RMLayerSet;
+@class RMLayerCollection;
 @class RMMarker;
 @protocol RMMercatorToTileProjection;
 @protocol RMTileSource;
@@ -89,7 +89,7 @@ enum {
 	/// subview for the image displayed while tiles are loading. Set its contents by providing your own "loading.png".
 	RMMapLayer *background;
 	/// subview for markers and paths
-	RMLayerSet *overlay;
+	RMLayerCollection *overlay;
 	
 	/// (guess) the projection object to convert from latitude/longitude to meters.
 	/// Latlong is calculated dynamically from mercatorBounds.
@@ -142,7 +142,7 @@ enum {
 @property (readonly)  CALayer *layer;
 
 @property (retain, readwrite) RMMapLayer *background;
-@property (retain, readwrite) RMLayerSet *overlay;
+@property (retain, readwrite) RMLayerCollection *overlay;
 @property (retain, readonly)  RMMarkerManager *markerManager;
 /// \bug probably shouldn't be retaining this delegate
 @property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;

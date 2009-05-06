@@ -28,7 +28,7 @@
 #import "RMMarkerManager.h"
 #import "RMMercatorToScreenProjection.h"
 #import "RMProjection.h"
-#import "RMLayerSet.h"
+#import "RMLayerCollection.h"
 
 @implementation RMMarkerManager
 
@@ -54,16 +54,12 @@
 #pragma mark 
 #pragma mark Adding / Removing / Displaying Markers
 
-- (void) addMarker: (RMMarker*)marker
-{
-	[[contents overlay] addSublayer:marker];
-}
-
+/// place the (newly created) marker onto the map and take ownership of it
 /// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
 	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
-	[self addMarker: marker];
+	[[contents overlay] addSublayer:marker];
 }
 
 /// \bug see http://code.google.com/p/route-me/issues/detail?id=75

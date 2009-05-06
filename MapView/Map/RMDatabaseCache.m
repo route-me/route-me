@@ -158,7 +158,7 @@
 		
 	}
 	
-	RMTileImage *image = [RMTileImage imageWithTile:tile FromData:data];
+	RMTileImage *image = [RMTileImage imageForTile:tile withData:data];
 //	RMLog(@"DB cache hit for tile %d %d %d", tile.x, tile.y, tile.zoom);
 	return image;
 }

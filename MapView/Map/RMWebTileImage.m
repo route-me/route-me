@@ -54,7 +54,7 @@
 	if (cachedData != nil)
 	{
 //		RMLog(@"Using cached image");
-		[self setImageToData:[cachedData data]];
+		[self updateImageUsingData:[cachedData data]];
 	}
 	else
 	{
@@ -194,7 +194,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
-	[self setImageToData:data];
+	[self updateImageUsingData:data];
 
 	[data release];
 	data = nil;

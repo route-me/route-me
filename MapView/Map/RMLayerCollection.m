@@ -25,18 +25,18 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import "RMLayerSet.h"
+#import "RMLayerCollection.h"
 #import "RMMapContents.h"
 #import "RMMercatorToScreenProjection.h"
 
-@implementation RMLayerSet
+@implementation RMLayerCollection
 
 - (id)initForContents: (RMMapContents *)_contents
 {
 	if (![super init])
 		return nil;
 
-	set = [[NSMutableArray alloc] init];
+	sublayers = [[NSMutableArray alloc] init];
 	mapContents = _contents;
 	self.masksToBounds = YES;
 	return self;
@@ -44,8 +44,8 @@
 
 - (void) dealloc 
 {
-	[set release];
-	set = nil;
+	[sublayers release];
+	sublayers = nil;
 	mapContents = nil;
 	[super dealloc];
 }
@@ -69,36 +69,36 @@
 	{
 		[self correctScreenPosition:layer];
 	}
-@synchronized(set) {	
-	[set removeAllObjects];
-	[set addObjectsFromArray:array];
+@synchronized(sublayers) {	
+	[sublayers removeAllObjects];
+	[sublayers addObjectsFromArray:array];
 	[super setSublayers:array];
 }
 }
 
 - (void)addSublayer:(CALayer *)layer
 {
-@synchronized(set) {
+@synchronized(sublayers) {
 	[self correctScreenPosition:layer];
-	[set addObject:layer];
+	[sublayers addObject:layer];
 	[super addSublayer:layer];
 }
 }
 
 - (void)removeSublayer:(CALayer *)layer
 {
-	@synchronized(set) {
-		[set removeObject:layer];
+	@synchronized(sublayers) {
+		[sublayers removeObject:layer];
 		[layer removeFromSuperlayer];
 	}
 }
 
 - (void)removeSublayers:(NSArray *)layers
 {
-	@synchronized(set) {
+	@synchronized(sublayers) {
 		for(CALayer *aLayer in layers)
 		{
-			[set removeObject:aLayer];
+			[sublayers removeObject:aLayer];
 			[aLayer removeFromSuperlayer];
 		}
 	}
@@ -106,29 +106,29 @@
 
 - (void)insertSublayer:(CALayer *)layer above:(CALayer *)siblingLayer
 {
-@synchronized(set) {
+@synchronized(sublayers) {
 	[self correctScreenPosition:layer];
-	NSUInteger index = [set indexOfObject:siblingLayer];
-	[set insertObject:layer atIndex:index + 1];
+	NSUInteger index = [sublayers indexOfObject:siblingLayer];
+	[sublayers insertObject:layer atIndex:index + 1];
 	[super insertSublayer:layer above:siblingLayer];
 }
 }
 
 - (void)insertSublayer:(CALayer *)layer below:(CALayer *)siblingLayer
 {
-@synchronized(set) {
+@synchronized(sublayers) {
 	[self correctScreenPosition:layer];
-	NSUInteger index = [set indexOfObject:siblingLayer];
-	[set insertObject:layer atIndex:index];
+	NSUInteger index = [sublayers indexOfObject:siblingLayer];
+	[sublayers insertObject:layer atIndex:index];
 	[super insertSublayer:layer below:siblingLayer];
 }
 }
 
 - (void)insertSublayer:(CALayer *)layer atIndex:(unsigned)index
 {
-@synchronized(set) {
+@synchronized(sublayers) {
 	[self correctScreenPosition:layer];
-	[set insertObject:layer atIndex:index];
+	[sublayers insertObject:layer atIndex:index];
 
 	/// \bug TODO: Fix this.
 	[super addSublayer:layer];	
@@ -149,8 +149,8 @@
 
 - (void)moveBy: (CGSize) delta
 {
-	@synchronized(set) {
-		for (id layer in set)
+	@synchronized(sublayers) {
+		for (id layer in sublayers)
 		{
 			if ([layer respondsToSelector:@selector(moveBy:)])
 				[layer moveBy:delta];
@@ -162,8 +162,8 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
-@synchronized(set) {
-	for (id layer in set)
+@synchronized(sublayers) {
+	for (id layer in sublayers)
 	{
 		if ([layer respondsToSelector:@selector(zoomByFactor:near:)])
 			[layer zoomByFactor:zoomFactor near:center];
@@ -173,8 +173,8 @@
 
 - (void) correctPositionOfAllSublayers
 {
-@synchronized(set) {
-	for (id layer in set)
+@synchronized(sublayers) {
+	for (id layer in sublayers)
 	{
 		[self correctScreenPosition:layer];
 	}
@@ -183,7 +183,7 @@
 
 - (BOOL) hasSubLayer:(CALayer *)layer
 {
-	return [set containsObject:layer];
+	return [sublayers containsObject:layer];
 }
 
 @end
