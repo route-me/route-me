@@ -533,29 +533,32 @@
 
 - (float)nextNativeZoomFactor
 {
-	float newZoom = roundf([self zoom] + 1);
-	return newZoom >= [self maxZoom] ? 0 : exp2f(newZoom - [self zoom]);
+	float newZoom = fmin(floorf([self zoom] + 1.0), [self maxZoom]);
+	return exp2f(newZoom - [self zoom]);
 }
 
+/// \deprecated appears to be unused
 - (void)zoomInToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated
 {
 	// Calculate rounded zoom
 	float newZoom = fmin(floorf([self zoom] + 1.0), [self maxZoom]);
-	//RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
+	RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
 	
 	float factor = exp2f(newZoom - [self zoom]);
 	[self zoomByFactor:factor near:pivot animated:animated];
 }
 
+/// \deprecated appears to be unused except by zoomOutToNextNativeZoomAt:
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot animated:(BOOL) animated {
 	// Calculate rounded zoom
 	float newZoom = fmax(ceilf([self zoom] - 1.0), [self minZoom]);
-	//RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
+	RMLog(@"[self minZoom] %f [self zoom] %f [self maxZoom] %f newzoom %f", [self minZoom], [self zoom], [self maxZoom], newZoom);
 	
 	float factor = exp2f(newZoom - [self zoom]);
 	[self zoomByFactor:factor near:pivot animated:animated];
 }
 
+/// \deprecated appears to be unused
 - (void)zoomOutToNextNativeZoomAt:(CGPoint) pivot {
 	[self zoomOutToNextNativeZoomAt: pivot animated: FALSE];
 }
