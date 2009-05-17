@@ -167,7 +167,6 @@
 	if(!scaleLineWidth) {
 		scaledLineWidth *= renderedScale;
 	}
-	NSLog(@"line width = %f, content scale = %f", scaledLineWidth, renderedScale);
 	
 	CGContextScaleCTM(theContext, scale, scale);
 	
