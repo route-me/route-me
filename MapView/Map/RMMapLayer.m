@@ -46,6 +46,7 @@
 	return self;
 }
 
+/// \bug why return nil for the "position" and "bounds" actionForKey? Does this do anything besides block Core Animation?
 - (id<CAAction>)actionForKey:(NSString *)key
 {
 	if ([key isEqualToString:@"position"]
