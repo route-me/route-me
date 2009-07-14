@@ -46,10 +46,18 @@
 	
 	if ([paths count] > 0) // Should only be one...
 	{
+		NSString *cachePath = [paths objectAtIndex:0];
+		
+		// check for existence of cache directory
+		if ( ![[NSFileManager defaultManager] fileExistsAtPath: cachePath]) 
+		{
+			// create a new cache directory
+			[[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:nil];
+		}
+		
 		/// \bug magic string literals
 		NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
-		
-		return [[paths objectAtIndex:0] stringByAppendingPathComponent:filename];
+		return [cachePath stringByAppendingPathComponent:filename];
 	}
 	return nil;
 }
