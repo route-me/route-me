@@ -49,7 +49,7 @@
 @synthesize contents;
 
 #pragma mark --- begin constants ----
-#define kDefaultDeceleartionFactor .88f
+#define kDefaultDecelerationFactor .88f
 #define kMinDecelerationDelta 0.01f
 #pragma mark --- end constants ----
 
@@ -64,7 +64,7 @@
 
 	enableDragging = YES;
 	enableZoom = YES;
-	decelerationFactor = kDefaultDeceleartionFactor;
+	decelerationFactor = kDefaultDecelerationFactor;
 	deceleration = NO;
 	
 	//	[self recalculateImageSet];
