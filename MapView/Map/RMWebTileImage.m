@@ -159,9 +159,11 @@
 //– connection:didFailWithError:  delegate method
 //– connectionDidFinishLoading:  delegate method 
 
+/// \bug -connection:didReceiveResponse: should check for 404 statusCode in NSURLResponse and react appropriately. Apparently Mapnik can sometimes send 404 for a valid tile.
 - (void)connection:(NSURLConnection *)_connection
 didReceiveResponse:(NSURLResponse *)response
 {
+	NSAssert([(NSHTTPURLResponse *)response statusCode] != 404, @"RMWebTileImage received a 404 status code and doesn't know how to handle it");
 	if (data != nil)
 		[data release];
 	
@@ -194,6 +196,12 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
+	if ([data length] < 512) {
+		RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
+		RMLog(@"%@", data);
+		RMLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	}
+	
 	[self updateImageUsingData:data];
 
 	[data release];
