@@ -78,6 +78,9 @@
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
 
+- (void) moveToXY: (RMProjectedPoint) point;
+- (void) moveToScreenPoint: (CGPoint) point;
+- (void) moveToLatLong: (RMLatLong) point;
 - (void) addLineToXY: (RMProjectedPoint) point;
 - (void) addLineToScreenPoint: (CGPoint) point;
 - (void) addLineToLatLong: (RMLatLong) point;

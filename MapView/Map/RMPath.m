@@ -113,7 +113,7 @@
 //	RMLog(@"new anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
 }
 
-- (void) addLineToXY: (RMProjectedPoint) point
+- (void) addPointToXY: (RMProjectedPoint) point withDrawing: (BOOL)isDrawing
 {
 //	RMLog(@"addLineToXY %f %f", point.easting, point.northing);
 	
@@ -136,11 +136,39 @@
 		point.easting = point.easting - origin.easting;
 		point.northing = point.northing - origin.northing;
 		
-		CGPathAddLineToPoint(path, NULL, point.easting, -point.northing);
-	
+		if (isDrawing)
+		{
+			CGPathAddLineToPoint(path, NULL, point.easting, -point.northing);
+		} else {
+			CGPathMoveToPoint(path, NULL, point.easting, -point.northing);
+		}
 		[self recalculateGeometry];
 	}
 	[self setNeedsDisplay];
+}
+
+- (void) moveToXY: (RMProjectedPoint) point
+{
+	[self addPointToXY: point withDrawing: FALSE];
+}
+
+- (void) moveToScreenPoint: (CGPoint) point
+{
+	RMProjectedPoint mercator = [[contents mercatorToScreenProjection] projectScreenPointToXY: point];
+	
+	[self moveToXY: mercator];
+}
+
+- (void) moveToLatLong: (RMLatLong) point
+{
+	RMProjectedPoint mercator = [[contents projection] latLongToPoint:point];
+	
+	[self moveToXY:mercator];
+}
+
+- (void) addLineToXY: (RMProjectedPoint) point
+{
+	[self addPointToXY: point withDrawing: TRUE];
 }
 
 - (void) addLineToScreenPoint: (CGPoint) point
