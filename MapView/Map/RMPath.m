@@ -24,7 +24,7 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#import "RMGlobalConstants.h"
+
 #import "RMPath.h"
 #import "RMMapView.h"
 #import "RMMapContents.h"
@@ -52,11 +52,11 @@
 	drawingMode = kCGPathFillStroke;
 	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
-	self.masksToBounds = NO;
 	
-	scaleLineWidth = YES;
-//	self.frame = CGRectMake(100, 100, 100, 100);
-//	[self setNeedsDisplayOnBoundsChange:YES];
+	//self.masksToBounds = NO;
+	self.masksToBounds = YES;
+	
+	scaleLineWidth = NO;
 	
 	return self;
 }
@@ -81,42 +81,74 @@
 }
 
 - (void) recalculateGeometry
-{	
+{
 	float scale = [[contents mercatorToScreenProjection] metersPerPixel];
+	float scaledLineWidth;
+	CGPoint myPosition;
+	CGRect pixelBounds, screenBounds;
+	float offset;
+	const float outset = 100.0f; // provides a buffer off screen edges for when path is scaled or moved
 	
-	float scaledLineWidth = lineWidth;
+	
+	// The bounds are actually in mercators...
+	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
+	scaledLineWidth = lineWidth;
 	if(!scaleLineWidth) {
 		renderedScale = [contents metersPerPixel];
 		scaledLineWidth *= renderedScale;
 	}
 	
-	// The bounds are actually in mercators...
-	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
 	boundsInMercators.origin.x -= scaledLineWidth;
 	boundsInMercators.origin.y -= scaledLineWidth;
 	boundsInMercators.size.width += 2*scaledLineWidth;
 	boundsInMercators.size.height += 2*scaledLineWidth;
 	
-	CGRect pixelBounds = RMScaleCGRectAboutPoint(boundsInMercators, 1.0f / scale, CGPointZero);
-
-//	RMLog(@"old bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
-	self.bounds = pixelBounds;
-//	RMLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+	pixelBounds = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
 	
-//	RMLog(@"old position: %f %f", self.position.x, self.position.y);
-	self.position = [[contents mercatorToScreenProjection] projectXYPoint: origin];
-//	RMLog(@"new position: %f %f", self.position.x, self.position.y);
-
-//	RMLog(@"Old anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
+	pixelBounds = RMScaleCGRectAboutPoint(pixelBounds, 1.0f / scale, CGPointZero);
+	
+	// Clip bound rect to screen bounds.
+	// If bounds are not clipped, they won't display when you zoom in too much.
+	myPosition = [[contents mercatorToScreenProjection] projectXYPoint: origin];
+	screenBounds = [contents screenBounds];
+	
+	// Clip top
+	offset = myPosition.y + pixelBounds.origin.y - screenBounds.origin.y + outset;
+	if(offset < 0.0f) {
+		pixelBounds.origin.y -= offset;
+		pixelBounds.size.height += offset;
+	}
+	// Clip left
+	offset = myPosition.x + pixelBounds.origin.x - screenBounds.origin.x + outset;
+	if(offset < 0.0f) {
+		pixelBounds.origin.x -= offset;
+		pixelBounds.size.width += offset;
+	}
+	// Clip bottom
+	offset = myPosition.y + pixelBounds.origin.y + pixelBounds.size.height - screenBounds.origin.y - screenBounds.size.height - outset;
+	if(offset > 0.0f) {
+		pixelBounds.size.height -= offset;
+	}
+	// Clip right
+	offset = myPosition.x + pixelBounds.origin.x + pixelBounds.size.width - screenBounds.origin.x - screenBounds.size.width - outset;
+	if(offset > 0.0f) {
+		pixelBounds.size.width -= offset;
+	}
+	
+	self.position = myPosition;
+	self.bounds = pixelBounds;
+	//RMLog(@"x:%f y:%f screen bounds: %f %f %f %f", myPosition.x, myPosition.y,  screenBounds.origin.x, screenBounds.origin.y, screenBounds.size.width, screenBounds.size.height);
+	//RMLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+	
 	self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width,-pixelBounds.origin.y / pixelBounds.size.height);
-//	RMLog(@"new anchor point %f %f", self.anchorPoint.x, self.anchorPoint.y);
+	[self setNeedsDisplay];
 }
 
 - (void) addPointToXY: (RMProjectedPoint) point withDrawing: (BOOL)isDrawing
 {
-//	RMLog(@"addLineToXY %f %f", point.easting, point.northing);
-	
+	//	RMLog(@"addLineToXY %f %f", point.x, point.y);
+
 	NSValue* value = [NSValue value:&point withObjCType:@encode(RMProjectedPoint)];
 
 	if (points == nil)
@@ -124,24 +156,25 @@
 		points = [[NSMutableArray alloc] init];
 		[points addObject:value];
 		origin = point;
-	
+
 		self.position = [[contents mercatorToScreenProjection] projectXYPoint: origin];
-//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
+		//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
 		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
 	}
 	else
 	{
 		[points addObject:value];
-		
+
 		point.easting = point.easting - origin.easting;
 		point.northing = point.northing - origin.northing;
-		
+
 		if (isDrawing)
 		{
 			CGPathAddLineToPoint(path, NULL, point.easting, -point.northing);
 		} else {
 			CGPathMoveToPoint(path, NULL, point.easting, -point.northing);
 		}
+
 		[self recalculateGeometry];
 	}
 	[self setNeedsDisplay];
@@ -195,11 +228,12 @@
 	if(!scaleLineWidth) {
 		scaledLineWidth *= renderedScale;
 	}
+	//NSLog(@"line width = %f, content scale = %f", scaledLineWidth, renderedScale);
 	
 	CGContextScaleCTM(theContext, scale, scale);
 	
 	CGContextBeginPath(theContext);
-	CGContextAddPath(theContext, path);
+	CGContextAddPath(theContext, path); 
 	
 	CGContextSetLineWidth(theContext, scaledLineWidth);
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
@@ -254,7 +288,6 @@
 {
     return fillColor; 
 }
-
 - (void)setFillColor:(UIColor *)aFillColor
 {
     if (fillColor != aFillColor) {
@@ -264,18 +297,23 @@
     }
 }
 
+- (void)moveBy: (CGSize) delta {
+	[super moveBy:delta];
+	
+	[self recalculateGeometry];
+}
+
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
 {
 	[super zoomByFactor:zoomFactor near:pivot];
-	
 	// don't redraw if the path hasn't been scaled very much
-	float newMPP = [contents metersPerPixel];
-	if (newMPP / renderedScale >= 2.0f
-		|| newMPP / renderedScale <= 0.5f)
+	float newScale = [contents metersPerPixel];
+	if (newScale / renderedScale >= 1.10f
+		|| newScale / renderedScale <= 0.90f)
 	{
+		[self recalculateGeometry];
 		[self setNeedsDisplay];
 	}
 }
-
 
 @end
