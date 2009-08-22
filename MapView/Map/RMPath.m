@@ -34,7 +34,8 @@
 
 @implementation RMPath
 
-@synthesize origin, scaleLineWidth;
+@synthesize scaleLineWidth;
+@synthesize projectedLocation;
 
 #define kDefaultLineWidth 100
 
@@ -110,7 +111,7 @@
 	
 	// Clip bound rect to screen bounds.
 	// If bounds are not clipped, they won't display when you zoom in too much.
-	myPosition = [[contents mercatorToScreenProjection] projectXYPoint: origin];
+	myPosition = [[contents mercatorToScreenProjection] projectXYPoint: projectedLocation];
 	screenBounds = [contents screenBounds];
 	
 	// Clip top
@@ -155,9 +156,9 @@
 	{
 		points = [[NSMutableArray alloc] init];
 		[points addObject:value];
-		origin = point;
+		projectedLocation = point;
 
-		self.position = [[contents mercatorToScreenProjection] projectXYPoint: origin];
+		self.position = [[contents mercatorToScreenProjection] projectXYPoint: projectedLocation];
 		//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
 		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
 	}
@@ -165,8 +166,8 @@
 	{
 		[points addObject:value];
 
-		point.easting = point.easting - origin.easting;
-		point.northing = point.northing - origin.northing;
+		point.easting = point.easting - projectedLocation.easting;
+		point.northing = point.northing - projectedLocation.northing;
 
 		if (isDrawing)
 		{

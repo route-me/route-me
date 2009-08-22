@@ -36,12 +36,12 @@
 
 /*! \brief buggy, incomplete, untested; overlays paths/polygons on map
  */
-@interface RMPath : RMMapLayer
+@interface RMPath : RMMapLayer <RMMovingMapLayer>
 {
 	NSMutableArray *points;
 
 	/// This is the first point.
-	RMProjectedPoint origin;
+	RMProjectedPoint projectedLocation;
 	
 	/// The color of the line, or the outline if a polygon
 	UIColor *lineColor;
@@ -67,6 +67,7 @@
 	RMMapContents *contents;
 }
 
+
 - (id) initWithContents: (RMMapContents*)aContents;
 - (id) initForMap: (RMMapView*)map;
 
@@ -74,7 +75,7 @@
 
 @property float lineWidth;
 @property BOOL	scaleLineWidth;
-@property (nonatomic, assign) RMProjectedPoint origin;
+@property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
 
