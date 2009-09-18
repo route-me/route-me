@@ -163,9 +163,11 @@ enum {
    backgroundImage:(UIImage *)backgroundImage;
 
 /// \deprecated subject to removal at any moment after 0.5 is released
-- (id) initForView: (UIView*) view;
+- (id) initForView:(UIView*) view;
 /// \deprecated subject to removal at any moment after 0.5 is released
-- (id) initForView: (UIView*) view WithLocation:(CLLocationCoordinate2D)latlong;
+- (id) initForView:(UIView*) view WithLocation:(CLLocationCoordinate2D)latlong;
+- (id) initForView:(UIView*) view WithTileSource:(id<RMTileSource>)_tileSource LookingAt:(CLLocationCoordinate2D)latlong;
+
 /// \deprecated subject to removal at any moment after 0.5 is released
 - (id)initForView:(UIView*)view WithTileSource:(id<RMTileSource>)tileSource WithRenderer:(RMMapRenderer*)renderer LookingAt:(CLLocationCoordinate2D)latlong;
 

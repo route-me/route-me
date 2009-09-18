@@ -366,14 +366,16 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
-	
-	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
-	//so it can be handled there
-	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
-	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
-		if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
-			[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
-			return;
+
+	if([[event allTouches] count] == 1) {
+		//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
+		//so it can be handled there
+		id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
+		if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
+			if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
+				[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
+				return;
+			}
 		}
 	}
 	NSInteger lastTouches = lastGesture.numTouches;

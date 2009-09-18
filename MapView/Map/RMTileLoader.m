@@ -66,7 +66,6 @@ NSString* const RMTileRequested = @"RMTileRequested";
 	content = _contents;
 	
 	[self clearLoadedBounds];
-	loadedTiles.origin.tile = RMTileDummy();
 	
 	suppressLoading = NO;
 	
@@ -75,20 +74,23 @@ NSString* const RMTileRequested = @"RMTileRequested";
 
 -(void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
 -(void) clearLoadedBounds
 {
 	loadedBounds = CGRectZero;
-	//	loadedTiles.origin.tile = RMTileDummy();
+	[[content imagesOnScreen] removeAllTiles];
+	loadedTiles.origin.tile = RMTileDummy();
 }
+
 -(BOOL) screenIsLoaded
 {
 	//	RMTileRect targetRect = [content tileBounds];
 	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
-	
 	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content metersPerPixel]]);
+
 	NSAssert3(((targetZoom <= content.maxZoom) && (targetZoom >= content.minZoom)),
 			 @"target zoom %d is outside of RMMapContents limits %f to %f",
 			  targetZoom, content.minZoom, content.maxZoom);
@@ -139,7 +141,9 @@ NSString* const RMTileRequested = @"RMTileRequested";
 							  [content screenBounds]];
 	
 	if (!RMTileIsDummy(loadedTiles.origin.tile))
-		[images removeTiles:loadedTiles];
+	{
+		[images removeTilesOutsideOf:newTileRect];
+	}
 	
 	//      RMLog(@"-> count = %d", [images count]);
 	
@@ -211,7 +215,9 @@ NSString* const RMTileRequested = @"RMTileRequested";
 
 - (void)reload
 {
+	[[content imagesOnScreen] removeAllTiles];	
 	[self clearLoadedBounds];
+//	loadedTiles.origin.tile = RMTileDummy();
 	[self updateLoadedImages];
 }
 

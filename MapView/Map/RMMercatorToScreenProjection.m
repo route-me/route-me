@@ -130,24 +130,25 @@
 - (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale
 {
 	CGPoint	aPixelPoint;
-	CGFloat originX = origin.easting;
-	CGFloat boundsWidth = [projection planetBounds].size.width;
-	CGFloat pointX = aPoint.easting - boundsWidth/2;
-	CGFloat left = sqrt((pointX - (originX - boundsWidth))*(pointX - (originX - boundsWidth)));
-	CGFloat middle = sqrt((pointX - originX)*(pointX - originX));
-	CGFloat right = sqrt((pointX - (originX + boundsWidth))*(pointX - (originX + boundsWidth)));
+   CGFloat originX = origin.easting;
+/*
+   CGFloat boundsWidth = [projection planetBounds].size.width;
+   CGFloat pointX = aPoint.easting - boundsWidth/2;
+   CGFloat left = sqrt((pointX - (originX - boundsWidth))*(pointX - (originX - boundsWidth)));
+   CGFloat middle = sqrt((pointX - originX)*(pointX - originX));
+   CGFloat right = sqrt((pointX - (originX + boundsWidth))*(pointX - (originX + boundsWidth)));
+   
+   // this code was screwing up markers by pushing them way right when their anchor point goes off the left side of the screen
+   if(middle <= left && middle <= right){
+      aPixelPoint.x = (aPoint.easting - originX) / aScale;
+   } else if(left <= middle && left <= right){
+      aPixelPoint.x = (aPoint.easting - originX) / aScale;
+   } else{ //right
+      aPixelPoint.x = (aPoint.easting - (originX+boundsWidth)) / aScale;
+   }
+*/
 	
-	//RMLog(@"left:%f middle:%f right:%f x:%f width:%f", left, middle, right, pointX, boundsWidth);//LK
-	
-	if(middle <= left && middle <= right){
-		aPixelPoint.x = (aPoint.easting - originX) / aScale;
-	} else if(left <= middle && left <= right){
-		//RMLog(@"warning: projectXYPoint middle..");//LK
-		aPixelPoint.x = (aPoint.easting - (originX/*-boundsWidth*/)) / aScale;
-	} else{ //right
-		aPixelPoint.x = (aPoint.easting - (originX+boundsWidth)) / aScale;
-	}
-	
+     aPixelPoint.x = (aPoint.easting - originX) / aScale;
 	aPixelPoint.y = screenBounds.size.height - (aPoint.northing - origin.northing) / aScale;
 	return aPixelPoint;
 }

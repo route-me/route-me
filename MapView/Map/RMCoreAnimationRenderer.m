@@ -56,11 +56,14 @@
 	
 	layer.delegate = self;
 	
+	tiles = [[NSMutableArray alloc] init];
+
 	return self;
 }
 
 -(void) dealloc
 {
+	[tiles release];
 	[layer release];
 	[super dealloc];
 }
@@ -94,17 +97,37 @@
 
 - (void)tileAdded: (RMTile) tile WithImage: (RMTileImage*) image
 {
+	NSUInteger min, max;
+
 //	RMLog(@"tileAdded: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
 //		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 //	RMLog(@"tileAdded");
 	[image makeLayer];
-	
+
 	CALayer *sublayer = [image layer];
-	
+
 	sublayer.delegate = self;
-	
-	[layer addSublayer:sublayer];
+
+	min = 0;
+	max = [tiles count];
+
+	while (min < max) {
+		// Binary search for insertion point
+		NSUInteger pivot = (min + max) / 2;
+		RMTileImage *other = [tiles objectAtIndex:pivot];
+		RMTile otherTile = other.tile;
+
+		if (otherTile.zoom <= tile.zoom) {
+			min = pivot + 1;
+		}
+		if (otherTile.zoom > tile.zoom) {
+			max = pivot;
+		}
+	}
+
+	[tiles insertObject:image atIndex:min];
+	[layer insertSublayer:sublayer atIndex:min];
 }
 
 -(void) tileRemoved: (RMTile) tile
@@ -113,7 +136,7 @@
 	
 //	RMLog(@"tileRemoved: %d %d %d at %f %f %f %f", tile.x, tile.y, tile.zoom, image.screenLocation.origin.x, image.screenLocation.origin.y,
 //		  image.screenLocation.size.width, image.screenLocation.size.height);
-	
+	[tiles removeObject:image];
 	[[image layer] removeFromSuperlayer];
 }
 

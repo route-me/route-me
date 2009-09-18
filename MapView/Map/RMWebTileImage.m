@@ -46,7 +46,7 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	NSCachedURLResponse *cachedData = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
 	
-	self.proxy = [RMTileProxy loadingTile];
+//	self.proxy = [RMTileProxy loadingTile];
 	
 	//	NSURLCache *cache = [NSURLCache sharedURLCache];
 	//	RMLog(@"Cache mem size: %d / %d disk size: %d / %d", [cache currentMemoryUsage], [cache memoryCapacity], [cache currentDiskUsage], [cache diskCapacity]);

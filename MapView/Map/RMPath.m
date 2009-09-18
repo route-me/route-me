@@ -100,10 +100,10 @@
 	}
 	
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
-	boundsInMercators.origin.x -= scaledLineWidth;
-	boundsInMercators.origin.y -= scaledLineWidth;
-	boundsInMercators.size.width += 2*scaledLineWidth;
-	boundsInMercators.size.height += 2*scaledLineWidth;
+	boundsInMercators.origin.x -= scaledLineWidth*2;
+	boundsInMercators.origin.y -= scaledLineWidth*2;
+	boundsInMercators.size.width += scaledLineWidth*4;
+	boundsInMercators.size.height += scaledLineWidth*4;
 	
 	pixelBounds = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
 	

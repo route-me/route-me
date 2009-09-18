@@ -63,6 +63,7 @@
 	
 -(void) removeTile: (RMTile) tile;
 -(void) removeTiles: (RMTileRect)rect;
+-(void) removeTilesOutsideOf: (RMTileRect)rect;
 
 -(void) removeAllTiles;
 
