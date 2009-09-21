@@ -254,7 +254,7 @@
 				[self addTile:normalisedTile At:screenLocation];
 			}
 		}
-		if (!--rect.origin.tile.zoom)
+		if (--rect.origin.tile.zoom <= [tileSource minZoom])
 			break;
 		if (rect.origin.tile.x & 1)
 			rect.origin.offset.x += 1.0;
