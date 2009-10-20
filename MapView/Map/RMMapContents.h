@@ -191,6 +191,7 @@ enum {
 - (float)adjustZoomForBoundingMask:(float)zoomFactor;
 - (void)adjustMapPlacementWithScale:(float)aScale;
 - (float)nextNativeZoomFactor;
+- (float)prevNativeZoomFactor;
 
 - (void) drawRect: (CGRect) rect;
 

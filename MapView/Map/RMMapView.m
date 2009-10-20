@@ -179,8 +179,8 @@
 	
 	_delegateHasAfterMapTouch  = [(NSObject*) delegate respondsToSelector: @selector(afterMapTouch:)];
    
-   _delegateHasShouldDragMarker = [(NSObject*) delegate respondsToSelector: @selector(mapView: shouldDragMarker: withEvent:)];
-   _delegateHasDidDragMarker = [(NSObject*) delegate respondsToSelector: @selector(mapView: didDragMarker: withEvent:)];
+   	_delegateHasShouldDragMarker = [(NSObject*) delegate respondsToSelector: @selector(mapView: shouldDragMarker: withEvent:)];
+   	_delegateHasDidDragMarker = [(NSObject*) delegate respondsToSelector: @selector(mapView: didDragMarker: withEvent:)];
 	
 	_delegateHasDragMarkerPosition = [(NSObject*) delegate respondsToSelector: @selector(dragMarkerPosition: onMap: position:)];
 }
@@ -412,35 +412,41 @@
 		}
 	}
 	
-		
+	
 	if (touch.tapCount == 1) 
 	{
-		CALayer* hit = [self.contents.overlay hitTest:[touch locationInView:self]];
-//		RMLog(@"LAYER of type %@",[hit description]);
-		
-		if (hit != nil) {
-			CALayer *superlayer = [hit superlayer];
+		if(lastGesture.numTouches == 0)
+		{
+			CALayer* hit = [self.contents.overlay hitTest:[touch locationInView:self]];
+			//		RMLog(@"LAYER of type %@",[hit description]);
 			
-			// See if tap was on a marker or marker label and send delegate protocol method
-			if ([hit isKindOfClass: [RMMarker class]]) {
-				if (_delegateHasTapOnMarker) {
-					[delegate tapOnMarker:(RMMarker*)hit onMap:self];
+			if (hit != nil) {
+				CALayer *superlayer = [hit superlayer];
+				
+				// See if tap was on a marker or marker label and send delegate protocol method
+				if ([hit isKindOfClass: [RMMarker class]]) {
+					if (_delegateHasTapOnMarker) {
+						[delegate tapOnMarker:(RMMarker*)hit onMap:self];
+					}
+				} else if (superlayer != nil && [superlayer isKindOfClass: [RMMarker class]]) {
+					if (_delegateHasTapOnLabelForMarker) {
+						[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
+					}
 				}
-			} else if (superlayer != nil && [superlayer isKindOfClass: [RMMarker class]]) {
-				if (_delegateHasTapOnLabelForMarker) {
-					[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
+				else if (_delegateHasSingleTapOnMap) {
+					[delegate singleTapOnMap: self At: [touch locationInView:self]];
 				}
-			}
-			else if (_delegateHasSingleTapOnMap) {
-				[delegate singleTapOnMap: self At: [touch locationInView:self]];
 			}
 		}
-		
+		else if(lastGesture.numTouches == 1)
+		{
+			float prevZoomFactor = [self.contents prevNativeZoomFactor];
+			if (prevZoomFactor != 0)
+				[self zoomByFactor:prevZoomFactor near:[touch locationInView:self] animated:YES];
+		}
 	}
-
+	
 	if (_delegateHasAfterMapTouch) [delegate afterMapTouch: self];
-
-//		[self.contents recalculateImageSet];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event

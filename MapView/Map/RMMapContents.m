@@ -328,6 +328,7 @@
 	[overlay correctPositionOfAllSublayers];
 	[tileLoader reload];
 	[renderer setNeedsDisplay];
+        [overlay setNeedsDisplay];
 }
 
 - (void)moveBy: (CGSize) delta
@@ -547,6 +548,12 @@
 - (float)nextNativeZoomFactor
 {
 	float newZoom = fmin(floorf([self zoom] + 1.0), [self maxZoom]);
+	return exp2f(newZoom - [self zoom]);
+}
+
+- (float)prevNativeZoomFactor
+{
+	float newZoom = fmax(floorf([self zoom] - 1.0), [self minZoom]);
 	return exp2f(newZoom - [self zoom]);
 }
 
