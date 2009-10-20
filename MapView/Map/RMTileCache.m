@@ -177,7 +177,7 @@
 		// 0 is valid: it means no capacity limit
 		if (value >= 0) {
 			capacity =  value;
-			minimalPurge = MIN(1,capacity / 10);
+			minimalPurge = MAX(1,capacity / 10);
 		} else 
 			RMLog(@"illegal value for capacity: %d", value);
 	}
