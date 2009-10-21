@@ -421,7 +421,7 @@
 			//		RMLog(@"LAYER of type %@",[hit description]);
 			
 			if (hit != nil) {
-				CALayer *superlayer = [hit superlayer];
+				CALayer *superlayer = [hit superlayer]; 
 				
 				// See if tap was on a marker or marker label and send delegate protocol method
 				if ([hit isKindOfClass: [RMMarker class]]) {
@@ -432,8 +432,11 @@
 					if (_delegateHasTapOnLabelForMarker) {
 						[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
 					}
-				}
-				else if (_delegateHasSingleTapOnMap) {
+				} else if ([superlayer superlayer] != nil && [[superlayer superlayer] isKindOfClass: [RMMarker class]]) {
+                                        if (_delegateHasTapOnLabelForMarker) {
+                                                [delegate tapOnLabelForMarker:(RMMarker*)[superlayer superlayer] onMap:self];
+                                        } 
+				} else if (_delegateHasSingleTapOnMap) {
 					[delegate singleTapOnMap: self At: [touch locationInView:self]];
 				}
 			}
