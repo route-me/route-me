@@ -196,6 +196,6 @@
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
 	self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, center);
-}
+	}
 
 @end

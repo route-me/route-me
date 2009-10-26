@@ -33,7 +33,6 @@
 
 @interface RMCoreAnimationRenderer : RMMapRenderer {
 	CALayer *layer;
-	NSMutableArray *tiles;
 }
 
 @end

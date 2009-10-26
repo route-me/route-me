@@ -35,7 +35,7 @@
 	if (![super init])
 		return nil;
 
-//	RMLog(@"initializing memory cache %@ with capacity %d", self, _capacity);
+	RMLog(@"initializing memory cache %@ with capacity %d", self, _capacity);
 	
 	cache = [[NSMutableDictionary alloc] initWithCapacity:_capacity];
 	
@@ -112,11 +112,8 @@
 				oldestImage = image;
 			}
 		}
-
-		if (oldestImage)
-		{
-			[self removeTile:[oldestImage tile]];
-		}
+		
+		[self removeTile:[oldestImage tile]];
 	}
 }
 

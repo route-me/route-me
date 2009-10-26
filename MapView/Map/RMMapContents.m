@@ -37,7 +37,6 @@
 #import "RMTileSource.h"
 #import "RMTileLoader.h"
 #import "RMTileImageSet.h"
-#import "RMTileImage.h"
 
 #import "RMOpenStreetMapSource.h"
 #import "RMCoreAnimationRenderer.h"
@@ -81,18 +80,14 @@
 	CLLocationCoordinate2D here;
 	here.latitude = kDefaultInitialLatitude;
 	here.longitude = kDefaultInitialLongitude;
-	id<RMTileSource> defaultTileSource;
-
-	defaultTileSource = [[RMOpenStreetMapSource alloc] init];
-	self = [self initWithView:view
-				   tilesource:defaultTileSource
+	
+	return [self initWithView:view
+				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
 					zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
 			  backgroundImage:nil];
-	[defaultTileSource release];
-	return self;
 }
 
 - (id)initWithView: (UIView*) view
@@ -201,14 +196,6 @@
 	return mapContents;
 }
 
-- (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource LookingAt:(CLLocationCoordinate2D)latlong
-{
-	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
-	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:latlong];
-
-	[_renderer release];
-	return mapContents;
-}
 
 /// deprecated at any moment after release 0.5
 - (id) initForView: (UIView*) view WithTileSource: (id<RMTileSource>)_tileSource WithRenderer: (RMMapRenderer*)_renderer LookingAt:(CLLocationCoordinate2D)latlong
@@ -621,7 +608,7 @@
 	[mercatorToTileProjection release];
 	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
 
-	imagesOnScreen.tileSource = tileSource;
+	[imagesOnScreen setTileSource:tileSource];
 
 	[tileLoader reload];
 }
@@ -952,18 +939,7 @@ static BOOL _performExpensiveOperations = YES;
 
 - (void)zoomWithRMMercatorRectBounds:(RMProjectedRect)bounds
 {
-	float currentZoom;
-
 	[self setProjectedBounds:bounds];
-	currentZoom = self.zoom;
-	if (currentZoom > maxZoom)
-	{
-		self.zoom = maxZoom;
-	}
-	else if(currentZoom < minZoom)
-	{
-		self.zoom = minZoom;
-	}
 	[overlay correctPositionOfAllSublayers];
 	[tileLoader clearLoadedBounds];
 	[tileLoader updateLoadedImages];

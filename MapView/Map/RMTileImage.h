@@ -63,8 +63,6 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 	/// one UIView. Might see some interesting crashes if you have two RMMapViews using the same tile source.
 	// Only used when appropriate
 	CALayer *layer;
-
-	BOOL isLoaded;
 }
 
 - (id) initWithTile: (RMTile)tile;
@@ -93,8 +91,6 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 - (void)touch;
 
 - (BOOL)isLoaded;
-
-- (void)animateIn;
 
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) RMTile tile;

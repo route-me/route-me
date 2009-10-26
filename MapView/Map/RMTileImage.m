@@ -187,13 +187,10 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	{
 		CGImageRef cgImage = [tileImage CGImage];
 		layer.contents = (id)cgImage;
-		[self animateIn];
 	}
-
+	
 	[tileImage release];
-
-	isLoaded = YES;
-
+	
 	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification
 														object:self
@@ -202,7 +199,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 - (BOOL)isLoaded
 {
-	return isLoaded;
 	return image != nil
 		|| (layer != nil && layer.contents != NULL);
 }
@@ -264,7 +260,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.contents = (id)[image CGImage];
 		[image release];
 		image = nil;
-		[self animateIn];
 //		RMLog(@"layer contents set");
 	}
 }
@@ -297,21 +292,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	}
 	
 	[self touch];
-}
-
-- (void) animateIn
-{
-	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	NSNumber *from = [[NSNumber alloc] initWithFloat:0.0f];
-	NSNumber *to = [[NSNumber alloc] initWithFloat:1.0f];
-
-	animation.fromValue = from;
-	animation.toValue = to;
-	[from release];
-	[to release];
-	animation.duration = 0.1;
-
-	[layer addAnimation:animation forKey:nil];
 }
 
 @end
