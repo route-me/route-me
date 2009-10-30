@@ -442,12 +442,11 @@
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot animated:(BOOL) animated withCallback:(id<RMMapContentsAnimationCallback>)callback
 {
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
+	float zoomDelta = log2f(zoomFactor);
+	float targetZoom = zoomDelta + [self zoom];
 	
 	if (animated)
 	{
-		float zoomDelta = log2f(zoomFactor);
-		float targetZoom = zoomDelta + [self zoom];
-		
 		// goal is to complete the animation in animTime seconds
 		static const float stepTime = kZoomAnimationStepTime;
 		static const float animTime = kZoomAnimationAnimationTime;
@@ -470,6 +469,14 @@
 	}
 	else
 	{
+		if (targetZoom == [self zoom]){
+			return;
+		}
+		// clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
+		if(targetZoom > [self maxZoom]){
+			zoomFactor = exp2f([self maxZoom] - [self zoom]);
+		}
+		
 		//bools for syntactical sugar to understand the logic in the if statement below
 		BOOL zoomAtMax = ([self zoom] == [self maxZoom]);
 		BOOL zoomAtMin = ([self zoom] == [self minZoom]);
