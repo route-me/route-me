@@ -401,7 +401,7 @@
 		}
 	} else if (lastTouches == 1 && touch.tapCount != 1) {
 		// deceleration
-		if(deceleration)
+		if(deceleration && enableDragging)
 		{
 			CGPoint prevLocation = [touch previousLocationInView:self];
 			CGPoint currLocation = [touch locationInView:self];
