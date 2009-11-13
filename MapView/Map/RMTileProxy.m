@@ -26,34 +26,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMTileProxy.h"
-#import "RMTileImage.h"
 
 @implementation RMTileProxy
 
-+(RMTileImage*) bestProxyFor: (RMTile) t
-{
-	WarnDeprecated();
-	return nil;
-}
+static UIImage *_errorTile = nil;
+static UIImage *_loadingTile = nil;
 
-//static TileImage *_errorTile = nil;
-static RMTileImage *_loadingTile = nil;
-
-+(RMTileImage*) errorTile
++ (UIImage*) errorTile
 {
-	return nil;
-}
-+(RMTileImage*) loadingTile
-{
-	if (_loadingTile != nil)
-		return _loadingTile;
+	if (_errorTile) return _errorTile;
 	
-	RMTile t = RMTileDummy();
-	/// \bug magic string literals
-	NSString* file = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"png"];
-	_loadingTile = [[RMTileImage imageForTile:t fromFile:file] retain];
+	_errorTile = [[UIImage imageNamed:@"error.png"] retain];
+	return _errorTile;
+}
+
++ (UIImage*) loadingTile
+{
+	if (_loadingTile) return _loadingTile;
+	
+	_loadingTile = [[UIImage imageNamed:@"loading.png"] retain];
 	return _loadingTile;
-//	return nil;
 }
 
 @end

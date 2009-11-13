@@ -26,7 +26,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMWebTileImage.h"
-#import "RMTileProxy.h"
 #import <QuartzCore/CALayer.h>
 
 #import "RMMapContents.h"
@@ -34,115 +33,95 @@
 
 @implementation RMWebTileImage
 
-@synthesize proxy;
-
 - (id) initWithTile: (RMTile)_tile FromURL:(NSString*)urlStr
 {
 	if (![super initWithTile:_tile])
 		return nil;
 
-//	RMLog(@"Loading image from URL %@ ...", urlStr);
-	NSURL *url = [NSURL URLWithString: urlStr];
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	NSCachedURLResponse *cachedData = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+        [super displayProxy:[RMTileProxy loadingTile]];
 	
-	self.proxy = [RMTileProxy loadingTile];
-	
-	//	NSURLCache *cache = [NSURLCache sharedURLCache];
-	//	RMLog(@"Cache mem size: %d / %d disk size: %d / %d", [cache currentMemoryUsage], [cache memoryCapacity], [cache currentDiskUsage], [cache diskCapacity]);
-	
-	if (cachedData != nil)
-	{
-//		RMLog(@"Using cached image");
-		[self updateImageUsingData:[cachedData data]];
-	}
-	else
-	{
-		BOOL startImmediately = [RMMapContents performExpensiveOperations];
-		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:startImmediately];
+	url = [[NSURL alloc] initWithString:urlStr];
 
-		if (connection == nil)
-		{
-			RMLog(@"Error: Connection is nil ?!?");
-			self.proxy = [RMTileProxy errorTile];
-		}
-		else
-		{
-			//Notify whatever is interested that we have requested a tile
-			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:nil];
-		}
+        connection = nil;
 		
-		if (startImmediately == NO)
-		{
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoadingImage:) name:RMResumeExpensiveOperations object:nil];
-		}
-	}
+	data =[[NSMutableData alloc] initWithCapacity:0];
+	
+	retries = kWebTileRetries;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:nil];
 
-	//	RMLog(@"... done. data size = %d", [imageData length]);
+	[self requestTile];
 	
 	return self;
 }
-			 
-- (void) startLoadingImage: (NSNotification*)notification
-{
-	if (connection != nil)
-	{
-		[connection scheduleInRunLoop:[NSRunLoop currentRunLoop]
-							  forMode:NSDefaultRunLoopMode];
-		[connection start];
-	}
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
-}
 
--(void) dealloc
+- (void) dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-//	RMLog(@"Image dealloced");
-  
-  // we never retain so don't ever release it. The error and loading tiles are singletons
-//	[proxy release];
-	
-//	RMLog(@"loading cancelled because image dealloced");
 	[self cancelLoading];
+	
+	[data release];
+	data = nil;
+	
+	[url release];
+	url = nil;
 	
 	[super dealloc];
 }
 
--(void) cancelLoading
+- (void) requestTile
 {
-	if (connection == nil)
-		return;
+	//RMLog(@"fetching: %@", url);
+	if(connection) // re-request
+	{
+		//RMLog(@"Refetching: %@: %d", url, retries);
 		
-//	RMLog(@"Image loading cancelled");
+		[connection release];
+		connection = nil;
+
+		if(retries == 0) // No more retries
+		{
+			[super displayProxy:[RMTileProxy errorTile]];
+			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
+
+			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileError object:[NSNumber numberWithInteger:retryCode]];
+
+			return;
+		}
+		retries--;		
+
+		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(startLoading:) userInfo:nil repeats:NO];		
+	}
+	else 
+	{
+		[self startLoading:nil];
+	}
+}
+
+- (void) startLoading:(NSTimer *)timer
+{
+	NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
+	
+	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	
+	if (!connection)
+	{
+		[super displayProxy:[RMTileProxy errorTile]];
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
+	}
+}
+
+- (void) cancelLoading
+{
+	if (!connection)
+		return;
+	
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
 	[connection cancel];
 	
 	[connection release];
 	connection = nil;
-
-	[data release];
-	data = nil;
 	
 	[super cancelLoading];
-}
-
-- (void)makeLayer
-{
-	[super makeLayer];
-	
-	if (image == nil
-		&& layer != nil
-		&& layer.contents == nil)
-	{
-		layer.contents = (id)[[proxy image] CGImage];
-	}
-}
-- (void)drawInRect:(CGRect)rect
-{
-	if (image)
-		[super drawInRect:rect];
 }
 
 #pragma mark URL loading functions
@@ -159,32 +138,50 @@
 //– connection:didFailWithError:  delegate method
 //– connectionDidFinishLoading:  delegate method 
 
-// Do clean up when download fails
-- (void)failCleanUp
-{
-	self.proxy = [RMTileProxy errorTile];
-	[data release];
-	data = nil;
-	//If the tile failed, we still need to notify that this connection is done
-	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
-}
-
 - (void)connection:(NSURLConnection *)_connection didReceiveResponse:(NSURLResponse *)response
 {
-	if([(NSHTTPURLResponse *)response statusCode] == 404){
-		RMLog(@"Tile could not be loaded: RMWebTileImage received a 404 status code");
-		[self failCleanUp];
-		[_connection cancel];
-		return;
-	}
-	if (data != nil)
-		[data release];
+        /// \bug magic number
+	int statusCode = 600; // unknown
+
+	if([response isKindOfClass:[NSHTTPURLResponse class]])
+	  statusCode = [(NSHTTPURLResponse*)response statusCode];
+		
+	[data setLength:0];
 	
-	NSInteger contentLength = [response expectedContentLength];
-	if (contentLength < 0) {
-		contentLength = 0;
+        /// \bug magic number
+	if(statusCode < 400) // Success
+	{
 	}
-	data = [[NSMutableData alloc] initWithCapacity:contentLength];
+        /// \bug magic number
+	else if(statusCode == 404) // Not Found
+	{
+		[self updateImageUsingData:UIImagePNGRepresentation([UIImage imageNamed:@"missing.png"])];
+		[self cancelLoading];
+	}
+	else // Other Error
+	{
+		//RMLog(@"didReceiveResponse %@ %d", _connection, statusCode);
+
+		BOOL retry = FALSE;
+		
+		switch(statusCode)
+		{
+                        /// \bug magic number
+			case 500: retry = TRUE; break;
+			case 503: retry = TRUE; break;
+		}
+		
+		if(retry)
+		{
+                        retryCode = statusCode;
+			[self requestTile];
+		}
+		else 
+		{
+			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileError object:[NSNumber numberWithInteger:statusCode]];
+			[self cancelLoading];
+		}
+	}
 }
 
 - (void)connection:(NSURLConnection *)_connection didReceiveData:(NSData *)newData
@@ -192,34 +189,53 @@
 	[data appendData:newData];
 }
 
-- (NSCachedURLResponse *)connection:(NSURLConnection *)_connection willCacheResponse:(NSCachedURLResponse *)cachedResponse
-{
-	return cachedResponse;
-}
-
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error
 {
-	RMLog(@"Tile could not be loaded: %@", [error localizedDescription]);
-	[self failCleanUp];
+	//RMLog(@"didFailWithError %@ %d %@", _connection, [error code], [error localizedDescription]);
+
+	BOOL retry = FALSE;
+	
+	switch([error code])
+	{
+                /// \bug magic number
+		case -1002: retry = TRUE; break; // unsupported URL
+		case -1004: retry = TRUE; break; // can’t connect to host
+		case -1009: retry = TRUE; break;
+	}
+	
+	if(retry)
+	{
+                retryCode = [error code];
+		[self requestTile];
+	}
+	else 
+	{
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMTileError object:[NSNumber numberWithInteger:[error code]]];
+		[self cancelLoading];
+	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
+        /// \bug magic number
 	if ([data length] < 512) {
-		RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
-		RMLog(@"%@", data);
-		RMLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+		//RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
+                retryCode = 512;
+		[self requestTile];
 	}
-	
-	[self updateImageUsingData:data];
-
-	[data release];
-	data = nil;
-	[connection release];
-	connection = nil;
-//	RMLog(@"finished loading image");
-	//Notify whatever is interested that we have retrieved a tile
-	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
+	else
+	{
+		[self updateImageUsingData:data];
+		
+		[data release];
+		data = nil;
+		[url release];
+		url = nil;
+		[connection release];
+		connection = nil;
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:nil];
+	}
 }
 
 @end

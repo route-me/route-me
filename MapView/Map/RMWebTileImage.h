@@ -28,19 +28,21 @@
 #import <Foundation/Foundation.h>
 #import "RMTileImage.h"
 
+static const NSUInteger kWebTileRetries = 30;
+
 /// RMTileImage subclass: a tile image loaded from a URL.
 @interface RMWebTileImage : RMTileImage {
-	/// Before image is completely loaded a proxy image can be used.
-	/// This will typically be a boilerplate image or a zoomed in or zoomed out version of another image.
-	RMTileImage *proxy;
-	
+        NSUInteger retries;
+        NSInteger retryCode;
+
+	NSURL *url;
 	NSURLConnection *connection;
-	/// Data accumulator during loading.
+
 	NSMutableData *data;
 }
 
-@property (assign, nonatomic) RMTileImage *proxy;
-
 - (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
+- (void) requestTile;
+- (void) startLoading:(NSTimer *)timer;
 
 @end

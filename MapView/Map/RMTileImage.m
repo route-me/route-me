@@ -53,12 +53,14 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	lastUsedTime = nil;
 	dataPending = nil;
 	screenLocation = CGRectZero;
-	
+
+        [self makeLayer];
+
 	[self touch];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(tileRemovedFromScreen:)
-												 name:RMMapImageRemovedFromScreenNotification object:self];
+						selector:@selector(tileRemovedFromScreen:)
+						name:RMMapImageRemovedFromScreenNotification object:self];
 		
 	return self;
 }
@@ -86,9 +88,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
-//	if (image)
-//		CGImageRelease(image);
-
 	[image release]; image = nil;
 	[layer release]; layer = nil;
 	[dataPending release]; dataPending = nil;
@@ -96,36 +95,15 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	
 	[super dealloc];
 }
-/*
-- (id) increaseLoadingPriority
-{
-	loadingPriorityCount++;
-	return self;
-}
-- (id) decreaseLoadingPriority
-{
-	loadingPriorityCount--;
-	if (loadingPriorityCount == 0)
-		[self cancelLoading];
-	return self;
-}*/
 
 - (void)drawInRect:(CGRect)rect
 {
-	[image drawInRect:rect];
-/*	if (image != NULL)
-	{
-		CGContextRef context = UIGraphicsGetCurrentContext();
-
-		RMLog(@"image width = %f", CGImageGetWidth(image));
-		//		CGContextClipToRect(context, rect);
-		CGContextDrawImage(context, rect, image);
-	}*/
+        [image drawInRect:rect];
 }
 
 -(void)draw
 {
-	[self drawInRect:screenLocation];
+        [self drawInRect:screenLocation];
 }
 
 + (RMTileImage*)imageForTile:(RMTile) _tile withURL: (NSString*)url
@@ -135,7 +113,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 + (RMTileImage*)imageForTile:(RMTile) _tile fromFile: (NSString*)filename
 {
-	return [[[RMFileTileImage alloc] initWithTile: _tile FromFile:filename] autorelease];
+	return [[[RMFileTileImage alloc] initWithTile:_tile FromFile:filename] autorelease];
 }
 
 + (RMTileImage*)imageForTile:(RMTile) tile withData: (NSData*)data
@@ -192,9 +170,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[tileImage release];
 	
 	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification
-														object:self
-													  userInfo:d];
+	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification object:self userInfo:d];
 }
 
 - (BOOL)isLoaded
@@ -249,10 +225,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.actions=customActions;
 		
 		layer.edgeAntialiasingMask = 0;
-		
-//		RMLog(@"location %f %f", screenLocation.origin.x, screenLocation.origin.y);
-
-	//		RMLog(@"layer made");
 	}
 	
 	if (image != nil)
@@ -260,7 +232,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.contents = (id)[image CGImage];
 		[image release];
 		image = nil;
-//		RMLog(@"layer contents set");
 	}
 }
 
@@ -286,12 +257,17 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	
 	if (layer != nil)
 	{
-		//		layer.frame = screenLocation;
+		// layer.frame = screenLocation;
 		layer.position = screenLocation.origin;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 	}
 	
 	[self touch];
+}
+
+- (void) displayProxy:(UIImage*) img
+{
+        layer.contents = (id)[img CGImage]; 
 }
 
 @end

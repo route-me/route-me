@@ -98,13 +98,8 @@
 //		  image.screenLocation.size.width, image.screenLocation.size.height);
 	
 //	RMLog(@"tileAdded");
-	[image makeLayer];
 	
-	CALayer *sublayer = [image layer];
-	
-	sublayer.delegate = self;
-	
-	[layer addSublayer:sublayer];
+	[layer addSublayer:[image layer]];
 }
 
 -(void) tileRemoved: (RMTile) tile

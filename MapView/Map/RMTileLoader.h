@@ -42,6 +42,7 @@ extern NSString * const RMResumeExpensiveOperations;
 
 extern NSString * const RMTileRetrieved;
 extern NSString * const RMTileRequested;
+extern NSString * const RMTileError;
 
 @protocol RMTileSource;
 

@@ -45,6 +45,7 @@ NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
 
 NSString* const RMTileRetrieved = @"RMTileRetrieved";
 NSString* const RMTileRequested = @"RMTileRequested";
+NSString* const RMTileError = @"RMTileError";
 
 @implementation RMTileLoader
 

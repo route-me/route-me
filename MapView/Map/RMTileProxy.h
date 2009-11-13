@@ -35,9 +35,7 @@
 	
 }
 
-/// \deprecated hardcoded to return nil
-+(RMTileImage*) bestProxyFor: (RMTile) t;
-+(RMTileImage*) errorTile;
-+(RMTileImage*) loadingTile;
++(UIImage*) errorTile;
++(UIImage*) loadingTile;
 
 @end

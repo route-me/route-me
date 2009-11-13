@@ -35,6 +35,7 @@ typedef NSImage UIImage;
 
 #import "RMFoundation.h"
 #import "RMTile.h"
+#import "RMTileProxy.h"
 
 @class RMTileImage;
 @class NSData;
@@ -69,15 +70,12 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 
 + (RMTileImage*) dummyTile: (RMTile)tile;
 
-//- (id) increaseLoadingPriority;
-//- (id) decreaseLoadingPriority;
+- (void)drawInRect:(CGRect)rect;
+- (void)draw;
 
 + (RMTileImage*)imageForTile: (RMTile) tile withURL: (NSString*)url;
 + (RMTileImage*)imageForTile: (RMTile) tile fromFile: (NSString*)filename;
 + (RMTileImage*)imageForTile: (RMTile) tile withData: (NSData*)data;
-
-- (void)drawInRect:(CGRect)rect;
-- (void)draw;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
@@ -91,6 +89,8 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 - (void)touch;
 
 - (BOOL)isLoaded;
+
+- (void) displayProxy:(UIImage*)img;
 
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) RMTile tile;
