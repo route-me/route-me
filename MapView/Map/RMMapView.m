@@ -439,7 +439,7 @@
 				}
 			}
 		}
-		else if(lastGesture.numTouches == 1)
+		else if(!enableDragging && (lastGesture.numTouches == 1))
 		{
 			float prevZoomFactor = [self.contents prevNativeZoomFactor];
 			if (prevZoomFactor != 0)
