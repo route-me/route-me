@@ -27,6 +27,9 @@
 
 #import "RMTileSource.h"
 
+extern NSString * const RMSuspendNetworkOperations;
+extern NSString * const RMResumeNetworkOperations;
+
 #pragma mark --- begin constants ---
 #define kDefaultTileSize 256
 #define kDefaultMinTileZoom 0
@@ -43,10 +46,11 @@
 
 @interface RMAbstractMercatorWebSource : NSObject <RMTileSource> {
 	RMFractalTileProjection *tileProjection;
+	BOOL networkOperations;
 }
 
-+(int)tileSideLength;
-
+-(void) networkOperationsNotification: (NSNotification*) notification;
++(int) tileSideLength;
 -(float) minZoom;
 -(float) maxZoom;
 

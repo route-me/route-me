@@ -33,6 +33,11 @@
 #import "RMTiledLayerController.h"
 #import "RMProjection.h"
 
+
+NSString* const RMSuspendNetworkOperations = @"RMSuspendNetworkOperations";
+NSString* const RMResumeNetworkOperations = @"RMResumeNetworkOperations";
+
+
 @implementation RMAbstractMercatorWebSource
 
 -(id) init
@@ -42,8 +47,20 @@
 	
 	NSUInteger sideLength = [[self class] tileSideLength];
 	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:sideLength maxZoom:18];
-	
+
+        networkOperations = TRUE;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkOperationsNotification:) name:RMSuspendNetworkOperations object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkOperationsNotification:) name:RMResumeNetworkOperations object:nil];
+
 	return self;
+}
+
+- (void) networkOperationsNotification: (NSNotification*) notification
+{	
+	if(notification.name == RMSuspendNetworkOperations)
+		networkOperations = FALSE;
+	else if(notification.name == RMResumeNetworkOperations)
+		networkOperations = TRUE;
 }
 
 -(void) dealloc
@@ -93,8 +110,14 @@
 	if(file && [[NSFileManager defaultManager] fileExistsAtPath:file])
 	{
 		image = [RMTileImage imageForTile:tile fromFile:file];
-	} else {
+	}
+	else if(networkOperations) 
+	{
 		image = [RMTileImage imageForTile:tile withURL:[self tileURL:tile]];     
+	}
+	else
+	{
+		image = [RMTileImage dummyTile:tile];
 	}
 	
 	return image;
