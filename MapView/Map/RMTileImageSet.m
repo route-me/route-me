@@ -252,6 +252,7 @@
 	}
 }
 
+/*
 - (void) drawRect:(CGRect) rect
 {
 	for (RMTileImage *image in images)
@@ -259,6 +260,7 @@
 		[image draw];
 	}
 }
+*/
 
 - (void) printDebuggingInformation
 {

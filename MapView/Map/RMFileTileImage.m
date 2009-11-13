@@ -34,8 +34,13 @@
 {
 	if (![super initWithTile:_tile])
 		return nil;
-	
-	image = [[UIImage alloc] initWithContentsOfFile:file];
+
+	UIImage *image = [[UIImage alloc] initWithContentsOfFile:file];
+
+        [self updateImageUsingImage:image];
+
+        [image release];
+
 	return self;
 }
 

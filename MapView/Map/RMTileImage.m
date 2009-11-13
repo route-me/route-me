@@ -39,7 +39,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 
 @implementation RMTileImage
 
-@synthesize tile, layer, image, lastUsedTime;
+@synthesize tile, layer, lastUsedTime;
 
 - (id) initWithTile: (RMTile)_tile
 {
@@ -47,9 +47,7 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		return nil;
 	
 	tile = _tile;
-	image = nil;
 	layer = nil;
-	loadingPriorityCount = 0;
 	lastUsedTime = nil;
 	dataPending = nil;
 	screenLocation = CGRectZero;
@@ -88,7 +86,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[image release]; image = nil;
 	[layer release]; layer = nil;
 	[dataPending release]; dataPending = nil;
 	[lastUsedTime release]; lastUsedTime = nil;
@@ -96,14 +93,8 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 	[super dealloc];
 }
 
-- (void)drawInRect:(CGRect)rect
-{
-        [image drawInRect:rect];
-}
-
 -(void)draw
 {
-        [self drawInRect:screenLocation];
 }
 
 + (RMTileImage*)imageForTile:(RMTile) _tile withURL: (NSString*)url
@@ -129,54 +120,23 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 														object:self];
 }
 
-- (void) loadPendingData: (NSNotification*)notification
-{
-	if (dataPending != nil)
-	{
-		[self updateImageUsingData:dataPending];
-		[dataPending release];
-		dataPending = nil;
-		
-//		RMLog(@"loadPendingData");
-	}
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeExpensiveOperations object:nil];
-}
 
 - (void)updateImageUsingData: (NSData*) data
 {
-	if ([RMMapContents performExpensiveOperations] == NO)
-	{
-//		RMLog(@"storing data for later loading");
-		[data retain];
-		[dataPending release];
-		dataPending = data;
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPendingData:) name:RMResumeExpensiveOperations object:nil];
-		return;
-	}
+       [self updateImageUsingImage:[UIImage imageWithData:data]];
 
-	UIImage *tileImage = [[UIImage alloc] initWithData:data];
+       NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
+       [[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification object:self userInfo:d];
+}
 
-	if (layer == nil)
-	{
-		image = [tileImage retain];
-	}
-	else
-	{
-		CGImageRef cgImage = [tileImage CGImage];
-		layer.contents = (id)cgImage;
-	}
-	
-	[tileImage release];
-	
-	NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification object:self userInfo:d];
+- (void)updateImageUsingImage: (UIImage*) rawImage
+{
+	layer.contents = (id)[rawImage CGImage];
 }
 
 - (BOOL)isLoaded
 {
-	return image != nil
-		|| (layer != nil && layer.contents != NULL);
+	return (layer != nil && layer.contents != NULL);
 }
 
 - (NSUInteger)hash
@@ -225,13 +185,6 @@ NSString * const RMMapImageLoadingCancelledNotification = @"MapImageLoadingCance
 		layer.actions=customActions;
 		
 		layer.edgeAntialiasingMask = 0;
-	}
-	
-	if (image != nil)
-	{
-		layer.contents = (id)[image CGImage];
-		[image release];
-		image = nil;
 	}
 }
 

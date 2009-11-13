@@ -71,7 +71,7 @@
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;
 
-- (void) drawRect:(CGRect) rect;
+//- (void) drawRect:(CGRect) rect;
 
 - (void) printDebuggingInformation;
 

@@ -44,18 +44,11 @@ extern NSString * const RMMapImageLoadedNotification;
 extern NSString * const RMMapImageLoadingCancelledNotification;
 
 @interface RMTileImage : NSObject {
-	UIImage *image;
-
-//	CGImageRef image;
-	
 	NSData* dataPending;
 	
 	// I know this is a bit nasty.
 	RMTile tile;
 	CGRect screenLocation;
-	
-	/// \deprecated appears to be cruft
-	int loadingPriorityCount;
 	
 	/// Used by cache
 	NSDate *lastUsedTime;
@@ -70,7 +63,7 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 
 + (RMTileImage*) dummyTile: (RMTile)tile;
 
-- (void)drawInRect:(CGRect)rect;
+//- (void)drawInRect:(CGRect)rect;
 - (void)draw;
 
 + (RMTileImage*)imageForTile: (RMTile) tile withURL: (NSString*)url;
@@ -85,6 +78,7 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 - (void)cancelLoading;
 
 - (void)updateImageUsingData: (NSData*) data;
+- (void)updateImageUsingImage: (UIImage*) image;
 
 - (void)touch;
 
@@ -95,7 +89,6 @@ extern NSString * const RMMapImageLoadingCancelledNotification;
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) RMTile tile;
 @property (readonly) CALayer *layer;
-@property (readonly) UIImage *image;
 @property (readonly) NSDate *lastUsedTime;
 
 @end
