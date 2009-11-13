@@ -67,7 +67,6 @@
 	if (![super init])
 		return nil;
 	
-	//	RMLog(@"%d items in DB", [[DAO sharedManager] count]);
 	
 	self.databasePath = path;
 	dao = [[RMTileCacheDAO alloc] initWithDatabase:path];
@@ -110,16 +109,8 @@
 -(void)addTile: (RMTile)tile WithImage: (RMTileImage*)image
 {
 	// The tile probably hasn't loaded any data yet... we must be patient.
-	// However, if the image is already loaded we probably don't need to cache it.
 	
-	// This will be the case for any other web caches which are active.
-	if (![image isLoaded])
-	{
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(addImageData:)
-													 name:RMMapImageLoadedNotification
-												   object:image];
-	}
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImageData:) name:RMMapImageLoadedNotification object:image];
 }
 
 -(void) addImageData: (NSNotification *)notification
@@ -171,20 +162,8 @@
 	return image;
 }
 
-/// \bug FIXME: shouldn't reinitialize database in a low-memory warning
 -(void)didReceiveMemoryWarning
 {
-	LogMethod();		
-	if (self.databasePath==nil) {
-		RMLog(@"unknown db path, unable to reinitialize dao!");
-		return;
-	}
-
-	@synchronized (self) {
-		[dao release];
-		dao = [[RMTileCacheDAO alloc] initWithDatabase:self.databasePath];
-	}
-
 }
 
 -(void) removeAllCachedImages 
