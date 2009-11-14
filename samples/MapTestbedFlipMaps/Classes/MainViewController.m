@@ -28,6 +28,9 @@
     [super viewDidLoad];
     [mapView setDelegate:self];
     [self updateInfo];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tileNotification:) name:RMTileRequested object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tileNotification:) name:RMTileRetrieved object:nil];
     
     RMMarkerManager *markerManager = [mapView markerManager];
 	NSAssert(markerManager, @"null markerManager returned");
@@ -91,5 +94,19 @@
     [self updateInfo];
 }
 
+#pragma mark -
+#pragma mark Notification methods
+
+- (void) tileNotification: (NSNotification*)notification
+{
+	static int outstandingTiles = 0;
+	
+	if(notification.name == RMTileRequested)
+		outstandingTiles++;
+	else if(notification.name == RMTileRetrieved)
+		outstandingTiles--;
+		
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(outstandingTiles > 0)];
+}
 
 @end
