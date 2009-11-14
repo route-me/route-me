@@ -36,17 +36,6 @@
 
 #import "RMTileCache.h"
 
-/// \bug magic string literals should be moved to central location
-NSString* const RMMapImageRemovedFromScreenNotification = @"RMMapImageRemovedFromScreen";
-NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen";
-
-NSString* const RMSuspendExpensiveOperations = @"RMSuspendExpensiveOperations";
-NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
-
-NSString* const RMTileRetrieved = @"RMTileRetrieved";
-NSString* const RMTileRequested = @"RMTileRequested";
-NSString* const RMTileError = @"RMTileError";
-
 @implementation RMTileLoader
 
 @synthesize loadedBounds, loadedZoom;

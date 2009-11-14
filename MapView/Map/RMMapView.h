@@ -90,6 +90,7 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CGGeometry.h>
 
+#import "RMNotifications.h"
 #import "RMFoundation.h"
 #import "RMLatLong.h"
 #import "RMMapViewDelegate.h"

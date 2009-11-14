@@ -33,11 +33,6 @@
 #import "RMTiledLayerController.h"
 #import "RMProjection.h"
 
-
-NSString* const RMSuspendNetworkOperations = @"RMSuspendNetworkOperations";
-NSString* const RMResumeNetworkOperations = @"RMResumeNetworkOperations";
-
-
 @implementation RMAbstractMercatorWebSource
 
 -(id) init

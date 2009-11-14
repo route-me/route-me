@@ -1,5 +1,5 @@
 //
-//  RMMercatorWebSource.h
+//  RMNofications.h
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
@@ -25,34 +25,14 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import "RMTileSource.h"
-
-#pragma mark --- begin constants ---
-#define kDefaultTileSize 256
-#define kDefaultMinTileZoom 0
-#define kDefaultMaxTileZoom 18
-#pragma mark --- end constants ---
-
-@protocol RMAbstractMercatorWebSource
-
--(NSString*) tileURL: (RMTile) tile;
-
-@end
-
-@class RMFractalTileProjection;
-
-@interface RMAbstractMercatorWebSource : NSObject <RMTileSource> {
-	RMFractalTileProjection *tileProjection;
-	BOOL networkOperations;
-}
-
--(void) networkOperationsNotification: (NSNotification*) notification;
-+(int) tileSideLength;
--(float) minZoom;
--(float) maxZoom;
-
--(NSString *)shortName;
--(NSString *)longDescription;
--(NSString *)shortAttribution;
--(NSString *)longAttribution;
-@end
+static NSString* const RMSuspendNetworkOperations = @"RMSuspendNetworkOperations";
+static NSString* const RMResumeNetworkOperations = @"RMResumeNetworkOperations";
+static NSString* const RMMapImageRemovedFromScreenNotification = @"RMMapImageRemovedFromScreen";
+static NSString* const RMMapImageAddedToScreenNotification = @"RMMapImageAddedToScreen";
+static NSString* const RMSuspendExpensiveOperations = @"RMSuspendExpensiveOperations";
+static NSString* const RMResumeExpensiveOperations = @"RMResumeExpensiveOperations";
+static NSString* const RMTileRetrieved = @"RMTileRetrieved";
+static NSString* const RMTileRequested = @"RMTileRequested";
+static NSString* const RMTileError = @"RMTileError";
+static NSString* const RMMapImageLoadedNotification = @"RMMapImageLoaded";
+static NSString* const RMMapImageLoadingCancelledNotification = @"RMMapImageLoadingCancelled";

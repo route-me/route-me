@@ -34,14 +34,11 @@ typedef NSImage UIImage;
 #endif
 
 #import "RMFoundation.h"
+#import "RMNotifications.h"
 #import "RMTile.h"
 #import "RMTileProxy.h"
 
 @class RMTileImage;
-@class NSData;
-
-extern NSString * const RMMapImageLoadedNotification;
-extern NSString * const RMMapImageLoadingCancelledNotification;
 
 @interface RMTileImage : NSObject {
 	NSData* dataPending;
