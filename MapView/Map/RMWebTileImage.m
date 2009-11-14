@@ -155,7 +155,7 @@
         /// \bug magic number
 	else if(statusCode == 404) // Not Found
 	{
-		[self updateImageUsingData:UIImagePNGRepresentation([UIImage imageNamed:@"missing.png"])];
+                [super displayProxy:[RMTileProxy missingTile]];
 		[self cancelLoading];
 	}
 	else // Other Error
@@ -217,9 +217,9 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
-        /// \bug magic number
-	if ([data length] < 512) {
+	if ([data length] == 0) {
 		//RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
+                /// \bug magic number
                 retryCode = 512;
 		[self requestTile];
 	}

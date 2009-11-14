@@ -37,5 +37,6 @@
 
 +(UIImage*) errorTile;
 +(UIImage*) loadingTile;
++(UIImage*) missingTile;
 
 @end
