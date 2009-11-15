@@ -36,6 +36,7 @@
 
 @synthesize scaleLineWidth;
 @synthesize projectedLocation;
+@synthesize enableDragging;
 
 #define kDefaultLineWidth 100
 
@@ -58,6 +59,7 @@
 	self.masksToBounds = YES;
 	
 	scaleLineWidth = NO;
+	enableDragging = YES;
 	
 	return self;
 }
@@ -299,9 +301,11 @@
 }
 
 - (void)moveBy: (CGSize) delta {
-	[super moveBy:delta];
+	if(enableDragging){
+		[super moveBy:delta];
 	
-	[self recalculateGeometry];
+		[self recalculateGeometry];
+	}
 }
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot

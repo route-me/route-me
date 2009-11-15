@@ -32,6 +32,7 @@
 @implementation RMMarker
 
 @synthesize projectedLocation;
+@synthesize enableDragging;
 @synthesize data;
 @synthesize label;
 @synthesize textForegroundColor;
@@ -51,6 +52,7 @@
         label = nil;
         textForegroundColor = [UIColor blackColor];
         textBackgroundColor = [UIColor clearColor];
+		enableDragging = YES;
     }
     return self;
 }
@@ -195,7 +197,16 @@
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
 {
-	self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, center);
+	if(enableDragging){
+		self.position = RMScaleCGPointAboutPoint(self.position, zoomFactor, center);
 	}
+}
+
+- (void)moveBy: (CGSize) delta
+{
+	if(enableDragging){
+		[super moveBy:delta];
+	}
+}
 
 @end

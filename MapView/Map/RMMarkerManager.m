@@ -59,6 +59,7 @@
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
 	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
+	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]]];
 	[[contents overlay] addSublayer:marker];
 }
 

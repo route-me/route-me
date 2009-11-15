@@ -57,8 +57,10 @@
 	{
 		// Kinda ugly.
 		CALayer<RMMovingMapLayer>* layer_with_proto = (CALayer<RMMovingMapLayer>*)layer;
-		RMProjectedPoint location = [layer_with_proto projectedLocation];
-		layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectXYPoint:location];
+		if(layer_with_proto.enableDragging){
+			RMProjectedPoint location = [layer_with_proto projectedLocation];
+			layer_with_proto.position = [[mapContents mercatorToScreenProjection] projectXYPoint:location];
+		}
 	}
 }
 

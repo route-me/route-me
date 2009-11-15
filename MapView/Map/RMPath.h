@@ -62,6 +62,7 @@
 	CGPathDrawingMode drawingMode;
 	
 	BOOL scaleLineWidth;
+	BOOL enableDragging;
 	
 	float renderedScale;
 	RMMapContents *contents;
@@ -76,6 +77,7 @@
 @property float lineWidth;
 @property BOOL	scaleLineWidth;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
+@property (assign) BOOL enableDragging;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
 

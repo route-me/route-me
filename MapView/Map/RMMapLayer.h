@@ -41,5 +41,6 @@
 @protocol RMMovingMapLayer
 
 @property (assign, nonatomic) RMProjectedPoint projectedLocation;
+@property (assign) BOOL enableDragging;
 
 @end

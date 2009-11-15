@@ -46,8 +46,11 @@
 	UIView *label;
 	UIColor *textForegroundColor;
 	UIColor *textBackgroundColor;
+	
+	BOOL enableDragging;
 }
 @property (assign, nonatomic) RMProjectedPoint projectedLocation;
+@property (assign) BOOL enableDragging;
 
 @property (nonatomic, retain) NSObject* data;
 @property (nonatomic, retain) UIView* label;
