@@ -37,6 +37,7 @@
 {
 	// [db executeUpdate:@"DROP TABLE ZCACHE"];
 	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DOUBLE, zdata BLOB)"];
+        [db executeUpdate:@"CREATE INDEX zlastUsedIndex ON ZCACHE(zLastUsed)"];
 }
 
 -(id) initWithDatabase: (NSString*)path
