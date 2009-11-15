@@ -140,8 +140,7 @@
 
 - (void)connection:(NSURLConnection *)_connection didReceiveResponse:(NSURLResponse *)response
 {
-        /// \bug magic number
-	int statusCode = 600; // unknown
+	int statusCode = NSURLErrorUnknown; // unknown
 
 	if([response isKindOfClass:[NSHTTPURLResponse class]])
 	  statusCode = [(NSHTTPURLResponse*)response statusCode];
@@ -197,10 +196,17 @@
 	
 	switch([error code])
 	{
-                /// \bug magic number
-		case -1002: retry = TRUE; break; // unsupported URL
-		case -1004: retry = TRUE; break; // can’t connect to host
-		case -1009: retry = TRUE; break;
+          case NSURLErrorBadURL:                      // -1000
+          case NSURLErrorTimedOut:                    // -1001
+          case NSURLErrorUnsupportedURL:              // -1002
+          case NSURLErrorCannotFindHost:              // -1003
+          case NSURLErrorCannotConnectToHost:         // -1004
+          case NSURLErrorNetworkConnectionLost:       // -1005
+          case NSURLErrorDNSLookupFailed:             // -1006
+          case NSURLErrorResourceUnavailable:         // -1008
+          case NSURLErrorNotConnectedToInternet:      // -1009
+            retry = TRUE; 
+            break;
 	}
 	
 	if(retry)
