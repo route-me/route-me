@@ -41,8 +41,6 @@ typedef NSImage UIImage;
 @class RMTileImage;
 
 @interface RMTileImage : NSObject {
-	NSData* dataPending;
-	
 	// I know this is a bit nasty.
 	RMTile tile;
 	CGRect screenLocation;

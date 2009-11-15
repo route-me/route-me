@@ -45,7 +45,6 @@
 	tile = _tile;
 	layer = nil;
 	lastUsedTime = nil;
-	dataPending = nil;
 	screenLocation = CGRectZero;
 
         [self makeLayer];
@@ -83,7 +82,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[layer release]; layer = nil;
-	[dataPending release]; dataPending = nil;
 	[lastUsedTime release]; lastUsedTime = nil;
 	
 	[super dealloc];
