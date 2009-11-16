@@ -35,9 +35,8 @@
 
 -(void)configureDBForFirstUse
 {
-	// [db executeUpdate:@"DROP TABLE ZCACHE"];
 	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DOUBLE, zdata BLOB)"];
-        [db executeUpdate:@"CREATE INDEX zlastUsedIndex ON ZCACHE(zLastUsed)"];
+        [db executeUpdate:@"CREATE INDEX IF NOT EXISTS zlastUsedIndex ON ZCACHE(zLastUsed)"];
 }
 
 -(id) initWithDatabase: (NSString*)path
@@ -55,6 +54,7 @@
 	}
 	
 	[db setCrashOnErrors:TRUE];
+        [db setShouldCacheStatements:TRUE];
 	
 	[self configureDBForFirstUse];
 	
@@ -151,7 +151,11 @@
 	{
 		RMLog(@"Error occured adding data");
 	}
-//	RMLog(@"done\t%d", tileHash);
+}
+
+-(void)didReceiveMemoryWarning
+{
+	[db clearCachedStatements];
 }
 
 @end

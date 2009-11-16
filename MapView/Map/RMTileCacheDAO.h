@@ -42,5 +42,6 @@
 -(void) addData: (NSData*) data LastUsed: (NSDate*)date ForTile: (uint64_t) tileHash;
 -(void) purgeTiles: (NSUInteger) count;
 -(void) removeAllCachedImages;
+-(void)didReceiveMemoryWarning;
 
 @end

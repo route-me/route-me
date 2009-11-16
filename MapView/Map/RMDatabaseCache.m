@@ -164,11 +164,18 @@
 
 -(void)didReceiveMemoryWarning
 {
+        @synchronized(self) 
+        {
+		[dao didReceiveMemoryWarning];
+        }
 }
 
 -(void) removeAllCachedImages 
 {
-	[dao removeAllCachedImages];
+        @synchronized(self) 
+        {
+		[dao removeAllCachedImages];
+        }
 }
 
 @end
