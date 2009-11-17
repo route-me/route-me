@@ -103,6 +103,11 @@
 	return [tileSource maxZoom];
 }
 
+-(RMSphericalTrapezium) latitudeLongitudeBoundingBox
+{
+	return [tileSource latitudeLongitudeBoundingBox];
+}
+
 - (void) didReceiveMemoryWarning
 {
 	LogMethod();		

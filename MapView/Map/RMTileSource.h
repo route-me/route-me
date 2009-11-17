@@ -27,6 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RMTile.h"
+#import "RMLatLong.h"
 #import "RMFoundation.h"
 
 @class RMTileImage;
@@ -48,6 +49,8 @@
 
 -(float) minZoom;
 -(float) maxZoom;
+
+-(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
 
 -(void) didReceiveMemoryWarning;
 

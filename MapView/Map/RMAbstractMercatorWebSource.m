@@ -78,6 +78,11 @@
 	return kDefaultMaxTileZoom;
 }
 
+-(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
+{
+	return kDefaultLatLonBoundingBox;
+}
+
 /// \bug magic string literals
 -(NSString*) tileURL: (RMTile) tile
 {

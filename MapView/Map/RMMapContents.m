@@ -351,8 +351,8 @@
 			mapContentWidth = mercatorBounds.size.width / self.metersPerPixel;
 			zoomFactor = screenBoundsWidth / mapContentWidth;
 			
-			newMPP = self.metersPerPixel / zoomFactor;
-			newMapContentsWidth = mercatorBounds.size.width / newMPP;
+			//newMPP = self.metersPerPixel / zoomFactor;
+			//newMapContentsWidth = mercatorBounds.size.width / newMPP;
 		}
 		
 	}
@@ -370,8 +370,8 @@
 			mapContentHeight = mercatorBounds.size.height / self.metersPerPixel;
 			zoomFactor = screenBoundsHeight / mapContentHeight;
 			
-			newMPP = self.metersPerPixel / zoomFactor;
-			newMapContentsHeight = mercatorBounds.size.height / newMPP;
+			//newMPP = self.metersPerPixel / zoomFactor;
+			//newMapContentsHeight = mercatorBounds.size.height / newMPP;
 		}
 		
 	}

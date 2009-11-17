@@ -31,6 +31,7 @@
 #define kDefaultTileSize 256
 #define kDefaultMinTileZoom 0
 #define kDefaultMaxTileZoom 18
+#define kDefaultLatLonBoundingBox ((RMSphericalTrapezium){.northeast = {.latitude = 90, .longitude = 180}, .southwest = {.latitude = -90, .longitude = -180}})
 #pragma mark --- end constants ---
 
 @protocol RMAbstractMercatorWebSource
@@ -50,6 +51,8 @@
 +(int) tileSideLength;
 -(float) minZoom;
 -(float) maxZoom;
+
+-(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
 
 -(NSString *)shortName;
 -(NSString *)longDescription;
