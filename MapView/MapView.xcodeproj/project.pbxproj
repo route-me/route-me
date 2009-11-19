@@ -101,6 +101,9 @@
 		96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */; };
 		B144DEFE0FD989C3003F3368 /* RMTileMapServiceSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B144DEFC0FD989C3003F3368 /* RMTileMapServiceSource.h */; };
 		B144DEFF0FD989C3003F3368 /* RMTileMapServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B144DEFD0FD989C3003F3368 /* RMTileMapServiceSource.m */; };
+		B1EB26C310B5D8C0009F8658 /* RMOpenCycleMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EB26C110B5D8C0009F8658 /* RMOpenCycleMapSource.h */; };
+		B1EB26C410B5D8C0009F8658 /* RMOpenCycleMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EB26C210B5D8C0009F8658 /* RMOpenCycleMapSource.m */; };
+		B1EB26C610B5D8E6009F8658 /* RMNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EB26C510B5D8E6009F8658 /* RMNotifications.h */; };
 		B8474B9A0EB40094006A0BC1 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B8D0EB40094006A0BC1 /* FMDatabase.h */; };
 		B8474B9B0EB40094006A0BC1 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B8E0EB40094006A0BC1 /* FMDatabase.m */; };
 		B8474B9C0EB40094006A0BC1 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B8F0EB40094006A0BC1 /* FMDatabaseAdditions.h */; };
@@ -253,6 +256,9 @@
 		96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMYahooMapSource.m; sourceTree = "<group>"; };
 		B144DEFC0FD989C3003F3368 /* RMTileMapServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileMapServiceSource.h; sourceTree = "<group>"; };
 		B144DEFD0FD989C3003F3368 /* RMTileMapServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileMapServiceSource.m; sourceTree = "<group>"; };
+		B1EB26C110B5D8C0009F8658 /* RMOpenCycleMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOpenCycleMapSource.h; sourceTree = "<group>"; };
+		B1EB26C210B5D8C0009F8658 /* RMOpenCycleMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenCycleMapSource.m; sourceTree = "<group>"; };
+		B1EB26C510B5D8E6009F8658 /* RMNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMNotifications.h; sourceTree = "<group>"; };
 		B83E64B60E80E73F001663B6 /* RMPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
 		B83E64B70E80E73F001663B6 /* RMPixel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
 		B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCoreAnimationRenderer.h; sourceTree = "<group>"; };
@@ -561,9 +567,11 @@
 			isa = PBXGroup;
 			children = (
 				96FE8E340F72D01B00A11CF0 /* RMYahooMapSource.h */,
+				96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */,
+				B1EB26C110B5D8C0009F8658 /* RMOpenCycleMapSource.h */,
+				B1EB26C210B5D8C0009F8658 /* RMOpenCycleMapSource.m */,
 				B144DEFC0FD989C3003F3368 /* RMTileMapServiceSource.h */,
 				B144DEFD0FD989C3003F3368 /* RMTileMapServiceSource.m */,
-				96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */,
 				B83E64EC0E80E73F001663B6 /* RMTileSource.h */,
 				C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */,
 				C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */,
@@ -651,6 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */,
+				B1EB26C510B5D8E6009F8658 /* RMNotifications.h */,
 				090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */,
 				B8C974690E8A1A50007D16AD /* RMMapView.h */,
 				B8C9746A0E8A1A50007D16AD /* RMMapView.m */,
@@ -748,6 +757,8 @@
 				F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */,
 				96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */,
 				B144DEFE0FD989C3003F3368 /* RMTileMapServiceSource.h in Headers */,
+				B1EB26C310B5D8C0009F8658 /* RMOpenCycleMapSource.h in Headers */,
+				B1EB26C610B5D8E6009F8658 /* RMNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +989,7 @@
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,
 				F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */,
 				B144DEFF0FD989C3003F3368 /* RMTileMapServiceSource.m in Sources */,
+				B1EB26C410B5D8C0009F8658 /* RMOpenCycleMapSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,6 +1182,7 @@
 					"-O",
 					"-Wuninitialized",
 				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator2.1;
 			};
@@ -1183,6 +1196,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.1;
 			};
