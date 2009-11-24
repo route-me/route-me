@@ -216,6 +216,8 @@ enum {
 /// returns the smallest bounding box containing a rectangular region of the screen
 - (RMSphericalTrapezium) latitudeLongitudeBoundingBoxFor:(CGRect) rect;
 
+- (void)setRotation:(float)angle;
+
 - (void) tilesUpdatedRegion:(CGRect)region;
 
 /*! \brief Clear all images from the #tileSource's caching system.
@@ -262,6 +264,7 @@ enum {
 - (RMSphericalTrapezium) latitudeLongitudeBoundingBoxFor:(CGRect) rect;
 
 - (void) tilesUpdatedRegion:(CGRect)region;
+
 
 @end
 

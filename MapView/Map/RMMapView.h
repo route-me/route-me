@@ -174,4 +174,6 @@ typedef struct {
 
 - (void)didReceiveMemoryWarning;
 
+- (void)setRotation:(float)angle;
+
 @end

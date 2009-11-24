@@ -34,6 +34,7 @@
 
 @interface RMMarkerManager : NSObject {
 	RMMapContents *contents;
+        CGAffineTransform rotationTransform;
 }
 
 @property (assign, readwrite)  RMMapContents *contents;
@@ -56,6 +57,8 @@
 - (BOOL) managingMarker:(RMMarker*)marker;
 - (void) moveMarker:(RMMarker *)marker AtLatLon:(RMLatLong)point;
 - (void) moveMarker:(RMMarker *)marker AtXY:(CGPoint)point;
+- (void)setRotation:(float)angle;
+
 
 
 @end

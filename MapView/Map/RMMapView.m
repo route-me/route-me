@@ -564,4 +564,12 @@
   }
 }
 
+- (void)setRotation:(float)angle
+{
+  [contents setRotation:angle];
+	
+  self.transform = CGAffineTransformMakeRotation(angle);
+}
+
+
 @end

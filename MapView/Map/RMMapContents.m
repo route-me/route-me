@@ -1033,4 +1033,10 @@ static BOOL _performExpensiveOperations = YES;
 	return tilesUpdateDelegate;
 }
 
+- (void)setRotation:(float)angle
+{ 
+  [markerManager setRotation:(-angle)]; // rotate markers back
+}
+
+
 @end

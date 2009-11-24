@@ -40,7 +40,9 @@
 		return nil;
 	
 	contents = mapContents;
-
+	
+	rotationTransform = CGAffineTransformIdentity; 
+	
 	return self;
 }
 
@@ -58,6 +60,8 @@
 /// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
+
+	[marker setAffineTransform:rotationTransform];
 	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
 	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]]];
 	[[contents overlay] addSublayer:marker];
@@ -170,6 +174,16 @@
 {
 	[marker setProjectedLocation:[[contents mercatorToScreenProjection] projectScreenPointToXY:point]];
 	[marker setPosition:point];
+}
+
+- (void)setRotation:(float)angle
+{
+  rotationTransform = CGAffineTransformMakeRotation(angle); // store rotation transform for subsequent markers
+
+  for (RMMarker *marker in [self markers]) 
+  {
+	  [marker setAffineTransform:rotationTransform];
+  }
 }
 
 @end
