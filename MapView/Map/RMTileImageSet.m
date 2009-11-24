@@ -111,8 +111,6 @@
 
 -(void) removeAllTiles
 {
-	NSLog(@"removeAllTiles");
-	
 	NSArray * imagelist = [images allObjects];
 	for (RMTileImage * img in imagelist) {
 		NSUInteger count = [images countForObject:img];
@@ -123,7 +121,6 @@
 
 - (void) setTileSource: (id<RMTileSource>)newTileSource
 {
-        RMLog(@"tileimageSet setTileSource");
 	[self removeAllTiles];
 
 	tileSource = newTileSource;
