@@ -9,6 +9,9 @@
 #import "RMMarkerManager.h"
 
 #import "MainView.h"
+#import "RMLatLong.h"
+#import "RMTileSource.h"
+#import "RMMapContents.h"
 
 @implementation MainViewController
 
@@ -38,9 +41,9 @@
 											 anchorPoint:CGPointMake(0.5, 1.0)];
 	[marker setTextForegroundColor:[UIColor blueColor]];
 	[marker changeLabelUsingText:@"Hello"];
+	 
 	[markerManager addMarker:marker AtLatLong:[[mapView contents] mapCenter]];
 	[marker release];
-
 }
 
 
@@ -81,6 +84,18 @@
                            contents.zoom, 
                            routemeMetersPerPixel,
                            truescaleDenominator]];
+}
+
+- (IBAction) mapSelectChange
+{	
+	id <RMTileSource> tileSource;
+	
+	if(mapSelectControl.selectedSegmentIndex == 1)
+		tileSource = [[[RMOpenCycleMapSource alloc] init] autorelease];
+	else 
+		tileSource = [[[RMOpenStreetMapSource alloc] init] autorelease];
+	
+	[[mapView contents] setTileSource:tileSource];
 }
 
 #pragma mark -
