@@ -57,6 +57,7 @@
 - (void)clearLoadedBounds;
 
 - (void)reload;
+- (void)reset;
 
 @property (readonly, nonatomic) CGRect loadedBounds;
 @property (readonly, nonatomic) NSUInteger loadedZoom;

@@ -66,6 +66,8 @@
 
 -(void) removeAllTiles;
 
+- (void) setTileSource: (id<RMTileSource>)newTileSource;
+
 -(NSUInteger) count;
 
 - (void)moveBy: (CGSize) delta;
@@ -78,5 +80,4 @@
 - (void)cancelLoading;
 
 @property (assign, nonatomic, readwrite) id delegate;
-@property (retain, nonatomic, readwrite) id<RMTileSource> tileSource;
 @end

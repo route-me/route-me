@@ -139,6 +139,7 @@
 	
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
 	[imagesOnScreen setTileSource:tileSource];
+
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
@@ -591,13 +592,10 @@
 
 #pragma mark Properties
 
-/// \bug changing the tile source should force screen to reload images, but it doesn't
 - (void) setTileSource: (id<RMTileSource>)newTileSource
 {
 	if (tileSource == newTileSource)
 		return;
-	
-//	[imagesOnScreen removeAllTiles]; tried this 27 Apr 2009 but it made no difference
 	
 	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
 	if (self.minZoom < newCachedTileSource.minZoom)
@@ -617,6 +615,7 @@
 
 	[imagesOnScreen setTileSource:tileSource];
 
+        [tileLoader reset];
 	[tileLoader reload];
 }
 

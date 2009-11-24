@@ -37,7 +37,7 @@
 
 @implementation RMTileImageSet
 
-@synthesize delegate, tileSource;
+@synthesize delegate;
 
 -(id) initWithDelegate: (id) _delegate
 {
@@ -111,12 +111,22 @@
 
 -(void) removeAllTiles
 {
+	NSLog(@"removeAllTiles");
+	
 	NSArray * imagelist = [images allObjects];
 	for (RMTileImage * img in imagelist) {
-    NSUInteger count = [images countForObject:img];
+		NSUInteger count = [images countForObject:img];
 		for (NSUInteger i = 0; i < count; i++)
 			[self removeTile: img.tile];
 	}
+}
+
+- (void) setTileSource: (id<RMTileSource>)newTileSource
+{
+        RMLog(@"tileimageSet setTileSource");
+	[self removeAllTiles];
+
+	tileSource = newTileSource;
 }
 
 /* Untested.
