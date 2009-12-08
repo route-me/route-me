@@ -69,6 +69,11 @@
 	return tileProjection.tileSideLength;
 }
 
+- (void) setTileSideLength: (NSUInteger) aTileSideLength
+{
+	[tileProjection setTileSideLength:aTileSideLength];
+}
+
 -(float) minZoom
 {
 	return (float)tileProjection.minZoom;
