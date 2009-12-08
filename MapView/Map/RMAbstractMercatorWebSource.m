@@ -40,13 +40,13 @@
 	if (![super init])
 		return nil;
 	
-	NSUInteger sideLength = [[self class] tileSideLength];
-	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:sideLength maxZoom:18];
-
-        networkOperations = TRUE;
+	tileProjection = [[RMFractalTileProjection alloc] initFromProjection:[self projection] tileSideLength:kDefaultTileSize maxZoom:kDefaultMaxTileZoom minZoom:kDefaultMinTileZoom];
+	
+	networkOperations = TRUE;
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkOperationsNotification:) name:RMSuspendNetworkOperations object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkOperationsNotification:) name:RMResumeNetworkOperations object:nil];
-
+	
 	return self;
 }
 
@@ -64,18 +64,29 @@
 	[super dealloc];
 }
 
-+(int)tileSideLength
+-(int)tileSideLength
 {
-	return kDefaultTileSize;
+	return tileProjection.tileSideLength;
 }
 
 -(float) minZoom
 {
-	return kDefaultMinTileZoom;
+	return (float)tileProjection.minZoom;
 }
+
 -(float) maxZoom
 {
-	return kDefaultMaxTileZoom;
+	return (float)tileProjection.maxZoom;
+}
+
+-(void) setMinZoom:(NSUInteger)aMinZoom
+{
+	[tileProjection setMinZoom:aMinZoom];
+}
+
+-(void) setMaxZoom:(NSUInteger)aMaxZoom
+{
+	[tileProjection setMaxZoom:aMaxZoom];
 }
 
 -(RMSphericalTrapezium) latitudeLongitudeBoundingBox;

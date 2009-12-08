@@ -29,6 +29,16 @@
 
 @implementation RMOpenCycleMapSource
 
+-(id) init
+{       
+	if(self = [super init]) 
+	{
+		[self setMaxZoom:15];
+		[self setMinZoom:1];
+	}
+	return self;
+} 
+
 -(NSString*) tileURL: (RMTile) tile
 {
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
@@ -57,14 +67,6 @@
 -(NSString *)longAttribution
 {
 	return @"Map data © OpenCycleMap, licensed under Creative Commons Share Alike By Attribution.";
-}
--(float) minZoom
-{
-        return 1.0f;
-}
--(float) maxZoom
-{
-        return 15.49;
 }
 
 @end

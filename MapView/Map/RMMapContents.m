@@ -84,7 +84,7 @@
 	return [self initWithView:view
 				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
-					zoomLevel:kDefaultInitialZoomLevel
+	  			    zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
 			  backgroundImage:nil];
@@ -122,18 +122,22 @@
 	NSAssert1([newView isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", newView);
 	[(RMMapView *)newView setContents:self];
 
-	boundingMask = RMMapMinWidthBound;
-	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
-	
 	tileSource = nil;
 	projection = nil;
 	mercatorToTileProjection = nil;
 	renderer = nil;
 	imagesOnScreen = nil;
 	tileLoader = nil;
+
+	boundingMask = RMMapMinWidthBound;
+
+	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
 	
 	layer = [[newView layer] retain];
-	
+
+        [self setMinZoom:minZoomLevel];
+        [self setMaxZoom:maxZoomLevel];
+
 	[self setTileSource:newTilesource];
 	[self setRenderer: [[[RMCoreAnimationRenderer alloc] initWithContent:self] autorelease]];
 	
@@ -142,12 +146,9 @@
 
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
-	
-	minZoom = fmax(minZoomLevel, [newTilesource minZoom]);
-	maxZoom = fmin(maxZoomLevel, [newTilesource maxZoom]);
-	NSAssert((minZoom <= initialZoomLevel), @"initial zoom level must be greater than minimum zoom level");
-	NSAssert((maxZoom >= initialZoomLevel), @"initial zoom level must be less than maximum zoom level");
+
 	[self setZoom:initialZoomLevel];
+
 	[self moveToLatLong:initialCenter];
 	
 	[tileLoader setSuppressLoading:NO];
@@ -208,8 +209,6 @@
 	
 	NSAssert1([view isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", view);
 	
-	[self setMaxZoom:kDefaultMaximumZoomLevel];
-	
 	self.boundingMask = RMMapMinWidthBound;
 //	targetView = view;
 	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[_tileSource projection] ToScreenBounds:[view bounds]];
@@ -229,10 +228,14 @@
 	
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
 	[imagesOnScreen setTileSource:tileSource];
+
 	tileLoader = [[RMTileLoader alloc] initWithContent:self];
 	[tileLoader setSuppressLoading:YES];
 	
+	[self setMinZoom:kDefaultMinimumZoomLevel];
+	[self setMaxZoom:kDefaultMaximumZoomLevel];
 	[self setZoom:kDefaultInitialZoomLevel];
+
 	[self moveToLatLong:latlong];
 	
 	[tileLoader setSuppressLoading:NO];
@@ -598,14 +601,11 @@
 		return;
 	
 	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
-	if (self.minZoom < newCachedTileSource.minZoom)
-		self.minZoom = newCachedTileSource.minZoom;
-	if (self.maxZoom > newCachedTileSource.maxZoom)
-		self.maxZoom = newCachedTileSource.maxZoom;
-	[self setZoom:[self zoom]]; // setZoom clamps zoom level to min/max limits
 	
 	[tileSource release];
 	tileSource = [newCachedTileSource retain];
+
+        NSAssert(([tileSource minZoom] - minZoom) <= 1.0, @"Graphics & memory are overly taxed if [contents minZoom] is more than 1.5 smaller than [tileSource minZoom]");
 	
 	[projection release];
 	projection = [[tileSource projection] retain];
@@ -778,12 +778,14 @@
 
 -(void)setMaxZoom:(float)newMaxZoom
 {
-	maxZoom = fmin(newMaxZoom, [self.tileSource maxZoom]);
+	maxZoom = newMaxZoom;
 }
 
 -(void)setMinZoom:(float)newMinZoom
 {
-	minZoom = fmax(newMinZoom, [self.tileSource minZoom]);
+	minZoom = newMinZoom;
+
+        NSAssert(!tileSource || (([tileSource minZoom] - minZoom) <= 1.0), @"Graphics & memory are overly taxed if [contents minZoom] is more than 1.5 smaller than [tileSource minZoom]");
 }
 
 -(float) zoom

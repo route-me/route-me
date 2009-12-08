@@ -31,53 +31,45 @@
 
 -(id) init: (NSString*) _host uniqueKey: (NSString*) _key minZoom: (float) _minZoom maxZoom: (float) _maxZoom
 {
-        if (![super init])
-                return nil;
-
-        host = _host;
-        key = _key;
-        minZoom = _minZoom;
-        maxZoom = _maxZoom;
-
-        return self;
+	if(self = [super init]) 
+	{
+		[self setMaxZoom:_maxZoom];
+		[self setMinZoom:_minZoom];
+	}
+	
+	host = _host;
+	key = _key;
+	
+	return self;
 }
 
 
 -(NSString*) tileURL: (RMTile) tile
 {
 	NSString *URL = [NSString stringWithFormat:@"%@/%d/%d/%d.png", host, tile.zoom, tile.x, (uint32_t)pow(2.0,(double)tile.zoom)-1-tile.y];
-
+	
 	return URL;
 }
 
--(float) minZoom
-{
-        return minZoom;
-}
--(float) maxZoom
-{
-        return maxZoom;
-}
 -(NSString*) uniqueTilecacheKey
 {
-        return key;
+	return key;
 }
 -(NSString *)shortName
 {
-        return @"TMS";
+	return @"TMS";
 }
 -(NSString *)longDescription
 {
-        return @"Tile Map Service";
+	return @"Tile Map Service";
 }
 -(NSString *)shortAttribution
 {
-        return @"n/a";
+	return @"n/a";
 }
 -(NSString *)longAttribution
 {
-        return @"n/a";
+	return @"n/a";
 }
-
 
 @end

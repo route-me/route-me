@@ -29,6 +29,17 @@
 
 @implementation RMOpenStreetMapSource
 
+-(id) init
+{       
+	if(self = [super init]) 
+	{
+		//http://wiki.openstreetmap.org/index.php/FAQ#What_is_the_map_scale_for_a_particular_zoom_level_of_the_map.3F 
+		[self setMaxZoom:18];
+		[self setMinZoom:1];
+	}
+	return self;
+} 
+
 -(NSString*) tileURL: (RMTile) tile
 {
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
@@ -57,16 +68,6 @@
 -(NSString *)longAttribution
 {
 	return @"Map data © OpenStreetMap, licensed under Creative Commons Share Alike By Attribution.";
-}
-
--(float) minZoom
-{
-	return 1.0f;
-}
--(float) maxZoom
-{
-	//http://wiki.openstreetmap.org/index.php/FAQ#What_is_the_map_scale_for_a_particular_zoom_level_of_the_map.3F 
-	return 18.0f;
 }
 
 @end

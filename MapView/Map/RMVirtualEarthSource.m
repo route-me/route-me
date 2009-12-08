@@ -38,7 +38,11 @@
 {
 	RMLog(@"please see comments in RMVirtualEarthSource.h");
 	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
-	if (self = [super init]) {
+	if (self = [super init])
+	{
+		[self setMaxZoom:18];
+		[self setMinZoom:1];
+		
 		maptypeFlag = @"a";
 		accessKey = developerAccessKey;
 		_shortName = @"Microsoft Virtual Earth satellite";
@@ -50,7 +54,11 @@
 {
 	RMLog(@"please see comments in RMVirtualEarthSource.h");
 	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
-	if (self = [super init]) {
+	if (self = [super init])
+	{
+		[self setMaxZoom:18];
+		[self setMinZoom:1];
+		
 		maptypeFlag = @"r";
 		accessKey = developerAccessKey;
 		_shortName = @"Microsoft Virtual Earth roads";
@@ -61,7 +69,11 @@
 {
 	RMLog(@"please see comments in RMVirtualEarthSource.h");
 	NSAssert(([developerAccessKey length] > 0), @"Virtual Earth access key must be non-empty");
-	if (self = [super init]) {
+	if (self = [super init]) 
+	{
+		[self setMaxZoom:18];
+		[self setMinZoom:1];
+		
 		maptypeFlag = @"h";
 		accessKey = developerAccessKey;
 		_shortName = @"Microsoft Virtual Earth hybrid";
@@ -96,11 +108,6 @@
 		[quadKey appendString:[NSString stringWithFormat:@"%d", cell]];
 	}
 	return quadKey;
-}
-
--(float) minZoom
-{
-   return 1;
 }
 
 -(NSString*) urlForQuadKey: (NSString*) quadKey 

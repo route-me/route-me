@@ -32,7 +32,7 @@
 
 @interface RMFractalTileProjection : NSObject<RMMercatorToTileProjection> {
 	/// Maximum zoom for which our tile server stores images
-	NSUInteger maxZoom;
+	NSUInteger maxZoom, minZoom;
 	
 	/// projected bounds of the planet, in meters
 	RMProjectedRect planetBounds;
@@ -49,6 +49,10 @@
 	double scaleFactor;
 }
 
--(id) initFromProjection:(RMProjection*)projection tileSideLength:(NSUInteger)tileSideLength maxZoom: (NSUInteger) max_zoom;
+- (id) initFromProjection:(RMProjection*)projection tileSideLength:(NSUInteger)tileSideLength maxZoom: (NSUInteger) aMaxZoom minZoom: (NSUInteger) aMinZoom;
+
+- (void) setTileSideLength: (NSUInteger) aTileSideLength;
+- (void) setMinZoom: (NSUInteger) aMinZoom;
+- (void) setMaxZoom: (NSUInteger) aMaxZoom;
 
 @end

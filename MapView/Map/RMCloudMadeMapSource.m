@@ -32,6 +32,7 @@
 @implementation RMCloudMadeMapSource
 
 #define kDefaultCloudMadeStyleNumber 7
+#define kDefaultCloudMadeSize 256
 
 - (id) init
 {
@@ -45,14 +46,17 @@
 {
 	NSAssert((styleNumber > 0), @"CloudMade style number must be positive");
 	NSAssert(([developerAccessKey length] > 0), @"CloudMade access key must be non-empty");
-	if (self = [super init]) {
+	if (self = [super init])
+	{
+		[self setTileSideLength:kDefaultCloudMadeSize];
 		accessKey = developerAccessKey;
 		if (styleNumber > 0)
 			cloudmadeStyleNumber = styleNumber;
 		else
 			cloudmadeStyleNumber = kDefaultCloudMadeStyleNumber;
 	}
-		return self;
+	
+	return self;
 }
 
 - (NSString*) tileURL: (RMTile) tile
@@ -63,17 +67,12 @@
 	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d/%d/%d/%d/%d.png",
 			accessKey,
 			cloudmadeStyleNumber,
-			[RMCloudMadeMapSource tileSideLength], tile.zoom, tile.x, tile.y];
+			kDefaultCloudMadeSize, tile.zoom, tile.x, tile.y];
 }
 
 -(NSString*) uniqueTilecacheKey
 {
 	return [NSString stringWithFormat:@"CloudMadeMaps%d", cloudmadeStyleNumber];
-}
-
-+(int)tileSideLength
-{
-	return 256;
 }
 
 -(NSString *)shortName
@@ -91,15 +90,6 @@
 -(NSString *)longAttribution
 {
 	return @"Map © CloudMade.com. Map data CCBYSA 2009 OpenStreetMap.org contributors.";
-}
-
--(float) minZoom
-{
-	return 0.0f;
-}
--(float) maxZoom
-{
-	return 18.0f;
 }
 
 @end

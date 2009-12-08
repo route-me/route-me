@@ -8,9 +8,9 @@
 
 #import "RMAbstractMercatorWebSource.h"
 
-@interface RMTileMapServiceSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>{
+@interface RMTileMapServiceSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource>
+{
   NSString *host, *key;
-  float minZoom, maxZoom;
 }
 
 -(id) init: (NSString*) _host uniqueKey: (NSString*) _key minZoom: (float) _minZoom maxZoom: (float) _maxZoom;

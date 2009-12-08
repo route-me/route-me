@@ -31,41 +31,50 @@
 
 @implementation RMYahooMapSource
 
+- (id) init
+{ 
+	if(self = [super init])
+	{
+		[self setMaxZoom:18]; 
+		[self setMinZoom:1];
+	}
+	
+	return self;
+}
+
 - (NSString*) tileURL: (RMTile) tile
 {
-   NSInteger zoom = kDefaultMaxTileZoom - tile.zoom;
-   NSInteger shift = tile.zoom -1;
-   NSInteger x = tile.x;
-   NSInteger y = pow(2,shift)-1-tile.y;
-   NSString *tileThing = [NSString stringWithFormat:@"http://us.maps2.yimg.com/us.png.maps.yimg.com/png?v=3.1.0&t=m&x=%d&y=%d&z=%d",
-            x, y,zoom];
-   NSLog(@"%@",tileThing);
+	NSInteger zoom = kDefaultMaxTileZoom - tile.zoom;
+	NSInteger shift = tile.zoom -1;
+	NSInteger x = tile.x;
+	NSInteger y = pow(2,shift)-1-tile.y;
+	NSString *tileThing = [NSString stringWithFormat:@"http://us.maps2.yimg.com/us.png.maps.yimg.com/png?v=3.1.0&t=m&x=%d&y=%d&z=%d",
+						   x, y,zoom];
+	NSLog(@"%@",tileThing);
 	return tileThing;
-   
+	
 }
 
 -(NSString*) uniqueTilecacheKey
 {
-	return [NSString stringWithFormat:@"YahooMaps"];
-}
-
--(float) minZoom
-{
-	return 1;
+	return @"YahooMaps";
 }
 
 -(NSString *)shortName
 {
 	return @"Yahoo Map";
 }
+
 -(NSString *)longDescription
 {
 	return @"Yahoo Maps are severely restricted by Terms of Service for typical Route-Me applications. This sample code is for demonstration purposes only.";
 }
+
 -(NSString *)shortAttribution
 {
 	return @"© Yahoo Maps";
 }
+
 -(NSString *)longAttribution
 {
 	return @"© Map data © Yahoo, though the way we are accessing these tiles is against the Yahoo Terms of Service.";

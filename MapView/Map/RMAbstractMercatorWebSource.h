@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMTileSource.h"
+#import "RMFractalTileProjection.h"
 
 #pragma mark --- begin constants ---
 #define kDefaultTileSize 256
@@ -40,17 +41,22 @@
 
 @end
 
-@class RMFractalTileProjection;
-
 @interface RMAbstractMercatorWebSource : NSObject <RMTileSource> {
 	RMFractalTileProjection *tileProjection;
 	BOOL networkOperations;
 }
 
+-(id) init;
+
 -(void) networkOperationsNotification: (NSNotification*) notification;
-+(int) tileSideLength;
+
+
+-(int) tileSideLength;
+
 -(float) minZoom;
 -(float) maxZoom;
+-(void) setMinZoom:(NSUInteger) aMinZoom;
+-(void) setMaxZoom:(NSUInteger) aMaxZoom;
 
 -(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
 
@@ -58,4 +64,5 @@
 -(NSString *)longDescription;
 -(NSString *)shortAttribution;
 -(NSString *)longAttribution;
+
 @end

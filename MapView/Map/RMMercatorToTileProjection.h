@@ -56,8 +56,10 @@
 /// bounds of the earth, in projected units (meters).
 @property(readonly, nonatomic) RMProjectedRect planetBounds;
 
-/// Maximum zoom for which we have tile images \bug why no minZoom?
+/// Maximum zoom for which we have tile images 
 @property(readonly, nonatomic) NSUInteger maxZoom;
+/// Minimum zoom for which we have tile images 
+@property(readonly, nonatomic) NSUInteger minZoom;
 
 /// Tile side length in pixels
 @property(readonly, nonatomic) NSUInteger tileSideLength;
