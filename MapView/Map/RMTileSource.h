@@ -50,6 +50,9 @@
 -(float) minZoom;
 -(float) maxZoom;
 
+-(void) setMinZoom:(NSUInteger) aMinZoom;
+-(void) setMaxZoom:(NSUInteger) aMaxZoom;
+
 -(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
 
 -(void) didReceiveMemoryWarning;

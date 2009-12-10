@@ -50,13 +50,10 @@
 
 -(void) networkOperationsNotification: (NSNotification*) notification;
 
-
 -(int) tileSideLength;
 
 -(float) minZoom;
 -(float) maxZoom;
--(void) setMinZoom:(NSUInteger) aMinZoom;
--(void) setMaxZoom:(NSUInteger) aMaxZoom;
 
 -(RMSphericalTrapezium) latitudeLongitudeBoundingBox;
 

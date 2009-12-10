@@ -152,6 +152,16 @@
   return [tileSource tilePath];
 }
 
+-(void) setMinZoom:(NSUInteger)aMinZoom
+{
+        [tileSource setMinZoom:aMinZoom];
+}
+
+-(void) setMaxZoom:(NSUInteger)aMaxZoom
+{
+        [tileSource setMaxZoom:aMaxZoom];
+}
+
 -(void) removeAllCachedImages
 {
 	[cache removeAllCachedImages];
