@@ -1184,6 +1184,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;

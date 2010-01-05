@@ -44,9 +44,16 @@
 @end
 
 @implementation RMMapView
+@synthesize contents;
+
 @synthesize decelerationFactor;
 @synthesize deceleration;
-@synthesize contents;
+
+@synthesize rotation;
+
+@synthesize enableDragging;
+@synthesize enableZoom;
+@synthesize enableRotate;
 
 #pragma mark --- begin constants ----
 #define kDefaultDecelerationFactor .88f
@@ -64,12 +71,13 @@
 
 	enableDragging = YES;
 	enableZoom = YES;
+	enableRotate = NO;
 	decelerationFactor = kDefaultDecelerationFactor;
 	deceleration = NO;
 	
 	//	[self recalculateImageSet];
 	
-	if (enableZoom)
+	if (enableZoom || enableRotate)
 		[self setMultipleTouchEnabled:TRUE];
 	
 	self.backgroundColor = [UIColor grayColor];
@@ -171,6 +179,9 @@
 	_delegateHasBeforeMapZoomByFactor = [(NSObject*) delegate respondsToSelector: @selector(beforeMapZoom: byFactor: near:)];
 	_delegateHasAfterMapZoomByFactor  = [(NSObject*) delegate respondsToSelector: @selector(afterMapZoom: byFactor: near:)];
 
+	_delegateHasBeforeMapRotate  = [(NSObject*) delegate respondsToSelector: @selector(beforeMapRotate: fromAngle:)];
+	_delegateHasAfterMapRotate  = [(NSObject*) delegate respondsToSelector: @selector(afterMapRotate: toAngle:)];
+
 	_delegateHasDoubleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(doubleTapOnMap:At:)];
 	_delegateHasSingleTapOnMap = [(NSObject*) delegate respondsToSelector: @selector(singleTapOnMap:At:)];
 	
@@ -240,6 +251,7 @@
 	RMGestureDetails gesture;
 	gesture.center.x = gesture.center.y = 0;
 	gesture.averageDistanceFromCenter = 0;
+	gesture.angle = 0.0;
 	
 	int interestingTouches = 0;
 	
@@ -287,12 +299,21 @@
 		//		RMLog(@"delta = %.0f, %.0f  distance = %f", dx, dy, sqrtf((dx*dx) + (dy*dy)));
 		gesture.averageDistanceFromCenter += sqrtf((dx*dx) + (dy*dy));
 	}
-	
+
 	gesture.averageDistanceFromCenter /= interestingTouches;
 	
 	gesture.numTouches = interestingTouches;
+
+	if ([touches count] == 2)  
+	{
+		CGPoint first = [[[touches allObjects] objectAtIndex:0] locationInView:[self superview]];
+		CGPoint second = [[[touches allObjects] objectAtIndex:1] locationInView:[self superview]];
+		CGFloat height = second.y - first.y;
+        CGFloat width = first.x - second.x;
+        gesture.angle = atan2(height,width);
+	}
 	
-	//	RMLog(@"center = %.0f,%.0f dist = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter);
+	//RMLog(@"center = %.0f,%.0f dist = %f, angle = %f", gesture.center.x, gesture.center.y, gesture.averageDistanceFromCenter, gesture.angle);
 	
 	return gesture;
 }
@@ -482,6 +503,17 @@
 	
 	RMGestureDetails newGesture = [self gestureDetails:[event allTouches]];
 	
+	if(enableRotate && (newGesture.numTouches == lastGesture.numTouches))
+	{
+          if(newGesture.numTouches == 2)
+          {
+		CGFloat angleDiff = lastGesture.angle - newGesture.angle;
+		CGFloat newAngle = self.rotation + angleDiff;
+		
+		[self setRotation:newAngle];
+          }
+	}
+	
 	if (enableDragging && newGesture.numTouches == lastGesture.numTouches)
 	{
 		CGSize delta;
@@ -502,7 +534,6 @@
 		{
 			[self moveBy:delta];
 		}
-		
 	}
 	
 	lastGesture = newGesture;
@@ -566,10 +597,20 @@
 
 - (void)setRotation:(float)angle
 {
-  [contents setRotation:angle];
-	
-  self.transform = CGAffineTransformMakeRotation(angle);
-}
+ 	if (_delegateHasBeforeMapRotate) [delegate beforeMapRotate: self fromAngle: rotation];
 
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	
+	rotation = angle;
+		
+	self.transform = CGAffineTransformMakeRotation(rotation);
+	[contents setRotation:rotation];	
+	
+	[CATransaction commit];
+
+ 	if (_delegateHasAfterMapRotate) [delegate afterMapRotate: self toAngle: rotation];
+}
 
 @end

@@ -34,6 +34,12 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tileNotification:) name:RMTileRequested object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tileNotification:) name:RMTileRetrieved object:nil];
+	
+	[[mapView contents] setMinZoom:1.0];
+	[[mapView contents] setMaxZoom:20.0];
+	[[mapView contents] setFrame:CGRectMake(-100,-10,500,500)]; // Add some width for rotation, but keep centered
+	
+	mapView.enableRotate = TRUE;
     
     RMMarkerManager *markerManager = [mapView markerManager];
 	NSAssert(markerManager, @"null markerManager returned");
