@@ -28,6 +28,8 @@
 
 #import "RMAbstractMercatorWebSource.h"
 
+extern NSString * const RMCloudMadeAccessTokenRequestFailed; 
+
 /*! 
  \brief Subclass of RMAbstractMercatorWebSource  for access to CloudMade's commercial-grade tile servers.
  
@@ -42,6 +44,7 @@
 	/// unique key identifying a particular developer/CloudMade licensee. 
 	/// See http://developers.cloudmade.com/projects to obtain a CloudMade API key.
 	NSString *accessKey;
+	NSString *accessToken;
 }
 
 /// designated initializer

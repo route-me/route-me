@@ -28,11 +28,94 @@
 
 #import "RMCloudMadeMapSource.h"
 
-
 @implementation RMCloudMadeMapSource
 
 #define kDefaultCloudMadeStyleNumber 7
 #define kDefaultCloudMadeSize 256
+#define kTokenFileName @"accessToken"
+NSString * const RMCloudMadeAccessTokenRequestFailed = @"RMCloudMadeAccessTokenRequestFailed"; 
+#define CMTokenAuthorizationServer  @"http://auth.cloudmade.com" 
+
+
++ (NSString*)pathForSavedAccessToken
+{
+	NSArray *paths;
+	paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	if ([paths count] > 0) // Should only be one...
+	{
+		NSString *cachePath = [paths objectAtIndex:0];
+		return [cachePath stringByAppendingPathComponent:kTokenFileName];
+	}
+	return nil;
+}
+
+-(BOOL) readTokenFromFile
+{
+	NSString* pathToSavedAccessToken = [RMCloudMadeMapSource pathForSavedAccessToken];
+	if([[NSFileManager defaultManager] fileExistsAtPath:pathToSavedAccessToken])
+	{
+		NSError* error;
+		accessToken = [[NSString alloc] initWithContentsOfFile:pathToSavedAccessToken encoding:NSASCIIStringEncoding error:&error];
+		if(!accessToken)
+		{
+			RMLog(@"can't read file %@ %@\n",pathToSavedAccessToken,error.localizedDescription);
+			[[NSFileManager defaultManager] removeItemAtPath:pathToSavedAccessToken error:nil];
+			return FALSE;
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
+-(void) requestToken
+{
+	
+	if([self readTokenFromFile])
+			return;
+	
+	NSString* url = [NSString stringWithFormat:@"%@/token/%@?userid=%u",CMTokenAuthorizationServer,accessKey,
+					[[UIDevice currentDevice].uniqueIdentifier hash]];
+
+	
+	NSData* data = nil;
+	RMLog(@"%s, url = %@\n",__FUNCTION__,url);
+	NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+											  cachePolicy:NSURLRequestUseProtocolCachePolicy
+										  timeoutInterval:5.0];
+	[ theRequest setHTTPMethod: @"POST" ];
+
+	NSURLResponse* response;
+	NSError*       error = nil; 
+	BOOL done = FALSE;
+	int attempt = 0;
+	do
+	{
+		data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:&error];
+		if(data && [(NSHTTPURLResponse*)response statusCode] == 200)
+		{
+			NSString* pathToSavedAccessToken = [RMCloudMadeMapSource pathForSavedAccessToken];
+			accessToken = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+			[accessToken writeToFile:pathToSavedAccessToken atomically:YES encoding:NSASCIIStringEncoding error:nil];
+			done = TRUE;
+		}
+		else
+		{
+			if([(NSHTTPURLResponse*)response statusCode] == 403 && !attempt)
+			{
+				RMLog(@"Token wasn't obtained.Response code = %d\n",[(NSHTTPURLResponse*)response statusCode]);
+				attempt++;
+			}
+			else
+			{
+				RMLog(@"Token wasn't obtained %@\n",error.localizedDescription);
+				[[NSNotificationCenter defaultCenter] postNotificationName:RMCloudMadeAccessTokenRequestFailed object:error];
+				done = TRUE;
+			}
+			
+		}
+	}
+	while(!done);
+}
 
 - (id) init
 {
@@ -55,7 +138,7 @@
 		else
 			cloudmadeStyleNumber = kDefaultCloudMadeStyleNumber;
 	}
-	
+	[self requestToken];
 	return self;
 }
 
@@ -64,10 +147,11 @@
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
 			  self, tile.zoom, self.minZoom, self.maxZoom);
-	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d/%d/%d/%d/%d.png",
+	NSAssert(accessToken,@"CloudMade access token must be non-empty");
+	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d/%d/%d/%d/%d.png?token=%@",
 			accessKey,
 			cloudmadeStyleNumber,
-			kDefaultCloudMadeSize, tile.zoom, tile.x, tile.y];
+			kDefaultCloudMadeSize, tile.zoom, tile.x, tile.y,accessToken];
 }
 
 -(NSString*) uniqueTilecacheKey
