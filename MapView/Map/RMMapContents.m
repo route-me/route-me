@@ -1036,7 +1036,7 @@ static BOOL _performExpensiveOperations = YES;
 
 - (void)setRotation:(float)angle
 { 
-  [markerManager setRotation:(-angle)]; // rotate markers back
+	[overlay setRotationOfAllSublayers:(-angle)]; // rotate back markers and paths if theirs allowRotate=NO
 }
 
 

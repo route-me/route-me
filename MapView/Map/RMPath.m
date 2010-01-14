@@ -37,6 +37,7 @@
 @synthesize scaleLineWidth;
 @synthesize projectedLocation;
 @synthesize enableDragging;
+@synthesize enableRotation;
 
 #define kDefaultLineWidth 100
 
@@ -60,6 +61,7 @@
 	
 	scaleLineWidth = NO;
 	enableDragging = YES;
+	enableRotation = YES;
 	
 	return self;
 }

@@ -47,6 +47,7 @@
 	
 	/// Backpointer to map; we need this reference so we can access the projections...
 	RMMapContents *mapContents;
+	CGAffineTransform rotationTransform;
 }
 
 - (id)initForContents: (RMMapContents *)contents;
@@ -64,7 +65,7 @@
 /// \deprecated name will change after 0.5
 - (void) correctPositionOfAllSublayers;
 - (BOOL) hasSubLayer:(CALayer *)layer;
-
+- (void) setRotationOfAllSublayers:(float) angle;
 //-(void) drawRect: (CGRect)rect;
 //-(CALayer*) layer;
 

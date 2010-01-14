@@ -63,6 +63,7 @@
 	
 	BOOL scaleLineWidth;
 	BOOL enableDragging;
+	BOOL enableRotation;
 	
 	float renderedScale;
 	RMMapContents *contents;
@@ -78,6 +79,7 @@
 @property BOOL	scaleLineWidth;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
+@property (assign) BOOL enableRotation;
 @property (readwrite, assign) UIColor *lineColor;
 @property (readwrite, assign) UIColor *fillColor;
 
