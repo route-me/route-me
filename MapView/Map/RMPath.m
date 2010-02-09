@@ -64,6 +64,7 @@
 	scaleLineWidth = NO;
 	enableDragging = YES;
 	enableRotation = YES;
+	isFirstPoint = YES;
 	
 	return self;
 }
@@ -156,12 +157,10 @@
 {
 	//	RMLog(@"addLineToXY %f %f", point.x, point.y);
 
-	NSValue* value = [NSValue value:&point withObjCType:@encode(RMProjectedPoint)];
 
-	if (points == nil)
+	if(isFirstPoint)
 	{
-		points = [[NSMutableArray alloc] init];
-		[points addObject:value];
+		isFirstPoint = FALSE;
 		projectedLocation = point;
 
 		self.position = [[contents mercatorToScreenProjection] projectXYPoint: projectedLocation];
@@ -170,8 +169,6 @@
 	}
 	else
 	{
-		[points addObject:value];
-
 		point.easting = point.easting - projectedLocation.easting;
 		point.northing = point.northing - projectedLocation.northing;
 

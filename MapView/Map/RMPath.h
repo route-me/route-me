@@ -38,7 +38,7 @@
  */
 @interface RMPath : RMMapLayer <RMMovingMapLayer>
 {
-	NSMutableArray *points;
+	BOOL	isFirstPoint;
 
 	/// This is the first point.
 	RMProjectedPoint projectedLocation;
