@@ -207,8 +207,9 @@
 			if (RMTileIsDummy(normalisedTile))
 				continue;
 			
-			screenLocation.origin.x = bounds.origin.x + (t.x - (rect.origin.offset.x + rect.origin.tile.x)) * pixelsPerTile;
-			screenLocation.origin.y = bounds.origin.y + (t.y - (rect.origin.offset.y + rect.origin.tile.y)) * pixelsPerTile;
+			// this regrouping of terms is better for calculation precision (issue 128)
+			screenLocation.origin.x = bounds.origin.x + ((t.x - rect.origin.tile.x) - rect.origin.offset.x) * pixelsPerTile;
+			screenLocation.origin.y = bounds.origin.y + ((t.y - rect.origin.tile.y) - rect.origin.offset.y) * pixelsPerTile;
 			
 			[self addTile:normalisedTile At:screenLocation];
 		}
