@@ -53,6 +53,8 @@
 	
 	lineWidth = kDefaultLineWidth;
 	drawingMode = kCGPathFillStroke;
+	lineCap = kCGLineCapButt;
+	lineJoin = kCGLineJoinMiter;
 	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
 	
@@ -241,6 +243,8 @@
 	CGContextAddPath(theContext, path); 
 	
 	CGContextSetLineWidth(theContext, scaledLineWidth);
+	CGContextSetLineCap(theContext, lineCap);
+	CGContextSetLineJoin(theContext, lineJoin);	
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
 	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
 	
@@ -273,6 +277,28 @@
 - (void) setDrawingMode: (CGPathDrawingMode) newDrawingMode
 {
 	drawingMode = newDrawingMode;
+	[self setNeedsDisplay];
+}
+
+- (CGLineCap) lineCap
+{
+	return lineCap;
+}
+
+- (void) setLineCap: (CGLineCap) newLineCap
+{
+	lineCap = newLineCap;
+	[self setNeedsDisplay];
+}
+
+- (CGLineJoin) lineJoin
+{
+	return lineJoin;
+}
+
+- (void) setLineJoin: (CGLineJoin) newLineJoin
+{
+	lineJoin = newLineJoin;
 	[self setNeedsDisplay];
 }
 

@@ -61,6 +61,9 @@
 	 kCGPathEOFillStroke */
 	CGPathDrawingMode drawingMode;
 	
+	//Line cap and join styles
+	CGLineCap lineCap;
+	CGLineJoin lineJoin;	
 	BOOL scaleLineWidth;
 	BOOL enableDragging;
 	BOOL enableRotation;
@@ -74,7 +77,8 @@
 - (id) initForMap: (RMMapView*)map;
 
 @property CGPathDrawingMode drawingMode;
-
+@property CGLineCap lineCap;
+@property CGLineJoin lineJoin;
 @property float lineWidth;
 @property BOOL	scaleLineWidth;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
