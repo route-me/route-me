@@ -1185,7 +1185,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphonesimulator2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -1199,7 +1199,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Release;
 		};

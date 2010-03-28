@@ -793,7 +793,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Proj4;
-				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
@@ -809,7 +808,6 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = Proj4;
-				SDKROOT = iphonesimulator2.1;
 			};
 			name = Release;
 		};
@@ -824,7 +822,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -836,7 +834,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Release;
 		};
