@@ -96,6 +96,8 @@
 		2BEC61320F8ACC24008FB858 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		2BEC61330F8ACC25008FB858 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		3849889C0F6F758100496293 /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D818500F6F67B90034598B /* libProj4.a */; };
+		46B1C067117653930062018A /* GTMNSNumber+64Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1C066117653930062018A /* GTMNSNumber+64Bit.m */; };
+		46B1C075117653F10062018A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1C074117653F10062018A /* GTMObjC2Runtime.m */; };
 		96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */; };
 		96FE8E360F72D01B00A11CF0 /* RMYahooMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FE8E340F72D01B00A11CF0 /* RMYahooMapSource.h */; };
 		96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FE8E350F72D01B00A11CF0 /* RMYahooMapSource.m */; };
@@ -249,6 +251,10 @@
 		32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView_Prefix.pch; sourceTree = "<group>"; };
 		3866784C0F6B9B9200C56B17 /* MapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapView.framework; path = build/MapView.framework; sourceTree = "<group>"; };
 		38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = Canonical.framework.tar; sourceTree = "<group>"; };
+		46B1C065117653930062018A /* GTMNSNumber+64Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSNumber+64Bit.h"; path = "GTM/GTMNSNumber+64Bit.h"; sourceTree = "<group>"; };
+		46B1C066117653930062018A /* GTMNSNumber+64Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSNumber+64Bit.m"; path = "GTM/GTMNSNumber+64Bit.m"; sourceTree = "<group>"; };
+		46B1C073117653F10062018A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMObjC2Runtime.h; path = GTM/GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		46B1C074117653F10062018A /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMObjC2Runtime.m; path = GTM/GTMObjC2Runtime.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGlobalConstants.h; sourceTree = "<group>"; };
 		966504690F6869810036562A /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
@@ -459,6 +465,10 @@
 		2BF306BF0F8ABC35007014EE /* Google Toolbox for Mac (unit testing) */ = {
 			isa = PBXGroup;
 			children = (
+				46B1C073117653F10062018A /* GTMObjC2Runtime.h */,
+				46B1C074117653F10062018A /* GTMObjC2Runtime.m */,
+				46B1C065117653930062018A /* GTMNSNumber+64Bit.h */,
+				46B1C066117653930062018A /* GTMNSNumber+64Bit.m */,
 				2B5BDCCB0F8C17A500848078 /* GTMCALayer+UnitTesting.h */,
 				2B5BDCCC0F8C17A500848078 /* GTMCALayer+UnitTesting.m */,
 				2B5BDCCD0F8C17A500848078 /* GTMDefines.h */,
@@ -875,7 +885,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#$SOURCE_ROOT/RunIPhoneUnitTest.sh";
+			shellScript = $SOURCE_ROOT/GTM/RunIPhoneUnitTest.sh;
 		};
 		386676E00F6B73DA00C56B17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -943,6 +953,8 @@
 				2B5BDCE00F8C17A500848078 /* GTMSystemVersion.m in Sources */,
 				2B5BDCE10F8C17A500848078 /* GTMUIKit+UnitTesting.m in Sources */,
 				2B8C8A260F8EB855002E8CF3 /* RouteMeTests.m in Sources */,
+				46B1C067117653930062018A /* GTMNSNumber+64Bit.m in Sources */,
+				46B1C075117653F10062018A /* GTMObjC2Runtime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,7 +1073,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "RM Unit Tests";
-				SDKROOT = iphonesimulator2.1;
 			};
 			name = Debug;
 		};
@@ -1094,7 +1105,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "RM Unit Tests";
-				SDKROOT = iphoneos2.1;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1199,7 +1209,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
