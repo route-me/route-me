@@ -129,28 +129,78 @@
 
 - (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale
 {
-	CGPoint	aPixelPoint;
-	CGFloat originX = origin.easting;
-	CGFloat boundsWidth = [projection planetBounds].size.width;
-	CGFloat pointX = aPoint.easting - boundsWidth/2;
-	CGFloat left = sqrt((pointX - (originX - boundsWidth))*(pointX - (originX - boundsWidth)));
-	CGFloat middle = sqrt((pointX - originX)*(pointX - originX));
-	CGFloat right = sqrt((pointX - (originX + boundsWidth))*(pointX - (originX + boundsWidth)));
+	CGPoint	aPixelPoint = { 0, 0 };
 	
-	//RMLog(@"left:%f middle:%f right:%f x:%f width:%f", left, middle, right, pointX, boundsWidth);//LK
+	RMProjectedRect projectedScreenBounds;
+	projectedScreenBounds.origin = origin;
+	projectedScreenBounds.size.width = screenBounds.size.width * aScale;
+	projectedScreenBounds.size.height = screenBounds.size.height * aScale;
 	
-	if(middle <= left && middle <= right){
-		aPixelPoint.x = (aPoint.easting - originX) / aScale;
-	} else if(left <= middle && left <= right){
-		//RMLog(@"warning: projectXYPoint middle..");//LK
-		aPixelPoint.x = (aPoint.easting - (originX/*-boundsWidth*/)) / aScale;
-	} else{ //right
-		aPixelPoint.x = (aPoint.easting - (originX+boundsWidth)) / aScale;
+	RMProjectedRect planetBounds = [projection planetBounds];
+	RMProjectedPoint planetEndPoint = {planetBounds.origin.easting + planetBounds.size.width,
+		planetBounds.origin.northing + planetBounds.size.height};
+	
+	
+	// Normalize coordinate system so there is no negative values
+	RMProjectedRect normalizedProjectedScreenBounds;
+	normalizedProjectedScreenBounds.origin.easting = projectedScreenBounds.origin.easting + planetEndPoint.easting;
+	normalizedProjectedScreenBounds.origin.northing = projectedScreenBounds.origin.northing + planetEndPoint.northing;
+	normalizedProjectedScreenBounds.size = projectedScreenBounds.size;
+	
+	RMProjectedPoint normalizedProjectedPoint;
+	normalizedProjectedPoint.easting = aPoint.easting + planetEndPoint.easting;
+	normalizedProjectedPoint.northing = aPoint.northing + planetEndPoint.northing;
+	
+	double rightMostViewableEasting;
+	
+	// check if world wrap divider is contained in view
+	if (( normalizedProjectedScreenBounds.origin.easting + normalizedProjectedScreenBounds.size.width ) > planetBounds.size.width ) {
+		rightMostViewableEasting = projectedScreenBounds.size.width - ( planetBounds.size.width - normalizedProjectedScreenBounds.origin.easting );
+		// Check if Right of divider but on screen still
+		if ( normalizedProjectedPoint.easting <= rightMostViewableEasting ) {
+			aPixelPoint.x = ( planetBounds.size.width + normalizedProjectedPoint.easting - normalizedProjectedScreenBounds.origin.easting ) / aScale;
+		} else {
+			// everywhere else is left of divider
+			aPixelPoint.x = ( normalizedProjectedPoint.easting - normalizedProjectedScreenBounds.origin.easting ) / aScale;
+		}
+		
+	}
+	else {
+		// Divider not contained in view
+		aPixelPoint.x = ( normalizedProjectedPoint.easting - normalizedProjectedScreenBounds.origin.easting ) / aScale;
 	}
 	
-	aPixelPoint.y = screenBounds.size.height - (aPoint.northing - origin.northing) / aScale;
+	aPixelPoint.y = screenBounds.size.height - ( normalizedProjectedPoint.northing - normalizedProjectedScreenBounds.origin.northing ) / aScale;
+	
 	return aPixelPoint;
 }
+
+/*
+ - (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale
+ {
+ CGPoint	aPixelPoint;
+ CGFloat originX = origin.easting;
+ CGFloat boundsWidth = [projection planetBounds].size.width;
+ CGFloat pointX = aPoint.easting - boundsWidth/2;
+ CGFloat left = sqrt((pointX - (originX - boundsWidth))*(pointX - (originX - boundsWidth)));
+ CGFloat middle = sqrt((pointX - originX)*(pointX - originX));
+ CGFloat right = sqrt((pointX - (originX + boundsWidth))*(pointX - (originX + boundsWidth)));
+ 
+ //RMLog(@"left:%f middle:%f right:%f x:%f width:%f", left, middle, right, pointX, boundsWidth);//LK
+ 
+ if(middle <= left && middle <= right){
+ aPixelPoint.x = (aPoint.easting - originX) / aScale;
+ } else if(left <= middle && left <= right){
+ //RMLog(@"warning: projectXYPoint middle..");//LK
+ aPixelPoint.x = (aPoint.easting - (originX)) / aScale;
+ } else{ //right
+ aPixelPoint.x = (aPoint.easting - (originX+boundsWidth)) / aScale;
+ }
+ 
+ aPixelPoint.y = screenBounds.size.height - (aPoint.northing - origin.northing) / aScale;
+ return aPixelPoint;
+ }
+ */
 
 - (CGPoint) projectXYPoint: (RMProjectedPoint)aPoint
 {
