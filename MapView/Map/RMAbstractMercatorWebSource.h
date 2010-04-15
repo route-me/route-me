@@ -51,6 +51,7 @@
 -(void) networkOperationsNotification: (NSNotification*) notification;
 
 -(int) tileSideLength;
+-(void) setTileSideLength: (NSUInteger) aTileSideLength;
 
 -(float) minZoom;
 -(float) maxZoom;
