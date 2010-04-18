@@ -127,6 +127,17 @@
 	metersPerPixel *= factor;
 }
 
+/*
+ This method returns the pixel point based on the currently displayed map view converted from a RMProjectedPoint.
+ 
+ origin is the top left projected point currently displayed in the view.  The range of this value is based
+ on the planetBounds.  planetBounds in turn is based on an RMProjection.  For example 
+ look at +(RMProjection*)googleProjection to see range of values for planetBounds/origin.
+ 
+ The tricky part is when the current map view contains the divider for horizontally wrapping maps.  
+ 
+ Note: tested only with googleProjection
+ */
 - (CGPoint) projectXYPoint:(RMProjectedPoint)aPoint withMetersPerPixel:(float)aScale
 {
 	CGPoint	aPixelPoint = { 0, 0 };
