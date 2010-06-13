@@ -32,6 +32,7 @@
 #	import <Cocoa/Cocoa.h>
 #endif
 #import "RMTile.h"
+#import "RMCountedSet.h"
 
 @class RMTileImage;
 @protocol RMTileSource;
@@ -49,7 +50,7 @@
 	IBOutlet id delegate;
 	id<RMTileSource> tileSource;
 
-	NSCountedSet *images;
+	RMCountedSet *images;
 }
 
 -(id) initWithDelegate: (id) _delegate;

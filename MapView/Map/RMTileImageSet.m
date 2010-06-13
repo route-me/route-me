@@ -46,7 +46,7 @@
 	
 	tileSource = nil;
 	self.delegate = _delegate;
-	images = [[NSCountedSet alloc] init];
+	images = [[RMCountedSet alloc] init];
 	return self;
 }
 
