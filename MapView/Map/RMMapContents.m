@@ -601,9 +601,10 @@
 		return;
 	
 	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
-	
+
+	newCachedTileSource = [newCachedTileSource retain];
 	[tileSource release];
-	tileSource = [newCachedTileSource retain];
+	tileSource = newCachedTileSource;
 
         NSAssert(([tileSource minZoom] - minZoom) <= 1.0, @"Graphics & memory are overly taxed if [contents minZoom] is more than 1.5 smaller than [tileSource minZoom]");
 	
@@ -1039,5 +1040,16 @@ static BOOL _performExpensiveOperations = YES;
 	[overlay setRotationOfAllSublayers:(-angle)]; // rotate back markers and paths if theirs allowRotate=NO
 }
 
+- (short)tileDepth {
+	return imagesOnScreen.tileDepth;
+}
+
+- (void)setTileDepth:(short)value {
+	imagesOnScreen.tileDepth = value;
+}
+
+- (BOOL)fullyLoaded {
+	return imagesOnScreen.fullyLoaded;
+}
 
 @end

@@ -150,6 +150,10 @@ enum {
 /// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 @property (readonly)double scaleDenominator;
 
+// tileDepth defaults to zero. if tiles have no alpha, set this higher, 3 or so, to make zooming smoother
+@property (readwrite, assign) short tileDepth;
+@property (readonly, assign) BOOL fullyLoaded;
+
 - (id)initWithView: (UIView*) view;
 - (id)initWithView: (UIView*) view
 		tilesource:(id<RMTileSource>)newTilesource;

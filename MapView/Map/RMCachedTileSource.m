@@ -34,8 +34,8 @@
 {
 	if ([_source isKindOfClass:[RMCachedTileSource class]])
 	{
-		[self dealloc];
-		return _source;
+		[self release];
+		return [_source retain];
 	}
 	
 	if (![super init])

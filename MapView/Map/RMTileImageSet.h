@@ -32,7 +32,6 @@
 #	import <Cocoa/Cocoa.h>
 #endif
 #import "RMTile.h"
-#import "RMCountedSet.h"
 
 @class RMTileImage;
 @protocol RMTileSource;
@@ -49,8 +48,8 @@
 @interface RMTileImageSet : NSObject {
 	IBOutlet id delegate;
 	id<RMTileSource> tileSource;
-
-	RMCountedSet *images;
+	NSMutableSet *images;
+	short zoom, tileDepth;
 }
 
 -(id) initWithDelegate: (id) _delegate;
@@ -63,7 +62,6 @@
 -(RMTileImage*) imageWithTile: (RMTile) tile;
 	
 -(void) removeTile: (RMTile) tile;
--(void) removeTiles: (RMTileRect)rect;
 
 -(void) removeAllTiles;
 
@@ -80,5 +78,14 @@
 
 - (void)cancelLoading;
 
+-(void) tileImageLoaded:(NSNotification *)notification;
+-(void) removeTilesWorseThan: (RMTileImage *)newImage;
+-(BOOL) isTile: (RMTile)subject worseThanTile: (RMTile)object;
+-(RMTileImage *) anyTileImage;
+-(void) removeTilesOutsideOf: (RMTileRect)rect;
+
 @property (assign, nonatomic, readwrite) id delegate;
+// tileDepth defaults to zero. if tiles have no alpha, set this higher, 3 or so, to make zooming smoother
+@property (assign, readwrite) short zoom, tileDepth;
+@property (readonly) BOOL fullyLoaded;
 @end

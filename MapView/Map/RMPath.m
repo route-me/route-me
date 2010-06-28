@@ -1,4 +1,4 @@
-//
+///
 //  RMPath.m
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
@@ -90,13 +90,13 @@
 
 - (void) recalculateGeometry
 {
-	float scale = [[contents mercatorToScreenProjection] metersPerPixel];
+	RMMercatorToScreenProjection *projection = [contents mercatorToScreenProjection];
+	float scale = [projection metersPerPixel];
 	float scaledLineWidth;
 	CGPoint myPosition;
 	CGRect pixelBounds, screenBounds;
 	float offset;
 	const float outset = 100.0f; // provides a buffer off screen edges for when path is scaled or moved
-	
 	
 	// The bounds are actually in mercators...
 	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
@@ -107,18 +107,14 @@
 	}
 	
 	CGRect boundsInMercators = CGPathGetBoundingBox(path);
-	boundsInMercators.origin.x -= scaledLineWidth;
-	boundsInMercators.origin.y -= scaledLineWidth;
-	boundsInMercators.size.width += 2*scaledLineWidth;
-	boundsInMercators.size.height += 2*scaledLineWidth;
-	
+	boundsInMercators = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
 	pixelBounds = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
 	
 	pixelBounds = RMScaleCGRectAboutPoint(pixelBounds, 1.0f / scale, CGPointZero);
 	
 	// Clip bound rect to screen bounds.
 	// If bounds are not clipped, they won't display when you zoom in too much.
-	myPosition = [[contents mercatorToScreenProjection] projectXYPoint: projectedLocation];
+	myPosition = [projection projectXYPoint: projectedLocation];
 	screenBounds = [contents screenBounds];
 	
 	// Clip top
@@ -144,7 +140,7 @@
 		pixelBounds.size.width -= offset;
 	}
 	
-	self.position = myPosition;
+	[super setPosition:myPosition];
 	self.bounds = pixelBounds;
 	//RMLog(@"x:%f y:%f screen bounds: %f %f %f %f", myPosition.x, myPosition.y,  screenBounds.origin.x, screenBounds.origin.y, screenBounds.size.width, screenBounds.size.height);
 	//RMLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
@@ -263,7 +259,6 @@
 {
 	lineWidth = newLineWidth;
 	[self recalculateGeometry];
-	[self setNeedsDisplay];
 }
 
 - (CGPathDrawingMode) drawingMode
@@ -328,22 +323,12 @@
 - (void)moveBy: (CGSize) delta {
 	if(enableDragging){
 		[super moveBy:delta];
-	
-		[self recalculateGeometry];
 	}
 }
 
-- (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
+- (void)setPosition:(CGPoint)value
 {
-	[super zoomByFactor:zoomFactor near:pivot];
-	// don't redraw if the path hasn't been scaled very much
-	float newScale = [contents metersPerPixel];
-	if (newScale / renderedScale >= 1.10f
-		|| newScale / renderedScale <= 0.90f)
-	{
-		[self recalculateGeometry];
-		[self setNeedsDisplay];
-	}
+	[self recalculateGeometry];
 }
 
 @end

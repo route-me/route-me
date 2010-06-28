@@ -125,13 +125,16 @@
 	RMTileRect newTileRect = [content tileBounds];
 	
 	RMTileImageSet *images = [content imagesOnScreen];
+	images.zoom = newTileRect.origin.tile.zoom;
 	CGRect newLoadedBounds = [images addTiles:newTileRect ToDisplayIn:
 							  [content screenBounds]];
 	//RMLog(@"updateLoadedImages added count = %d", [images count]);
 	
 	
 	if (!RMTileIsDummy(loadedTiles.origin.tile))
-		[images removeTiles:loadedTiles];
+	{
+		[images removeTilesOutsideOf:newTileRect];
+	}
 	
 	//RMLog(@"updateLoadedImages final count = %d", [images count]);
 	

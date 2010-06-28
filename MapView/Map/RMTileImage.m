@@ -126,6 +126,7 @@
 - (void)updateImageUsingImage: (UIImage*) rawImage
 {
 	layer.contents = (id)[rawImage CGImage];
+//	[self animateIn];
 }
 
 - (BOOL)isLoaded

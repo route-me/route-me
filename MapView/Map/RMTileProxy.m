@@ -30,7 +30,6 @@
 @implementation RMTileProxy
 
 static UIImage *_errorTile = nil;
-static UIImage *_loadingTile = nil;
 static UIImage *_missingTile = nil;
 
 + (UIImage*) errorTile
@@ -39,14 +38,6 @@ static UIImage *_missingTile = nil;
 	
 	_errorTile = [[UIImage imageNamed:@"error.png"] retain];
 	return _errorTile;
-}
-
-+ (UIImage*) loadingTile
-{
-	if (_loadingTile) return _loadingTile;
-	
-	_loadingTile = [[UIImage imageNamed:@"loading.png"] retain];
-	return _loadingTile;
 }
 
 + (UIImage*) missingTile
