@@ -54,7 +54,7 @@
         textForegroundColor = [UIColor blackColor];
         textBackgroundColor = [UIColor clearColor];
 		enableDragging = YES;
-		enableRotation = NO;
+		enableRotation = YES;
     }
     return self;
 }

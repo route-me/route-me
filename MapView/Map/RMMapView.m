@@ -597,7 +597,7 @@
   }
 }
 
-- (void)setRotation:(float)angle
+- (void)setRotation:(CGFloat)angle
 {
  	if (_delegateHasBeforeMapRotate) [delegate beforeMapRotate: self fromAngle: rotation];
 

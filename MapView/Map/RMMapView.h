@@ -185,6 +185,6 @@ typedef struct {
 
 - (void)didReceiveMemoryWarning;
 
-- (void)setRotation:(float)angle;
+- (void)setRotation:(CGFloat)angle;
 
 @end
