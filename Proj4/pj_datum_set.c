@@ -55,7 +55,7 @@
 int pj_datum_set(paralist *pl, PJ *projdef)
 
 {
-    const char *name, *towgs84, *nadgrids;
+    const char *name, *towgs84;
 
     projdef->datum_type = PJD_UNKNOWN;
 
@@ -69,7 +69,8 @@ int pj_datum_set(paralist *pl, PJ *projdef)
 /*      definition will last into the pj_ell_set() function called      */
 /*      after this one.                                                 */
 /* -------------------------------------------------------------------- */
-    if( (name = pj_param(pl,"sdatum").s) != NULL )
+    name = pj_param(pl,"sdatum").s;
+    if( name != NULL )
     {
         paralist *curr;
         const char *s;
@@ -89,17 +90,24 @@ int pj_datum_set(paralist *pl, PJ *projdef)
             
             strcpy( entry, "ellps=" );
             strncat( entry, pj_datums[i].ellipse_id, 80 );
-            curr = curr->next = pj_mkparam(entry);
+		  if (curr)
+		  {
+                curr->next = pj_mkparam(entry);
+		      curr = curr->next;
+		  }
         }
         
         if( pj_datums[i].defn && strlen(pj_datums[i].defn) > 0 )
-            curr = curr->next = pj_mkparam(pj_datums[i].defn);
+	   {
+            if (curr)
+                curr->next = pj_mkparam(pj_datums[i].defn);
+	   }
     }
 
 /* -------------------------------------------------------------------- */
 /*      Check for nadgrids parameter.                                   */
 /* -------------------------------------------------------------------- */
-    if( (nadgrids = pj_param(pl,"snadgrids").s) != NULL )
+    if( pj_param(pl,"snadgrids").s != NULL )
     {
         /* We don't actually save the value separately.  It will continue
            to exist int he param list for use in pj_apply_gridshift.c */
@@ -118,7 +126,6 @@ int pj_datum_set(paralist *pl, PJ *projdef)
         memset( projdef->datum_params, 0, sizeof(double) * 7);
 
         /* parse out the parameters */
-        s = towgs84;
         for( s = towgs84; *s != '\0' && parm_count < 7; ) 
         {
             projdef->datum_params[parm_count++] = atof(s);

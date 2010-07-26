@@ -36,11 +36,11 @@ gen_cheb(int inverse, projUV (*proj)(projUV), char *s, PJ *P, int iargc, char **
 	if (iargc > 0) { /* proj execution audit trail */
 		int n = 0, L;
 
-		for( i = 0 ; iargc ; --iargc) {
+		while (--iargc) {
 			arg = *iargv++;
 			if (*arg != '+') {
 				if (!n) { putchar('#'); ++n; }
-				(void)printf(" %s%n",arg, &L);
+				L = printf(" %s",arg);
 				if ((n += L) > 50) { putchar('\n'); n = 0; }
 			}
 		}

@@ -15,7 +15,8 @@ pj_factors(LP lp, PJ *P, double h, struct FACTORS *fac) {
 	double cosphi, t, n, r;
 
 	/* check for forward and latitude or longitude overange */
-	if ((t = fabs(lp.phi)-HALFPI) > EPS || fabs(lp.lam) > 10.) {
+	t = fabs(lp.phi)-HALFPI;
+	if (t > EPS || fabs(lp.lam) > 10.) {
 		pj_errno = -14;
 		return 1;
 	} else { /* proceed */

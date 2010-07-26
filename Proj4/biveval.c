@@ -11,7 +11,8 @@ static double ceval(struct PW_COEF *C, int n) {
 	int j;
 
 	for (C += n ; n-- ; --C ) {
-		if (j = C->m) {
+		j = C->m;
+		if (j) {
 			vd = vdd = 0.;
 			for (c = C->c + --j; j ; --j ) {
 				vd = w2.v * (tmp = vd) - vdd + *c--;
@@ -22,7 +23,8 @@ static double ceval(struct PW_COEF *C, int n) {
 			d = w2.u * (tmp = d) - dd;
 		dd = tmp;
 	}
-	if (j = C->m) {
+	j = C->m;
+	if (j) {
 		vd = vdd = 0.;
 		for (c = C->c + --j; j ; --j ) {
 			vd = w2.v * (tmp = vd) - vdd + *c--;
@@ -58,7 +60,8 @@ bpseval(projUV in, Tseries *T) {
 	out.u = out.v = 0.;
 	for (i = T->mu; i >= 0; --i) {
 		row = 0.;
-		if (m = T->cu[i].m) {
+		m = T->cu[i].m;
+		if (m) {
 			c = T->cu[i].c + m;
 			while (m--)
 				row = *--c + in.v * row;
@@ -67,7 +70,8 @@ bpseval(projUV in, Tseries *T) {
 	}
 	for (i = T->mv; i >= 0; --i) {
 		row = 0.;
-		if (m = T->cv[i].m) {
+		m = T->cv[i].m;
+		if (m) {
 			c = T->cv[i].c + m;
 			while (m--)
 				row = *--c + in.v * row;

@@ -27,7 +27,7 @@ dmstor(const char *is, char **rs) {
 	if (rs)
 		*rs = (char *)is;
 	/* copy sting into work space */
-	while (isspace(sign = *is)) ++is;
+	while (isspace(*is)) ++is;
 	for (n = MAX_WORK, s = work, p = (char *)is; isgraph(*p) && --n ; )
 		*s++ = *p++;
 	*s = '\0';

@@ -9,7 +9,8 @@ static const char SCCSID[]="@(#)pj_param.c	4.4	93/06/12	GIE	REL";
 pj_mkparam(char *str) {
 	paralist *newitem;
 
-	if (newitem = (paralist *)pj_malloc(sizeof(paralist) + strlen(str))) {
+	newitem = (paralist *)pj_malloc(sizeof(paralist) + strlen(str));
+	if (newitem) {
 		newitem->used = 0;
 		newitem->next = 0;
 		if (*str == '+')

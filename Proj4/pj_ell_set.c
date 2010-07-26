@@ -24,15 +24,17 @@ pj_ell_set(paralist *pl, double *a, double *es) {
 	else { /* probable elliptical figure */
 
 		/* check if ellps present and temporarily append its values to pl */
-		if (name = pj_param(pl, "sellps").s) {
+		name = pj_param(pl, "sellps").s;
+		if (name && pl) {
 			char *s;
 
 			for (start = pl; start && start->next ; start = start->next) ;
 			curr = start;
 			for (i = 0; (s = pj_ellps[i].id) && strcmp(name, s) ; ++i) ;
 			if (!s) { pj_errno = -9; return 1; }
-			curr = curr->next = pj_mkparam(pj_ellps[i].major);
-			curr = curr->next = pj_mkparam(pj_ellps[i].ell);
+			curr->next = pj_mkparam(pj_ellps[i].major);
+			curr = curr->next;
+			curr->next = pj_mkparam(pj_ellps[i].ell);
 		}
 		*a = pj_param(pl, "da").f;
 		if (pj_param(pl, "tes").i) /* eccentricity squared */

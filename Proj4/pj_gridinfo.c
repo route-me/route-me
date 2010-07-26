@@ -509,8 +509,10 @@ static int pj_gridinfo_init_ntv2( FILE *fid, PJ_GRIDINFO *gilist )
                              "failed to find parent %8.8s for %s.\n", 
                              (const char *) header+24, gi->ct->id );
 
-                for( lnk = gp; lnk->next != NULL; lnk = lnk->next ) {}
-                lnk->next = gi;
+                if (gp) {
+			     for( lnk = gp; lnk->next != NULL; lnk = lnk->next ) {}
+                    lnk->next = gi;
+                }
             }
             else if( gp->child == NULL )
             {
