@@ -22,7 +22,10 @@
 - (id)initWithPath:(NSString*)inPath;
 
 - (BOOL) open;
-- (void) close;
+#if SQLITE_VERSION_NUMBER >= 3005000
+- (BOOL) openWithFlags:(int)flags;
+#endif
+- (BOOL) close;
 - (BOOL) goodConnection;
 - (void) clearCachedStatements;
 
@@ -41,11 +44,13 @@
 
 - (sqlite3*) sqliteHandle;
 
-- (BOOL) executeUpdate:(NSString *)sql arguments:(va_list)args;
 - (BOOL) executeUpdate:(NSString*)sql, ...;
+- (BOOL) executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments;
+- (id) executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orVAList:(va_list)args; // you shouldn't ever need to call this.  use the previous two instead.
 
-- (id) executeQuery:(NSString *)sql arguments:(va_list)args;
 - (id) executeQuery:(NSString*)sql, ...;
+- (id) executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments;
+- (BOOL) executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray*)arrayArgs orVAList:(va_list)args; // you shouldn't ever need to call this.  use the previous two instead.
 
 - (BOOL) rollback;
 - (BOOL) commit;

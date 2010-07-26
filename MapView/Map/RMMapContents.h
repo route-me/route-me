@@ -126,8 +126,7 @@ enum {
 /// zoom level is clamped to range (minZoom, maxZoom)
 @property (readwrite) float zoom;
 
-@property (readwrite) float minZoom;
-@property (readwrite) float maxZoom;
+@property (nonatomic, readwrite) float minZoom, maxZoom;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 @property (readonly)  RMTileLoader *tileLoader;

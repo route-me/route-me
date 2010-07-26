@@ -35,11 +35,10 @@
 	{
 		[self setMaxZoom:_maxZoom];
 		[self setMinZoom:_minZoom];
+		host = _host;
+		key = _key;
 	}
-	
-	host = _host;
-	key = _key;
-	
+
 	return self;
 }
 
