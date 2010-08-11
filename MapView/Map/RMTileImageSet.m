@@ -104,20 +104,6 @@
 	tileSource = newTileSource;
 }
 
-/* Untested.
- -(BOOL) hasTile: (Tile) tile
- {
- NSEnumerator *enumerator = [images objectEnumerator];
- TileImage *object;
- 
- while ((object = [enumerator nextObject])) {
- if (TilesEqual(tile, [object tile]))
- return YES;
- }
- 
- return NO;
- }*/
-
 -(void) addTile: (RMTile) tile WithImage: (RMTileImage *)image At: (CGRect) screenLocation
 {
 	BOOL tileNeeded;
@@ -136,7 +122,6 @@
 		}
 	}
 	if (!tileNeeded) {
-//NSLog (@"In %s, not adding tile after all.", __FUNCTION__);
 		return;
 	}
 
@@ -201,11 +186,13 @@
 	newLoadedBounds.size.height = tileRegionHeight * pixelsPerTile;
 
 	alternateMinimum = zoom - tileDepth - 1;
-	if (minimumZoom < alternateMinimum) {
+	if (minimumZoom < alternateMinimum)
+	{
 		minimumZoom = alternateMinimum;
 	}
 
-	for (;;) {
+	for (;;)
+	{
 		CGRect screenLocation;
 		screenLocation.size.width = pixelsPerTile;
 		screenLocation.size.height = pixelsPerTile;
@@ -213,28 +200,28 @@
 
 		for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 		{
-			for (t.y = (roundedRect.origin.tile.y); t.y <= roundedRect.origin.tile.y + tileRegionHeight; t.y++)
+			for (t.y = roundedRect.origin.tile.y; t.y < roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 			{
 				RMTile normalisedTile = [proj normaliseTile: t];
 
 				if (RMTileIsDummy(normalisedTile))
-				{
 					continue;
-				}
-				
-				screenLocation.origin.x = bounds.origin.x + (t.x - (rect.origin.offset.x + rect.origin.tile.x)) * pixelsPerTile;
-				screenLocation.origin.y = bounds.origin.y + (t.y - (rect.origin.offset.y + rect.origin.tile.y)) * pixelsPerTile;
-				
+
+				// this regrouping of terms is better for calculation precision (issue 128)		
+				screenLocation.origin.x = bounds.origin.x + (t.x - rect.origin.tile.x - rect.origin.offset.x) * pixelsPerTile;		
+				screenLocation.origin.y = bounds.origin.y + (t.y - rect.origin.tile.y - rect.origin.offset.y) * pixelsPerTile;
+
 				[self addTile:normalisedTile At:screenLocation];
 			}
 		}
+
+		// adjust rect for next zoom level down until we're at minimum
 		if (--rect.origin.tile.zoom <= minimumZoom)
 			break;
 		if (rect.origin.tile.x & 1)
 			rect.origin.offset.x += 1.0;
 		if (rect.origin.tile.y & 1)
 			rect.origin.offset.y += 1.0;
-
 		rect.origin.tile.x /= 2;
 		rect.origin.tile.y /= 2;
 		rect.size.width *= 0.5;
@@ -338,11 +325,13 @@
 	return [images anyObject];
 }
 
-- (short)zoom {
+- (short)zoom
+{
 	return zoom;
 }
 
-- (void)setZoom:(short)value {
+- (void)setZoom:(short)value
+{
 	if (zoom == value) {
 		// no need to act
 		return;
@@ -358,11 +347,14 @@
 	}
 }
 
-- (BOOL)fullyLoaded {
+- (BOOL)fullyLoaded
+{
 	BOOL fullyLoaded = YES;
 
-	for (RMTileImage *image in images) {
-		if (![image isLoaded]) {
+	for (RMTileImage *image in images)
+	{
+		if (![image isLoaded])
+		{
 			fullyLoaded = NO;
 			break;
 		}
@@ -370,10 +362,12 @@
 	return fullyLoaded;
 }
 
-- (void)tileImageLoaded:(NSNotification *)notification {
+- (void)tileImageLoaded:(NSNotification *)notification
+{
 	RMTileImage *img = (RMTileImage *)[notification object];
 
-	if (!img || img != [images member:img]) {
+	if (!img || img != [images member:img])
+	{
 		// i don't contain img, it may be already removed or in another set
 		return;
 	}
@@ -389,104 +383,149 @@
 		return;
 	}
 
-	for (RMTileImage *oldImage in [images allObjects]) {
+	for (RMTileImage *oldImage in [images allObjects])
+	{
 		RMTile oldTile = oldImage.tile;
 
-		if (oldImage == newImage) {
+		if (oldImage == newImage)
+		{
 			continue;
 		}
-		if ([self isTile:oldTile worseThanTile:newTile]) {
+		if ([self isTile:oldTile worseThanTile:newTile])
+		{
 			[oldImage cancelLoading];
 			[self removeTile:oldTile];
 		}
 	}
 }
 
-- (BOOL)isTile:(RMTile)subject worseThanTile:(RMTile)object {
-	uint32_t subjX = subject.x, subjY = subject.y;
-	uint32_t objX = object.x, objY = object.y;
-	short subjZ = subject.zoom, objZ = object.zoom;
-	int subjDz, objDz, dz = subjZ - objZ;
+- (BOOL)isTile:(RMTile)subject worseThanTile:(RMTile)object
+{
+	short subjZ, objZ;
+	uint32_t sx, sy, ox, oy;
 
-	if (objZ > zoom) {
+	objZ = object.zoom;
+	if (objZ > zoom)
+	{
 		// can't be worse than this tile, it's too detailed to keep long-term
 		return NO;
 	}
 
-	if (subjZ + tileDepth >= zoom && subjZ <= zoom) {
+	subjZ = subject.zoom;
+	if (subjZ + tileDepth >= zoom && subjZ <= zoom)
+	{
 		// this tile isn't bad, it's within zoom limits
 		return NO;
 	}
 
-	if(dz < 0) {
+	sx = subject.x;
+	sy = subject.y;
+	ox = object.x;
+	oy = object.y;
+
+	if (subjZ < objZ)
+	{
 		// old tile is larger & blurrier
-		objDz = -dz;
-		subjDz = 0;
-	} else {
-		// old tile is smaller & more detailed
-		objDz = 0;
-		subjDz = dz;
+		unsigned int dz = objZ - subjZ;
+
+		ox >>= dz;
+		oy >>= dz;
 	}
-	if (
-		subjX >> subjDz != objX >> objDz || subjY >> subjDz != objY >> objDz
-	) {
+	else if (objZ < subjZ)
+	{
+		// old tile is smaller & more detailed
+		unsigned int dz = subjZ - objZ;
+
+		sx >>= dz;
+		sy >>= dz;
+	}
+	if (sx != ox || sy != oy)
+	{
 		// Tiles don't overlap
 		return NO;
 	}
 
-	subjDz = abs (zoom - subjZ);
-	objDz = abs (zoom - objZ);
-	return subjDz >= objDz;
+	if (abs(zoom - subjZ) < abs(zoom - objZ))
+	{
+		// subject is closer to desired zoom level than object, so it's not worse
+		return NO;
+	}
+
+	return YES;
 }
 
 -(void) removeTilesOutsideOf: (RMTileRect)rect
 {
-	uint32_t minx, maxx, miny, maxy;
-	float min;
+	uint32_t minX, maxX, minY, maxY, span;
 	short currentZoom = rect.origin.tile.zoom;
+	RMTile wrappedTile;
+	id<RMMercatorToTileProjection> proj = [tileSource mercatorToTileProjection];
 
-	min = rect.origin.tile.x + rect.origin.offset.x;
-	minx = floorf(min);
-	maxx = floorf(min + rect.size.width);
-	min = rect.origin.tile.y + rect.origin.offset.y;
-	miny = floorf(min);
-	maxy = floorf(min + rect.size.height);
+	rect = RMTileRectRound(rect);
+	minX = rect.origin.tile.x;
+	span = rect.size.width > 1.0f ? (uint32_t)rect.size.width - 1 : 0;
+	maxX = rect.origin.tile.x + span;
+	minY = rect.origin.tile.y;
+	span = rect.size.height > 1.0f ? (uint32_t)rect.size.height - 1 : 0;
+	maxY = rect.origin.tile.y + span;
+
+	wrappedTile.x = maxX;
+	wrappedTile.y = maxY;
+	wrappedTile.zoom = rect.origin.tile.zoom;
+	wrappedTile = [proj normaliseTile:wrappedTile];
+	if (!RMTileIsDummy(wrappedTile))
+	{
+		maxX = wrappedTile.x;
+	}
 
 	for(RMTileImage *img in [images allObjects])
 	{
 		RMTile tile = img.tile;
 		short tileZoom = tile.zoom;
-		uint32_t x, y;
-		int dz, imgDz, rectDz;
-
-/*
-		if (tileZoom > currentZoom) {
-			[self removeTile:tile];
-			continue;
-		}
-*/
+		uint32_t x, y, zoomedMinX, zoomedMaxX, zoomedMinY, zoomedMaxY;
 
 		x = tile.x;
 		y = tile.y;
-		dz = tileZoom - currentZoom;
-		if(dz < 0)
+		zoomedMinX = minX;
+		zoomedMaxX = maxX;
+		zoomedMinY = minY;
+		zoomedMaxY = maxY;
+
+		if (tileZoom < currentZoom)
 		{
 			// Tile is too large for current zoom level
-			imgDz = 0;
-			rectDz = -dz;
+			unsigned int dz = currentZoom - tileZoom;
+
+			zoomedMinX >>= dz;
+			zoomedMaxX >>= dz;
+			zoomedMinY >>= dz;
+			zoomedMaxY >>= dz;
 		}
 		else
 		{
 			// Tile is too small & detailed for current zoom level
-			imgDz = dz;
-			rectDz = 0;
+			unsigned int dz = tileZoom - currentZoom;
+
+			x >>= dz;
+			y >>= dz;
 		}
-		if(
-			x >> imgDz > maxx >> rectDz || x >> imgDz < minx >> rectDz ||
-			y >> imgDz > maxy >> rectDz || y >> imgDz < miny >> rectDz
-		) {
-			[self removeTile:tile];
+
+		if (y >= zoomedMinY && y <= zoomedMaxY)
+		{
+			if (zoomedMinX <= zoomedMinY)
+			{
+				if (x >= zoomedMinX && x <= zoomedMaxX)
+					continue;
+			}
+			else
+			{
+				if (x >= zoomedMinX || x <= zoomedMaxX)
+					continue;
+			}
+
 		}
+		// if haven't continued, tile is outside of rect
+		[self removeTile:tile];
 	}
 }
 

@@ -103,9 +103,16 @@
 
 + (RMTileImage*)imageForTile:(RMTile) tile withData: (NSData*)data
 {
-	RMTileImage *image = [[RMTileImage alloc] initWithTile:tile];
-	[image updateImageUsingData:data];
-	return [image autorelease];
+	UIImage *image = [[UIImage alloc] initWithData:data];
+	RMTileImage *tileImage;
+
+	if (!image)
+		return nil;
+
+	tileImage = [[self alloc] initWithTile:tile];
+	[tileImage updateImageUsingImage:image];
+	[image release];
+	return [tileImage autorelease];
 }
 
 -(void) cancelLoading
