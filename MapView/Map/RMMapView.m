@@ -112,7 +112,7 @@
 - (RMMapContents *)contents
 {
     if (!_contentsIsSet) {
-		RMMapContents *newContents = [[RMMapContents alloc] initForView:self];
+		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self];
 		self.contents = newContents;
 		[newContents release];
 		_contentsIsSet = YES;
