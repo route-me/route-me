@@ -115,6 +115,8 @@ enum {
 	/// maximum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter; they are clamped to tilesource limits if needed.
 	float maxZoom;
 
+    float screenScale;
+
 	id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 }
 
@@ -123,10 +125,13 @@ enum {
 @property (readonly)  RMTileRect tileBounds;
 @property (readonly)  CGRect screenBounds;
 @property (readwrite) float metersPerPixel;
+@property (readonly)  float scaledMetersPerPixel;
 /// zoom level is clamped to range (minZoom, maxZoom)
 @property (readwrite) float zoom;
 
 @property (nonatomic, readwrite) float minZoom, maxZoom;
+
+@property (nonatomic, assign) float screenScale;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 @property (readonly)  RMTileLoader *tileLoader;

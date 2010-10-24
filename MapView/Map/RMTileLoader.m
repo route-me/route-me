@@ -79,7 +79,7 @@
 	//	RMTileRect targetRect = [content tileBounds];
 	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
 	
-	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content metersPerPixel]]);
+	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content scaledMetersPerPixel]]);
 	if((targetZoom > content.maxZoom) || (targetZoom < content.minZoom))
           RMLog(@"target zoom %d is outside of RMMapContents limits %f to %f",
 			  targetZoom, content.minZoom, content.maxZoom);

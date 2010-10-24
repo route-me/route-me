@@ -39,9 +39,8 @@
 @synthesize enableDragging;
 @synthesize enableRotation;
 
-#define kDefaultLineWidth 100
+#define kDefaultLineWidth 2
 
-/// \bug default values for lineWidth, lineColor, fillColor are hardcoded
 - (id) initWithContents: (RMMapContents*)aContents
 {
 	if (![super init])
@@ -58,13 +57,17 @@
 	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
 	
-	//self.masksToBounds = NO;
 	self.masksToBounds = YES;
 	
 	scaleLineWidth = NO;
 	enableDragging = YES;
 	enableRotation = YES;
 	isFirstPoint = YES;
+	
+    if ( [self respondsToSelector:@selector(setContentsScale:)] ) 
+    {
+        self.contentsScale = ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0);
+    }
 	
 	return self;
 }

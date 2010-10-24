@@ -320,20 +320,15 @@
 	return gesture;
 }
 
-- (void)userPausedDragging
+- (void)resumeExpensiveOperations
 {
 	[RMMapContents setPerformExpensiveOperations:YES];
 }
 
-- (void)unRegisterPausedDraggingDispatcher
+- (void)delayedResumeExpensiveOperations
 {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
-}
-
-- (void)registerPausedDraggingDispatcher
-{
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(userPausedDragging) object:nil];
-	[self performSelector:@selector(userPausedDragging) withObject:nil afterDelay:0.3];	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resumeExpensiveOperations) object:nil];
+	[self performSelector:@selector(resumeExpensiveOperations) withObject:nil afterDelay:0.4];	
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -364,7 +359,7 @@
 		}
 	}
 	
-	[self registerPausedDraggingDispatcher];
+	[self delayedResumeExpensiveOperations];
 }
 
 /// \bug touchesCancelled should clean up, not pass event to markers
@@ -404,14 +399,7 @@
 	// Calculate the gesture.
 	lastGesture = [self gestureDetails:[event allTouches]];
 
-	// If there are no more fingers on the screen, resume any slow operations.
-	if (lastGesture.numTouches == 0)
-	{
-		[self unRegisterPausedDraggingDispatcher];
-		// When factoring, beware these two instructions need to happen in this order.
-		[RMMapContents setPerformExpensiveOperations:YES];
-	}
-
+    BOOL decelerating = NO;
 	if (touch.tapCount >= 2)
 	{
 		if (_delegateHasDoubleTapOnMap) {
@@ -430,9 +418,17 @@
 			CGPoint currLocation = [touch locationInView:self];
 			CGSize touchDelta = CGSizeMake(currLocation.x - prevLocation.x, currLocation.y - prevLocation.y);
 			[self startDecelerationWithDelta:touchDelta];
+            decelerating = YES;
 		}
 	}
 	
+    
+	// If there are no more fingers on the screen, resume any slow operations.
+	if (lastGesture.numTouches == 0 && !decelerating)
+	{
+        [self delayedResumeExpensiveOperations];
+	}
+    
 	
 	if (touch.tapCount == 1) 
 	{
@@ -540,7 +536,7 @@
 	
 	lastGesture = newGesture;
 	
-	[self registerPausedDraggingDispatcher];
+	[self delayedResumeExpensiveOperations];
 }
 
 #pragma mark Deceleration
@@ -548,17 +544,23 @@
 - (void)startDecelerationWithDelta:(CGSize)delta {
 	if (ABS(delta.width) >= 1.0f && ABS(delta.height) >= 1.0f) {
 		_decelerationDelta = delta;
-		_decelerationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f 
-															 target:self
-														   selector:@selector(incrementDeceleration:) 
-														   userInfo:nil 
-															repeats:YES];
+        if ( !_decelerationTimer ) {
+            _decelerationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f 
+                                                                 target:self
+                                                               selector:@selector(incrementDeceleration:) 
+                                                               userInfo:nil 
+                                                                repeats:YES];
+        }
 	}
 }
 
 - (void)incrementDeceleration:(NSTimer *)timer {
 	if (ABS(_decelerationDelta.width) < kMinDecelerationDelta && ABS(_decelerationDelta.height) < kMinDecelerationDelta) {
 		[self stopDeceleration];
+
+        // Resume any slow operations after deceleration completes
+        [self delayedResumeExpensiveOperations];
+        
 		return;
 	}
 

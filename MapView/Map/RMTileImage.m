@@ -175,14 +175,14 @@
 		[customActions setObject:[NSNull null] forKey:@"position"];
 		[customActions setObject:[NSNull null] forKey:@"bounds"];
 		[customActions setObject:[NSNull null] forKey:kCAOnOrderOut];
-		
-/*		CATransition *fadein = [[CATransition alloc] init];
-		fadein.duration = 2.0;
-		fadein.type = kCATransitionFade;
-		[customActions setObject:fadein forKey:kCAOnOrderIn];
+        [customActions setObject:[NSNull null] forKey:kCAOnOrderIn];
+
+		CATransition *fadein = [[CATransition alloc] init];
+		fadein.duration = 0.3;
+		fadein.type = kCATransitionReveal;
+		[customActions setObject:fadein forKey:@"contents"];
 		[fadein release];
-*/
-		[customActions setObject:[NSNull null] forKey:kCAOnOrderIn];
+
 		
 		layer.actions=customActions;
 		

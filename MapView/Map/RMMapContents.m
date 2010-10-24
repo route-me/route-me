@@ -63,6 +63,7 @@
 @synthesize boundingMask;
 @synthesize minZoom;
 @synthesize maxZoom;
+@synthesize screenScale;
 @synthesize markerManager;
 
 #pragma mark --- begin constants ----
@@ -128,6 +129,7 @@
 	renderer = nil;
 	imagesOnScreen = nil;
 	tileLoader = nil;
+	screenScale =  ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0);
 
 	boundingMask = RMMapMinWidthBound;
 
@@ -748,7 +750,8 @@
 
 -(RMTileRect) tileBounds
 {
-	return [mercatorToTileProjection project: mercatorToScreenProjection];
+    return [mercatorToTileProjection projectRect:[mercatorToScreenProjection projectedBounds] 
+                                         atScale:[self scaledMetersPerPixel]];
 }
 
 -(CGRect) screenBounds
@@ -775,6 +778,11 @@
         [overlay zoomByFactor:zoomFactor near:pivot];
         [overlay correctPositionOfAllSublayers];
         [renderer setNeedsDisplay];
+}
+
+-(float) scaledMetersPerPixel
+{
+    return [mercatorToScreenProjection metersPerPixel] / screenScale;
 }
 
 -(void)setMaxZoom:(float)newMaxZoom
