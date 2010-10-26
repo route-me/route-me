@@ -87,5 +87,8 @@
 
 @property (assign, readwrite) float metersPerPixel;
 
+@property (assign, readwrite) RMProjectedPoint origin;
+@property (nonatomic,readonly) RMProjection *projection;
+-(void)deepCopy:(RMMercatorToScreenProjection *)copy;
 
 @end

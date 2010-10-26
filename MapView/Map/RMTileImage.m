@@ -29,6 +29,7 @@
 #import "RMWebTileImage.h"
 #import "RMTileLoader.h"
 #import "RMFileTileImage.h"
+#import "RMDBTileImage.h"
 #import "RMTileCache.h"
 #import "RMPixel.h"
 #import <QuartzCore/QuartzCore.h>
@@ -113,6 +114,11 @@
 	[tileImage updateImageUsingImage:image];
 	[image release];
 	return [tileImage autorelease];
+}
+
++ (RMTileImage*)imageForTile:(RMTile) _tile fromDB: (FMDatabase*)db
+{
+	return [[[RMDBTileImage alloc] initWithTile: _tile fromDB:db] autorelease];
 }
 
 -(void) cancelLoading
