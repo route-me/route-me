@@ -66,12 +66,7 @@
 	
     if ( [self respondsToSelector:@selector(setContentsScale:)] )
     {
-        Class screenClass = NSClassFromString(@"UIScreen");
-        if ( screenClass != Nil)
-        {
-            id scale = [[screenClass mainScreen] valueForKey:@"scale"];
-            [(id)self setValue:scale forKey:@"contentsScale"];
-        }
+        [(id)self setValue:[[UIScreen mainScreen] valueForKey:@"scale"] forKey:@"contentsScale"];
     }
 	
 	return self;

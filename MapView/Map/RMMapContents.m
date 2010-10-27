@@ -133,12 +133,7 @@
     screenScale = 1.0;
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
     {
-        Class screenClass = NSClassFromString(@"UIScreen");
-        if ( screenClass != Nil)
-        {
-            id scale = [[screenClass mainScreen] valueForKey:@"scale"];
-            screenScale = [scale floatValue];
-        }    
+        screenScale = [[[UIScreen mainScreen] valueForKey:@"scale"] floatValue];
     }
 
 	boundingMask = RMMapMinWidthBound;
