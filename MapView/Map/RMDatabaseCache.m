@@ -162,6 +162,14 @@
 	return image;
 }
 
+-(void) purgeTilesFromBefore: (NSDate*) date
+{
+    @synchronized(self)
+    {
+        [dao purgeTilesFromBefore:date];
+    }
+}
+
 -(void)didReceiveMemoryWarning
 {
         @synchronized(self) 

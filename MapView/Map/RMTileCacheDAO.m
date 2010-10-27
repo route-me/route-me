@@ -36,7 +36,10 @@
 -(void)configureDBForFirstUse
 {
 	[db executeUpdate:@"CREATE TABLE IF NOT EXISTS ZCACHE (ztileHash INTEGER PRIMARY KEY, zlastUsed DOUBLE, zdata BLOB)"];
-        [db executeUpdate:@"CREATE INDEX IF NOT EXISTS zlastUsedIndex ON ZCACHE(zLastUsed)"];
+    [db executeUpdate:@"CREATE INDEX IF NOT EXISTS zlastUsedIndex ON ZCACHE(zLastUsed)"];
+    // adding more than once does not seem to break anything
+    [db executeUpdate:@"ALTER TABLE ZCACHE ADD COLUMN zInserted DOUBLE"];
+    [db executeUpdate:@"CREATE INDEX IF NOT EXISTS zInsertedIndex ON ZCACHE(zInserted)"];
 }
 
 -(id) initWithDatabase: (NSString*)path
@@ -123,6 +126,27 @@
 	
 }
 
+-(void) purgeTilesFromBefore: (NSDate*) date;
+{
+    NSUInteger count = 0;
+    FMResultSet *results = [db executeQuery:@"SELECT COUNT(ztileHash) FROM ZCACHE WHERE zInserted < ?", date];
+	if ([results next]) {
+        count = [results intForColumnIndex:0];
+        RMLog(@"Will purge %i tile(s) from before %@", count, date);
+    }
+	[results close];
+    
+    if (count == 0) {
+        return;
+    }
+    
+	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE WHERE zInserted < ?", 
+				   date];
+	if (result == NO) {
+		RMLog(@"Error purging cache");
+	}
+}
+
 -(void) removeAllCachedImages 
 {
 	BOOL result = [db executeUpdate: @"DELETE FROM ZCACHE"];
@@ -145,8 +169,8 @@
 {
 	// Fixme
 //	RMLog(@"addData\t%d", tileHash);
-	BOOL result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (ztileHash, zlastUsed, zdata) VALUES (?, ?, ?)", 
-		[NSNumber numberWithUnsignedLongLong:tileHash], date, data];
+	BOOL result = [db executeUpdate:@"INSERT OR REPLACE INTO ZCACHE (ztileHash, zlastUsed, zInserted, zdata) VALUES (?, ?, ?, ?)", 
+		[NSNumber numberWithUnsignedLongLong:tileHash], date, [NSDate date], data];
 	if (result == NO)
 	{
 		RMLog(@"Error occured adding data");
