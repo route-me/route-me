@@ -64,9 +64,14 @@
 	enableRotation = YES;
 	isFirstPoint = YES;
 	
-    if ( [self respondsToSelector:@selector(setContentsScale:)] ) 
+    if ( [self respondsToSelector:@selector(setContentsScale:)] )
     {
-        self.contentsScale = ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0);
+        Class screenClass = NSClassFromString(@"UIScreen");
+        if ( screenClass != Nil)
+        {
+            id scale = [[screenClass mainScreen] valueForKey:@"scale"];
+            [(id)self setValue:scale forKey:@"contentsScale"];
+        }
     }
 	
 	return self;

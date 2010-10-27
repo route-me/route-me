@@ -129,7 +129,17 @@
 	renderer = nil;
 	imagesOnScreen = nil;
 	tileLoader = nil;
-	screenScale =  ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0);
+    
+    screenScale = 1.0;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+    {
+        Class screenClass = NSClassFromString(@"UIScreen");
+        if ( screenClass != Nil)
+        {
+            id scale = [[screenClass mainScreen] valueForKey:@"scale"];
+            screenScale = [scale floatValue];
+        }    
+    }
 
 	boundingMask = RMMapMinWidthBound;
 
