@@ -220,7 +220,8 @@
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
 }
 
--(void)setConstraintsSW:(CLLocationCoordinate2D)sw NE:(CLLocationCoordinate2D)ne{
+-(void)setConstraintsSW:(CLLocationCoordinate2D)sw NE:(CLLocationCoordinate2D)ne
+{
 	//store projections
 	RMProjection *proj=self.contents.projection;
 	
@@ -229,7 +230,9 @@
 	
 	_constrainMovement=YES;
 }
--(void)moveBy:(CGSize)delta {
+
+-(void)moveBy:(CGSize)delta 
+{
 	
 	if ( _constrainMovement ) 
 	{
@@ -239,19 +242,27 @@
 		//calculate new bounds after move
 		RMProjectedRect pBounds=[mtsp projectedBounds];
 		RMProjectedSize XYDelta = [mtsp projectScreenSizeToXY:delta];
+        CGSize sizeRatio = CGSizeMake(XYDelta.width / delta.width, XYDelta.height / delta.height);
 		RMProjectedRect newBounds=pBounds;
         
 		//move the rect by delta
 		newBounds.origin.northing -= XYDelta.height;
 		newBounds.origin.easting -= XYDelta.width; 
 		
-		//let's see if new bounds are within constrained bounds
-		if(newBounds.origin.northing < SWconstraint.northing || newBounds.origin.northing+newBounds.size.height > NEconstraint.northing ||
-		   newBounds.origin.easting < SWconstraint.easting || newBounds.origin.easting+newBounds.size.width > NEconstraint.easting){
-
-			RMLog(@"Out of bounds: don't move");
-			return;
-		}
+		// see if new bounds are within constrained bounds, and constrain if necessary
+        BOOL constrained = NO;
+		if ( newBounds.origin.northing < SWconstraint.northing ) { newBounds.origin.northing = SWconstraint.northing; constrained = YES; }
+        if ( newBounds.origin.northing+newBounds.size.height > NEconstraint.northing ) { newBounds.origin.northing = NEconstraint.northing - newBounds.size.height; constrained = YES; }
+        if ( newBounds.origin.easting < SWconstraint.easting ) { newBounds.origin.easting = SWconstraint.easting; constrained = YES; }
+        if ( newBounds.origin.easting+newBounds.size.width > NEconstraint.easting ) { newBounds.origin.easting = NEconstraint.easting - newBounds.size.width; constrained = YES; }
+        if ( constrained ) 
+        {
+            // Adjust delta to match constraint
+            XYDelta.height = pBounds.origin.northing - newBounds.origin.northing;
+            XYDelta.width = pBounds.origin.easting - newBounds.origin.easting;
+            delta = CGSizeMake((sizeRatio.width == 0 ? 0 : XYDelta.width / sizeRatio.width), 
+                               (sizeRatio.height ==0 ? 0 : XYDelta.height / sizeRatio.height));
+        }
 	}
 	
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
