@@ -30,6 +30,16 @@
 
 @implementation RMMercatorToScreenProjection
 
+@synthesize projection;
+@synthesize origin;
+
+-(void)deepCopy:(RMMercatorToScreenProjection *)copy{
+	screenBounds=copy.screenBounds;
+	projection=copy.projection;
+	metersPerPixel=copy.metersPerPixel;
+	origin=copy.origin;
+}
+
 - (id) initFromProjection: (RMProjection*) aProjection ToScreenBounds: (CGRect)aScreenBounds;
 {
 	if (![super init])

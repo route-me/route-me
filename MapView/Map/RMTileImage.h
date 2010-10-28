@@ -37,8 +37,10 @@ typedef NSImage UIImage;
 #import "RMNotifications.h"
 #import "RMTile.h"
 #import "RMTileProxy.h"
+#import "FMDatabase.h"
 
 @class RMTileImage;
+@class NSData;
 
 @interface RMTileImage : NSObject {
 	// I know this is a bit nasty.
@@ -64,6 +66,7 @@ typedef NSImage UIImage;
 + (RMTileImage*)imageForTile: (RMTile) tile withURL: (NSString*)url;
 + (RMTileImage*)imageForTile: (RMTile) tile fromFile: (NSString*)filename;
 + (RMTileImage*)imageForTile: (RMTile) tile withData: (NSData*)data;
++ (RMTileImage*)imageForTile: (RMTile) tile fromDB: (FMDatabase*)db;
 
 - (void)moveBy: (CGSize) delta;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center;

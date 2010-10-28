@@ -150,6 +150,9 @@ typedef struct {
 	NSTimer *_decelerationTimer;
 	CGSize _decelerationDelta;
 	
+	BOOL _constrainMovement;
+	RMProjectedPoint NEconstraint, SWconstraint;
+	
 	BOOL _contentsIsSet; // "contents" must be set, but is initialized lazily to allow apps to override defaults in -awakeFromNib
 }
 
@@ -180,11 +183,15 @@ typedef struct {
 - (void)moveToProjectedPoint: (RMProjectedPoint)aPoint;
 
 - (void)moveBy: (CGSize) delta;
+
+-(void)setConstraintsSW:(CLLocationCoordinate2D)sw NE:(CLLocationCoordinate2D)ne;
+
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint animated:(BOOL)animated;
 
 - (void)didReceiveMemoryWarning;
 
 - (void)setRotation:(CGFloat)angle;
+
 
 @end

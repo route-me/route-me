@@ -32,6 +32,11 @@
 	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
 	[[[RMMapContents alloc] initWithView:mapView 
 							  tilesource:myTilesource] autorelease];
+    
+    /* -- Uncomment to constrain view
+    [mapView setConstraintsSW:((CLLocationCoordinate2D){-33.942221,150.996094}) 
+                           NE:((CLLocationCoordinate2D){-33.771157,151.32019})]; */
+    
     [self updateInfo];
 }
 
