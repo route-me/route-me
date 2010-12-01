@@ -450,54 +450,75 @@
 	[self zoomByFactor:zoomFactor near:pivot animated:animated withCallback:nil];
 }
 
+- (BOOL)shouldZoomToTargetZoom:(float)targetZoom withZoomFactor:(float)zoomFactor {
+	//bools for syntactical sugar to understand the logic in the if statement below
+	BOOL zoomAtMax = ([self zoom] == [self maxZoom]);
+	BOOL zoomAtMin = ([self zoom] == [self minZoom]);
+	BOOL zoomGreaterMin = ([self zoom] > [self minZoom]);
+	BOOL zoomLessMax = ([self zoom] < [self maxZoom]);
+	
+	//zooming in zoomFactor > 1
+	//zooming out zoomFactor < 1
+	
+	if ((zoomGreaterMin && zoomLessMax) || (zoomAtMax && zoomFactor<1) || (zoomAtMin && zoomFactor>1))
+	{
+		return YES;
+	}
+	else
+	{
+		return NO;
+	}
+}
+
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot animated:(BOOL) animated withCallback:(id<RMMapContentsAnimationCallback>)callback
 {
 	zoomFactor = [self adjustZoomForBoundingMask:zoomFactor];
 	float zoomDelta = log2f(zoomFactor);
 	float targetZoom = zoomDelta + [self zoom];
 	
+	if (targetZoom == [self zoom]){
+		return;
+	}
+	// clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
+	if(targetZoom > [self maxZoom]){
+		zoomFactor = exp2f([self maxZoom] - [self zoom]);
+	}
+	
 	if (animated)
 	{
-		// goal is to complete the animation in animTime seconds
-		static const float stepTime = kZoomAnimationStepTime;
-		static const float animTime = kZoomAnimationAnimationTime;
-		float nSteps = animTime / stepTime;
-		float zoomIncr = zoomDelta / nSteps;
+		if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
+		{
+			// goal is to complete the animation in animTime seconds
+			static const float stepTime = kZoomAnimationStepTime;
+			static const float animTime = kZoomAnimationAnimationTime;
+			float nSteps = animTime / stepTime;
+			float zoomIncr = zoomDelta / nSteps;
+			
+			CFDictionaryRef pivotDictionary = CGPointCreateDictionaryRepresentation(pivot);
+			/// \bug magic string literals
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+									  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
+									  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
+									  pivotDictionary, @"pivot", 
+									  callback, @"callback", nil];
+			CFRelease(pivotDictionary);
+			[NSTimer scheduledTimerWithTimeInterval:stepTime
+											 target:self 
+										   selector:@selector(animatedZoomStep:) 
+										   userInfo:userInfo
+											repeats:YES];			
+		} else
+		{
+			if([self zoom] > [self maxZoom])
+				[self setZoom:[self maxZoom]];
+			if([self zoom] < [self minZoom])
+				[self setZoom:[self minZoom]];
+		}
 		
-		CFDictionaryRef pivotDictionary = CGPointCreateDictionaryRepresentation(pivot);
-		/// \bug magic string literals
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-								  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
-								  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
-								  pivotDictionary, @"pivot", 
-								  callback, @"callback", nil];
-		CFRelease(pivotDictionary);
-		[NSTimer scheduledTimerWithTimeInterval:stepTime
-										 target:self 
-									   selector:@selector(animatedZoomStep:) 
-									   userInfo:userInfo
-										repeats:YES];
 	}
 	else
 	{
-		if (targetZoom == [self zoom]){
-			return;
-		}
-		// clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
-		if(targetZoom > [self maxZoom]){
-			zoomFactor = exp2f([self maxZoom] - [self zoom]);
-		}
-		
-		//bools for syntactical sugar to understand the logic in the if statement below
-		BOOL zoomAtMax = ([self zoom] == [self maxZoom]);
-		BOOL zoomAtMin = ([self zoom] == [self minZoom]);
-		BOOL zoomGreaterMin = ([self zoom] > [self minZoom]);
-		BOOL zoomLessMax = ([self zoom] < [self maxZoom]);
-		
-		//zooming in zoomFactor > 1
-		//zooming out zoomFactor < 1
-		
-		if ((zoomGreaterMin && zoomLessMax) || (zoomAtMax && zoomFactor<1) || (zoomAtMin && zoomFactor>1))
+		if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
 		{
 			[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
 			[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
