@@ -36,8 +36,8 @@
 	if (![super init])
 		return nil;
 	
-	source = _source;
-	destination = _dest;
+	source = [_source retain];
+	destination = [_dest retain];
 	
 	is_source_latlong = pj_is_latlong(source.internalProjection);
 	is_dest_latlong = pj_is_latlong(destination.internalProjection);
