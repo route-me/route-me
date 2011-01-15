@@ -526,9 +526,10 @@
 {
 	double zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] doubleValue];
 	double targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] doubleValue];
-
-	if ((zoomIncr > 0 && [self zoom] >= targetZoom) || (zoomIncr < 0 && [self zoom] <= targetZoom))
+    
+	if ((zoomIncr > 0 && [self zoom] >= targetZoom-1.0e-6) || (zoomIncr < 0 && [self zoom] <= targetZoom+1.0e-6))
 	{
+        if ( [self zoom] != targetZoom ) [self setZoom:targetZoom];
 		NSDictionary * userInfo = [[timer userInfo] retain];
 		[timer invalidate];	// ASAP
 		id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
