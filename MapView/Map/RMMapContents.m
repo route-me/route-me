@@ -483,64 +483,49 @@
 	if(targetZoom > [self maxZoom]){
 		zoomFactor = exp2f([self maxZoom] - [self zoom]);
 	}
-	
-	if (animated)
-	{
-		if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
-		{
-			// goal is to complete the animation in animTime seconds
-			static const float stepTime = kZoomAnimationStepTime;
-			static const float animTime = kZoomAnimationAnimationTime;
-			float nSteps = animTime / stepTime;
-			float zoomIncr = zoomDelta / nSteps;
-			
-			CFDictionaryRef pivotDictionary = CGPointCreateDictionaryRepresentation(pivot);
-			/// \bug magic string literals
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSNumber numberWithFloat:zoomIncr], @"zoomIncr", 
-									  [NSNumber numberWithFloat:targetZoom], @"targetZoom", 
-									  pivotDictionary, @"pivot", 
-									  callback, @"callback", nil];
-			CFRelease(pivotDictionary);
-			[NSTimer scheduledTimerWithTimeInterval:stepTime
-											 target:self 
-										   selector:@selector(animatedZoomStep:) 
-										   userInfo:userInfo
-											repeats:YES];			
-		} else
-		{
-			if([self zoom] > [self maxZoom])
-				[self setZoom:[self maxZoom]];
-			if([self zoom] < [self minZoom])
-				[self setZoom:[self minZoom]];
-		}
-		
-	}
-	else
-	{
-		if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
-		{
-			[mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
-			[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
-			[tileLoader zoomByFactor:zoomFactor near:pivot];
-			[overlay zoomByFactor:zoomFactor near:pivot];
-			[renderer setNeedsDisplay];
-		}
-		else
-		{
-			if([self zoom] > [self maxZoom])
-				[self setZoom:[self maxZoom]];
-			if([self zoom] < [self minZoom])
-				[self setZoom:[self minZoom]];
-		}
-	}
+
+    if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
+    {
+        if (animated)
+        {
+            // goal is to complete the animation in animTime seconds
+            double nSteps = round(kZoomAnimationAnimationTime / kZoomAnimationStepTime);
+            double zoomIncr = zoomDelta / nSteps;
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithDouble:zoomIncr], @"zoomIncr",
+                                      [NSNumber numberWithDouble:targetZoom], @"targetZoom",
+                                      [NSValue valueWithCGPoint:pivot], @"pivot",
+                                      callback, @"callback", nil];
+            [NSTimer scheduledTimerWithTimeInterval:kZoomAnimationStepTime
+                                             target:self
+                                           selector:@selector(animatedZoomStep:)
+                                           userInfo:userInfo
+                                            repeats:YES];
+        }
+        else
+        {
+            [mercatorToScreenProjection zoomScreenByFactor:zoomFactor near:pivot];
+            [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
+            [tileLoader zoomByFactor:zoomFactor near:pivot];
+            [overlay zoomByFactor:zoomFactor near:pivot];
+            [renderer setNeedsDisplay];
+        }
+    }
+    else
+    {
+        if([self zoom] > [self maxZoom])
+            [self setZoom:[self maxZoom]];
+        if([self zoom] < [self minZoom])
+            [self setZoom:[self minZoom]];
+    }
 }
 
 /// \bug magic strings embedded in code
 - (void)animatedZoomStep:(NSTimer *)timer
 {
-	float zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] floatValue];
-	float targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] floatValue];
+	double zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] doubleValue];
+	double targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] doubleValue];
 
 	if ((zoomIncr > 0 && [self zoom] >= targetZoom) || (zoomIncr < 0 && [self zoom] <= targetZoom))
 	{
@@ -548,20 +533,14 @@
 		[timer invalidate];	// ASAP
 		id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
 		if (callback && [callback respondsToSelector:@selector(animationFinishedWithZoomFactor:near:)]) {
-			CGPoint pivot;
-			CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)[userInfo objectForKey:@"pivot"], &pivot);
-			[callback animationFinishedWithZoomFactor:targetZoom near:pivot];
+			[callback animationFinishedWithZoomFactor:targetZoom near:[[userInfo objectForKey:@"pivot"] CGPointValue]];
 		}
 		[userInfo release];
 	}
 	else
 	{
 		float zoomFactorStep = exp2f(zoomIncr);
-
-		CGPoint pivot;
-		CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)[[timer userInfo] objectForKey:@"pivot"], &pivot);
-		
-		[self zoomByFactor:zoomFactorStep near:pivot animated:NO];
+		[self zoomByFactor:zoomFactorStep near:[[[timer userInfo] objectForKey:@"pivot"] CGPointValue] animated:NO];
 	}
 }
 
