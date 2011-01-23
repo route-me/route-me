@@ -41,8 +41,8 @@
 		25757F501291C8640083D504 /* RMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 25757F4E1291C8640083D504 /* RMCircle.m */; };
 		25757F521291C8850083D504 /* RMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 25757F4E1291C8640083D504 /* RMCircle.m */; };
 		2599740912EB966400816331 /* RMSpatialCloudMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2599740712EB966400816331 /* RMSpatialCloudMapSource.h */; };
-		2599740A12EB966400816331 /* RMSpatialCloudMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2599740812EB966400816331 /* RMSpatialCloudMapSource.m */; };
 		2599740B12EB967600816331 /* RMSpatialCloudMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2599740812EB966400816331 /* RMSpatialCloudMapSource.m */; };
+		2702E97012EB9DB50027A466 /* RMSpatialCloudMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2599740812EB966400816331 /* RMSpatialCloudMapSource.m */; };
 		2B2BADD70FA3B45A00EE37AA /* marker-X.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2BADD60FA3B45A00EE37AA /* marker-X.png */; };
 		2B5682720F68E36000E8DF40 /* RMOpenAerialMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5682700F68E36000E8DF40 /* RMOpenAerialMapSource.h */; };
 		2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5682710F68E36000E8DF40 /* RMOpenAerialMapSource.m */; };
@@ -1044,6 +1044,7 @@
 				D1437B34122869E400888DAE /* RMDBTileImage.m in Sources */,
 				D1437B36122869E400888DAE /* RMDBMapSource.m in Sources */,
 				25757F501291C8640083D504 /* RMCircle.m in Sources */,
+				2702E97012EB9DB50027A466 /* RMSpatialCloudMapSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
