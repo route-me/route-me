@@ -496,6 +496,7 @@
                                       [NSNumber numberWithDouble:zoomIncr], @"zoomIncr",
                                       [NSNumber numberWithDouble:targetZoom], @"targetZoom",
                                       [NSValue valueWithCGPoint:pivot], @"pivot",
+                                      [NSNumber numberWithFloat:zoomFactor], @"factor",
                                       callback, @"callback", nil];
             [NSTimer scheduledTimerWithTimeInterval:kZoomAnimationStepTime
                                              target:self
@@ -534,7 +535,7 @@
 		[timer invalidate];	// ASAP
 		id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
 		if (callback && [callback respondsToSelector:@selector(animationFinishedWithZoomFactor:near:)]) {
-			[callback animationFinishedWithZoomFactor:targetZoom near:[[userInfo objectForKey:@"pivot"] CGPointValue]];
+			[callback animationFinishedWithZoomFactor:[[userInfo objectForKey:@"factor"] floatValue] near:[[userInfo objectForKey:@"pivot"] CGPointValue]];
 		}
 		[userInfo release];
 	}
