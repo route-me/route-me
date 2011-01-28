@@ -776,7 +776,7 @@
 
 -(void) setMetersPerPixel: (float) newMPP
 {
-        float zoomFactor = newMPP / self.metersPerPixel;
+        float zoomFactor = self.metersPerPixel / newMPP;
         CGPoint pivot = CGPointZero;
 
         [mercatorToScreenProjection setMetersPerPixel:newMPP];
