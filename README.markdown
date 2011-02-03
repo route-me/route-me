@@ -5,8 +5,10 @@ Route-Me is an open source map library that runs natively on iOS.  It's designed
 to look and feel much like the inbuilt iOS map library, but it's entirely open,
 and works with any map source.
 
-Currently, [OpenStreetMap][1], [Microsoft VirtualEarth][2] and [CloudMade][3] are
-supported as map sources.
+Currently, [OpenStreetMap][1], [Microsoft VirtualEarth][2], [CloudMade][3],
+[OpenAerialMap][4], [OpenCycleMap][5], [SpatialCloud][6], and two offline,
+database-backed formats (DBMap and [MBTiles][7]) are supported as map
+sources.
 
 Please note that you are responsible for getting permission to use the map data,
 and for ensuring your use adheres to the relevant terms of use.
@@ -15,6 +17,10 @@ and for ensuring your use adheres to the relevant terms of use.
    [1]: http://www.openstreetmap.org/index.html
    [2]: http://maps.live.com/
    [3]: http://www.cloudmade.com/
+   [4]: http://www.openaerialmap.org/
+   [5]: http://www.opencyclemap.org/
+   [6]: http://www.spatialcloud.com/
+   [7]: http://mapbox.com/documentation/mbtiles-file-format
 
 
 Installing
