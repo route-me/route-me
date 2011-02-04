@@ -233,7 +233,7 @@
 
 -(void)moveBy:(CGSize)delta 
 {
-	
+
 	if ( _constrainMovement ) 
 	{
 		//bounds are
@@ -242,7 +242,8 @@
 		//calculate new bounds after move
 		RMProjectedRect pBounds=[mtsp projectedBounds];
 		RMProjectedSize XYDelta = [mtsp projectScreenSizeToXY:delta];
-        CGSize sizeRatio = CGSizeMake(XYDelta.width / delta.width, XYDelta.height / delta.height);
+        CGSize sizeRatio = CGSizeMake(((delta.width == 0) ? 0 : XYDelta.width / delta.width),
+									  ((delta.height == 0) ? 0 : XYDelta.height / delta.height));
 		RMProjectedRect newBounds=pBounds;
         
 		//move the rect by delta
@@ -260,11 +261,11 @@
             // Adjust delta to match constraint
             XYDelta.height = pBounds.origin.northing - newBounds.origin.northing;
             XYDelta.width = pBounds.origin.easting - newBounds.origin.easting;
-            delta = CGSizeMake((sizeRatio.width == 0 ? 0 : XYDelta.width / sizeRatio.width), 
-                               (sizeRatio.height ==0 ? 0 : XYDelta.height / sizeRatio.height));
+            delta = CGSizeMake(((sizeRatio.width == 0) ? 0 : XYDelta.width / sizeRatio.width), 
+                               ((sizeRatio.height == 0) ? 0 : XYDelta.height / sizeRatio.height));
         }
 	}
-	
+
 	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
 	[self.contents moveBy:delta];
 	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
