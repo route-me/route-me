@@ -480,8 +480,17 @@
 		return;
 	}
 	// clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
+	// Set targetZoom to maxZoom so the map zooms to its maximum
 	if(targetZoom > [self maxZoom]){
 		zoomFactor = exp2f([self maxZoom] - [self zoom]);
+		targetZoom = [self maxZoom];
+	}
+	
+	// clamp zoom to remain above or equal to minZoom after zoomAfter will be applied
+	// Set targetZoom to minZoom so the map zooms to its maximum
+	if(targetZoom < [self minZoom]){
+		zoomFactor = 1/exp2f([self zoom] - [self minZoom]);
+		targetZoom = [self minZoom];
 	}
 
     if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])

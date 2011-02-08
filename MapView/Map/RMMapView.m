@@ -293,6 +293,11 @@
 			_zoomFactor = exp2f([self.contents maxZoom] - [self.contents zoom]);
 		}
 		
+		// clamp zoom to remain above or equal to minZoom after zoomAfter will be applied
+		if(targetZoom < [self.contents minZoom]){
+			zoomFactor = 1/exp2f([self.contents zoom] - [self.contents minZoom]);
+		}
+		
 		//bools for syntactical sugar to understand the logic in the if statement below
 		BOOL zoomAtMax = ([self.contents  zoom] == [self.contents  maxZoom]);
 		BOOL zoomAtMin = ([self.contents  zoom] == [self.contents  minZoom]);
