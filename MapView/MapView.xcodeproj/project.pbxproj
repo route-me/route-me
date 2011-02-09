@@ -102,6 +102,10 @@
 		2BEC61320F8ACC24008FB858 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83E65680E80E830001663B6 /* QuartzCore.framework */; };
 		2BEC61330F8ACC25008FB858 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		3849889C0F6F758100496293 /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D818500F6F67B90034598B /* libProj4.a */; };
+		447420DA1302B2F5004D6E8A /* RMWMSSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 447420D81302B2F5004D6E8A /* RMWMSSource.h */; };
+		447420DB1302B2F5004D6E8A /* RMWMSSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 447420D91302B2F5004D6E8A /* RMWMSSource.m */; };
+		4474211B1302B60A004D6E8A /* RMWMS.h in Headers */ = {isa = PBXBuildFile; fileRef = 447421191302B60A004D6E8A /* RMWMS.h */; };
+		4474211C1302B60A004D6E8A /* RMWMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474211A1302B60A004D6E8A /* RMWMS.m */; };
 		46B1C067117653930062018A /* GTMNSNumber+64Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1C066117653930062018A /* GTMNSNumber+64Bit.m */; };
 		46B1C075117653F10062018A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1C074117653F10062018A /* GTMObjC2Runtime.m */; };
 		96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */; };
@@ -268,6 +272,10 @@
 		32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView_Prefix.pch; sourceTree = "<group>"; };
 		3866784C0F6B9B9200C56B17 /* MapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapView.framework; path = build/MapView.framework; sourceTree = "<group>"; };
 		38DAD5490F739BAD00D1DF51 /* Canonical.framework.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = Canonical.framework.tar; sourceTree = "<group>"; };
+		447420D81302B2F5004D6E8A /* RMWMSSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMWMSSource.h; sourceTree = "<group>"; };
+		447420D91302B2F5004D6E8A /* RMWMSSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMWMSSource.m; sourceTree = "<group>"; };
+		447421191302B60A004D6E8A /* RMWMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMWMS.h; sourceTree = "<group>"; };
+		4474211A1302B60A004D6E8A /* RMWMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMWMS.m; sourceTree = "<group>"; };
 		46B1C065117653930062018A /* GTMNSNumber+64Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSNumber+64Bit.h"; path = "GTM/GTMNSNumber+64Bit.h"; sourceTree = "<group>"; };
 		46B1C066117653930062018A /* GTMNSNumber+64Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSNumber+64Bit.m"; path = "GTM/GTMNSNumber+64Bit.m"; sourceTree = "<group>"; };
 		46B1C073117653F10062018A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMObjC2Runtime.h; path = GTM/GTMObjC2Runtime.h; sourceTree = "<group>"; };
@@ -520,6 +528,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		447421181302B5E7004D6E8A /* WMS */ = {
+			isa = PBXGroup;
+			children = (
+				447421191302B60A004D6E8A /* RMWMS.h */,
+				4474211A1302B60A004D6E8A /* RMWMS.m */,
+			);
+			name = WMS;
+			sourceTree = "<group>";
+		};
 		B83E64B80E80E73F001663B6 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +641,8 @@
 				2599740812EB966400816331 /* RMSpatialCloudMapSource.m */,
 				DD55FD1312FB40E000B6FE24 /* RMMBTilesTileSource.h */,
 				DD55FD1212FB40E000B6FE24 /* RMMBTilesTileSource.m */,
+				447420D81302B2F5004D6E8A /* RMWMSSource.h */,
+				447420D91302B2F5004D6E8A /* RMWMSSource.m */,
 			);
 			name = "Tile Source";
 			sourceTree = "<group>";
@@ -717,6 +736,7 @@
 				B86F26A80E8742ED007A3773 /* Markers and other layers */,
 				1266929E0EB75BEA00E002D5 /* Configuration */,
 				B8474C610EB53A01006A0BC1 /* Resources */,
+				447421181302B5E7004D6E8A /* WMS */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -807,6 +827,8 @@
 				25757F4F1291C8640083D504 /* RMCircle.h in Headers */,
 				2599740912EB966400816331 /* RMSpatialCloudMapSource.h in Headers */,
 				DD55FD1512FB40E000B6FE24 /* RMMBTilesTileSource.h in Headers */,
+				447420DA1302B2F5004D6E8A /* RMWMSSource.h in Headers */,
+				4474211B1302B60A004D6E8A /* RMWMS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1077,8 @@
 				25757F501291C8640083D504 /* RMCircle.m in Sources */,
 				2702E97012EB9DB50027A466 /* RMSpatialCloudMapSource.m in Sources */,
 				DD55FD1412FB40E000B6FE24 /* RMMBTilesTileSource.m in Sources */,
+				447420DB1302B2F5004D6E8A /* RMWMSSource.m in Sources */,
+				4474211C1302B60A004D6E8A /* RMWMS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
