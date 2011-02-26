@@ -31,6 +31,19 @@
 #import "RMTile.h"
 #import "RMWMS.h"
 
+/*! 
+ \brief Subclass of RMAbstractMercatorWebSource for access to OGC WMS Server.
+ 
+ Example:
+ RMWMS *wms = [[RMWMS alloc] init];
+ [wms setUrlPrefix:@"http://vmap0.tiles.osgeo.org/wms/vmap0"];
+ [wms setLayers:@"basic"];
+ RMWMSSource *wmsSource = [[RMWMSSource alloc] init];
+ [wmsSource setWms:wms];
+ [mapContents setTileSource:wmsSource];
+ [wmsSource release];
+ [wms release];
+ */
 @interface RMWMSSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
 
     float initialResolution;
