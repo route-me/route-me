@@ -31,7 +31,7 @@
 @class RMMarker;
 
 /// Use this for notifications of map panning, zooming, and taps on the RMMapView.
-@protocol RMMapViewDelegate 
+@protocol RMMapViewDelegate <NSObject>
 
 @optional
 
@@ -40,6 +40,14 @@
 
 - (void) beforeMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
+
+/*
+ \brief Tells the delegate that the region displayed by the map view just changed.
+ \details This method is called whenever the currently displayed map region changes. 
+ During scrolling and zooming, this method may be called many times to report updates to the map position. 
+ Therefore, your implementation of this method should be as lightweight as possible to avoid affecting scrolling and zooming performance.
+ */
+- (void)mapViewRegionDidChange:(RMMapView *)mapView;
 
 - (void) beforeMapRotate: (RMMapView*) map fromAngle: (CGFloat) angle;
 - (void) afterMapRotate: (RMMapView*) map toAngle: (CGFloat) angle;

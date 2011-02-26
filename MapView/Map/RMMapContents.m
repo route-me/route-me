@@ -528,21 +528,26 @@
 	double zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] doubleValue];
 	double targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] doubleValue];
     
+	NSDictionary *userInfo = [[[timer userInfo] retain] autorelease];
+	id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
+
 	if ((zoomIncr > 0 && [self zoom] >= targetZoom-1.0e-6) || (zoomIncr < 0 && [self zoom] <= targetZoom+1.0e-6))
 	{
         if ( [self zoom] != targetZoom ) [self setZoom:targetZoom];
-		NSDictionary * userInfo = [[timer userInfo] retain];
 		[timer invalidate];	// ASAP
-		id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
-		if (callback && [callback respondsToSelector:@selector(animationFinishedWithZoomFactor:near:)]) {
+		if ([callback respondsToSelector:@selector(animationFinishedWithZoomFactor:near:)])
+		{
 			[callback animationFinishedWithZoomFactor:[[userInfo objectForKey:@"factor"] floatValue] near:[[userInfo objectForKey:@"pivot"] CGPointValue]];
 		}
-		[userInfo release];
 	}
 	else
 	{
 		float zoomFactorStep = exp2f(zoomIncr);
 		[self zoomByFactor:zoomFactorStep near:[[[timer userInfo] objectForKey:@"pivot"] CGPointValue] animated:NO];
+		if ([callback respondsToSelector:@selector(animationStepped)])
+		{
+			[callback animationStepped];
+		}
 	}
 }
 

@@ -66,6 +66,7 @@ enum {
 @protocol RMMapContentsAnimationCallback <NSObject>
 @optional
 - (void)animationFinishedWithZoomFactor:(float)zoomFactor near:(CGPoint)p;
+- (void)animationStepped;
 @end
 
 
