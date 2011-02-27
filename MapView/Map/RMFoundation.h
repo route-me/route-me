@@ -25,6 +25,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+#import <stdbool.h>
+
 /*! \struct RMProjectedPoint 
  \brief coordinates, in projected meters, paralleling CGPoint */
 typedef struct {
@@ -43,6 +45,9 @@ typedef struct {
 	RMProjectedPoint origin;
 	RMProjectedSize size;
 } RMProjectedRect;
+
+/// \brief The function checks whether two passed projected points are equal.
+bool RMProjectedPointEqualToProjectedPoint(RMProjectedPoint point1, RMProjectedPoint point2);
 
 RMProjectedPoint RMScaleProjectedPointAboutPoint (RMProjectedPoint point, float factor, RMProjectedPoint pivot);
 RMProjectedRect  RMScaleProjectedRectAboutPoint(RMProjectedRect rect,   float factor, RMProjectedPoint pivot);

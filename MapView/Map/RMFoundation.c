@@ -27,6 +27,10 @@
 
 #import "RMFoundation.h"
 
+bool RMProjectedPointEqualToProjectedPoint(RMProjectedPoint point1, RMProjectedPoint point2)
+{
+	return point1.easting == point2.easting && point2.northing == point2.northing;
+}
 
 RMProjectedPoint RMScaleProjectedPointAboutPoint(RMProjectedPoint point, float factor, RMProjectedPoint pivot)
 {
