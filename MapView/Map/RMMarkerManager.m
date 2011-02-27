@@ -56,6 +56,14 @@
 #pragma mark 
 #pragma mark Adding / Removing / Displaying Markers
 
+/// place the (new created) marker onto the map at projected point and take ownership of it
+- (void)addMarker:(RMMarker *)marker atProjectedPoint:(RMProjectedPoint)projectedPoint {
+	[marker setAffineTransform:rotationTransform];
+	[marker setProjectedPoint:projectedPoint];
+	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:projectedPoint]];
+	[[contents overlay] addSublayer:marker];
+}
+
 /// place the (newly created) marker onto the map and take ownership of it
 /// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point

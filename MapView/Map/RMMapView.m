@@ -231,6 +231,13 @@
 	_constrainMovement=YES;
 }
 
+- (void)setProjectedContraintsSW:(RMProjectedPoint)sw NE:(RMProjectedPoint)ne {
+	SWconstraint = sw;
+	NEconstraint = ne;
+	
+	_constrainMovement=YES;
+}
+
 -(void)moveBy:(CGSize)delta 
 {
 
