@@ -290,7 +290,7 @@
 		}
 		// clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
 		if(targetZoom > [self.contents maxZoom]){
-			_zoomFactor = exp2f([self.contents maxZoom] - [self.contents zoom]);
+			zoomFactor = exp2f([self.contents maxZoom] - [self.contents zoom]);
 		}
 		
 		// clamp zoom to remain above or equal to minZoom after zoomAfter will be applied
