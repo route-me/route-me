@@ -1,5 +1,5 @@
 //
-// RouteMe.h
+//  NSUserDefaults+RouteMe.h
 // 
 // Copyright (c) 2008-2011, Route-Me Contributors
 // All rights reserved.
@@ -24,18 +24,23 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
+//
 
-// The list of header files for more convenient Route-Me import to projects.
-// (in alphabetic order)
+#import <Foundation/Foundation.h>
+#import "RMFoundation.h"
 
-// P.S. The list isn't full. Need to add missing header files, when required
+@interface NSUserDefaults (RouteMe) 
 
-#import "RMAbstractMercatorWebSource.h"
-#import "RMCircle.h"
-#import "RMMapContents.h"
-#import "RMMapView.h"
-#import "RMMarkerManager.h"
-#import "RMProjection.h"
-#import "RMTileSource.h"
+/// Returns the projected point associated with the specified key.
+- (RMProjectedPoint)projectedPointForKey:(NSString *)key;
 
-#import "NSUserDefaults+RouteMe.h"
+/// Sets the value of the specified default key to the specified projected point.
+- (void)setProjectedPoint:(RMProjectedPoint)projectedPoint forKey:(NSString *)key;
+
+/// Returns the projected rectangle associated with the specified key.
+- (RMProjectedRect)projectedRectForKey:(NSString *)key;
+
+/// Sets the value of the specified default key to the specified projected rectangle.
+- (void)setProjectedRect:(RMProjectedRect)projectedRect forKey:(NSString *)key;
+
+@end
