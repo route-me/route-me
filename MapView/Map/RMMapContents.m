@@ -322,11 +322,7 @@
 }
 - (void)moveToProjectedPoint: (RMProjectedPoint)aPoint
 {
-	[mercatorToScreenProjection setProjectedCenter:aPoint];
-	[overlay correctPositionOfAllSublayers];
-	[tileLoader reload];
-	[renderer setNeedsDisplay];
-        [overlay setNeedsDisplay];
+	self.centerProjectedPoint = aPoint;
 }
 
 - (void)moveBy: (CGSize) delta
@@ -744,6 +740,20 @@
 -(void) setMapCenter: (CLLocationCoordinate2D) center
 {
 	[self moveToLatLong:center];
+}
+
+- (RMProjectedPoint)centerProjectedPoint
+{
+	return [mercatorToScreenProjection projectedCenter];
+}
+
+- (void)setCenterProjectedPoint:(RMProjectedPoint)projectedPoint
+{
+	[mercatorToScreenProjection setProjectedCenter:projectedPoint];
+	[overlay correctPositionOfAllSublayers];
+	[tileLoader reload];
+	[renderer setNeedsDisplay];
+	[overlay setNeedsDisplay];
 }
 
 -(RMProjectedRect) projectedBounds
