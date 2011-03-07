@@ -34,6 +34,7 @@
 /* Begin PBXBuildFile section */
 		090FE3140ECD71A500035FBC /* RMTilesUpdateDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */; };
 		126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 126692A00EB75C0A00E002D5 /* RMConfiguration.m */; };
+		17F02BB11319BA4B00260C6B /* RouteMe.h in Headers */ = {isa = PBXBuildFile; fileRef = 17F02BB01319BA4B00260C6B /* RouteMe.h */; };
 		23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */ = {isa = PBXBuildFile; fileRef = 23A0AAE80EB90A99003A4521 /* RMFoundation.c */; };
 		23A0AAEB0EB90AA6003A4521 /* RMFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0AAEA0EB90AA6003A4521 /* RMFoundation.h */; };
 		23A0ABAA0EB923AF003A4521 /* RMLatLong.h in Headers */ = {isa = PBXBuildFile; fileRef = 23A0ABA90EB923AF003A4521 /* RMLatLong.h */; };
@@ -234,6 +235,7 @@
 		1266929F0EB75C0A00E002D5 /* RMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMConfiguration.h; sourceTree = "<group>"; };
 		126692A00EB75C0A00E002D5 /* RMConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMConfiguration.m; sourceTree = "<group>"; };
 		12F2031E0EBB65E9003D7B6B /* RMMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapViewDelegate.h; sourceTree = "<group>"; };
+		17F02BB01319BA4B00260C6B /* RouteMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMe.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		23A0AAE80EB90A99003A4521 /* RMFoundation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMFoundation.c; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 		B8C9740D0E8A196E007D16AD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				17F02BB01319BA4B00260C6B /* RouteMe.h */,
 				96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */,
 				B1EB26C510B5D8E6009F8658 /* RMNotifications.h */,
 				090FE3130ECD71A500035FBC /* RMTilesUpdateDelegate.h */,
@@ -829,6 +832,7 @@
 				DD55FD1512FB40E000B6FE24 /* RMMBTilesTileSource.h in Headers */,
 				447420DA1302B2F5004D6E8A /* RMWMSSource.h in Headers */,
 				4474211B1302B60A004D6E8A /* RMWMS.h in Headers */,
+				17F02BB11319BA4B00260C6B /* RouteMe.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,7 +1234,6 @@
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = ../Proj4;
-				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				PRODUCT_NAME = MapView;
@@ -1268,7 +1271,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = (
 					"-O",
 					"-Wuninitialized",
@@ -1276,7 +1279,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1291,9 +1294,10 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
