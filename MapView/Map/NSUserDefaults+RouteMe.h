@@ -26,6 +26,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+//
+// If you link your Route-Me to your project as a static libary,
+// add to your project's build param Other Linker Flags (OTHER_LDFLAGS) '-all_load' (without quotes).
+//
+
 #import <Foundation/Foundation.h>
 #import "RMFoundation.h"
 
