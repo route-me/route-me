@@ -141,7 +141,7 @@
 		B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64BD0E80E73F001663B6 /* RMCoreAnimationRenderer.h */; };
 		B8C974220E8A19B2007D16AD /* RMProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64E30E80E73F001663B6 /* RMProjection.h */; };
 		B8C974230E8A19B2007D16AD /* RMTileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D00E80E73F001663B6 /* RMTileCache.h */; };
-		B8C974250E8A19B2007D16AD /* RMOpenStreetMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64ED0E80E73F001663B6 /* RMOpenStreetMapSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8C974250E8A19B2007D16AD /* RMOpenStreetMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64ED0E80E73F001663B6 /* RMOpenStreetMapSource.h */; settings = {ATTRIBUTES = (); }; };
 		B8C974260E8A19B2007D16AD /* RMTile.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64D60E80E73F001663B6 /* RMTile.h */; };
 		B8C974270E8A19B2007D16AD /* RMPixel.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64B60E80E73F001663B6 /* RMPixel.h */; };
 		B8C974290E8A19B2007D16AD /* RMFileTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = B83E64DE0E80E73F001663B6 /* RMFileTileImage.h */; };
@@ -793,11 +793,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */,
+				B8C974250E8A19B2007D16AD /* RMOpenStreetMapSource.h in Headers */,
 				B8C974190E8A19B2007D16AD /* RMMapRenderer.h in Headers */,
 				B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */,
 				B8C974220E8A19B2007D16AD /* RMProjection.h in Headers */,
 				B8C974230E8A19B2007D16AD /* RMTileCache.h in Headers */,
-				B8C974250E8A19B2007D16AD /* RMOpenStreetMapSource.h in Headers */,
 				B8C974260E8A19B2007D16AD /* RMTile.h in Headers */,
 				B8C974270E8A19B2007D16AD /* RMPixel.h in Headers */,
 				B8C974290E8A19B2007D16AD /* RMFileTileImage.h in Headers */,
@@ -1296,6 +1296,7 @@
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1314,6 +1315,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
