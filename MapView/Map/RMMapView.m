@@ -225,8 +225,15 @@
 	//store projections
 	RMProjection *proj=self.contents.projection;
 	
-	NEconstraint = [proj latLongToPoint:ne];
-	SWconstraint = [proj latLongToPoint:sw];
+	RMProjectedPoint projectedNE = [proj latLongToPoint:ne];
+	RMProjectedPoint projectedSW = [proj latLongToPoint:sw];
+	
+	[self setProjectedContraintsSW:projectedSW NE:projectedNE];
+}
+
+- (void)setProjectedContraintsSW:(RMProjectedPoint)sw NE:(RMProjectedPoint)ne {
+	SWconstraint = sw;
+	NEconstraint = ne;
 	
 	_constrainMovement=YES;
 }

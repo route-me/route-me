@@ -27,6 +27,27 @@
 
 #import "RMFoundation.h"
 
+bool RMProjectedPointEqualToProjectedPoint(RMProjectedPoint point1, RMProjectedPoint point2)
+{
+	return point1.easting == point2.easting && point2.northing == point2.northing;
+}
+
+bool RMProjectedRectInterectsProjectedRect(RMProjectedRect rect1, RMProjectedRect rect2)
+{
+	double minEasting1 = rect1.origin.easting;
+	double maxEasting1 = rect1.origin.easting + rect1.size.width;
+	double minNorthing1 = rect1.origin.northing;
+	double maxNorthing1 = rect1.origin.northing + rect1.size.height;
+
+	double minEasting2 = rect2.origin.easting;
+	double maxEasting2 = rect2.origin.easting + rect2.size.width;
+	double minNorthing2 = rect2.origin.northing;
+	double maxNorthing2 = rect2.origin.northing + rect2.size.height;
+
+	return ((minEasting1 <= minEasting2 && minEasting2 <= maxEasting1) || (minEasting2 <= minEasting1 && minEasting1 <= maxEasting2))
+		&& ((minNorthing1 <= minNorthing2 && minNorthing2 <= maxNorthing1) || (minNorthing2 <= minNorthing1 && minNorthing1 <= maxNorthing2));
+	
+}
 
 RMProjectedPoint RMScaleProjectedPointAboutPoint(RMProjectedPoint point, float factor, RMProjectedPoint pivot)
 {
