@@ -32,9 +32,11 @@
 
 #import "RMAbstractMercatorWebSource.h"
 #import "RMCircle.h"
+#import "RMLayerCollection.h"
 #import "RMMapContents.h"
 #import "RMMapView.h"
 #import "RMMarkerManager.h"
+#import "RMPath.h"
 #import "RMProjection.h"
 #import "RMTileSource.h"
 
