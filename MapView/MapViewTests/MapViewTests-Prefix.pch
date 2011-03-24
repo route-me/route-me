@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'MapViewTests' target in the 'MapViewTests' project
+//
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import "RouteMe.h"
+#endif
