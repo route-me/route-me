@@ -794,6 +794,7 @@
 				GCC_PREFIX_HEADER = Proj4_Prefix.pch;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				PRODUCT_NAME = Proj4;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -807,6 +808,7 @@
 				GCC_PREFIX_HEADER = Proj4_Prefix.pch;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				PRODUCT_NAME = Proj4;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -853,7 +855,7 @@
 				1DEB922008733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Proj4" */ = {
 			isa = XCConfigurationList;
@@ -862,7 +864,7 @@
 				1DEB922408733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
