@@ -214,12 +214,12 @@ NSInteger layerSort(id num1, id num2, void *context) {
 		RMMarker *first = (RMMarker *)num1;
 		RMMarker *second = (RMMarker *)num2;
 
-		int my_pos    = first.projectedLocation.northing;
-		int their_pos = second.projectedLocation.northing;
+		double firstPos = first.projectedLocation.northing;
+		double secondPos = second.projectedLocation.northing;
 
-		if (my_pos > their_pos) {
+		if (firstPos > secondPos) {
 			return NSOrderedAscending;
-		} else if (my_pos < their_pos) {
+		} else if (firstPos < secondPos) {
 			return NSOrderedDescending;
 		} else {
 			return NSOrderedSame;
