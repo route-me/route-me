@@ -136,6 +136,7 @@ typedef struct {
 	BOOL _delegateHasAfterMapMove;
 	BOOL _delegateHasBeforeMapZoomByFactor;
 	BOOL _delegateHasAfterMapZoomByFactor;
+	BOOL _delegateHasMapViewRegionDidChange;
 	BOOL _delegateHasBeforeMapRotate;
 	BOOL _delegateHasAfterMapRotate;
 	BOOL _delegateHasDoubleTapOnMap;
