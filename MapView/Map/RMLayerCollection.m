@@ -209,7 +209,7 @@
 }
 
 NSInteger layerSort(id num1, id num2, void *context) {
-	if ([[num1 class] isSubclassOfClass:[RMMarker class]] && [[num2 class] isSubclassOfClass:[RMMarker class]]) {
+	if ([num1 isKindOfClass:[RMMarker class]] && [num2 isKindOfClass:[RMMarker class]]) {
 		// if both are markers, order based on vertical map position
 		RMMarker *first = (RMMarker *)num1;
 		RMMarker *second = (RMMarker *)num2;
@@ -226,9 +226,9 @@ NSInteger layerSort(id num1, id num2, void *context) {
 		}
 	} else {
 		// if something isnt a marker, send to bottom
-		if ([[num1 class] isSubclassOfClass:[RMMarker class]]) {
+		if ([num1 isKindOfClass:[RMMarker class]]) {
 			return NSOrderedDescending;
-		} else if ([[num2 class] isSubclassOfClass:[RMMarker class]]) {
+		} else if ([num2 isKindOfClass:[RMMarker class]]) {
 			return NSOrderedAscending;
 		} else {
 			return NSOrderedSame;
