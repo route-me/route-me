@@ -136,9 +136,7 @@
 @synchronized(sublayers) {
 	[self correctScreenPosition:layer];
 	[sublayers insertObject:layer atIndex:index];
-
-	/// \bug TODO: Fix this.
-	[super addSublayer:layer];	
+	[super insertSublayer:layer atIndex:index];
 }
 }
 
