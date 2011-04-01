@@ -68,6 +68,7 @@
 - (void) setRotationOfAllSublayers:(float) angle;
 //-(void) drawRect: (CGRect)rect;
 //-(CALayer*) layer;
+/// Orders layers in the collection based on their position in the map, prioritizing instances/subclass instances of RMMarker above other layers. This is called automatically in addSublayer.
 - (void)orderLayers;
 
 @end
