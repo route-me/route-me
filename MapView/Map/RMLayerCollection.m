@@ -89,7 +89,6 @@
 	[self correctScreenPosition:layer];
 	[sublayers addObject:layer];
 	[super addSublayer:layer];
-  [self orderLayers];
 }
 }
 
