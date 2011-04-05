@@ -136,6 +136,7 @@ typedef struct {
 	BOOL _delegateHasAfterMapMove;
 	BOOL _delegateHasBeforeMapZoomByFactor;
 	BOOL _delegateHasAfterMapZoomByFactor;
+	BOOL _delegateHasMapViewRegionDidChange;
 	BOOL _delegateHasBeforeMapRotate;
 	BOOL _delegateHasAfterMapRotate;
 	BOOL _delegateHasDoubleTapOnMap;
@@ -185,6 +186,7 @@ typedef struct {
 - (void)moveBy: (CGSize) delta;
 
 -(void)setConstraintsSW:(CLLocationCoordinate2D)sw NE:(CLLocationCoordinate2D)ne;
+- (void)setProjectedContraintsSW:(RMProjectedPoint)sw NE:(RMProjectedPoint)ne;
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint;
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) aPoint animated:(BOOL)animated;

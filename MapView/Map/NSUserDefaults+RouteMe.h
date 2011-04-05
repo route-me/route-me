@@ -1,6 +1,6 @@
 //
-//  RMWMSSource.h
-//
+//  NSUserDefaults+RouteMe.h
+// 
 // Copyright (c) 2008-2011, Route-Me Contributors
 // All rights reserved.
 //
@@ -24,48 +24,28 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
+//
+
+//
+// If you link your Route-Me to your project as a static libary,
+// add to your project's build param Other Linker Flags (OTHER_LDFLAGS) '-all_load' (without quotes).
+//
 
 #import <Foundation/Foundation.h>
+#import "RMFoundation.h"
 
-#import "RMAbstractMercatorWebSource.h"
-#import "RMTile.h"
-#import "RMWMS.h"
+@interface NSUserDefaults (RouteMe) 
 
-/*! 
- \brief Subclass of RMAbstractMercatorWebSource for access to OGC WMS Server.
- 
- Example:
- RMWMS *wms = [[RMWMS alloc] init];
- [wms setUrlPrefix:@"http://vmap0.tiles.osgeo.org/wms/vmap0"];
- [wms setLayers:@"basic"];
- RMWMSSource *wmsSource = [[RMWMSSource alloc] init];
- [wmsSource setWms:wms];
- [mapContents setTileSource:wmsSource];
- [wmsSource release];
- [wms release];
- */
-@interface RMWMSSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
+/// Returns the projected point associated with the specified key.
+- (RMProjectedPoint)projectedPointForKey:(NSString *)key;
 
-    float initialResolution;
-    float originShift;
-    
-    float minZoom;
-    float maxZoom;
-    NSString *name;
-    NSString *uniqueTilecacheKey;
-    
-    RMWMS *wms;
-    
-}
+/// Sets the value of the specified default key to the specified projected point.
+- (void)setProjectedPoint:(RMProjectedPoint)projectedPoint forKey:(NSString *)key;
 
-@property float minZoom;
-@property float maxZoom;
-@property (retain) NSString *name;
-@property (retain) NSString *uniqueTilecacheKey;
-@property (retain) RMWMS *wms;
+/// Returns the projected rectangle associated with the specified key.
+- (RMProjectedRect)projectedRectForKey:(NSString *)key;
 
--(NSString*) bboxForTile: (RMTile) tile;
--(float) resolutionAtZoom : (int) zoom ;
--(CGPoint) pixelsToMetersAtZoom: (int) px PixelY:(int)py atResolution:(float) resolution ;
+/// Sets the value of the specified default key to the specified projected rectangle.
+- (void)setProjectedRect:(RMProjectedRect)projectedRect forKey:(NSString *)key;
 
 @end

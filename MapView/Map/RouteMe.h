@@ -1,6 +1,6 @@
 //
-//  RMWMSSource.h
-//
+// RouteMe.h
+// 
 // Copyright (c) 2008-2011, Route-Me Contributors
 // All rights reserved.
 //
@@ -25,47 +25,20 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import <Foundation/Foundation.h>
+// The list of header files for more convenient Route-Me import to projects.
+// (in alphabetic order)
+
+// P.S. The list isn't full. Need to add missing header files, when required
 
 #import "RMAbstractMercatorWebSource.h"
-#import "RMTile.h"
-#import "RMWMS.h"
+#import "RMCircle.h"
+#import "RMLayerCollection.h"
+#import "RMMapContents.h"
+#import "RMMapView.h"
+#import "RMMarkerManager.h"
+#import "RMPath.h"
+#import "RMProjection.h"
+#import "RMTileLoader.h"
+#import "RMTileSource.h"
 
-/*! 
- \brief Subclass of RMAbstractMercatorWebSource for access to OGC WMS Server.
- 
- Example:
- RMWMS *wms = [[RMWMS alloc] init];
- [wms setUrlPrefix:@"http://vmap0.tiles.osgeo.org/wms/vmap0"];
- [wms setLayers:@"basic"];
- RMWMSSource *wmsSource = [[RMWMSSource alloc] init];
- [wmsSource setWms:wms];
- [mapContents setTileSource:wmsSource];
- [wmsSource release];
- [wms release];
- */
-@interface RMWMSSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
-
-    float initialResolution;
-    float originShift;
-    
-    float minZoom;
-    float maxZoom;
-    NSString *name;
-    NSString *uniqueTilecacheKey;
-    
-    RMWMS *wms;
-    
-}
-
-@property float minZoom;
-@property float maxZoom;
-@property (retain) NSString *name;
-@property (retain) NSString *uniqueTilecacheKey;
-@property (retain) RMWMS *wms;
-
--(NSString*) bboxForTile: (RMTile) tile;
--(float) resolutionAtZoom : (int) zoom ;
--(CGPoint) pixelsToMetersAtZoom: (int) px PixelY:(int)py atResolution:(float) resolution ;
-
-@end
+#import "NSUserDefaults+RouteMe.h"

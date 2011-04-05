@@ -1,6 +1,7 @@
 //
-//  RMWMSSource.h
-//
+//  RMFoundationTests.m
+//  MapView
+// 
 // Copyright (c) 2008-2011, Route-Me Contributors
 // All rights reserved.
 //
@@ -25,47 +26,22 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import <Foundation/Foundation.h>
+#import "RMFoundationTests.h"
 
-#import "RMAbstractMercatorWebSource.h"
-#import "RMTile.h"
-#import "RMWMS.h"
+@implementation RMFoundationTests
 
-/*! 
- \brief Subclass of RMAbstractMercatorWebSource for access to OGC WMS Server.
- 
- Example:
- RMWMS *wms = [[RMWMS alloc] init];
- [wms setUrlPrefix:@"http://vmap0.tiles.osgeo.org/wms/vmap0"];
- [wms setLayers:@"basic"];
- RMWMSSource *wmsSource = [[RMWMSSource alloc] init];
- [wmsSource setWms:wms];
- [mapContents setTileSource:wmsSource];
- [wmsSource release];
- [wms release];
- */
-@interface RMWMSSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
-
-    float initialResolution;
-    float originShift;
-    
-    float minZoom;
-    float maxZoom;
-    NSString *name;
-    NSString *uniqueTilecacheKey;
-    
-    RMWMS *wms;
-    
+- (void)testProjectedRectIntersectsProjectedRect {
+	RMProjectedRect r0022 = RMMakeProjectedRect(0.0, 0.0, 2.0, 2.0);
+	RMProjectedRect r0123 = RMMakeProjectedRect(0.0, 1.0, 2.0, 2.0);
+	RMProjectedRect r0325 = RMMakeProjectedRect(0.0, 3.0, 2.0, 2.0);
+	RMProjectedRect r1032 = RMMakeProjectedRect(1.0, 0.0, 2.0, 2.0);
+	
+	STAssertTrue(RMProjectedRectInterectsProjectedRect(r0123, r1032), nil);
+	STAssertTrue(RMProjectedRectInterectsProjectedRect(r1032, r0123), nil);
+	STAssertFalse(RMProjectedRectInterectsProjectedRect(r0022, r0325), nil);
+	STAssertFalse(RMProjectedRectInterectsProjectedRect(r0325, r0022), nil);
+	STAssertTrue(RMProjectedRectInterectsProjectedRect(r0022, r0123), nil);
+	STAssertTrue(RMProjectedRectInterectsProjectedRect(r0123, r0022), nil);
 }
-
-@property float minZoom;
-@property float maxZoom;
-@property (retain) NSString *name;
-@property (retain) NSString *uniqueTilecacheKey;
-@property (retain) RMWMS *wms;
-
--(NSString*) bboxForTile: (RMTile) tile;
--(float) resolutionAtZoom : (int) zoom ;
--(CGPoint) pixelsToMetersAtZoom: (int) px PixelY:(int)py atResolution:(float) resolution ;
 
 @end

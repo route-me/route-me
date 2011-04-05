@@ -20,7 +20,7 @@ and for ensuring your use adheres to the relevant terms of use.
    [4]: http://www.openaerialmap.org/
    [5]: http://www.opencyclemap.org/
    [6]: http://www.spatialcloud.com/
-   [7]: http://mapbox.com/documentation/mbtiles-file-format
+   [7]: http://mbtiles.org
 
 
 Installing

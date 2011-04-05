@@ -150,7 +150,7 @@
 		B870568D0E67C32200CC2ED1 /* PJ_wink1.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055ED0E67C32200CC2ED1 /* PJ_wink1.c */; };
 		B870568E0E67C32200CC2ED1 /* PJ_wink2.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055EE0E67C32200CC2ED1 /* PJ_wink2.c */; };
 		B870568F0E67C32200CC2ED1 /* pj_zpoly1.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055EF0E67C32200CC2ED1 /* pj_zpoly1.c */; };
-		B87056910E67C32200CC2ED1 /* proj_api.h in Headers */ = {isa = PBXBuildFile; fileRef = B87055F20E67C32200CC2ED1 /* proj_api.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B87056910E67C32200CC2ED1 /* proj_api.h in Headers */ = {isa = PBXBuildFile; fileRef = B87055F20E67C32200CC2ED1 /* proj_api.h */; settings = {ATTRIBUTES = (); }; };
 		B87056920E67C32200CC2ED1 /* proj_config.h in Headers */ = {isa = PBXBuildFile; fileRef = B87055F30E67C32200CC2ED1 /* proj_config.h */; settings = {ATTRIBUTES = (); }; };
 		B87056930E67C32200CC2ED1 /* proj_mdist.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055F50E67C32200CC2ED1 /* proj_mdist.c */; };
 		B87056940E67C32200CC2ED1 /* proj_rouss.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055F60E67C32200CC2ED1 /* proj_rouss.c */; };
@@ -574,12 +574,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B87056020E67C32200CC2ED1 /* emess.h in Headers */,
+				B87056910E67C32200CC2ED1 /* proj_api.h in Headers */,
 				B87056050E67C32200CC2ED1 /* geocent.h in Headers */,
 				B870560A0E67C32200CC2ED1 /* geodesic.h in Headers */,
 				B87056130E67C32200CC2ED1 /* nad_list.h in Headers */,
 				B87056140E67C32200CC2ED1 /* org_proj4_Projections.h in Headers */,
 				B87056520E67C32200CC2ED1 /* pj_list.h in Headers */,
-				B87056910E67C32200CC2ED1 /* proj_api.h in Headers */,
 				B87056920E67C32200CC2ED1 /* proj_config.h in Headers */,
 				B87056950E67C32200CC2ED1 /* projects.h in Headers */,
 			);
@@ -612,7 +612,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Proj4" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* Proj4 */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -781,7 +785,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -790,9 +793,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Proj4_Prefix.pch;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				INSTALL_PATH = /usr/local/lib;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Proj4;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -800,14 +802,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Proj4_Prefix.pch;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = Proj4;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -815,16 +816,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_STRICT_ALIASING = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -837,8 +838,10 @@
 				GCC_STRICT_ALIASING = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -852,7 +855,7 @@
 				1DEB922008733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Proj4" */ = {
 			isa = XCConfigurationList;
@@ -861,7 +864,7 @@
 				1DEB922408733DC00010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

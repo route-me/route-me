@@ -28,6 +28,7 @@
 #import "RMLayerCollection.h"
 #import "RMMapContents.h"
 #import "RMMercatorToScreenProjection.h"
+#import "RMMarker.h"
 
 @implementation RMLayerCollection
 
@@ -135,9 +136,7 @@
 @synchronized(sublayers) {
 	[self correctScreenPosition:layer];
 	[sublayers insertObject:layer atIndex:index];
-
-	/// \bug TODO: Fix this.
-	[super addSublayer:layer];	
+	[super insertSublayer:layer atIndex:index];
 }
 }
 
@@ -204,6 +203,38 @@
 			}
 		}
 	}
+}
+
+NSInteger layerSort(id num1, id num2, void *context) {
+	if ([num1 isKindOfClass:[RMMarker class]] && [num2 isKindOfClass:[RMMarker class]]) {
+		// if both are markers, order based on vertical map position
+		RMMarker *first = (RMMarker *)num1;
+		RMMarker *second = (RMMarker *)num2;
+
+		double firstPos = first.projectedLocation.northing;
+		double secondPos = second.projectedLocation.northing;
+
+		if (firstPos > secondPos) {
+			return NSOrderedAscending;
+		} else if (firstPos < secondPos) {
+			return NSOrderedDescending;
+		} else {
+			return NSOrderedSame;
+		}
+	} else {
+		// if something isnt a marker, send to bottom
+		if ([num1 isKindOfClass:[RMMarker class]]) {
+			return NSOrderedDescending;
+		} else if ([num2 isKindOfClass:[RMMarker class]]) {
+			return NSOrderedAscending;
+		} else {
+			return NSOrderedSame;
+		}
+	}
+}
+
+- (void)orderLayers {
+	self.sublayers = [self.sublayers sortedArrayUsingFunction:layerSort context:NULL];
 }
 
 @end
