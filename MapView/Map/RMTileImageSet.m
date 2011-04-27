@@ -456,76 +456,52 @@
 
 -(void) removeTilesOutsideOf: (RMTileRect)rect
 {
-	uint32_t minX, maxX, minY, maxY, span;
+	uint32_t minx, maxx, miny, maxy;
+	float min;
 	short currentZoom = rect.origin.tile.zoom;
-	RMTile wrappedTile;
-	id<RMMercatorToTileProjection> proj = [tileSource mercatorToTileProjection];
-
-	rect = RMTileRectRound(rect);
-	minX = rect.origin.tile.x;
-	span = rect.size.width > 1.0f ? (uint32_t)rect.size.width - 1 : 0;
-	maxX = rect.origin.tile.x + span;
-	minY = rect.origin.tile.y;
-	span = rect.size.height > 1.0f ? (uint32_t)rect.size.height - 1 : 0;
-	maxY = rect.origin.tile.y + span;
-
-	wrappedTile.x = maxX;
-	wrappedTile.y = maxY;
-	wrappedTile.zoom = rect.origin.tile.zoom;
-	wrappedTile = [proj normaliseTile:wrappedTile];
-	if (!RMTileIsDummy(wrappedTile))
-	{
-		maxX = wrappedTile.x;
-	}
-
+	
+	min = rect.origin.tile.x + rect.origin.offset.x;
+	minx = floorf(min);
+	maxx = floorf(min + rect.size.width);
+	min = rect.origin.tile.y + rect.origin.offset.y;
+	miny = floorf(min);
+	maxy = floorf(min + rect.size.height);
+	
 	for(RMTileImage *img in [images allObjects])
 	{
 		RMTile tile = img.tile;
 		short tileZoom = tile.zoom;
-		uint32_t x, y, zoomedMinX, zoomedMaxX, zoomedMinY, zoomedMaxY;
-
+		uint32_t x, y;
+		int dz, imgDz, rectDz;
+		
+		/*
+		 if (tileZoom > currentZoom) {
+		 [self removeTile:tile];
+		 continue;
+		 }
+		 */
+		
 		x = tile.x;
 		y = tile.y;
-		zoomedMinX = minX;
-		zoomedMaxX = maxX;
-		zoomedMinY = minY;
-		zoomedMaxY = maxY;
-
-		if (tileZoom < currentZoom)
+		dz = tileZoom - currentZoom;
+		if(dz < 0)
 		{
 			// Tile is too large for current zoom level
-			unsigned int dz = currentZoom - tileZoom;
-
-			zoomedMinX >>= dz;
-			zoomedMaxX >>= dz;
-			zoomedMinY >>= dz;
-			zoomedMaxY >>= dz;
+			imgDz = 0;
+			rectDz = -dz;
 		}
 		else
 		{
 			// Tile is too small & detailed for current zoom level
-			unsigned int dz = tileZoom - currentZoom;
-
-			x >>= dz;
-			y >>= dz;
+			imgDz = dz;
+			rectDz = 0;
 		}
-
-		if (y >= zoomedMinY && y <= zoomedMaxY)
-		{
-			if (zoomedMinX <= zoomedMinY)
-			{
-				if (x >= zoomedMinX && x <= zoomedMaxX)
-					continue;
-			}
-			else
-			{
-				if (x >= zoomedMinX || x <= zoomedMaxX)
-					continue;
-			}
-
+		if(
+		   x >> imgDz > maxx >> rectDz || x >> imgDz < minx >> rectDz ||
+		   y >> imgDz > maxy >> rectDz || y >> imgDz < miny >> rectDz
+		   ) {
+			[self removeTile:tile];
 		}
-		// if haven't continued, tile is outside of rect
-		[self removeTile:tile];
 	}
 }
 
