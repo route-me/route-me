@@ -48,7 +48,7 @@
 	if (![super init])
 		return nil;
 	
-	contents = aContents;
+	mapContents = aContents;
 
 	path = CGPathCreateMutable();
 	
@@ -100,7 +100,7 @@
 
 - (void) recalculateGeometry
 {
-	RMMercatorToScreenProjection *projection = [contents mercatorToScreenProjection];
+	RMMercatorToScreenProjection *projection = [mapContents mercatorToScreenProjection];
 	float scale = [projection metersPerPixel];
 	float scaledLineWidth;
 	CGPoint myPosition;
@@ -112,7 +112,7 @@
 	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
 	scaledLineWidth = lineWidth;
 	if(!scaleLineWidth) {
-		renderedScale = [contents metersPerPixel];
+		renderedScale = [mapContents metersPerPixel];
 		scaledLineWidth *= renderedScale;
 	}
 	
@@ -125,7 +125,7 @@
 	// Clip bound rect to screen bounds.
 	// If bounds are not clipped, they won't display when you zoom in too much.
 	myPosition = [projection projectXYPoint: projectedLocation];
-	screenBounds = [contents screenBounds];
+	screenBounds = [mapContents screenBounds];
 	
 	// Clip top
 	offset = myPosition.y + pixelBounds.origin.y - screenBounds.origin.y + outset;
@@ -169,7 +169,7 @@
 		isFirstPoint = FALSE;
 		projectedLocation = point;
 
-		self.position = [[contents mercatorToScreenProjection] projectXYPoint: projectedLocation];
+		self.position = [[mapContents mercatorToScreenProjection] projectXYPoint: projectedLocation];
 		//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
 		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
 	}
@@ -197,14 +197,14 @@
 
 - (void) moveToScreenPoint: (CGPoint) point
 {
-	RMProjectedPoint mercator = [[contents mercatorToScreenProjection] projectScreenPointToXY: point];
+	RMProjectedPoint mercator = [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point];
 	
 	[self moveToXY: mercator];
 }
 
 - (void) moveToLatLong: (RMLatLong) point
 {
-	RMProjectedPoint mercator = [[contents projection] latLongToPoint:point];
+	RMProjectedPoint mercator = [[mapContents projection] latLongToPoint:point];
 	
 	[self moveToXY:mercator];
 }
@@ -216,24 +216,24 @@
 
 - (void) addLineToScreenPoint: (CGPoint) point
 {
-	RMProjectedPoint mercator = [[contents mercatorToScreenProjection] projectScreenPointToXY: point];
+	RMProjectedPoint mercator = [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point];
 	
 	[self addLineToXY: mercator];
 }
 
 - (void) addLineToLatLong: (RMLatLong) point
 {
-	RMProjectedPoint mercator = [[contents projection] latLongToPoint:point];
+	RMProjectedPoint mercator = [[mapContents projection] latLongToPoint:point];
 	
 	[self addLineToXY:mercator];
 }
 
 - (void)drawInContext:(CGContextRef)theContext
 {
-	renderedScale = [contents metersPerPixel];
+	renderedScale = [mapContents metersPerPixel];
     CGFloat *dashLengths = _lineDashLengths;
 	
-	float scale = 1.0f / [contents metersPerPixel];
+	float scale = 1.0f / [mapContents metersPerPixel];
 	
 	float scaledLineWidth = lineWidth;
 	if(!scaleLineWidth) {

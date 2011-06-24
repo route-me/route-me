@@ -78,7 +78,7 @@
 	BOOL enableRotation;
 	
 	float renderedScale;
-	RMMapContents *contents;
+	RMMapContents *mapContents;
 }
 
 
