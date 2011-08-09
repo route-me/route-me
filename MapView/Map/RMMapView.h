@@ -44,11 +44,10 @@ is hosted on Google Code (http://code.google.com/p/route-me/).
  In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2009 Route-Me Contributors". 
  
 \section install_sec Installation
- 
-Because Route-Me is under rapid development as of early 2009, the best way to install Route-Me is use
-Subversion and check out a copy of the repository:
+
+As Route-Me is undergoing some significant changes, the recommended course of action is to clone a copy of the repository: 
 \verbatim
-svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
+git clone git://github.com/route-me/route-me.git
 \endverbatim
 
  There are numerous sample applications in the Subversion repository.
