@@ -41,7 +41,7 @@ is hosted on Google Code (http://code.google.com/p/route-me/).
  \section license_sec License
  Route-Me is licensed under the New BSD license.
  
- In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2009 Route-Me Contributors". 
+ In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2011 Route-Me Contributors". 
  
 \section install_sec Installation
 
