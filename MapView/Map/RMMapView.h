@@ -34,7 +34,7 @@ Route-Me is an open source Objective-C framework for displaying maps on Cocoa To
 routing app. The transit app was not completed, because the government agencies involved chose not to release
 the necessary data under reasonable licensing terms. The project was released as open source under the New BSD license (http://www.opensource.org/licenses/bsd-license.php) 
 in September, 2008, and
-is hosted on Google Code (http://code.google.com/p/route-me/).
+is hosted on github (https://github.com/route-me/route-me).
 
  Route-Me provides a UIView subclass with a panning, zooming map. Zoom level, source of map data, map center,
  marker overlays, and path overlays are all supported.
