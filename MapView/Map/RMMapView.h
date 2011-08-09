@@ -76,7 +76,7 @@ git clone git://github.com/route-me/route-me.git
  
  \section news_sec Project News and Updates
  For the most current information on Route-Me, see these sources:
- - wiki: http://code.google.com/p/route-me/w/list
+ - wiki: https://github.com/route-me/route-me/wiki
  - project email reflector: http://groups.google.com/group/route-me-map
  - list of all project RSS feeds: http://code.google.com/p/route-me/feeds
  - applications using Route-Me: http://code.google.com/p/route-me/wiki/RoutemeApplications
