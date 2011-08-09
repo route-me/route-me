@@ -50,12 +50,9 @@ As Route-Me is undergoing some significant changes, the recommended course of ac
 git clone git://github.com/route-me/route-me.git
 \endverbatim
 
- There are numerous sample applications in the Subversion repository.
- 
- To embed Route-Me maps in your Xcode project, follow the example given in samples/SampleMap or samples/ProgrammaticMap. The instructions in 
- the Embedding Guide at 
- http://code.google.com/p/route-me/wiki/EmbeddingGuide are out of date as of April 20, 2009. To create a static version of Route-Me, follow these 
- instructions instead: http://code.google.com/p/route-me/source/browse/trunk/MapView/README-library-build.rtf
+ There are three subdirectories - MapView, Proj4, and samples. Proj4 is a support class used to do map projections. The MapView project contains only the route-me map library. "samples" contains some ready-to-build projects which you may use as starting points for your own applications, and also some engineering test cases. samples/SampleMap and samples/ProgrammaticMap are the best places to look, to see how to embed a Route-Me map in your application.
+
+ Also see https://github.com/route-me/route-me/wiki/Embedding-Guide
  
 \section maps_sec Map Data
  
