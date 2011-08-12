@@ -676,6 +676,12 @@
 	[self delayedResumeExpensiveOperations];
 }
 
+// first responder needed to use UIMenuController
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 #pragma mark Deceleration
 
 - (void)startDecelerationWithDelta:(CGSize)delta {
