@@ -34,29 +34,25 @@ Route-Me is an open source Objective-C framework for displaying maps on Cocoa To
 routing app. The transit app was not completed, because the government agencies involved chose not to release
 the necessary data under reasonable licensing terms. The project was released as open source under the New BSD license (http://www.opensource.org/licenses/bsd-license.php) 
 in September, 2008, and
-is hosted on Google Code (http://code.google.com/p/route-me/).
+is hosted on github (https://github.com/route-me/route-me).
 
  Route-Me provides a UIView subclass with a panning, zooming map. Zoom level, source of map data, map center,
  marker overlays, and path overlays are all supported.
  \section license_sec License
  Route-Me is licensed under the New BSD license.
  
- In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2009 Route-Me Contributors". 
+ In any app that uses the Route-Me library, include the following text on your "preferences" or "about" screen: "Uses Route-Me map library, (c) 2008-2011 Route-Me Contributors". 
  
 \section install_sec Installation
- 
-Because Route-Me is under rapid development as of early 2009, the best way to install Route-Me is use
-Subversion and check out a copy of the repository:
+
+As Route-Me is undergoing some significant changes, the recommended course of action is to clone a copy of the repository: 
 \verbatim
-svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
+git clone git://github.com/route-me/route-me.git
 \endverbatim
 
- There are numerous sample applications in the Subversion repository.
- 
- To embed Route-Me maps in your Xcode project, follow the example given in samples/SampleMap or samples/ProgrammaticMap. The instructions in 
- the Embedding Guide at 
- http://code.google.com/p/route-me/wiki/EmbeddingGuide are out of date as of April 20, 2009. To create a static version of Route-Me, follow these 
- instructions instead: http://code.google.com/p/route-me/source/browse/trunk/MapView/README-library-build.rtf
+ There are three subdirectories - MapView, Proj4, and samples. Proj4 is a support class used to do map projections. The MapView project contains only the route-me map library. "samples" contains some ready-to-build projects which you may use as starting points for your own applications, and also some engineering test cases. samples/SampleMap and samples/ProgrammaticMap are the best places to look, to see how to embed a Route-Me map in your application.
+
+ Also see https://github.com/route-me/route-me/wiki/Embedding-Guide
  
 \section maps_sec Map Data
  
@@ -80,7 +76,7 @@ svn checkout http://route-me.googlecode.com/svn/trunk/ route-me-read-only
  
  \section news_sec Project News and Updates
  For the most current information on Route-Me, see these sources:
- - wiki: http://code.google.com/p/route-me/w/list
+ - wiki: https://github.com/route-me/route-me/wiki
  - project email reflector: http://groups.google.com/group/route-me-map
  - list of all project RSS feeds: http://code.google.com/p/route-me/feeds
  - applications using Route-Me: http://code.google.com/p/route-me/wiki/RoutemeApplications
