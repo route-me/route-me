@@ -36,9 +36,8 @@
 #import "RMTileImage.h"
 #import "RMProjection.h"
 #import "RMFractalTileProjection.h"
-#import "FMDatabase.h"
 
-#pragma mark -
+#import "FMDatabase.h"
 
 @implementation RMMBTilesTileSource
 
@@ -184,7 +183,70 @@
 
 - (RMSphericalTrapezium)latitudeLongitudeBoundingBox
 {
+    FMResultSet *results = [db executeQuery:@"select value from metadata where name = 'bounds'"];
+    
+    if ([db hadError])
+        return kMBTilesDefaultLatLonBoundingBox;
+    
+    [results next];
+    
+    NSString *boundsString = [results stringForColumnIndex:0];
+    
+    [results close];
+    
+    if (boundsString)
+    {
+        NSArray *parts = [boundsString componentsSeparatedByString:@","];
+        
+        if ([parts count] == 4)
+        {
+            RMSphericalTrapezium bounds = {
+                .southwest = {
+                    .longitude = [[parts objectAtIndex:0] doubleValue],
+                    .latitude  = [[parts objectAtIndex:1] doubleValue],
+                },
+                .northeast = {
+                    .longitude = [[parts objectAtIndex:2] doubleValue],
+                    .latitude  = [[parts objectAtIndex:3] doubleValue],
+                },
+            };
+            
+            return bounds;
+        }
+    }
+    
     return kMBTilesDefaultLatLonBoundingBox;
+}
+
+- (BOOL)coversFullWorld
+{
+    RMSphericalTrapezium ownBounds     = [self latitudeLongitudeBoundingBox];
+    RMSphericalTrapezium defaultBounds = kMBTilesDefaultLatLonBoundingBox;
+    
+    if (ownBounds.southwest.longitude <= defaultBounds.southwest.longitude + 10 && 
+        ownBounds.northeast.longitude >= defaultBounds.northeast.longitude - 10)
+        return YES;
+    
+    return NO;
+}
+
+- (RMMBTilesLayerType)layerType
+{
+    FMResultSet *results = [db executeQuery:@"select value from metadata where name = 'type'"];
+    
+    if ([db hadError])
+        return RMMBTilesLayerTypeBaselayer;
+    
+    [results next];
+    
+    NSString *type = nil;
+    
+    if ([results hasAnotherRow])
+        type = [results stringForColumn:@"value"];
+    
+    [results close];
+    
+    return ([type isEqualToString:@"overlay"] ? RMMBTilesLayerTypeOverlay : RMMBTilesLayerTypeBaselayer);
 }
 
 - (void)didReceiveMemoryWarning

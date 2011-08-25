@@ -31,7 +31,9 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  http://mapbox.com/documentation/mbtiles-file-format
+//  http://mbtiles.org
+//
+//  Example usage at https://github.com/mapbox/mbtiles-ios-example
 //
 
 #import <Foundation/Foundation.h>
@@ -42,9 +44,14 @@
 
 #define kMBTilesDefaultTileSize 256
 #define kMBTilesDefaultMinTileZoom 0
-#define kMBTilesDefaultMaxTileZoom 18
-#define kMBTilesDefaultLatLonBoundingBox ((RMSphericalTrapezium){ .northeast = { .latitude =  90, .longitude =  180 }, \
-                                                                  .southwest = { .latitude = -90, .longitude = -180 } })
+#define kMBTilesDefaultMaxTileZoom 22
+#define kMBTilesDefaultLatLonBoundingBox ((RMSphericalTrapezium){ .northeast = { .latitude =  85, .longitude =  180 }, \
+                                                                  .southwest = { .latitude = -85, .longitude = -180 } })
+
+typedef enum {
+    RMMBTilesLayerTypeBaselayer = 0,
+    RMMBTilesLayerTypeOverlay   = 1,
+} RMMBTilesLayerType;
 
 @interface RMMBTilesTileSource : NSObject <RMTileSource>
 {
@@ -66,6 +73,8 @@
 - (void)setMinZoom:(NSUInteger)aMinZoom;
 - (void)setMaxZoom:(NSUInteger)aMaxZoom;
 - (RMSphericalTrapezium)latitudeLongitudeBoundingBox;
+- (BOOL)coversFullWorld;
+- (RMMBTilesLayerType)layerType;
 - (void)didReceiveMemoryWarning;
 - (NSString *)uniqueTilecacheKey;
 - (NSString *)shortName;
