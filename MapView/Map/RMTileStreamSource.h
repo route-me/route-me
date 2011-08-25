@@ -32,6 +32,28 @@
 //
 //  http://mapbox.com/tilestream
 //
+//  This class supports both the paid, hosted version of TileStream, as well as the 
+//  open source, self-hosted version. 
+//
+//  When initializing an instance, pass in an info dictionary comprised of the 
+//  following keys. Unless otherwise specified, keys & values are exactly as 
+//  returned by the TileStream REST API.
+//
+//  Example: http://tiles.mapbox.com/mapbox/api/v1/Tileset/geography-class
+//
+//  Required info dictionary keys:
+//
+//    `name`
+//    `id`
+//    `version`
+//    `description`
+//    `attribution`
+//    `type`
+//    `minzoom`
+//    `maxzoom`
+//    `bounds`
+//    `tileURL` (choose a single value from `tiles` as returned by the API)
+//
 
 #import "RMAbstractMercatorWebSource.h"
 
