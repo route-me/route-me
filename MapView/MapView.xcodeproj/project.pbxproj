@@ -210,6 +210,8 @@
 		DD55FD1612FB40E000B6FE24 /* RMMBTilesTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD55FD1212FB40E000B6FE24 /* RMMBTilesTileSource.m */; };
 		DDA3E85613B00D9E004D861C /* RMMapQuestOSMSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DDA3E85413B00D9E004D861C /* RMMapQuestOSMSource.h */; };
 		DDA3E85713B00D9E004D861C /* RMMapQuestOSMSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E85513B00D9E004D861C /* RMMapQuestOSMSource.m */; };
+		DDCD58D31406F8A400F59E0D /* RMTileStreamSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DDCD58D11406F8A300F59E0D /* RMTileStreamSource.h */; };
+		DDCD58D41406F8A400F59E0D /* RMTileStreamSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCD58D21406F8A300F59E0D /* RMTileStreamSource.m */; };
 		F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */; };
 		F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */; };
 /* End PBXBuildFile section */
@@ -401,6 +403,8 @@
 		DD55FD1312FB40E000B6FE24 /* RMMBTilesTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMBTilesTileSource.h; sourceTree = "<group>"; };
 		DDA3E85413B00D9E004D861C /* RMMapQuestOSMSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapQuestOSMSource.h; sourceTree = "<group>"; };
 		DDA3E85513B00D9E004D861C /* RMMapQuestOSMSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapQuestOSMSource.m; sourceTree = "<group>"; };
+		DDCD58D11406F8A300F59E0D /* RMTileStreamSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileStreamSource.h; sourceTree = "<group>"; };
+		DDCD58D21406F8A300F59E0D /* RMTileStreamSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileStreamSource.m; sourceTree = "<group>"; };
 		F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGeoHash.h; sourceTree = "<group>"; };
 		F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGeoHash.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -700,6 +704,8 @@
 				447420D91302B2F5004D6E8A /* RMWMSSource.m */,
 				DDA3E85413B00D9E004D861C /* RMMapQuestOSMSource.h */,
 				DDA3E85513B00D9E004D861C /* RMMapQuestOSMSource.m */,
+				DDCD58D11406F8A300F59E0D /* RMTileStreamSource.h */,
+				DDCD58D21406F8A300F59E0D /* RMTileStreamSource.m */,
 			);
 			name = "Tile Source";
 			sourceTree = "<group>";
@@ -891,6 +897,7 @@
 				17F02BB11319BA4B00260C6B /* RouteMe.h in Headers */,
 				175701DE1323C2E900A5D314 /* NSUserDefaults+RouteMe.h in Headers */,
 				DDA3E85613B00D9E004D861C /* RMMapQuestOSMSource.h in Headers */,
+				DDCD58D31406F8A400F59E0D /* RMTileStreamSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,6 +1200,7 @@
 				4474211C1302B60A004D6E8A /* RMWMS.m in Sources */,
 				175701DF1323C2E900A5D314 /* NSUserDefaults+RouteMe.m in Sources */,
 				DDA3E85713B00D9E004D861C /* RMMapQuestOSMSource.m in Sources */,
+				DDCD58D41406F8A400F59E0D /* RMTileStreamSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
