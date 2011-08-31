@@ -49,6 +49,14 @@ bool RMProjectedRectInterectsProjectedRect(RMProjectedRect rect1, RMProjectedRec
 	
 }
 
+bool RMProjectedSizeEqualToProjectedSize(RMProjectedSize size1, RMProjectedSize size2) {
+    return ((size1.width == size2.width) && (size1.height == size2.height));
+}
+
+bool RMProjectedRectEqualToProjectedRect(RMProjectedRect rect1, RMProjectedRect rect2) {
+    return (RMProjectedPointEqualToProjectedPoint(rect1.origin, rect2.origin) && RMProjectedSizeEqualToProjectedSize(rect1.size, rect2.size));
+}
+
 RMProjectedPoint RMScaleProjectedPointAboutPoint(RMProjectedPoint point, float factor, RMProjectedPoint pivot)
 {
 	point.easting = (point.easting - pivot.easting) * factor + pivot.easting;
@@ -88,6 +96,13 @@ RMProjectedPoint  RMMakeProjectedPoint (double easting, double northing)
 	return point;
 }
 
+RMProjectedSize RMMakeProjectedSize(double width, double height) {
+    RMProjectedSize size = {
+        width, height
+    };
+    return size;
+}
+
 RMProjectedRect  RMMakeProjectedRect (double easting, double northing, double width, double height)
 {
 	RMProjectedRect rect = {
@@ -97,3 +112,14 @@ RMProjectedRect  RMMakeProjectedRect (double easting, double northing, double wi
 	
 	return rect;
 }
+
+double RMProjectedRectGetMidEasting(RMProjectedRect rect) {
+    return (rect.origin.easting + rect.size.width / 2);
+}
+
+double RMProjectedRectGetMidNorthing(RMProjectedRect rect){
+    return (rect.origin.northing + rect.size.height / 2);
+}
+
+
+
