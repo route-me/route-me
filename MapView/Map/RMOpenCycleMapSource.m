@@ -33,7 +33,7 @@
 {       
 	if(self = [super init]) 
 	{
-		[self setMaxZoom:15];
+		[self setMaxZoom:18];
 		[self setMinZoom:1];
 	}
 	return self;
@@ -44,7 +44,7 @@
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
 			  self, tile.zoom, self.minZoom, self.maxZoom);
-	return [NSString stringWithFormat:@"http://andy.sandbox.cloudmade.com/tiles/cycle/%d/%d/%d.png", tile.zoom, tile.x, tile.y];
+	return [NSString stringWithFormat:@"http://tile.opencyclemap.org/cycle/%d/%d/%d.png", tile.zoom, tile.x, tile.y];
 }
 
 -(NSString*) uniqueTilecacheKey
@@ -54,11 +54,11 @@
 
 -(NSString *)shortName
 {
-	return @"Open Cycle Map";
+	return @"OpenCycleMap";
 }
 -(NSString *)longDescription
 {
-	return @"Open Cycle Map, the free wiki world map, provides freely usable map data for all parts of the world, under the Creative Commons Attribution-Share Alike 2.0 license.";
+	return @"OpenCycleMap, a worldwide map for cyclists based on OpenStreetMap data, available under the Creative Commons Attribution-Share Alike 2.0 license.";
 }
 -(NSString *)shortAttribution
 {
