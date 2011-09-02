@@ -48,7 +48,11 @@ typedef struct {
 
 /// \brief The function checks whether two passed projected points are equal.
 bool RMProjectedPointEqualToProjectedPoint(RMProjectedPoint point1, RMProjectedPoint point2);
-/// \brief The function returs true, if passed rects intersect each other.
+/// \brief The fuction returns true if the passed sizes are equal 
+bool RMProjectedSizeEqualToProjectedSize(RMProjectedSize size1, RMProjectedSize size2);
+/// \brief The fuction returns true if the passed rects are equal 
+bool RMProjectedRectEqualToProjectedRect(RMProjectedRect rect1, RMProjectedRect rect2);
+/// \brief The function returns true if passed rects intersect each other.
 bool RMProjectedRectInterectsProjectedRect(RMProjectedRect rect1, RMProjectedRect rect2);
 
 RMProjectedPoint RMScaleProjectedPointAboutPoint (RMProjectedPoint point, float factor, RMProjectedPoint pivot);
@@ -56,6 +60,12 @@ RMProjectedRect  RMScaleProjectedRectAboutPoint(RMProjectedRect rect,   float fa
 RMProjectedPoint RMTranslateProjectedPointBy (RMProjectedPoint point, RMProjectedSize delta);
 RMProjectedRect  RMTranslateProjectedRectBy (RMProjectedRect rect,   RMProjectedSize delta);
 
-RMProjectedPoint  RMMakeProjectedPoint (double easting, double northing);
-RMProjectedRect  RMMakeProjectedRect (double easting, double northing, double width, double height);
+RMProjectedPoint RMMakeProjectedPoint (double easting, double northing);
+RMProjectedSize RMMakeProjectedSize(double width, double height); 
+RMProjectedRect RMMakeProjectedRect (double easting, double northing, double width, double height);
 
+/// \brief The function returns the midpoint easting of the given rect.
+double RMProjectedRectGetMidEasting(RMProjectedRect rect);
+
+/// \brief The function returns the midpoint northing of the given rect.
+double RMProjectedRectGetMidNorthing(RMProjectedRect rect);
