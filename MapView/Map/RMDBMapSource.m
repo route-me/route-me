@@ -124,7 +124,7 @@
 			topLeft.latitude = [self getPreferenceAsFloat:kCoverageTopLeftLatitudeKey];
 			topLeft.longitude = [self getPreferenceAsFloat:kCoverageTopLeftLongitudeKey];
 			bottomRight.latitude = [self getPreferenceAsFloat:kCoverageBottomRightLatitudeKey];
-			bottomRight.longitude = [self getPreferenceAsFloat:kCoverageBottomRightLatitudeKey];
+			bottomRight.longitude = [self getPreferenceAsFloat:kCoverageBottomRightLongitudeKey];
 			center.latitude = [self getPreferenceAsFloat:kCoverageCenterLatitudeKey];
 			center.longitude = [self getPreferenceAsFloat:kCoverageCenterLongitudeKey];
 			
