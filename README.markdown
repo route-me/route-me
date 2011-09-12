@@ -6,9 +6,9 @@ to look and feel much like the inbuilt iOS map library, but it's entirely open,
 and works with any map source.
 
 Currently, [OpenStreetMap][1], [Microsoft VirtualEarth][2], [CloudMade][3],
-[OpenAerialMap][4], [OpenCycleMap][5], [SpatialCloud][6], and two offline,
-database-backed formats (DBMap and [MBTiles][7]) are supported as map
-sources.
+[OpenAerialMap][4], [OpenCycleMap][5], [SpatialCloud][6], TileStream[7], and two
+offline-capable, database-backed formats (DBMap and [MBTiles][8]) are supported
+as map sources.
 
 Please note that you are responsible for getting permission to use the map data,
 and for ensuring your use adheres to the relevant terms of use.
@@ -20,7 +20,8 @@ and for ensuring your use adheres to the relevant terms of use.
    [4]: http://www.openaerialmap.org/
    [5]: http://www.opencyclemap.org/
    [6]: http://www.spatialcloud.com/
-   [7]: http://mbtiles.org
+   [7]: http://mapbox.com/tilestream
+   [8]: http://mbtiles.org/
 
 
 Installing
