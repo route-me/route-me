@@ -40,6 +40,8 @@
 @synthesize enableRotation;
 @synthesize lineDashPhase;
 @synthesize scaleLineDash;
+@synthesize shadowBlur;
+@synthesize shadowOffset;
 
 #define kDefaultLineWidth 2
 
@@ -59,14 +61,16 @@
 	lineColor = [UIColor blackColor];
 	fillColor = [UIColor redColor];
 	_lineDashCount = 0;
-    _lineDashLengths = NULL;
-    _scaledLineDashLengths = NULL;
-    lineDashPhase = 0.0;
+	_lineDashLengths = NULL;
+	_scaledLineDashLengths = NULL;
+	lineDashPhase = 0.0;
+	shadowBlur = 0.0;
+	shadowOffset = CGSizeMake(0, 0);
     
 	self.masksToBounds = YES;
 	
 	scaleLineWidth = NO;
-    scaleLineDash = NO;
+	scaleLineDash = NO;
 	enableDragging = YES;
 	enableRotation = YES;
 	isFirstPoint = YES;
@@ -258,9 +262,10 @@
 	CGContextSetLineJoin(theContext, lineJoin);	
 	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
 	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
-    if(_lineDashLengths){
-        CGContextSetLineDash(theContext, lineDashPhase, dashLengths, _lineDashCount);
-    }
+	if(_lineDashLengths){
+	  CGContextSetLineDash(theContext, lineDashPhase, dashLengths, _lineDashCount);
+	}
+	CGContextSetShadow(theContext, shadowOffset, shadowBlur);
 	
 	// according to Apple's documentation, DrawPath closes the path if it's a filled style, so a call to ClosePath isn't necessary
 	CGContextDrawPath(theContext, drawingMode);
