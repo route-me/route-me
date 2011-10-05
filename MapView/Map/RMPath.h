@@ -64,16 +64,19 @@
 	//Line cap and join styles
 	CGLineCap lineCap;
 	CGLineJoin lineJoin;
-    //Line dash style
+	//Line dash style
 	CGFloat *_lineDashLengths;
-    CGFloat *_scaledLineDashLengths;
-    size_t _lineDashCount;
-    CGFloat lineDashPhase;
-    
+	CGFloat *_scaledLineDashLengths;
+	size_t _lineDashCount;
+	CGFloat lineDashPhase;
+	// Line shadow
+	CGFloat shadowBlur;
+	CGSize shadowOffset;
+
 	BOOL scaleLineWidth;
-    /*! if YES line dashes will be scaled to keep a constant size if the layer is zoomed
-     */
-    BOOL scaleLineDash;
+	/*! if YES line dashes will be scaled to keep a constant size if the layer is zoomed
+	*/
+	BOOL scaleLineDash;
 	BOOL enableDragging;
 	BOOL enableRotation;
 	
@@ -93,6 +96,8 @@
 @property BOOL scaleLineDash;
 @property float lineWidth;
 @property BOOL	scaleLineWidth;
+@property CGFloat shadowBlur;
+@property CGSize shadowOffset;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
