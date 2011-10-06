@@ -30,8 +30,7 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  http://mapbox.com/hosting/
-//  http://mapbox.com/hosting/hosting-api/
+//  http://mapbox.com/hosting/api/
 //
 //  Example usage at https://github.com/mapbox/tilestream-ios-example
 //
