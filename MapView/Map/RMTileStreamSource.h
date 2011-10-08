@@ -30,7 +30,9 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  http://mapbox.com/tilestream
+//  http://mapbox.com/hosting/api/
+//
+//  Example usage at https://github.com/mapbox/tilestream-ios-example
 //
 //  This class supports both the paid, hosted version of TileStream, as well as the 
 //  open source, self-hosted version. 
