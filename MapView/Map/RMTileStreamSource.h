@@ -58,6 +58,7 @@
 //
 
 #import "RMAbstractMercatorWebSource.h"
+#import "RMCachedTileSource.h"
 
 #define kTileStreamDefaultTileSize 256
 #define kTileStreamDefaultMinTileZoom 0
@@ -77,9 +78,18 @@ typedef enum {
 
 - (id)initWithInfo:(NSDictionary *)info;
 - (id)initWithReferenceURL:(NSURL *)referenceURL;
+- (NSString *)legend;
 - (RMTileStreamLayerType)layerType;
 - (BOOL)coversFullWorld;
 
 @property (nonatomic, readonly, retain) NSDictionary *infoDictionary;
+
+@end
+
+#pragma mark -
+
+@interface RMCachedTileSource (RMTileStreamSourceExtensions)
+
+- (NSString *)legend;
 
 @end

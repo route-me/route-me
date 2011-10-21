@@ -33,7 +33,7 @@
 
 #import "RMTileStreamSource.h"
 
-@interface RMTileStreamSource (RMTileStreamSourcePrivate)
+@interface RMTileStreamSource ()
 
 @property (nonatomic, retain) NSDictionary *infoDictionary;
 
@@ -154,9 +154,28 @@
 	return [self shortAttribution];
 }
 
+- (NSString *)legend
+{
+    return [self.infoDictionary objectForKey:@"legend"];
+}
+
 - (RMTileStreamLayerType)layerType
 {
     return ([[self.infoDictionary objectForKey:@"type"] isEqualToString:@"overlay"] ? RMTileStreamLayerTypeOverlay : RMTileStreamLayerTypeBaselayer);
+}
+
+@end
+
+#pragma mark -
+
+@implementation RMCachedTileSource (RMTileStreamSourceExtensions)
+
+- (NSString *)legend
+{
+    if ([tileSource isKindOfClass:[RMTileStreamSource class]])
+        return [(RMTileStreamSource *)tileSource legend];
+    
+    return nil;
 }
 
 @end

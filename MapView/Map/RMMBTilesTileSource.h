@@ -74,6 +74,7 @@ typedef enum {
 - (void)setMaxZoom:(NSUInteger)aMaxZoom;
 - (RMSphericalTrapezium)latitudeLongitudeBoundingBox;
 - (BOOL)coversFullWorld;
+- (NSString *)legend;
 - (RMMBTilesLayerType)layerType;
 - (void)didReceiveMemoryWarning;
 - (NSString *)uniqueTilecacheKey;
