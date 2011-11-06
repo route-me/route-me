@@ -1,7 +1,7 @@
 //
-//  RMWebTileImage.h
+//  RMURLConnectionOperation.h
 //
-// Copyright (c) 2008-2009, Route-Me Contributors
+// Copyright (c) 2008-2011, Route-Me Contributors
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -25,40 +25,17 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+
 #import <Foundation/Foundation.h>
-#import "RMTileImage.h"
 
-#import "RMURLConnectionOperation.h"
-
-static const NSUInteger kWebTileRetries = 30;
-static const NSUInteger kMaxConcurrentConnections = 5;
-
-extern NSString *RMWebTileImageErrorDomain;
-
-extern NSString *RMWebTileImageHTTPResponseCodeKey;
-enum {
-    RMWebTileImageErrorUnexpectedHTTPResponse,
-    RMWebTileImageErrorZeroLengthResponse,
-    RMWebTileImageErrorNotFoundResponse
-};
-
-extern NSString *RMWebTileImageNotificationErrorKey;
-
-
-
-/// RMTileImage subclass: a tile image loaded from a URL.
-@interface RMWebTileImage : RMTileImage {
-    NSUInteger retries;
-    NSError *lastError;
-
-	NSURL *url;
-    RMURLConnectionOperation *connectionOp;
-
-	NSMutableData *data;
+@interface RMURLConnectionOperation : NSOperation {
+    id                      _delegate;
+    NSURLConnection         *_connection;
+    NSURLRequest            *_request;
+    BOOL                    _isRunning;
 }
 
-- (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
-- (void) requestTile;
-- (void) startLoading:(NSTimer *)timer;
+-(id)initWithRequest:(NSURLRequest *)request delegate:(id)delegate;
+-(void)stop;
 
 @end
