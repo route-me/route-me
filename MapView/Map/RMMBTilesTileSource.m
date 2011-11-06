@@ -249,6 +249,25 @@
     return ([type isEqualToString:@"overlay"] ? RMMBTilesLayerTypeOverlay : RMMBTilesLayerTypeBaselayer);
 }
 
+- (NSString *)legend
+{
+    FMResultSet *results = [db executeQuery:@"select value from metadata where name = 'legend'"];
+    
+    if ([db hadError])
+        return nil;
+    
+    [results next];
+    
+    NSString *legend = nil;
+    
+    if ([results hasAnotherRow])
+        legend = [results stringForColumn:@"value"];
+    
+    [results close];
+    
+    return legend;
+}
+
 - (void)didReceiveMemoryWarning
 {
     NSLog(@"*** didReceiveMemoryWarning in %@", [self class]);
