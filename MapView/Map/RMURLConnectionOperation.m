@@ -44,17 +44,21 @@
     {
         return;
     }
-    _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:_delegate startImmediately:NO];
-    [_request release];
-    [_connection start];
+    _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:_delegate startImmediately:YES];
+    [_request release];_request = nil;
     while (_isRunning && ![self isCancelled] && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
     [_connection cancel];
     [_connection release];
     _connection = nil; 
 }
 
--(void)stop{
+-(void)stop {
     _isRunning = NO;
+}
+
+-(void)dealloc {
+    [_request release];
+    [super dealloc];
 }
 
 @end
