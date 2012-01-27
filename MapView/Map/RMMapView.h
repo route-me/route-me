@@ -139,6 +139,7 @@ typedef struct {
 	BOOL _delegateHasSingleTapOnMap;
 	BOOL _delegateHasTapOnMarker;
 	BOOL _delegateHasTapOnLabelForMarker;
+	BOOL _delegateHasTapOnLabelForMarkerOnLayer;
 	BOOL _delegateHasAfterMapTouch;
 	BOOL _delegateHasShouldDragMarker;
 	BOOL _delegateHasDidDragMarker;
