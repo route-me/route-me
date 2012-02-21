@@ -29,7 +29,6 @@
 
 @implementation RMWMS
 
-@synthesize urlPrefix;
 @synthesize layers;
 @synthesize styles;
 @synthesize queryLayers;
@@ -48,6 +47,8 @@
         // default values
         [self setInfoFormat:@"text/html"];
         [self setCrs:@"EPSG:900913"];
+        [self setLayers:@""];
+        [self setQueryLayers:@""];
         [self setStyles:@""];
         [self setFormat:@"image/png"];
         [self setService:@"WMS"];
@@ -71,6 +72,11 @@
     
     [urlPrefix release];
     urlPrefix = [newUrlPrefix retain];
+}
+
+-(NSString *)urlPrefix
+{
+    return urlPrefix;
 }
 
 -(NSString *)createBaseGet:(NSString *)bbox size:(CGSize)size
@@ -102,24 +108,47 @@
     return ![@"" isEqualToString:layers];
 }
 
+// [ layerA, layer B ] -> layerA,layerB
++(NSString *)escapeAndJoin:(NSArray *)elements
+{
+    NSMutableArray *encoded = [NSMutableArray array];
+    for (NSString *element in elements) {
+        [encoded addObject:[element stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    return [encoded componentsJoinedByString:@","];
+}
+
+// layerA,layerB -> [ layerA, layer B ]
++(NSArray *)splitAndDecode:(NSString *)joined
+{
+    NSMutableArray *split = [NSMutableArray array];
+    if ([joined length] == 0) {
+        return split;
+    }
+    for (NSString *element in [joined componentsSeparatedByString:@","]) {
+        [split addObject:[element stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    return split;
+}
+
 -(NSArray *)selectedLayerNames
 {
-    return [[self layers] componentsSeparatedByString:@","];
+    return [RMWMS splitAndDecode:layers];
 }
 
 -(void)setSelectedLayerNames:(NSArray *)layerNames
 {
-    [self setLayers:[layerNames componentsJoinedByString:@","]];
+    [self setLayers:[RMWMS escapeAndJoin:layerNames]];
 }
 
 -(NSArray *)selectedQueryLayerNames
 {
-    return [[self queryLayers] componentsSeparatedByString:@","];
+    return [RMWMS splitAndDecode:queryLayers];
 }
 
 -(void)setSelectedQueryLayerNames:(NSArray *)layerNames
 {
-    [self setQueryLayers:[layerNames componentsJoinedByString:@","]];
+    [self setQueryLayers:[RMWMS escapeAndJoin:layerNames]];
 }
 
 -(BOOL)selected:(NSString *)layerName
