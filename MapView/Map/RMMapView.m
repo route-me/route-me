@@ -349,7 +349,7 @@
 			zRect.size.height = screenBounds.size.height * metersPerPixel;
 			 
 			//can zoom only if within bounds
-			canZoom= !(zRect.origin.northing < SWconstraint.northing || zRect.origin.northing+zRect.size.height> NEconstraint.northing ||
+			canZoom= zoomDelta > 0 || !(zRect.origin.northing < SWconstraint.northing || zRect.origin.northing+zRect.size.height> NEconstraint.northing ||
 			  zRect.origin.easting < SWconstraint.easting || zRect.origin.easting+zRect.size.width > NEconstraint.easting);
 				
 		}
