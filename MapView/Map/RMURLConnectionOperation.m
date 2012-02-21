@@ -1,5 +1,5 @@
 //
-//  RMWebTileImage.h
+//  RMURLConnectionOperation.m
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
@@ -25,40 +25,40 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import <Foundation/Foundation.h>
-#import "RMTileImage.h"
-
 #import "RMURLConnectionOperation.h"
 
-static const NSUInteger kWebTileRetries = 30;
-static const NSUInteger kMaxConcurrentConnections = 5;
+@implementation RMURLConnectionOperation
 
-extern NSString *RMWebTileImageErrorDomain;
-
-extern NSString *RMWebTileImageHTTPResponseCodeKey;
-enum {
-    RMWebTileImageErrorUnexpectedHTTPResponse,
-    RMWebTileImageErrorZeroLengthResponse,
-    RMWebTileImageErrorNotFoundResponse
-};
-
-extern NSString *RMWebTileImageNotificationErrorKey;
-
-
-
-/// RMTileImage subclass: a tile image loaded from a URL.
-@interface RMWebTileImage : RMTileImage {
-    NSUInteger retries;
-    NSError *lastError;
-
-	NSURL *url;
-    RMURLConnectionOperation *connectionOp;
-
-	NSMutableData *data;
+-(id)initWithRequest:(NSURLRequest *)request delegate:(id)delegate {
+    if((self = [super init]))
+    {
+        _delegate = delegate;
+        _request = [request retain];
+        _isRunning = YES;
+    }
+    return self;
 }
 
-- (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
-- (void) requestTile;
-- (void) startLoading:(NSTimer *)timer;
+-(void)main {
+    if ([self isCancelled] || !_isRunning)
+    {
+        return;
+    }
+    _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:_delegate startImmediately:YES];
+    [_request release];_request = nil;
+    while (_isRunning && ![self isCancelled] && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
+    [_connection cancel];
+    [_connection release];
+    _connection = nil; 
+}
+
+-(void)stop {
+    _isRunning = NO;
+}
+
+-(void)dealloc {
+    [_request release];
+    [super dealloc];
+}
 
 @end

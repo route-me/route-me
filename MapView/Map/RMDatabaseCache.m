@@ -127,8 +127,9 @@
 				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
 			}
 		}
-	
-		[dao addData:data LastUsed:[image lastUsedTime] ForTile:RMTileKey([image tile])];
+        NSDate *lastUsedTime = [[image lastUsedTime] retain];
+		[dao addData:data LastUsed: lastUsedTime ForTile:RMTileKey([image tile])];
+        [lastUsedTime release]; lastUsedTime = nil;
 	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
