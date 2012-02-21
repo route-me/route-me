@@ -157,6 +157,12 @@ static NSOperationQueue *_queue = nil;
 
 - (void)connection:(NSURLConnection *)_connection didReceiveResponse:(NSURLResponse *)response
 {
+    if ( ![NSThread isMainThread] ) {
+        // Perform this on the main thread
+        dispatch_sync(dispatch_get_main_queue(), ^{ [self connection:_connection didReceiveResponse:response]; });
+        return;
+    }
+    
 	int statusCode = NSURLErrorUnknown; // unknown
 
 	if([response isKindOfClass:[NSHTTPURLResponse class]])
@@ -222,7 +228,12 @@ static NSOperationQueue *_queue = nil;
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error
 {
 	//RMLog(@"didFailWithError %@ %d %@", _connection, [error code], [error localizedDescription]);
-
+    if ( ![NSThread isMainThread] ) {
+        // Perform this on the main thread
+        dispatch_sync(dispatch_get_main_queue(), ^{ [self connection:_connection didFailWithError:error]; });
+        return;
+    }
+    
 	BOOL retry = FALSE;
 	
 	switch([error code])
@@ -256,6 +267,12 @@ static NSOperationQueue *_queue = nil;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection
 {
+    if ( ![NSThread isMainThread] ) {
+        // Perform this on the main thread
+        dispatch_sync(dispatch_get_main_queue(), ^{ [self connectionDidFinishLoading:_connection]; });
+        return;
+    }
+    
 	if ([data length] == 0) 
     {
 		//RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
