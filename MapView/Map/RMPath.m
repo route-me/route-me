@@ -31,6 +31,7 @@
 #import "RMMercatorToScreenProjection.h"
 #import "RMPixel.h"
 #import "RMProjection.h"
+#import "RMNotifications.h"
 
 @interface RMPath ()
 - (void)addPointToXY:(RMProjectedPoint) point withDrawing:(BOOL)isDrawing;
@@ -44,7 +45,7 @@
 - (id) initWithContents: (RMMapContents*)aContents {
 	if (![super init]) return nil;
 	
-	contents = aContents;
+	mapContents = aContents;
     
 	path = CGPathCreateMutable();
 	
@@ -63,6 +64,8 @@
     self.masksToBounds = YES;
     
     if ( [self respondsToSelector:@selector(setContentsScale:)] ) self.contentsScale = ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [UIScreen mainScreen].scale : 1.0);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeExpensiveOperationsNotification:) name:RMResumeExpensiveOperations object:nil];
     
 	return self;
 }
@@ -83,6 +86,7 @@
 }
 
 -(void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	CGPathRelease(path);
     self.lineColor = nil;
     self.fillColor = nil;
@@ -98,11 +102,11 @@
 }
 
 - (void) moveToScreenPoint: (CGPoint) point {
-	[self moveToXY: [[contents mercatorToScreenProjection] projectScreenPointToXY: point]];
+	[self moveToXY: [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point]];
 }
 
 - (void) moveToLatLong: (RMLatLong) point {
-	[self moveToXY:[[contents projection] latLongToPoint:point]];
+	[self moveToXY:[[mapContents projection] latLongToPoint:point]];
 }
 
 - (void) addLineToXY: (RMProjectedPoint) point {
@@ -110,11 +114,11 @@
 }
 
 - (void) addLineToScreenPoint: (CGPoint) point {
-	[self addLineToXY: [[contents mercatorToScreenProjection] projectScreenPointToXY: point]];
+	[self addLineToXY: [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point]];
 }
 
 - (void) addLineToLatLong: (RMLatLong) point{
-	[self addLineToXY:[[contents projection] latLongToPoint:point]];
+	[self addLineToXY:[[mapContents projection] latLongToPoint:point]];
 }
 
 - (void) closePath {
@@ -195,7 +199,7 @@
 - (void)addPointToXY:(RMProjectedPoint) point withDrawing:(BOOL)isDrawing {
 	if ( CGPathIsEmpty(path) ) {
 		projectedLocation = point;
-		self.position = [[contents mercatorToScreenProjection] projectXYPoint:projectedLocation];
+		self.position = [[mapContents mercatorToScreenProjection] projectXYPoint:projectedLocation];
 		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
 	} else {
 		point.easting = point.easting - projectedLocation.easting;
@@ -212,12 +216,12 @@
 }
 
 - (void)recalculateGeometry {
-	RMMercatorToScreenProjection *projection = [contents mercatorToScreenProjection];
+	RMMercatorToScreenProjection *projection = [mapContents mercatorToScreenProjection];
 	const float outset = 100.0f;
 	
 	float scaledLineWidth = lineWidth;
 	if ( !scaleLineWidth ) {
-		scaledLineWidth *= [contents metersPerPixel];
+		scaledLineWidth *= [mapContents metersPerPixel];
 	}
 	
     // Get path dimensions (in mercators relative to projectedLocation; bounding box origin is bottom-left due to flipped coord system)
@@ -230,31 +234,67 @@
                                                             pathDimensions.size.height),
                                                  1.0f / [projection metersPerPixel], CGPointZero);
     
-	// Clip bound rect to screen bounds.
-	// If bounds are not clipped, they won't display when you zoom in too much.
-	CGPoint myPosition = [projection projectXYPoint: projectedLocation];
-	CGRect screenBounds = [contents screenBounds];
-    pixelBounds.origin.x += myPosition.x; pixelBounds.origin.y += myPosition.y;
-    pixelBounds = CGRectIntersection(pixelBounds, CGRectInset(screenBounds, -outset, -outset));
+
+    // Clip bound rect to screen bounds.
+    // If bounds are not clipped, they won't display when you zoom in too much.
+    CGRect screenBounds = [mapContents screenBounds];
+    CGPoint myPosition = [projection projectXYPoint: projectedLocation];
+    CGRect clippedBounds = pixelBounds;
+    clippedBounds.origin.x += myPosition.x; clippedBounds.origin.y += myPosition.y;
+    clippedBounds = CGRectIntersection(clippedBounds, CGRectInset(screenBounds, -outset, -outset));
+    clippedBounds.origin.x -= myPosition.x; clippedBounds.origin.y -= myPosition.y;
+    BOOL clipped = !CGRectEqualToRect(clippedBounds, pixelBounds);
     
-    if (!CGRectIsNull(pixelBounds)) {
-        pixelBounds.origin.x -= myPosition.x; pixelBounds.origin.y -= myPosition.y;
-        self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width,-pixelBounds.origin.y / pixelBounds.size.height);
+    CGRect contentsRect = CGRectZero;
+    if ( pixelBounds.size.height > 0 && pixelBounds.size.width > 0 ) {
+        contentsRect = CGRectMake((clippedBounds.origin.x - pixelBounds.origin.x) / pixelBounds.size.width, 
+                                  (clippedBounds.origin.y - pixelBounds.origin.y) / pixelBounds.size.height,
+                                  clippedBounds.size.width / pixelBounds.size.width,
+                                  clippedBounds.size.height / pixelBounds.size.height);
+
+        if ( ![RMMapContents performExpensiveOperations] ) {
+            // While moving, just adjust the contents rect instead of redrawing
+            if ( clippedBounds.size.width > 0 && clippedBounds.size.height > 0 ) {
+                // Select a contents rect that is proportonal to the currently drawn region (which may be a subset of the total path bounds)
+                self.contentsRect = CGRectMake((contentsRect.origin.x - originalContentsRect.origin.x) / originalContentsRect.size.width,
+                                               (contentsRect.origin.y - originalContentsRect.origin.y) / originalContentsRect.size.height,
+                                               contentsRect.size.width / originalContentsRect.size.width,
+                                               contentsRect.size.height / originalContentsRect.size.height);
+            }
+        } else {
+            originalContentsRect = contentsRect;
+        }
     }
     
+    pixelBounds = clippedBounds;
+
+    if ( pixelBounds.size.width > 0 && pixelBounds.size.height > 0 ) {
+        self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width, -pixelBounds.origin.y / pixelBounds.size.height);
+    }
+    
+    CGRect priorBounds = self.bounds;
     self.bounds = pixelBounds;
     
     [super setPosition:myPosition];
     
-    [self setNeedsDisplay];
+    if ( redrawPending || fabs(priorBounds.size.width - pixelBounds.size.width) > 1.0 || fabs(priorBounds.size.height - pixelBounds.size.height) > 1.0 || clipped ) {
+        // Redraw if we changed size, clipped the view, or if we were pending a redraw
+        if ( [RMMapContents performExpensiveOperations] ) {
+            redrawPending = NO;
+            self.contentsRect = CGRectMake(0, 0, 1, 1);
+            [self setNeedsDisplay];
+        } else {
+            redrawPending = YES;
+        }
+    }
 }
 
 - (void)drawInContext:(CGContextRef)theContext {
-	float scale = 1.0f / [contents metersPerPixel];
+	float scale = 1.0f / [mapContents metersPerPixel];
 	
 	float scaledLineWidth = lineWidth;
 	if ( !scaleLineWidth ) {
-		scaledLineWidth *= [contents metersPerPixel];
+		scaledLineWidth *= [mapContents metersPerPixel];
 	}
 	
     CGFloat *dashLengths = _lineDashLengths;
@@ -295,13 +335,21 @@
 - (RMProjectedRect)projectedBounds {
     float scaledLineWidth = lineWidth;
 	if ( !scaleLineWidth ) {
-		scaledLineWidth *= [contents metersPerPixel];
+		scaledLineWidth *= [mapContents metersPerPixel];
 	}
     CGRect regionRect = CGRectInset(CGPathGetBoundingBox(path), -scaledLineWidth, -scaledLineWidth);
     return RMMakeProjectedRect(regionRect.origin.x + projectedLocation.easting,
                                regionRect.origin.y + projectedLocation.northing,
                                regionRect.size.width, 
                                regionRect.size.height);
+}
+
+- (void)resumeExpensiveOperationsNotification:(NSNotification*)notification {
+    if ( redrawPending ) {
+        self.contentsRect = CGRectMake(0, 0, 1, 1);
+        [self recalculateGeometry];
+        redrawPending = NO;
+    }
 }
 
 @end

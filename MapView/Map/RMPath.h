@@ -53,7 +53,10 @@
 	
     CGMutablePathRef path;
     
-	RMMapContents *contents;
+	RMMapContents *mapContents;
+    
+    CGRect originalContentsRect;
+    BOOL redrawPending;
 }
 
 - (id) initWithContents: (RMMapContents*)aContents;
