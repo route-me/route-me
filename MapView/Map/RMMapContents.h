@@ -133,7 +133,7 @@ enum {
 
 @property (nonatomic, readwrite) float minZoom, maxZoom;
 
-@property (nonatomic, assign) float screenScale;
+@property (nonatomic, readonly) float screenScale;
 
 @property (readonly)  RMTileImageSet *imagesOnScreen;
 @property (readonly)  RMTileLoader *tileLoader;
@@ -161,8 +161,9 @@ enum {
 @property (readonly, assign) BOOL fullyLoaded;
 
 - (id)initWithView: (UIView*) view;
-- (id)initWithView: (UIView*) view
-		tilesource:(id<RMTileSource>)newTilesource;
+- (id)initWithView: (UIView*) view screenScale:(float)theScreenScale;
+- (id)initWithView: (UIView*) view tilesource:(id<RMTileSource>)newTilesource;
+- (id)initWithView: (UIView*) view tilesource:(id<RMTileSource>)newTilesource screenScale:(float)theScreenScale;
 /// designated initializer
 - (id)initWithView:(UIView*)view
 		tilesource:(id<RMTileSource>)tilesource
@@ -170,7 +171,8 @@ enum {
 		 zoomLevel:(float)initialZoomLevel
 	  maxZoomLevel:(float)maxZoomLevel
 	  minZoomLevel:(float)minZoomLevel
-   backgroundImage:(UIImage *)backgroundImage;
+   backgroundImage:(UIImage *)backgroundImage
+       screenScale:(float)theScreenScale;
 
 /// \deprecated subject to removal at any moment after 0.5 is released
 - (id) initForView: (UIView*) view;

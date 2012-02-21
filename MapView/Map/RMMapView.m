@@ -75,6 +75,8 @@
 	decelerationFactor = kDefaultDecelerationFactor;
 	deceleration = NO;
 	
+    screenScale = 0.0;
+    
 	//	[self recalculateImageSet];
 	
 	if (enableZoom || enableRotate)
@@ -89,9 +91,15 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+    return [self initWithFrame:frame screenScale:0.0];
+}
+
+- (id)initWithFrame:(CGRect)frame screenScale:(float)theScreenScale
+{
 	LogMethod();
 	if (self = [super initWithFrame:frame]) {
 		[self performInitialSetup];
+        screenScale = theScreenScale;
 	}
 	return self;
 }
@@ -114,7 +122,7 @@
 - (RMMapContents *)contents
 {
     if (!_contentsIsSet) {
-		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self];
+		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self screenScale:screenScale];
 		self.contents = newContents;
 		[newContents release];
 		_contentsIsSet = YES;
