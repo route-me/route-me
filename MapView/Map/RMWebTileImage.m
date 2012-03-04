@@ -70,6 +70,8 @@ static NSOperationQueue *_queue = nil;
 {
 	[self cancelLoading];
 	
+    if ( lastError ) [lastError release]; lastError = nil;
+	
 	[data release];
 	data = nil;
 	
@@ -286,7 +288,15 @@ static NSOperationQueue *_queue = nil;
 	}
 	else
 	{
-		[self updateImageUsingData:data];
+		if ( ![self updateImageUsingData:data] ) {
+            if ( lastError ) [lastError release];
+            lastError = [[NSError errorWithDomain:RMWebTileImageErrorDomain 
+                                             code:RMWebTileImageErrorUnexpectedHTTPResponse
+                                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   NSLocalizedString(@"The server returned an invalid response", @""), NSLocalizedDescriptionKey, nil]] retain];
+            [self requestTile];
+            return;
+        }
 		
 		[data release];
 		data = nil;

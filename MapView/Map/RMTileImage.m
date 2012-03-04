@@ -128,12 +128,18 @@
 }
 
 
-- (void)updateImageUsingData: (NSData*) data
+- (BOOL)updateImageUsingData: (NSData*) data
 {
-       [self updateImageUsingImage:[UIImage imageWithData:data]];
+    UIImage *image = [UIImage imageWithData:data];
+    if ( !image ) {
+        return NO;
+    }
+       [self updateImageUsingImage:image];
 
        NSDictionary *d = [NSDictionary dictionaryWithObject:data forKey:@"data"];
        [[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification object:self userInfo:d];
+    
+    return YES;
 }
 
 - (void)updateImageUsingImage: (UIImage*) rawImage
