@@ -49,6 +49,9 @@ static NSOperationQueue *_queue = nil;
 {
 	if (![super initWithTile:_tile])
 		return nil;
+
+	[super displayProxy:[RMTileProxy loadingTile]];
+
 	
 	url = [[NSURL alloc] initWithString:urlStr];
 
