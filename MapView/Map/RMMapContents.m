@@ -436,6 +436,7 @@
 		[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
 		[tileLoader zoomByFactor:zoomFactor near:pivot];
 		[overlay zoomByFactor:zoomFactor near:pivot];
+        [overlay correctPositionOfAllSublayers];
 		[renderer setNeedsDisplay];
 	} 
 }
@@ -515,6 +516,7 @@
             [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
             [tileLoader zoomByFactor:zoomFactor near:pivot];
             [overlay zoomByFactor:zoomFactor near:pivot];
+            [overlay correctPositionOfAllSublayers];
             [renderer setNeedsDisplay];
         }
     }
@@ -816,6 +818,10 @@
     return [mercatorToScreenProjection metersPerPixel] / screenScale;
 }
 
+- (void)setScaledMetersPerPixel:(float)newMPP {
+    [self setMetersPerPixel:newMPP * screenScale];
+}
+
 -(void)setMaxZoom:(float)newMaxZoom
 {
 	maxZoom = newMaxZoom;
@@ -830,7 +836,7 @@
 
 -(float) zoom
 {
-        return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection metersPerPixel]];
+        return [mercatorToTileProjection calculateZoomFromScale:[self scaledMetersPerPixel]];
 }
 
 /// if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
@@ -841,7 +847,7 @@
 
         float scale = [mercatorToTileProjection calculateScaleFromZoom:zoom];
 
-        [self setMetersPerPixel:scale];
+        [self setScaledMetersPerPixel:scale];
 }
 
 -(RMTileImageSet*) imagesOnScreen
