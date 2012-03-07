@@ -307,7 +307,7 @@
     
     [results close];
     
-    return [NSString stringWithFormat:@"%@ - %@", [self shortName], description];
+    return [NSString stringWithFormat:@"%@%@%@", [self shortName], ([[self shortName] length] && [description length] ? @" - " : @""), description];
 }
 
 - (NSString *)shortAttribution
@@ -328,7 +328,7 @@
 
 - (NSString *)longAttribution
 {
-    return [NSString stringWithFormat:@"%@ - %@", [self shortName], [self shortAttribution]];
+    return [NSString stringWithFormat:@"%@%@%@", [self shortName], ([[self shortName] length] && [[self shortAttribution] length] ? @" - " : @""), [self shortAttribution]];
 }
 
 - (void)removeAllCachedImages
