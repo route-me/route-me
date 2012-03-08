@@ -155,11 +155,6 @@
 	tileLoader = nil;
     
     screenScale = (theScreenScale == 0.0 ? 1.0 : theScreenScale);
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-    {
-        float realScreenScale = [[[UIScreen mainScreen] valueForKey:@"scale"] floatValue];
-        screenScale = (theScreenScale == 0.0 ? realScreenScale : MIN(theScreenScale, realScreenScale));
-    }
 
 	boundingMask = RMMapMinWidthBound;
 
