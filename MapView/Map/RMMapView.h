@@ -126,6 +126,7 @@ typedef struct {
 	float decelerationFactor;
 	BOOL deceleration;
         CGFloat rotation;
+    float screenScale;
 	
 @private
    	BOOL _delegateHasBeforeMapMove;
@@ -173,6 +174,8 @@ typedef struct {
 
 @property (readonly) CGFloat rotation;
 
+- (id)initWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame screenScale:(float)screenScale;
 - (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong;
 
 /// recenter the map on #latlong, expressed as CLLocationCoordinate2D (latitude/longitude)
