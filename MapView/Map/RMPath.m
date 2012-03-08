@@ -1,7 +1,7 @@
 ///
 //  RMPath.m
 //
-// Copyright (c) 2008-2009, Route-Me Contributors
+// Copyright (c) 2008-2010, Route-Me Contributors
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -31,319 +31,103 @@
 #import "RMMercatorToScreenProjection.h"
 #import "RMPixel.h"
 #import "RMProjection.h"
+#import "RMNotifications.h"
+
+@interface RMPath ()
+- (void)addPointToXY:(RMProjectedPoint) point withDrawing:(BOOL)isDrawing;
+- (void)recalculateGeometry;
+@end
 
 @implementation RMPath
+@synthesize lineWidth, lineColor, fillColor, scaleLineWidth, lineDashPhase, lineDashLengths, scaleLineDash, projectedLocation, enableDragging, enableRotation;
+@dynamic CGPath, projectedBounds;
 
-@synthesize scaleLineWidth;
-@synthesize projectedLocation;
-@synthesize enableDragging;
-@synthesize enableRotation;
-@synthesize lineDashPhase;
-@synthesize scaleLineDash;
-@synthesize shadowBlur;
-@synthesize shadowOffset;
-
-#define kDefaultLineWidth 2
-
-- (id) initWithContents: (RMMapContents*)aContents
-{
-	if (![super init])
-		return nil;
+- (id) initWithContents: (RMMapContents*)aContents {
+	if (![super init]) return nil;
 	
 	mapContents = aContents;
-
+    
 	path = CGPathCreateMutable();
 	
-	lineWidth = kDefaultLineWidth;
-	drawingMode = kCGPathFillStroke;
-	lineCap = kCGLineCapButt;
-	lineJoin = kCGLineJoinMiter;
-	lineColor = [UIColor blackColor];
-	fillColor = [UIColor redColor];
-	_lineDashCount = 0;
-	_lineDashLengths = NULL;
-	_scaledLineDashLengths = NULL;
-	lineDashPhase = 0.0;
-	shadowBlur = 0.0;
-	shadowOffset = CGSizeMake(0, 0);
-    
-	self.masksToBounds = YES;
-	
+    // Defaults
+	lineWidth = 4.0;
 	scaleLineWidth = NO;
-	scaleLineDash = NO;
 	enableDragging = YES;
 	enableRotation = YES;
-	isFirstPoint = YES;
-	
-    if ( [self respondsToSelector:@selector(setContentsScale:)] )
-    {
-        [(id)self setValue:[[UIScreen mainScreen] valueForKey:@"scale"] forKey:@"contentsScale"];
-    }
-	
+    self.lineColor = [UIColor blackColor];
+    scaleLineDash = NO;
+	_lineDashCount = 0;
+    _lineDashLengths = NULL;
+    _scaledLineDashLengths = NULL;
+    lineDashPhase = 0.0;
+    
+    self.masksToBounds = YES;
+    
+    if ( [self respondsToSelector:@selector(setContentsScale:)] ) self.contentsScale = ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [UIScreen mainScreen].scale : 1.0);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeExpensiveOperationsNotification:) name:RMResumeExpensiveOperations object:nil];
+    
 	return self;
 }
 
-- (id) initForMap: (RMMapView*)map
-{
+- (id) initForMap: (RMMapView*)map {
 	return [self initWithContents:[map contents]];
 }
 
--(void) dealloc
-{
+- (id) initForMap: (RMMapView*)map withCoordinates:(const CLLocationCoordinate2D*)coordinates count:(NSInteger)count {
+    if ( !(self = [self initWithContents:[map contents]]) ) return nil;
+    
+    [self moveToLatLong:coordinates[0]];
+    for ( NSInteger i=1; i<count; i++ ) {
+        [self addLineToLatLong:coordinates[i]];
+    }
+    
+    return self;
+}
+
+-(void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	CGPathRelease(path);
-    [self setLineColor:nil];
-    [self setFillColor:nil];
-	
+    self.lineColor = nil;
+    self.fillColor = nil;
 	[super dealloc];
 }
 
-- (id<CAAction>)actionForKey:(NSString *)key
-{
+- (id<CAAction>)actionForKey:(NSString *)key {
 	return nil;
 }
 
-- (void) recalculateGeometry
-{
-	RMMercatorToScreenProjection *projection = [mapContents mercatorToScreenProjection];
-	float scale = [projection metersPerPixel];
-	float scaledLineWidth;
-	CGPoint myPosition;
-	CGRect pixelBounds, screenBounds;
-	float offset;
-	const float outset = 100.0f; // provides a buffer off screen edges for when path is scaled or moved
-	
-	// The bounds are actually in mercators...
-	/// \bug if "bounds are actually in mercators", shouldn't be using a CGRect
-	scaledLineWidth = lineWidth;
-	if(!scaleLineWidth) {
-		renderedScale = [mapContents metersPerPixel];
-		scaledLineWidth *= renderedScale;
-	}
-	
-	CGRect boundsInMercators = CGPathGetBoundingBox(path);
-	boundsInMercators = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
-	pixelBounds = CGRectInset(boundsInMercators, -scaledLineWidth, -scaledLineWidth);
-	
-	pixelBounds = RMScaleCGRectAboutPoint(pixelBounds, 1.0f / scale, CGPointZero);
-	
-	// Clip bound rect to screen bounds.
-	// If bounds are not clipped, they won't display when you zoom in too much.
-	myPosition = [projection projectXYPoint: projectedLocation];
-	screenBounds = [mapContents screenBounds];
-	
-	// Clip top
-	offset = myPosition.y + pixelBounds.origin.y - screenBounds.origin.y + outset;
-	if(offset < 0.0f) {
-		pixelBounds.origin.y -= offset;
-		pixelBounds.size.height += offset;
-	}
-	// Clip left
-	offset = myPosition.x + pixelBounds.origin.x - screenBounds.origin.x + outset;
-	if(offset < 0.0f) {
-		pixelBounds.origin.x -= offset;
-		pixelBounds.size.width += offset;
-	}
-	// Clip bottom
-	offset = myPosition.y + pixelBounds.origin.y + pixelBounds.size.height - screenBounds.origin.y - screenBounds.size.height - outset;
-	if(offset > 0.0f) {
-		pixelBounds.size.height -= offset;
-	}
-	// Clip right
-	offset = myPosition.x + pixelBounds.origin.x + pixelBounds.size.width - screenBounds.origin.x - screenBounds.size.width - outset;
-	if(offset > 0.0f) {
-		pixelBounds.size.width -= offset;
-	}
-	
-	[super setPosition:myPosition];
-	self.bounds = pixelBounds;
-	//RMLog(@"x:%f y:%f screen bounds: %f %f %f %f", myPosition.x, myPosition.y,  screenBounds.origin.x, screenBounds.origin.y, screenBounds.size.width, screenBounds.size.height);
-	//RMLog(@"new bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
-	
-	self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width,-pixelBounds.origin.y / pixelBounds.size.height);
-	[self setNeedsDisplay];
-}
-
-- (void) addPointToXY: (RMProjectedPoint) point withDrawing: (BOOL)isDrawing
-{
-	//	RMLog(@"addLineToXY %f %f", point.x, point.y);
-
-
-	if(isFirstPoint)
-	{
-		isFirstPoint = FALSE;
-		projectedLocation = point;
-
-		self.position = [[mapContents mercatorToScreenProjection] projectXYPoint: projectedLocation];
-		//		RMLog(@"screen position set to %f %f", self.position.x, self.position.y);
-		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
-	}
-	else
-	{
-		point.easting = point.easting - projectedLocation.easting;
-		point.northing = point.northing - projectedLocation.northing;
-
-		if (isDrawing)
-		{
-			CGPathAddLineToPoint(path, NULL, point.easting, -point.northing);
-		} else {
-			CGPathMoveToPoint(path, NULL, point.easting, -point.northing);
-		}
-
-		[self recalculateGeometry];
-	}
-	[self setNeedsDisplay];
-}
-
-- (void) moveToXY: (RMProjectedPoint) point
-{
+- (void) moveToXY: (RMProjectedPoint) point {
 	[self addPointToXY: point withDrawing: FALSE];
 }
 
-- (void) moveToScreenPoint: (CGPoint) point
-{
-	RMProjectedPoint mercator = [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point];
-	
-	[self moveToXY: mercator];
+- (void) moveToScreenPoint: (CGPoint) point {
+	[self moveToXY: [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point]];
 }
 
-- (void) moveToLatLong: (RMLatLong) point
-{
-	RMProjectedPoint mercator = [[mapContents projection] latLongToPoint:point];
-	
-	[self moveToXY:mercator];
+- (void) moveToLatLong: (RMLatLong) point {
+	[self moveToXY:[[mapContents projection] latLongToPoint:point]];
 }
 
-- (void) addLineToXY: (RMProjectedPoint) point
-{
+- (void) addLineToXY: (RMProjectedPoint) point {
 	[self addPointToXY: point withDrawing: TRUE];
 }
 
-- (void) addLineToScreenPoint: (CGPoint) point
-{
-	RMProjectedPoint mercator = [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point];
-	
-	[self addLineToXY: mercator];
+- (void) addLineToScreenPoint: (CGPoint) point {
+	[self addLineToXY: [[mapContents mercatorToScreenProjection] projectScreenPointToXY: point]];
 }
 
-- (void) addLineToLatLong: (RMLatLong) point
-{
-	RMProjectedPoint mercator = [[mapContents projection] latLongToPoint:point];
-	
-	[self addLineToXY:mercator];
+- (void) addLineToLatLong: (RMLatLong) point{
+	[self addLineToXY:[[mapContents projection] latLongToPoint:point]];
 }
 
-- (void)drawInContext:(CGContextRef)theContext
-{
-	renderedScale = [mapContents metersPerPixel];
-    CGFloat *dashLengths = _lineDashLengths;
-	
-	float scale = 1.0f / [mapContents metersPerPixel];
-	
-	float scaledLineWidth = lineWidth;
-	if(!scaleLineWidth) {
-		scaledLineWidth *= renderedScale;
-	}
-	//NSLog(@"line width = %f, content scale = %f", scaledLineWidth, renderedScale);
-	
-    if(!scaleLineDash && _lineDashLengths) {
-        dashLengths = _scaledLineDashLengths;
-        for(size_t dashIndex=0; dashIndex<_lineDashCount; dashIndex++){
-            dashLengths[dashIndex] = _lineDashLengths[dashIndex]*renderedScale;
-        }
-    }
-    
-	CGContextScaleCTM(theContext, scale, scale);
-	
-	CGContextBeginPath(theContext);
-	CGContextAddPath(theContext, path); 
-	
-	CGContextSetLineWidth(theContext, scaledLineWidth);
-	CGContextSetLineCap(theContext, lineCap);
-	CGContextSetLineJoin(theContext, lineJoin);	
-	CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
-	CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
-	if(_lineDashLengths){
-	  CGContextSetLineDash(theContext, lineDashPhase, dashLengths, _lineDashCount);
-	}
-	CGContextSetShadow(theContext, shadowOffset, shadowBlur);
-	
-	// according to Apple's documentation, DrawPath closes the path if it's a filled style, so a call to ClosePath isn't necessary
-	CGContextDrawPath(theContext, drawingMode);
-}
-
-- (void) closePath
-{
+- (void) closePath {
 	CGPathCloseSubpath(path);
 }
 
-- (float) lineWidth
-{
-	return lineWidth;
-}
-
-- (void) setLineWidth: (float) newLineWidth
-{
+- (void) setLineWidth: (float) newLineWidth {
 	lineWidth = newLineWidth;
 	[self recalculateGeometry];
-}
-
-- (CGPathDrawingMode) drawingMode
-{
-	return drawingMode;
-}
-
-- (void) setDrawingMode: (CGPathDrawingMode) newDrawingMode
-{
-	drawingMode = newDrawingMode;
-	[self setNeedsDisplay];
-}
-
-- (CGLineCap) lineCap
-{
-	return lineCap;
-}
-
-- (void) setLineCap: (CGLineCap) newLineCap
-{
-	lineCap = newLineCap;
-	[self setNeedsDisplay];
-}
-
-- (CGLineJoin) lineJoin
-{
-	return lineJoin;
-}
-
-- (void) setLineJoin: (CGLineJoin) newLineJoin
-{
-	lineJoin = newLineJoin;
-	[self setNeedsDisplay];
-}
-
-- (UIColor *)lineColor
-{
-    return lineColor; 
-}
-- (void)setLineColor:(UIColor *)aLineColor
-{
-    if (lineColor != aLineColor) {
-        [lineColor release];
-        lineColor = [aLineColor retain];
-		[self setNeedsDisplay];
-    }
-}
-
-- (UIColor *)fillColor
-{
-    return fillColor; 
-}
-- (void)setFillColor:(UIColor *)aFillColor
-{
-    if (fillColor != aFillColor) {
-        [fillColor release];
-        fillColor = [aFillColor retain];
-		[self setNeedsDisplay];
-    }
 }
 
 - (NSArray *)lineDashLengths {
@@ -357,7 +141,7 @@
     if(_lineDashLengths){
         free(_lineDashLengths);
         _lineDashLengths = NULL;
-
+        
     }
     if(_scaledLineDashLengths){
         free(_scaledLineDashLengths);
@@ -371,7 +155,7 @@
     if(!scaleLineDash){
         _scaledLineDashLengths = calloc(_lineDashCount, sizeof(CGFloat));
     }
-
+    
     NSEnumerator *lengthEnumerator = [lengths objectEnumerator];
     id lenObj;
     size_t dashIndex = 0;
@@ -385,15 +169,187 @@
     }
 }
 
+- (void)setLineColor:(UIColor *)aLineColor {
+    if (lineColor != aLineColor) {
+        [lineColor release];
+        lineColor = [aLineColor retain];
+		[self setNeedsDisplay];
+    }
+}
+
+- (void)setFillColor:(UIColor *)aFillColor {
+    if (fillColor != aFillColor) {
+        [fillColor release];
+        fillColor = [aFillColor retain];
+		[self setNeedsDisplay];
+    }
+}
+
 - (void)moveBy: (CGSize) delta {
 	if(enableDragging){
 		[super moveBy:delta];
 	}
 }
 
-- (void)setPosition:(CGPoint)value
-{
+- (void)setPosition:(CGPoint)value {
+    [super setPosition:value];
 	[self recalculateGeometry];
+}
+
+- (void)addPointToXY:(RMProjectedPoint) point withDrawing:(BOOL)isDrawing {
+	if ( CGPathIsEmpty(path) ) {
+		projectedLocation = point;
+		self.position = [[mapContents mercatorToScreenProjection] projectXYPoint:projectedLocation];
+		CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
+	} else {
+		point.easting = point.easting - projectedLocation.easting;
+		point.northing = point.northing - projectedLocation.northing;
+		if ( isDrawing ) {
+			CGPathAddLineToPoint(path, NULL, point.easting, point.northing);
+		} else {
+			CGPathMoveToPoint(path, NULL, point.easting, point.northing);
+		}
+        
+		[self recalculateGeometry];
+	}
+	[self setNeedsDisplay];
+}
+
+- (void)recalculateGeometry {
+	RMMercatorToScreenProjection *projection = [mapContents mercatorToScreenProjection];
+	const float outset = 100.0f;
+	
+	float scaledLineWidth = lineWidth;
+	if ( !scaleLineWidth ) {
+		scaledLineWidth *= [mapContents metersPerPixel];
+	}
+	
+    // Get path dimensions (in mercators relative to projectedLocation; bounding box origin is bottom-left due to flipped coord system)
+	CGRect pathDimensions = CGRectInset(CGPathGetBoundingBox(path), -scaledLineWidth, -scaledLineWidth);
+    
+    // Convert bounding box to pixels in Quartz coord space, relative to projectedLocation in Quartz coord space
+    CGRect pixelBounds = RMScaleCGRectAboutPoint(CGRectMake(pathDimensions.origin.x, 
+                                                            -pathDimensions.origin.y - pathDimensions.size.height, 
+                                                            pathDimensions.size.width, 
+                                                            pathDimensions.size.height),
+                                                 1.0f / [projection metersPerPixel], CGPointZero);
+    
+
+    // Clip bound rect to screen bounds.
+    // If bounds are not clipped, they won't display when you zoom in too much.
+    CGRect screenBounds = [mapContents screenBounds];
+    CGPoint myPosition = [projection projectXYPoint: projectedLocation];
+    CGRect clippedBounds = pixelBounds;
+    clippedBounds.origin.x += myPosition.x; clippedBounds.origin.y += myPosition.y;
+    clippedBounds = CGRectIntersection(clippedBounds, CGRectInset(screenBounds, -outset, -outset));
+    clippedBounds.origin.x -= myPosition.x; clippedBounds.origin.y -= myPosition.y;
+    BOOL clipped = !CGRectEqualToRect(clippedBounds, pixelBounds);
+    
+    CGRect contentsRect = CGRectZero;
+    if ( pixelBounds.size.height > 0 && pixelBounds.size.width > 0 ) {
+        contentsRect = CGRectMake((clippedBounds.origin.x - pixelBounds.origin.x) / pixelBounds.size.width, 
+                                  (clippedBounds.origin.y - pixelBounds.origin.y) / pixelBounds.size.height,
+                                  clippedBounds.size.width / pixelBounds.size.width,
+                                  clippedBounds.size.height / pixelBounds.size.height);
+
+        if ( ![RMMapContents performExpensiveOperations] ) {
+            // While moving, just adjust the contents rect instead of redrawing
+            if ( clippedBounds.size.width > 0 && clippedBounds.size.height > 0 ) {
+                // Select a contents rect that is proportonal to the currently drawn region (which may be a subset of the total path bounds)
+                self.contentsRect = CGRectMake((contentsRect.origin.x - originalContentsRect.origin.x) / originalContentsRect.size.width,
+                                               (contentsRect.origin.y - originalContentsRect.origin.y) / originalContentsRect.size.height,
+                                               contentsRect.size.width / originalContentsRect.size.width,
+                                               contentsRect.size.height / originalContentsRect.size.height);
+            }
+        } else {
+            originalContentsRect = contentsRect;
+        }
+    }
+    
+    pixelBounds = clippedBounds;
+
+    if ( pixelBounds.size.width > 0 && pixelBounds.size.height > 0 ) {
+        self.anchorPoint = CGPointMake(-pixelBounds.origin.x / pixelBounds.size.width, -pixelBounds.origin.y / pixelBounds.size.height);
+    }
+    
+    CGRect priorBounds = self.bounds;
+    self.bounds = pixelBounds;
+    
+    [super setPosition:myPosition];
+    
+    if ( redrawPending || fabs(priorBounds.size.width - pixelBounds.size.width) > 1.0 || fabs(priorBounds.size.height - pixelBounds.size.height) > 1.0 || clipped ) {
+        // Redraw if we changed size, clipped the view, or if we were pending a redraw
+        if ( [RMMapContents performExpensiveOperations] ) {
+            redrawPending = NO;
+            self.contentsRect = CGRectMake(0, 0, 1, 1);
+            [self setNeedsDisplay];
+        } else {
+            redrawPending = YES;
+        }
+    }
+}
+
+- (void)drawInContext:(CGContextRef)theContext {
+	float scale = 1.0f / [mapContents metersPerPixel];
+	
+	float scaledLineWidth = lineWidth;
+	if ( !scaleLineWidth ) {
+		scaledLineWidth *= [mapContents metersPerPixel];
+	}
+	
+    CGFloat *dashLengths = _lineDashLengths;
+    if(!scaleLineDash && _lineDashLengths) {
+        dashLengths = _scaledLineDashLengths;
+        for(size_t dashIndex=0; dashIndex<_lineDashCount; dashIndex++){
+            dashLengths[dashIndex] = _lineDashLengths[dashIndex] * scale;
+        }
+    }
+    
+	CGContextScaleCTM(theContext, scale, -scale); // Flip vertically, as path is in projected coord space with origin with y axis increasing upwards
+	
+	CGContextBeginPath(theContext);
+	CGContextAddPath(theContext, path); 
+	
+	CGContextSetLineWidth(theContext, scaledLineWidth);
+	CGContextSetLineCap(theContext, kCGLineCapRound);
+	CGContextSetLineJoin(theContext, kCGLineJoinRound);	
+    if(_lineDashLengths){
+        CGContextSetLineDash(theContext, lineDashPhase, dashLengths, _lineDashCount);
+    }
+    
+    if ( lineColor ) {
+        CGContextSetStrokeColorWithColor(theContext, [lineColor CGColor]);
+    }
+    
+    if ( fillColor ) {
+        CGContextSetFillColorWithColor(theContext, [fillColor CGColor]);
+    }
+	
+	CGContextDrawPath(theContext, (lineColor && fillColor ? kCGPathFillStroke : (lineColor ? kCGPathStroke : kCGPathFill)));
+}
+
+- (CGPathRef)CGPath {
+    return path;
+}
+
+- (RMProjectedRect)projectedBounds {
+    float scaledLineWidth = lineWidth;
+	if ( !scaleLineWidth ) {
+		scaledLineWidth *= [mapContents metersPerPixel];
+	}
+    CGRect regionRect = CGRectInset(CGPathGetBoundingBox(path), -scaledLineWidth, -scaledLineWidth);
+    return RMMakeProjectedRect(regionRect.origin.x + projectedLocation.easting,
+                               regionRect.origin.y + projectedLocation.northing,
+                               regionRect.size.width, 
+                               regionRect.size.height);
+}
+
+- (void)resumeExpensiveOperationsNotification:(NSNotification*)notification {
+    if ( redrawPending ) {
+        self.contentsRect = CGRectMake(0, 0, 1, 1);
+        [self recalculateGeometry];
+        redrawPending = NO;
+    }
 }
 
 @end
