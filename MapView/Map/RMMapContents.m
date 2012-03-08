@@ -88,11 +88,33 @@
 	  			    zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
-			  backgroundImage:nil];
+			  backgroundImage:nil
+                  screenScale:0];
+}
+
+- (id)initWithView: (UIView*) view screenScale:(float)theScreenScale {
+    LogMethod();
+	CLLocationCoordinate2D here;
+	here.latitude = kDefaultInitialLatitude;
+	here.longitude = kDefaultInitialLongitude;
+	
+	return [self initWithView:view
+				   tilesource:[[RMOpenStreetMapSource alloc] init]
+				 centerLatLon:here
+	  			    zoomLevel:kDefaultInitialZoomLevel
+				 maxZoomLevel:kDefaultMaximumZoomLevel
+				 minZoomLevel:kDefaultMinimumZoomLevel
+			  backgroundImage:nil
+                  screenScale:theScreenScale];
 }
 
 - (id)initWithView: (UIView*) view
 		tilesource:(id<RMTileSource>)newTilesource
+{
+    return [self initWithView:view tilesource:newTilesource screenScale:0.0];
+}
+
+-(id)initWithView:(UIView *)view tilesource:(id<RMTileSource>)newTilesource screenScale:(float)theScreenScale
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
@@ -105,7 +127,8 @@
 					zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
-			  backgroundImage:nil];
+			  backgroundImage:nil
+                  screenScale:theScreenScale];
 }
 
 - (id)initWithView:(UIView*)newView
@@ -115,6 +138,7 @@
 	  maxZoomLevel:(float)maxZoomLevel
 	  minZoomLevel:(float)minZoomLevel
    backgroundImage:(UIImage *)backgroundImage
+       screenScale:(float)theScreenScale
 {
 	LogMethod();
 	if (![super init])
@@ -130,10 +154,11 @@
 	imagesOnScreen = nil;
 	tileLoader = nil;
     
-    screenScale = 1.0;
+    screenScale = (theScreenScale == 0.0 ? 1.0 : theScreenScale);
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
     {
-        screenScale = [[[UIScreen mainScreen] valueForKey:@"scale"] floatValue];
+        float realScreenScale = [[[UIScreen mainScreen] valueForKey:@"scale"] floatValue];
+        screenScale = (theScreenScale == 0.0 ? realScreenScale : MIN(theScreenScale, realScreenScale));
     }
 
 	boundingMask = RMMapMinWidthBound;
