@@ -523,8 +523,7 @@
 		}
 	}
 
-	// I don't understand what the difference between this and touchesEnded is.
-	[self touchesEnded:touches withEvent:event];
+	[self delayedResumeExpensiveOperations];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
