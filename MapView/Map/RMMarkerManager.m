@@ -68,7 +68,6 @@
 /// \bug should return the marker
 - (void) addMarker: (RMMarker*)marker AtLatLong:(CLLocationCoordinate2D)point
 {
-	WarnDeprecated();
 	[self addMarker:marker atProjectedPoint:[[contents projection] latLongToPoint:point]];
 }
 
