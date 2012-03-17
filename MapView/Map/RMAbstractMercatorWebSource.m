@@ -60,6 +60,8 @@
 
 -(void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMSuspendNetworkOperations object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeNetworkOperations object:nil];
 	[tileProjection release];
 	[super dealloc];
 }
