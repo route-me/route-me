@@ -34,30 +34,7 @@
 @class RMMapContents;
 @class RMMapView;
 
-@interface RMPath : RMMapLayer <RMMovingMapLayer> {
-	RMProjectedPoint projectedLocation;
-	
-	UIColor *lineColor;
-	UIColor *fillColor;
-	float lineWidth;
-	BOOL scaleLineWidth;
-    
-    CGFloat *_lineDashLengths;
-    CGFloat *_scaledLineDashLengths;
-    size_t _lineDashCount;
-    CGFloat lineDashPhase;
-    BOOL scaleLineDash;
-    
-	BOOL enableDragging;
-	BOOL enableRotation;
-	
-    CGMutablePathRef path;
-    
-	RMMapContents *mapContents;
-    
-    CGRect originalContentsRect;
-    BOOL redrawPending;
-}
+@interface RMPath : RMMapLayer <RMMovingMapLayer> 
 
 - (id) initWithContents: (RMMapContents*)aContents;
 - (id) initForMap: (RMMapView*)map;
@@ -71,11 +48,16 @@
 - (void) addLineToLatLong: (RMLatLong) point;
 - (void) closePath;
 
+@property (nonatomic, assign) CGLineCap lineCap;
+@property (nonatomic, assign) CGLineJoin lineJoin;
 @property (nonatomic, assign) float lineWidth;
 @property (nonatomic, assign) BOOL	scaleLineWidth;
-@property (nonatomic, readwrite, assign) NSArray *lineDashLengths;
-@property CGFloat lineDashPhase;
-@property BOOL scaleLineDash;
+@property (nonatomic, assign) CGFloat shadowBlur;
+@property (nonatomic, assign) CGSize shadowOffset;
+@property (nonatomic, retain) UIColor *shadowColor;
+@property (nonatomic, assign) NSArray *lineDashLengths;
+@property (nonatomic, assign) CGFloat lineDashPhase;
+@property (nonatomic, assign) BOOL scaleLineDash;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;

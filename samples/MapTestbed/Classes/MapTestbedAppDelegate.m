@@ -75,8 +75,10 @@
 	testPath = [[RMPath alloc] initWithContents:mapContents];
 	[testPath setLineColor:[UIColor greenColor]];
 	[testPath setFillColor:[UIColor clearColor]];
-	[testPath setLineWidth:40.0f];
-	[testPath setDrawingMode:kCGPathStroke];
+	[testPath setLineWidth:4.0f];
+    [testPath setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.8]];
+    [testPath setShadowBlur:4.0];
+    [testPath setShadowOffset:CGSizeMake(0, 4)];
 	[testPath addLineToLatLong:one];
 	[testPath addLineToLatLong:two];
 	[testPath addLineToLatLong:three];
@@ -108,8 +110,7 @@
 	testRegion = [[RMPath alloc] initWithContents:mapContents];
 	[testRegion setFillColor:[UIColor colorWithRed: 0.1 green:0.1 blue: 0.8 alpha: 0.5 ]];
 	[testRegion setLineColor:[UIColor blueColor]];
-	[testRegion setLineWidth:20.0f];
-	[testRegion setDrawingMode:kCGPathFillStroke];
+	[testRegion setLineWidth:2.0f];
 	[testRegion addLineToLatLong:r1];
 	[testRegion addLineToLatLong:r2];
 	[testRegion addLineToLatLong:r3];
