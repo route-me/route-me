@@ -162,7 +162,8 @@
 /// \deprecated violates Objective-C naming rules
 - (BOOL) managingMarker:(RMMarker*)marker
 {
-	if (marker != nil && [[self markers] indexOfObject:marker] != NSNotFound) {
+    NSArray *markers = [self markers];
+	if (marker != nil && markers != nil && [markers indexOfObject:marker] != NSNotFound) {
 		return YES;
 	}
 	return NO;
