@@ -57,8 +57,6 @@ extern NSString *RMWebTileImageNotificationErrorKey;
 	NSMutableData *data;
 }
 
-- (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
-- (void) requestTile;
-- (void) startLoading:(NSTimer *)timer;
+- (id)initWithTile:(RMTile)tile FromURL:(NSString*)url;
 
 @end
