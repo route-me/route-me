@@ -49,7 +49,7 @@
 // init
 - (id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         label = nil;
         textForegroundColor = [UIColor blackColor];
         textBackgroundColor = [UIColor clearColor];
