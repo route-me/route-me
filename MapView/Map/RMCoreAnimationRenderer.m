@@ -63,6 +63,10 @@
 
 -(void) dealloc
 {
+    for ( RMTileImage *image in tiles ) {
+        [image layer].delegate = nil;
+    }
+    layer.delegate = nil;
 	[tiles release];
 	[layer release];
 	[super dealloc];
